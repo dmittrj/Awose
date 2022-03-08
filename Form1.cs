@@ -46,7 +46,11 @@ namespace Awose
                 new Point(30, 30),
                 new Point(0, 30)
             };
+            RectangleF exclmark1 = new(15, 9, 3, 13);
+            RectangleF exclmark2 = new(15, 24, 3, 4);
             grfx.FillPolygon(Brushes.Khaki, triangle);
+            grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), exclmark1);
+            grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), exclmark2);
             MistakeIcon_PB.Image = icon;
         }
 

@@ -40,7 +40,7 @@ namespace Awose
             this.openModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveModel_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Undo_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
@@ -58,9 +58,13 @@ namespace Awose
             this.positiveChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.negativeChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Instrumental_Panel = new System.Windows.Forms.Panel();
+            this.Mistake_Panel = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Main_MStr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.Space_CMStr.SuspendLayout();
+            this.Mistake_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // Main_MStr
@@ -86,7 +90,7 @@ namespace Awose
             this.openModelToolStripMenuItem,
             this.SaveModel_MSItem,
             this.toolStripMenuItem2,
-            this.undoToolStripMenuItem,
+            this.Undo_MSItem,
             this.redoToolStripMenuItem});
             this.Simulation_MSItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Simulation_MSItem.ForeColor = System.Drawing.Color.White;
@@ -151,11 +155,11 @@ namespace Awose
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(243, 6);
             // 
-            // undoToolStripMenuItem
+            // Undo_MSItem
             // 
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
-            this.undoToolStripMenuItem.Text = "Undo";
+            this.Undo_MSItem.Name = "Undo_MSItem";
+            this.Undo_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.Undo_MSItem.Text = "Undo";
             // 
             // redoToolStripMenuItem
             // 
@@ -192,7 +196,7 @@ namespace Awose
             this.ModelBoard_PB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ModelBoard_PB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.ModelBoard_PB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.ModelBoard_PB.ContextMenuStrip = this.Space_CMStr;
             this.ModelBoard_PB.Location = new System.Drawing.Point(248, 28);
             this.ModelBoard_PB.Name = "ModelBoard_PB";
@@ -206,13 +210,13 @@ namespace Awose
             this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(181, 70);
+            this.Space_CMStr.Size = new System.Drawing.Size(145, 48);
             this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
             // 
             // CreateObject_CMItem
             // 
             this.CreateObject_CMItem.Name = "CreateObject_CMItem";
-            this.CreateObject_CMItem.Size = new System.Drawing.Size(180, 22);
+            this.CreateObject_CMItem.Size = new System.Drawing.Size(144, 22);
             this.CreateObject_CMItem.Text = "Create object";
             this.CreateObject_CMItem.Click += new System.EventHandler(this.CreateObject_CMItem_Click);
             // 
@@ -222,7 +226,7 @@ namespace Awose
             this.spaceToolStripMenuItem,
             this.chargesToolStripMenuItem});
             this.presetsToolStripMenuItem.Name = "presetsToolStripMenuItem";
-            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.presetsToolStripMenuItem.Text = "Presets";
             // 
             // spaceToolStripMenuItem
@@ -291,12 +295,32 @@ namespace Awose
             this.Instrumental_Panel.TabIndex = 3;
             this.Instrumental_Panel.Visible = false;
             // 
+            // Mistake_Panel
+            // 
+            this.Mistake_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.Mistake_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Mistake_Panel.Controls.Add(this.pictureBox1);
+            this.Mistake_Panel.Location = new System.Drawing.Point(606, 284);
+            this.Mistake_Panel.Name = "Mistake_Panel";
+            this.Mistake_Panel.Size = new System.Drawing.Size(190, 69);
+            this.Mistake_Panel.TabIndex = 4;
+            this.Mistake_Panel.Visible = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(8, 8);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(40, 40);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.Mistake_Panel);
             this.Controls.Add(this.Instrumental_Panel);
             this.Controls.Add(this.ModelBoard_PB);
             this.Controls.Add(this.Control_Panel);
@@ -309,6 +333,8 @@ namespace Awose
             this.Main_MStr.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();
             this.Space_CMStr.ResumeLayout(false);
+            this.Mistake_Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -327,7 +353,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem openModelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SaveModel_MSItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Undo_MSItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.Panel Control_Panel;
         private System.Windows.Forms.SaveFileDialog SaveModel_SFD;
@@ -344,6 +370,8 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem positiveChargeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem negativeChargeToolStripMenuItem;
         private System.Windows.Forms.Panel Instrumental_Panel;
+        private System.Windows.Forms.Panel Mistake_Panel;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

@@ -36,6 +36,20 @@ namespace Awose
             ModelBoard_PB.BackgroundImage = board;
         }
 
+        private void Aw_DrawMistake(bool isError, string text)
+        {
+
+        }
+
+        private void Aw_ChechMistakes()
+        {
+            //Useless object
+            if (agents.Count == 1)
+            {
+
+            }
+        }
+
         private void SaveModel_MSItem_Click(object sender, EventArgs e)
         {
             if (SaveModel_SFD.ShowDialog() == DialogResult.OK)
@@ -54,6 +68,7 @@ namespace Awose
         {
             agents.Add(new AwoseAgent("Object " + (agents.Count + 1).ToString(), aw_cursor.X, aw_cursor.Y, 1, 0, 0, 0, false));
             Aw_Refresh();
+            Aw_ChechMistakes();
         }
     }
 }

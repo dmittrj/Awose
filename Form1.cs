@@ -59,6 +59,8 @@ namespace Awose
             //Useless object
             if (agents.Count == 1)
             {
+                agents[0].MType = MistakeType.Green;
+                agents[0].MDescription = "Useless object";
                 Aw_DrawMistake(true, "hhh");
             }
         }

@@ -321,7 +321,7 @@ namespace Awose
             // 
             this.MistakeIcon_PB.Location = new System.Drawing.Point(8, 8);
             this.MistakeIcon_PB.Name = "MistakeIcon_PB";
-            this.MistakeIcon_PB.Size = new System.Drawing.Size(31, 31);
+            this.MistakeIcon_PB.Size = new System.Drawing.Size(32, 32);
             this.MistakeIcon_PB.TabIndex = 0;
             this.MistakeIcon_PB.TabStop = false;
             // 

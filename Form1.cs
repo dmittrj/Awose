@@ -38,7 +38,16 @@ namespace Awose
 
         private void Aw_DrawMistake(bool isError, string text)
         {
-
+            Bitmap icon = new Bitmap(31, 31);
+            using Graphics grfx = Graphics.FromImage(icon);
+            grfx.Clear(Color.FromArgb(15, 15, 15));
+            Point[] triangle = {
+                new Point(16, 0),
+                new Point(30, 30),
+                new Point(0, 30)
+            };
+            grfx.FillPolygon(Brushes.Khaki, triangle);
+            MistakeIcon_PB.Image = icon;
         }
 
         private void Aw_ChechMistakes()
@@ -46,7 +55,7 @@ namespace Awose
             //Useless object
             if (agents.Count == 1)
             {
-
+                Aw_DrawMistake(true, "hhh");
             }
         }
 

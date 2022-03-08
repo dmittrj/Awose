@@ -29,6 +29,7 @@ namespace Awose
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Main_MStr = new System.Windows.Forms.MenuStrip();
             this.Simulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LaunchSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,8 +46,20 @@ namespace Awose
             this.Control_Panel = new System.Windows.Forms.Panel();
             this.SaveModel_SFD = new System.Windows.Forms.SaveFileDialog();
             this.ModelBoard_PB = new System.Windows.Forms.PictureBox();
+            this.Space_CMStr = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.создатьОбъектToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.presetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chargesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.starToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.smallPlanetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bigPlanetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blackHoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.positiveChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.negativeChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_MStr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
+            this.Space_CMStr.SuspendLayout();
             this.SuspendLayout();
             // 
             // Main_MStr
@@ -179,11 +192,91 @@ namespace Awose
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ModelBoard_PB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.ModelBoard_PB.ContextMenuStrip = this.Space_CMStr;
             this.ModelBoard_PB.Location = new System.Drawing.Point(248, 28);
             this.ModelBoard_PB.Name = "ModelBoard_PB";
             this.ModelBoard_PB.Size = new System.Drawing.Size(993, 686);
             this.ModelBoard_PB.TabIndex = 2;
             this.ModelBoard_PB.TabStop = false;
+            // 
+            // Space_CMStr
+            // 
+            this.Space_CMStr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.создатьОбъектToolStripMenuItem,
+            this.presetsToolStripMenuItem});
+            this.Space_CMStr.Name = "Space_CMStr";
+            this.Space_CMStr.Size = new System.Drawing.Size(145, 48);
+            // 
+            // создатьОбъектToolStripMenuItem
+            // 
+            this.создатьОбъектToolStripMenuItem.Name = "создатьОбъектToolStripMenuItem";
+            this.создатьОбъектToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.создатьОбъектToolStripMenuItem.Text = "Create object";
+            // 
+            // presetsToolStripMenuItem
+            // 
+            this.presetsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.spaceToolStripMenuItem,
+            this.chargesToolStripMenuItem});
+            this.presetsToolStripMenuItem.Name = "presetsToolStripMenuItem";
+            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.presetsToolStripMenuItem.Text = "Presets";
+            // 
+            // spaceToolStripMenuItem
+            // 
+            this.spaceToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.starToolStripMenuItem,
+            this.smallPlanetToolStripMenuItem,
+            this.bigPlanetToolStripMenuItem,
+            this.blackHoleToolStripMenuItem});
+            this.spaceToolStripMenuItem.Name = "spaceToolStripMenuItem";
+            this.spaceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.spaceToolStripMenuItem.Text = "Space";
+            // 
+            // chargesToolStripMenuItem
+            // 
+            this.chargesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.positiveChargeToolStripMenuItem,
+            this.negativeChargeToolStripMenuItem});
+            this.chargesToolStripMenuItem.Name = "chargesToolStripMenuItem";
+            this.chargesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.chargesToolStripMenuItem.Text = "Charges";
+            // 
+            // starToolStripMenuItem
+            // 
+            this.starToolStripMenuItem.Name = "starToolStripMenuItem";
+            this.starToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.starToolStripMenuItem.Text = "Star";
+            // 
+            // smallPlanetToolStripMenuItem
+            // 
+            this.smallPlanetToolStripMenuItem.Name = "smallPlanetToolStripMenuItem";
+            this.smallPlanetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.smallPlanetToolStripMenuItem.Text = "Small planet";
+            // 
+            // bigPlanetToolStripMenuItem
+            // 
+            this.bigPlanetToolStripMenuItem.Name = "bigPlanetToolStripMenuItem";
+            this.bigPlanetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bigPlanetToolStripMenuItem.Text = "Big planet";
+            // 
+            // blackHoleToolStripMenuItem
+            // 
+            this.blackHoleToolStripMenuItem.Name = "blackHoleToolStripMenuItem";
+            this.blackHoleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.blackHoleToolStripMenuItem.Text = "Black hole";
+            // 
+            // positiveChargeToolStripMenuItem
+            // 
+            this.positiveChargeToolStripMenuItem.Name = "positiveChargeToolStripMenuItem";
+            this.positiveChargeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.positiveChargeToolStripMenuItem.Text = "Positive charge";
+            // 
+            // negativeChargeToolStripMenuItem
+            // 
+            this.negativeChargeToolStripMenuItem.Name = "negativeChargeToolStripMenuItem";
+            this.negativeChargeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.negativeChargeToolStripMenuItem.Text = "Negative charge";
             // 
             // Awose
             // 
@@ -201,6 +294,7 @@ namespace Awose
             this.Main_MStr.ResumeLayout(false);
             this.Main_MStr.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();
+            this.Space_CMStr.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,6 +318,17 @@ namespace Awose
         private System.Windows.Forms.Panel Control_Panel;
         private System.Windows.Forms.SaveFileDialog SaveModel_SFD;
         private System.Windows.Forms.PictureBox ModelBoard_PB;
+        private System.Windows.Forms.ContextMenuStrip Space_CMStr;
+        private System.Windows.Forms.ToolStripMenuItem создатьОбъектToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem presetsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem spaceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem chargesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem starToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem smallPlanetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bigPlanetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem blackHoleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem positiveChargeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem negativeChargeToolStripMenuItem;
     }
 }
 

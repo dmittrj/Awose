@@ -37,11 +37,13 @@ namespace Awose
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.openModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveModelingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SaveModel_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Control_Panel = new System.Windows.Forms.Panel();
+            this.SaveModel_SFD = new System.Windows.Forms.SaveFileDialog();
             this.Main_MStr.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,7 +55,7 @@ namespace Awose
             this.hToolStripMenuItem});
             this.Main_MStr.Location = new System.Drawing.Point(0, 0);
             this.Main_MStr.Name = "Main_MStr";
-            this.Main_MStr.Size = new System.Drawing.Size(1055, 28);
+            this.Main_MStr.Size = new System.Drawing.Size(1241, 28);
             this.Main_MStr.TabIndex = 0;
             this.Main_MStr.Text = "menuStrip1";
             // 
@@ -66,7 +68,7 @@ namespace Awose
             this.resetToolStripMenuItem,
             this.toolStripMenuItem1,
             this.openModelToolStripMenuItem,
-            this.saveModelingToolStripMenuItem,
+            this.SaveModel_MSItem,
             this.toolStripMenuItem2,
             this.undoToolStripMenuItem,
             this.redoToolStripMenuItem});
@@ -121,19 +123,12 @@ namespace Awose
             this.openModelToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
             this.openModelToolStripMenuItem.Text = "Open modeling...";
             // 
-            // saveModelingToolStripMenuItem
+            // SaveModel_MSItem
             // 
-            this.saveModelingToolStripMenuItem.Name = "saveModelingToolStripMenuItem";
-            this.saveModelingToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
-            this.saveModelingToolStripMenuItem.Text = "Save modeling...";
-            // 
-            // hToolStripMenuItem
-            // 
-            this.hToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.hToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.hToolStripMenuItem.Name = "hToolStripMenuItem";
-            this.hToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
-            this.hToolStripMenuItem.Text = "Objects";
+            this.SaveModel_MSItem.Name = "SaveModel_MSItem";
+            this.SaveModel_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.SaveModel_MSItem.Text = "Save modeling...";
+            this.SaveModel_MSItem.Click += new System.EventHandler(this.SaveModel_MSItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -152,12 +147,37 @@ namespace Awose
             this.redoToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
             this.redoToolStripMenuItem.Text = "Redo";
             // 
+            // hToolStripMenuItem
+            // 
+            this.hToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.hToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.hToolStripMenuItem.Name = "hToolStripMenuItem";
+            this.hToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.hToolStripMenuItem.Text = "Objects";
+            // 
+            // Control_Panel
+            // 
+            this.Control_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.Control_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.Control_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Control_Panel.Location = new System.Drawing.Point(0, 28);
+            this.Control_Panel.Name = "Control_Panel";
+            this.Control_Panel.Size = new System.Drawing.Size(248, 686);
+            this.Control_Panel.TabIndex = 1;
+            // 
+            // SaveModel_SFD
+            // 
+            this.SaveModel_SFD.Filter = "Awose File|*.awose";
+            this.SaveModel_SFD.Title = "Save modeling as...";
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(1055, 658);
+            this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.Control_Panel);
             this.Controls.Add(this.Main_MStr);
             this.MainMenuStrip = this.Main_MStr;
             this.Name = "Awose";
@@ -181,10 +201,12 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem openModelToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveModelingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SaveModel_MSItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
+        private System.Windows.Forms.Panel Control_Panel;
+        private System.Windows.Forms.SaveFileDialog SaveModel_SFD;
     }
 }
 

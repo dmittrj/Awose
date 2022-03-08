@@ -47,16 +47,17 @@ namespace Awose
             this.SaveModel_SFD = new System.Windows.Forms.SaveFileDialog();
             this.ModelBoard_PB = new System.Windows.Forms.PictureBox();
             this.Space_CMStr = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.создатьОбъектToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CreateObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.presetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.chargesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.starToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smallPlanetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bigPlanetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blackHoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chargesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.positiveChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.negativeChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Instrumental_Panel = new System.Windows.Forms.Panel();
             this.Main_MStr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.Space_CMStr.SuspendLayout();
@@ -202,16 +203,18 @@ namespace Awose
             // Space_CMStr
             // 
             this.Space_CMStr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.создатьОбъектToolStripMenuItem,
+            this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(145, 48);
+            this.Space_CMStr.Size = new System.Drawing.Size(181, 70);
+            this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
             // 
-            // создатьОбъектToolStripMenuItem
+            // CreateObject_CMItem
             // 
-            this.создатьОбъектToolStripMenuItem.Name = "создатьОбъектToolStripMenuItem";
-            this.создатьОбъектToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.создатьОбъектToolStripMenuItem.Text = "Create object";
+            this.CreateObject_CMItem.Name = "CreateObject_CMItem";
+            this.CreateObject_CMItem.Size = new System.Drawing.Size(180, 22);
+            this.CreateObject_CMItem.Text = "Create object";
+            this.CreateObject_CMItem.Click += new System.EventHandler(this.CreateObject_CMItem_Click);
             // 
             // presetsToolStripMenuItem
             // 
@@ -219,7 +222,7 @@ namespace Awose
             this.spaceToolStripMenuItem,
             this.chargesToolStripMenuItem});
             this.presetsToolStripMenuItem.Name = "presetsToolStripMenuItem";
-            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.presetsToolStripMenuItem.Text = "Presets";
             // 
             // spaceToolStripMenuItem
@@ -230,8 +233,32 @@ namespace Awose
             this.bigPlanetToolStripMenuItem,
             this.blackHoleToolStripMenuItem});
             this.spaceToolStripMenuItem.Name = "spaceToolStripMenuItem";
-            this.spaceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.spaceToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.spaceToolStripMenuItem.Text = "Space";
+            // 
+            // starToolStripMenuItem
+            // 
+            this.starToolStripMenuItem.Name = "starToolStripMenuItem";
+            this.starToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.starToolStripMenuItem.Text = "Star";
+            // 
+            // smallPlanetToolStripMenuItem
+            // 
+            this.smallPlanetToolStripMenuItem.Name = "smallPlanetToolStripMenuItem";
+            this.smallPlanetToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.smallPlanetToolStripMenuItem.Text = "Small planet";
+            // 
+            // bigPlanetToolStripMenuItem
+            // 
+            this.bigPlanetToolStripMenuItem.Name = "bigPlanetToolStripMenuItem";
+            this.bigPlanetToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.bigPlanetToolStripMenuItem.Text = "Big planet";
+            // 
+            // blackHoleToolStripMenuItem
+            // 
+            this.blackHoleToolStripMenuItem.Name = "blackHoleToolStripMenuItem";
+            this.blackHoleToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.blackHoleToolStripMenuItem.Text = "Black hole";
             // 
             // chargesToolStripMenuItem
             // 
@@ -239,44 +266,30 @@ namespace Awose
             this.positiveChargeToolStripMenuItem,
             this.negativeChargeToolStripMenuItem});
             this.chargesToolStripMenuItem.Name = "chargesToolStripMenuItem";
-            this.chargesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.chargesToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.chargesToolStripMenuItem.Text = "Charges";
-            // 
-            // starToolStripMenuItem
-            // 
-            this.starToolStripMenuItem.Name = "starToolStripMenuItem";
-            this.starToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.starToolStripMenuItem.Text = "Star";
-            // 
-            // smallPlanetToolStripMenuItem
-            // 
-            this.smallPlanetToolStripMenuItem.Name = "smallPlanetToolStripMenuItem";
-            this.smallPlanetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.smallPlanetToolStripMenuItem.Text = "Small planet";
-            // 
-            // bigPlanetToolStripMenuItem
-            // 
-            this.bigPlanetToolStripMenuItem.Name = "bigPlanetToolStripMenuItem";
-            this.bigPlanetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.bigPlanetToolStripMenuItem.Text = "Big planet";
-            // 
-            // blackHoleToolStripMenuItem
-            // 
-            this.blackHoleToolStripMenuItem.Name = "blackHoleToolStripMenuItem";
-            this.blackHoleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.blackHoleToolStripMenuItem.Text = "Black hole";
             // 
             // positiveChargeToolStripMenuItem
             // 
             this.positiveChargeToolStripMenuItem.Name = "positiveChargeToolStripMenuItem";
-            this.positiveChargeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.positiveChargeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.positiveChargeToolStripMenuItem.Text = "Positive charge";
             // 
             // negativeChargeToolStripMenuItem
             // 
             this.negativeChargeToolStripMenuItem.Name = "negativeChargeToolStripMenuItem";
-            this.negativeChargeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.negativeChargeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.negativeChargeToolStripMenuItem.Text = "Negative charge";
+            // 
+            // Instrumental_Panel
+            // 
+            this.Instrumental_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.Instrumental_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Instrumental_Panel.Location = new System.Drawing.Point(254, 51);
+            this.Instrumental_Panel.Name = "Instrumental_Panel";
+            this.Instrumental_Panel.Size = new System.Drawing.Size(29, 142);
+            this.Instrumental_Panel.TabIndex = 3;
+            this.Instrumental_Panel.Visible = false;
             // 
             // Awose
             // 
@@ -284,6 +297,7 @@ namespace Awose
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.Instrumental_Panel);
             this.Controls.Add(this.ModelBoard_PB);
             this.Controls.Add(this.Control_Panel);
             this.Controls.Add(this.Main_MStr);
@@ -319,7 +333,7 @@ namespace Awose
         private System.Windows.Forms.SaveFileDialog SaveModel_SFD;
         private System.Windows.Forms.PictureBox ModelBoard_PB;
         private System.Windows.Forms.ContextMenuStrip Space_CMStr;
-        private System.Windows.Forms.ToolStripMenuItem создатьОбъектToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CreateObject_CMItem;
         private System.Windows.Forms.ToolStripMenuItem presetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem spaceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem chargesToolStripMenuItem;
@@ -329,6 +343,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem blackHoleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem positiveChargeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem negativeChargeToolStripMenuItem;
+        private System.Windows.Forms.Panel Instrumental_Panel;
     }
 }
 

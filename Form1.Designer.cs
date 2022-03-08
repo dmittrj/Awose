@@ -44,7 +44,9 @@ namespace Awose
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
             this.SaveModel_SFD = new System.Windows.Forms.SaveFileDialog();
+            this.ModelBoard_PB = new System.Windows.Forms.PictureBox();
             this.Main_MStr.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.SuspendLayout();
             // 
             // Main_MStr
@@ -171,12 +173,25 @@ namespace Awose
             this.SaveModel_SFD.Filter = "Awose File|*.awose";
             this.SaveModel_SFD.Title = "Save modeling as...";
             // 
+            // ModelBoard_PB
+            // 
+            this.ModelBoard_PB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ModelBoard_PB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.ModelBoard_PB.Location = new System.Drawing.Point(248, 28);
+            this.ModelBoard_PB.Name = "ModelBoard_PB";
+            this.ModelBoard_PB.Size = new System.Drawing.Size(993, 686);
+            this.ModelBoard_PB.TabIndex = 2;
+            this.ModelBoard_PB.TabStop = false;
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.ModelBoard_PB);
             this.Controls.Add(this.Control_Panel);
             this.Controls.Add(this.Main_MStr);
             this.MainMenuStrip = this.Main_MStr;
@@ -185,6 +200,7 @@ namespace Awose
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Main_MStr.ResumeLayout(false);
             this.Main_MStr.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,6 +223,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
         private System.Windows.Forms.Panel Control_Panel;
         private System.Windows.Forms.SaveFileDialog SaveModel_SFD;
+        private System.Windows.Forms.PictureBox ModelBoard_PB;
     }
 }
 

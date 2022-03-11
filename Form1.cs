@@ -28,13 +28,14 @@ namespace Awose
             grfx.Clear(Color.FromArgb(35, 35, 35));
             foreach (AwoseAgent item in agents)
             {
-                RectangleF circle = new((float)(item.X - diameter / 2), (float)(item.Y - diameter / 2), diameter, diameter);
-                grfx.FillEllipse(item.Dye, circle);
+                int dotNumber = 0;
                 foreach (Point dot in item.Spray)
                 {
                     RectangleF spraydot = new(dot.X, dot.Y, 2, 2);
-                    grfx.FillEllipse(item.MistakeType, circle);
+                    grfx.FillEllipse(new SolidBrush(Color.FromArgb(Math.Normilize(0, 255, (int)(-0.28*(dotNumber) + 175)), Math.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Math.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
                 }
+                RectangleF circle = new((float)(item.X - diameter / 2), (float)(item.Y - diameter / 2), diameter, diameter);
+                grfx.FillEllipse(item.Dye, circle);
             }
             ModelBoard_PB.BackgroundImage = board;
         }
@@ -64,7 +65,7 @@ namespace Awose
                     item.AgentSprayUpdate();
                 }
                 Aw_Refresh();
-                await Task.Delay(50);
+                await Task.Delay(10);
             }
         }
 
@@ -92,7 +93,7 @@ namespace Awose
             //Useless object
             if (agents.Count == 1)
             {
-                agents[0].MistakeType = new SolidBrush(Color.GreenYellow);
+                agents[0].MistakeType = 1;
                 agents[0].MDescription = "Useless object";
                 Aw_DrawMistake(true, "hhh");
             }

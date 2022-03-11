@@ -18,7 +18,7 @@ namespace Awose
         public double VelocityY { get; set; }
         public bool IsPinned { get; set; }
 
-        public SolidBrush MistakeType;
+        public int MistakeType;
         public string MDescription;
         public SolidBrush Dye { get; set; }
 
@@ -35,17 +35,17 @@ namespace Awose
             VelocityX = velocityX;
             VelocityY = velocityY;
             IsPinned = isPinned;
-            MistakeType = new SolidBrush(Color.GreenYellow);
+            MistakeType = 0;
             MDescription = "";
             Dye = new SolidBrush(Color.White);
         }
 
         public void AgentSprayUpdate()
         {
-            if (Spray.Count > 500) Spray.Dequeue();
+            if (Spray.Count > 500) return;
             //Point tmp;
             Random rnd = new();
-            Spray.Enqueue(new Point((int)X + rnd.Next(-Spray.Count, Spray.Count), (int)Y + rnd.Next(-Spray.Count, Spray.Count)));
+            Spray.Enqueue(new Point((int)X + rnd.Next(-Spray.Count / 7, Spray.Count / 8), (int)Y + rnd.Next(-Spray.Count / 7, Spray.Count / 8)));
             //int dotsCount = Spray.Count;
             //for (int i = 0; i < dotsCount; i++)
             //{

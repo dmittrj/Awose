@@ -32,7 +32,10 @@ namespace Awose
                 foreach (Point dot in item.Spray)
                 {
                     RectangleF spraydot = new(dot.X, dot.Y, 2, 2);
-                    grfx.FillEllipse(new SolidBrush(Color.FromArgb(Math.Normilize(0, 255, (int)(-0.28*(dotNumber) + 175)), Math.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Math.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+                    if (item.MistakeType == 0)
+                        grfx.FillEllipse(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
+                    if (item.MistakeType == 1)
+                        grfx.FillEllipse(new SolidBrush(Color.FromArgb(Math.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Math.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Math.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
                 }
                 RectangleF circle = new((float)(item.X - diameter / 2), (float)(item.Y - diameter / 2), diameter, diameter);
                 grfx.FillEllipse(item.Dye, circle);
@@ -90,6 +93,10 @@ namespace Awose
 
         private void Aw_CheckMistakes()
         {
+            foreach (AwoseAgent item in agents)
+            {
+                item.MistakeType = 0;
+            }
             //Useless object
             if (agents.Count == 1)
             {

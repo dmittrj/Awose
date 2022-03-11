@@ -42,18 +42,22 @@ namespace Awose
 
         public void AgentSprayUpdate()
         {
-            if (Spray.Count > 500) return;
-            //Point tmp;
-            Random rnd = new();
-            Spray.Enqueue(new Point((int)X + rnd.Next(-Spray.Count / 7, Spray.Count / 8), (int)Y + rnd.Next(-Spray.Count / 7, Spray.Count / 8)));
-            //int dotsCount = Spray.Count;
-            //for (int i = 0; i < dotsCount; i++)
-            //{
-            //    tmp = Spray.Dequeue();
-            //    tmp.X += rnd.Next(-2, 2);
-            //    tmp.Y += rnd.Next(-2, 2);
-            //    Spray.Enqueue(tmp);
-            //}
+            if (MistakeType == 0)
+            {
+                if (Spray.Count > 0)
+                    for (int i = 0; i < 10; i++)
+                if (Spray.Count > 0) Spray.Dequeue();
+            }
+            if (MistakeType == 1)
+            {
+                if (Spray.Count > 500) return;
+                //Point tmp;
+                Random rnd = new();
+                int p = Spray.Count;
+                for (int i = 0; i <= p / 20; i++)
+                    Spray.Enqueue(new Point((int)X + rnd.Next(-Spray.Count / 10, Spray.Count / 8), (int)Y + rnd.Next(-Spray.Count / 10, Spray.Count / 8)));
+            }
+            
         }
     }
 }

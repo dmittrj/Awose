@@ -340,6 +340,7 @@ namespace Awose
             this.Name = "Awose";
             this.Text = "Awose";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Awose_Load);
             this.Main_MStr.ResumeLayout(false);
             this.Main_MStr.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();

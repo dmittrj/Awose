@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,10 +18,7 @@ namespace Awose
         Point lu_corner = new(0, 0);
         int aw_scale = 1;
         int aw_agentsize = 15;
-        public Awose()
-        {
-            InitializeComponent();
-        }
+        //Thread animation;
 
         private void Aw_Refresh()
         {
@@ -32,9 +30,44 @@ namespace Awose
             {
                 RectangleF circle = new((float)(item.X - diameter / 2), (float)(item.Y - diameter / 2), diameter, diameter);
                 grfx.FillEllipse(item.Dye, circle);
+                foreach (Point dot in item.Spray)
+                {
+                    RectangleF spraydot = new(dot.X, dot.Y, 2, 2);
+                    grfx.FillEllipse(item.MistakeType, circle);
+                }
             }
             ModelBoard_PB.BackgroundImage = board;
         }
+
+
+
+
+
+        public Awose()
+        {
+            InitializeComponent();
+        }
+
+        private void Awose_Load(object sender, EventArgs e)
+        {
+            Thread animation = new(AnimationEditor);
+            animation.Start();
+        }
+
+        public async void AnimationEditor()
+        {
+            //Thread.Sleep(5000);
+            while (true)
+            {
+                foreach (AwoseAgent item in agents)
+                {
+                    item.AgentSprayUpdate();
+                }
+                Aw_Refresh();
+                await Task.Delay(50);
+            }
+        }
+
 
         private void Aw_DrawMistake(bool isError, string text)
         {
@@ -54,12 +87,12 @@ namespace Awose
             MistakeIcon_PB.Image = icon;
         }
 
-        private void Aw_ChechMistakes()
+        private void Aw_CheckMistakes()
         {
             //Useless object
             if (agents.Count == 1)
             {
-                agents[0].MType = MistakeType.Green;
+                agents[0].MistakeType = new SolidBrush(Color.GreenYellow);
                 agents[0].MDescription = "Useless object";
                 Aw_DrawMistake(true, "hhh");
             }
@@ -82,8 +115,8 @@ namespace Awose
         private void CreateObject_CMItem_Click(object sender, EventArgs e)
         {
             agents.Add(new AwoseAgent("Object " + (agents.Count + 1).ToString(), aw_cursor.X, aw_cursor.Y, 1, 0, 0, 0, false));
-            Aw_Refresh();
-            Aw_ChechMistakes();
+            //Aw_Refresh();
+            Aw_CheckMistakes();
         }
     }
 }

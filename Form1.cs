@@ -35,7 +35,7 @@ namespace Awose
                     if (item.MistakeType == 0)
                         grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
                     if (item.MistakeType == 1)
-                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Math.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Math.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Math.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
                 }
                 RectangleF circle = new((float)(lu_corner.X + item.X * aw_scale - diameter / 2), (float)(lu_corner.Y + item.Y * aw_scale - diameter / 2), diameter, diameter);
                 grfx.FillEllipse(item.Dye, circle);
@@ -114,6 +114,10 @@ namespace Awose
         {
             aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
             aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+            foreach (AwoseAgent item in agents)
+            {
+                
+            }
         }
 
         private void CreateObject_CMItem_Click(object sender, EventArgs e)
@@ -152,6 +156,11 @@ namespace Awose
                 lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
                 lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
             }
+        }
+
+        private void toolStripTextBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -47,6 +47,8 @@ namespace Awose
             this.SaveModel_SFD = new System.Windows.Forms.SaveFileDialog();
             this.ModelBoard_PB = new System.Windows.Forms.PictureBox();
             this.Space_CMStr = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Mistake_CMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SepMistake_CMSepar = new System.Windows.Forms.ToolStripSeparator();
             this.CreateObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.presetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spaceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -210,16 +212,33 @@ namespace Awose
             // Space_CMStr
             // 
             this.Space_CMStr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Mistake_CMItem,
+            this.SepMistake_CMSepar,
             this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(145, 48);
+            this.Space_CMStr.Size = new System.Drawing.Size(158, 82);
             this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
+            // 
+            // Mistake_CMItem
+            // 
+            this.Mistake_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.Mistake_CMItem.Name = "Mistake_CMItem";
+            this.Mistake_CMItem.Size = new System.Drawing.Size(157, 24);
+            this.Mistake_CMItem.Text = "Warning";
+            this.Mistake_CMItem.Visible = false;
+            // 
+            // SepMistake_CMSepar
+            // 
+            this.SepMistake_CMSepar.Name = "SepMistake_CMSepar";
+            this.SepMistake_CMSepar.Size = new System.Drawing.Size(154, 6);
+            this.SepMistake_CMSepar.Visible = false;
             // 
             // CreateObject_CMItem
             // 
+            this.CreateObject_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CreateObject_CMItem.Name = "CreateObject_CMItem";
-            this.CreateObject_CMItem.Size = new System.Drawing.Size(144, 22);
+            this.CreateObject_CMItem.Size = new System.Drawing.Size(157, 24);
             this.CreateObject_CMItem.Text = "Create object";
             this.CreateObject_CMItem.Click += new System.EventHandler(this.CreateObject_CMItem_Click);
             // 
@@ -228,8 +247,9 @@ namespace Awose
             this.presetsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.spaceToolStripMenuItem,
             this.chargesToolStripMenuItem});
+            this.presetsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.presetsToolStripMenuItem.Name = "presetsToolStripMenuItem";
-            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
             this.presetsToolStripMenuItem.Text = "Presets";
             // 
             // spaceToolStripMenuItem
@@ -240,31 +260,31 @@ namespace Awose
             this.bigPlanetToolStripMenuItem,
             this.blackHoleToolStripMenuItem});
             this.spaceToolStripMenuItem.Name = "spaceToolStripMenuItem";
-            this.spaceToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.spaceToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
             this.spaceToolStripMenuItem.Text = "Space";
             // 
             // starToolStripMenuItem
             // 
             this.starToolStripMenuItem.Name = "starToolStripMenuItem";
-            this.starToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.starToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.starToolStripMenuItem.Text = "Star";
             // 
             // smallPlanetToolStripMenuItem
             // 
             this.smallPlanetToolStripMenuItem.Name = "smallPlanetToolStripMenuItem";
-            this.smallPlanetToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.smallPlanetToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.smallPlanetToolStripMenuItem.Text = "Small planet";
             // 
             // bigPlanetToolStripMenuItem
             // 
             this.bigPlanetToolStripMenuItem.Name = "bigPlanetToolStripMenuItem";
-            this.bigPlanetToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.bigPlanetToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.bigPlanetToolStripMenuItem.Text = "Big planet";
             // 
             // blackHoleToolStripMenuItem
             // 
             this.blackHoleToolStripMenuItem.Name = "blackHoleToolStripMenuItem";
-            this.blackHoleToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.blackHoleToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.blackHoleToolStripMenuItem.Text = "Black hole";
             // 
             // chargesToolStripMenuItem
@@ -273,19 +293,19 @@ namespace Awose
             this.positiveChargeToolStripMenuItem,
             this.negativeChargeToolStripMenuItem});
             this.chargesToolStripMenuItem.Name = "chargesToolStripMenuItem";
-            this.chargesToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.chargesToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
             this.chargesToolStripMenuItem.Text = "Charges";
             // 
             // positiveChargeToolStripMenuItem
             // 
             this.positiveChargeToolStripMenuItem.Name = "positiveChargeToolStripMenuItem";
-            this.positiveChargeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.positiveChargeToolStripMenuItem.Size = new System.Drawing.Size(177, 24);
             this.positiveChargeToolStripMenuItem.Text = "Positive charge";
             // 
             // negativeChargeToolStripMenuItem
             // 
             this.negativeChargeToolStripMenuItem.Name = "negativeChargeToolStripMenuItem";
-            this.negativeChargeToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.negativeChargeToolStripMenuItem.Size = new System.Drawing.Size(177, 24);
             this.negativeChargeToolStripMenuItem.Text = "Negative charge";
             // 
             // Instrumental_Panel
@@ -308,6 +328,7 @@ namespace Awose
             this.Mistake_Panel.Name = "Mistake_Panel";
             this.Mistake_Panel.Size = new System.Drawing.Size(261, 69);
             this.Mistake_Panel.TabIndex = 4;
+            this.Mistake_Panel.Visible = false;
             // 
             // label1
             // 
@@ -387,6 +408,8 @@ namespace Awose
         private System.Windows.Forms.Panel Mistake_Panel;
         private System.Windows.Forms.PictureBox MistakeIcon_PB;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem Mistake_CMItem;
+        private System.Windows.Forms.ToolStripSeparator SepMistake_CMSepar;
     }
 }
 

@@ -45,6 +45,10 @@ namespace Awose
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
             this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
+            this.ObjectCharge_Label = new System.Windows.Forms.Label();
+            this.ObjectMass_Label = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.CurrentObjectName_Label = new System.Windows.Forms.Label();
             this.SaveModel_SFD = new System.Windows.Forms.SaveFileDialog();
@@ -199,12 +203,64 @@ namespace Awose
             // ObjectSettings_Panel
             // 
             this.ObjectSettings_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectSettings_Panel.Controls.Add(this.ObjectCharge_Label);
+            this.ObjectSettings_Panel.Controls.Add(this.ObjectMass_Label);
+            this.ObjectSettings_Panel.Controls.Add(this.label3);
+            this.ObjectSettings_Panel.Controls.Add(this.label2);
             this.ObjectSettings_Panel.Controls.Add(this.label1);
             this.ObjectSettings_Panel.Location = new System.Drawing.Point(-1, 35);
             this.ObjectSettings_Panel.Name = "ObjectSettings_Panel";
-            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 324);
+            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 94);
             this.ObjectSettings_Panel.TabIndex = 2;
             this.ObjectSettings_Panel.Visible = false;
+            // 
+            // ObjectCharge_Label
+            // 
+            this.ObjectCharge_Label.AutoSize = true;
+            this.ObjectCharge_Label.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ObjectCharge_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ObjectCharge_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.ObjectCharge_Label.Location = new System.Drawing.Point(83, 54);
+            this.ObjectCharge_Label.Name = "ObjectCharge_Label";
+            this.ObjectCharge_Label.Size = new System.Drawing.Size(30, 19);
+            this.ObjectCharge_Label.TabIndex = 5;
+            this.ObjectCharge_Label.Text = "0 C";
+            // 
+            // ObjectMass_Label
+            // 
+            this.ObjectMass_Label.AutoSize = true;
+            this.ObjectMass_Label.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ObjectMass_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ObjectMass_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.ObjectMass_Label.Location = new System.Drawing.Point(83, 35);
+            this.ObjectMass_Label.Name = "ObjectMass_Label";
+            this.ObjectMass_Label.Size = new System.Drawing.Size(38, 19);
+            this.ObjectMass_Label.TabIndex = 4;
+            this.ObjectMass_Label.Text = "0 kg";
+            // 
+            // label3
+            // 
+            this.label3.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(17, 54);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 19);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Charge:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label2
+            // 
+            this.label2.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(17, 35);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 19);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Mass:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label1
             // 
@@ -443,6 +499,10 @@ namespace Awose
         private System.Windows.Forms.Label CurrentObjectName_Label;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel ObjectSettings_Panel;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label ObjectMass_Label;
+        private System.Windows.Forms.Label ObjectCharge_Label;
     }
 }
 

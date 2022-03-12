@@ -145,6 +145,8 @@ namespace Awose
                     CurrentObjectName_Label.Text = agents[aw_selected].Name;
                     CurrentObjectName_Label.ForeColor = Color.LightSkyBlue;
                     CurrentObjectName_Label.Cursor = Cursors.IBeam;
+                    ObjectMass_Label.Text = agents[aw_selected].Weight.ToString() + " kg";
+                    ObjectCharge_Label.Text = agents[aw_selected].Charge.ToString() + " C";
                     ObjectSettings_Panel.Visible = true;
                     return;
                 }

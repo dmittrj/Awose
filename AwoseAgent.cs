@@ -52,7 +52,7 @@ namespace Awose
                     for (int i = 0; i < 10; i++)
                 if (Spray.Count > 0) Spray.Dequeue();
             }
-            if (MistakeType == 1)
+            if (MistakeType > 0)
             {
                 if (Spray.Count > 500) return;
                 //Point tmp;

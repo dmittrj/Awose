@@ -42,6 +42,8 @@ namespace Awose
                         grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
                     if (item.MistakeType == 1)
                         grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+                    if (item.MistakeType == 2)
+                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
                 }
                 RectangleF circle = new((float)(lu_corner.X + item.X * aw_scale - diameter / 2), (float)(lu_corner.Y + item.Y * aw_scale - diameter / 2), diameter, diameter);
                 grfx.FillEllipse(item.Dye, circle);
@@ -87,6 +89,15 @@ namespace Awose
             {
                 agents[0].MistakeType = 1;
                 agents[0].MDescription = "Useless object";
+            }
+            //Zero mass
+            foreach (AwoseAgent item in agents)
+            {
+                if (item.Weight == 0)
+                {
+                    item.MistakeType = 2;
+                    item.MDescription = "Zero mass";
+                }
             }
         }
 
@@ -162,7 +173,6 @@ namespace Awose
         private void ModelBoard_PB_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             Point beforeScaling = new();
-            //Point afterScaling = new();
             if (e.Delta > 0)
             {
                 beforeScaling.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
@@ -184,11 +194,6 @@ namespace Awose
                 lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
             }
         }
-
-        //private void toolStripTextBox1_Click(object sender, EventArgs e)
-        //{
-
-        //}
 
         private void DeleteObject_CMItem_Click(object sender, EventArgs e)
         {
@@ -273,6 +278,7 @@ namespace Awose
                         break;
                 }
             }
+            Aw_CheckMistakes();
         }
 
         private void NewValue_TB_KeyDown(object sender, KeyEventArgs e)

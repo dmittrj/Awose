@@ -62,14 +62,9 @@ namespace Awose
             this.positiveChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.negativeChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Instrumental_Panel = new System.Windows.Forms.Panel();
-            this.Mistake_Panel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.MistakeIcon_PB = new System.Windows.Forms.PictureBox();
             this.Main_MStr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.Space_CMStr.SuspendLayout();
-            this.Mistake_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
             this.SuspendLayout();
             // 
             // Main_MStr
@@ -342,43 +337,12 @@ namespace Awose
             this.Instrumental_Panel.TabIndex = 3;
             this.Instrumental_Panel.Visible = false;
             // 
-            // Mistake_Panel
-            // 
-            this.Mistake_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.Mistake_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Mistake_Panel.Controls.Add(this.label1);
-            this.Mistake_Panel.Controls.Add(this.MistakeIcon_PB);
-            this.Mistake_Panel.Location = new System.Drawing.Point(606, 284);
-            this.Mistake_Panel.Name = "Mistake_Panel";
-            this.Mistake_Panel.Size = new System.Drawing.Size(261, 69);
-            this.Mistake_Panel.TabIndex = 4;
-            this.Mistake_Panel.Visible = false;
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(44, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(204, 55);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Useless object";
-            // 
-            // MistakeIcon_PB
-            // 
-            this.MistakeIcon_PB.Location = new System.Drawing.Point(8, 8);
-            this.MistakeIcon_PB.Name = "MistakeIcon_PB";
-            this.MistakeIcon_PB.Size = new System.Drawing.Size(32, 32);
-            this.MistakeIcon_PB.TabIndex = 0;
-            this.MistakeIcon_PB.TabStop = false;
-            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
-            this.Controls.Add(this.Mistake_Panel);
             this.Controls.Add(this.Instrumental_Panel);
             this.Controls.Add(this.ModelBoard_PB);
             this.Controls.Add(this.Control_Panel);
@@ -392,8 +356,6 @@ namespace Awose
             this.Main_MStr.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();
             this.Space_CMStr.ResumeLayout(false);
-            this.Mistake_Panel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -429,9 +391,6 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem positiveChargeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem negativeChargeToolStripMenuItem;
         private System.Windows.Forms.Panel Instrumental_Panel;
-        private System.Windows.Forms.Panel Mistake_Panel;
-        private System.Windows.Forms.PictureBox MistakeIcon_PB;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem Mistake_CMItem;
         private System.Windows.Forms.ToolStripSeparator SepMistake_CMSepar;
         private System.Windows.Forms.ToolStripMenuItem DeleteObject_CMItem;

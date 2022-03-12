@@ -73,24 +73,7 @@ namespace Awose
         }
 
 
-        private void Aw_DrawMistake(bool isError, string text)
-        {
-            Bitmap icon = new Bitmap(31, 31);
-            using Graphics grfx = Graphics.FromImage(icon);
-            grfx.Clear(Color.FromArgb(15, 15, 15));
-            Point[] triangle = {
-                new Point(16, 0),
-                new Point(30, 30),
-                new Point(0, 30)
-            };
-            RectangleF exclmark1 = new(15, 9, 3, 13);
-            RectangleF exclmark2 = new(15, 24, 3, 4);
-            grfx.FillPolygon(Brushes.Khaki, triangle);
-            grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), exclmark1);
-            grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), exclmark2);
-            MistakeIcon_PB.Image = icon;
-        }
-
+        
         private void Aw_CheckMistakes()
         {
             foreach (AwoseAgent item in agents)
@@ -102,7 +85,6 @@ namespace Awose
             {
                 agents[0].MistakeType = 1;
                 agents[0].MDescription = "Useless object";
-                Aw_DrawMistake(true, "hhh");
             }
         }
 
@@ -189,6 +171,7 @@ namespace Awose
         {
             aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.Deleting));
             agents.RemoveAt(aw_selected);
+            Aw_CheckMistakes();
         }
 
         private void Simulation_MSItem_DropDownOpening(object sender, EventArgs e)
@@ -226,6 +209,7 @@ namespace Awose
                 default:
                     break;
             }
+            Aw_CheckMistakes();
         }
     }
 }

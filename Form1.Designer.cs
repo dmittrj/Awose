@@ -44,6 +44,8 @@ namespace Awose
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
+            this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.CurrentObjectName_Label = new System.Windows.Forms.Label();
             this.SaveModel_SFD = new System.Windows.Forms.SaveFileDialog();
             this.ModelBoard_PB = new System.Windows.Forms.PictureBox();
@@ -65,6 +67,7 @@ namespace Awose
             this.Instrumental_Panel = new System.Windows.Forms.Panel();
             this.Main_MStr.SuspendLayout();
             this.Control_Panel.SuspendLayout();
+            this.ObjectSettings_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.Space_CMStr.SuspendLayout();
             this.SuspendLayout();
@@ -186,23 +189,46 @@ namespace Awose
             | System.Windows.Forms.AnchorStyles.Left)));
             this.Control_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.Control_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Control_Panel.Controls.Add(this.ObjectSettings_Panel);
             this.Control_Panel.Controls.Add(this.CurrentObjectName_Label);
             this.Control_Panel.Location = new System.Drawing.Point(0, 28);
             this.Control_Panel.Name = "Control_Panel";
             this.Control_Panel.Size = new System.Drawing.Size(248, 686);
             this.Control_Panel.TabIndex = 1;
             // 
+            // ObjectSettings_Panel
+            // 
+            this.ObjectSettings_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectSettings_Panel.Controls.Add(this.label1);
+            this.ObjectSettings_Panel.Location = new System.Drawing.Point(-1, 35);
+            this.ObjectSettings_Panel.Name = "ObjectSettings_Panel";
+            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 324);
+            this.ObjectSettings_Panel.TabIndex = 2;
+            this.ObjectSettings_Panel.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(9, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(86, 19);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Parameters";
+            // 
             // CurrentObjectName_Label
             // 
             this.CurrentObjectName_Label.AutoSize = true;
             this.CurrentObjectName_Label.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.CurrentObjectName_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.CurrentObjectName_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.CurrentObjectName_Label.ForeColor = System.Drawing.Color.DarkGray;
             this.CurrentObjectName_Label.Location = new System.Drawing.Point(9, 8);
             this.CurrentObjectName_Label.Name = "CurrentObjectName_Label";
-            this.CurrentObjectName_Label.Size = new System.Drawing.Size(87, 19);
+            this.CurrentObjectName_Label.Size = new System.Drawing.Size(121, 19);
             this.CurrentObjectName_Label.TabIndex = 0;
-            this.CurrentObjectName_Label.Text = "Object name";
+            this.CurrentObjectName_Label.Text = "No object selected";
             // 
             // SaveModel_SFD
             // 
@@ -371,6 +397,8 @@ namespace Awose
             this.Main_MStr.PerformLayout();
             this.Control_Panel.ResumeLayout(false);
             this.Control_Panel.PerformLayout();
+            this.ObjectSettings_Panel.ResumeLayout(false);
+            this.ObjectSettings_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();
             this.Space_CMStr.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -413,6 +441,8 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem DeleteObject_CMItem;
         private System.Windows.Forms.ToolStripSeparator ObjectEditSep_CMSepar;
         private System.Windows.Forms.Label CurrentObjectName_Label;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel ObjectSettings_Panel;
     }
 }
 

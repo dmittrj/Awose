@@ -143,8 +143,16 @@ namespace Awose
                 else
                 {
                     CurrentObjectName_Label.Text = agents[aw_selected].Name;
+                    CurrentObjectName_Label.ForeColor = Color.LightSkyBlue;
+                    CurrentObjectName_Label.Cursor = Cursors.IBeam;
+                    ObjectSettings_Panel.Visible = true;
+                    return;
                 }
             }
+            CurrentObjectName_Label.Text = "No object selected";
+            CurrentObjectName_Label.ForeColor = Color.DarkGray;
+            CurrentObjectName_Label.Cursor = Cursors.Default;
+            ObjectSettings_Panel.Visible = false;
         }
 
         private void ModelBoard_PB_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)

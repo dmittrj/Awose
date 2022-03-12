@@ -14,10 +14,11 @@ namespace Awose
     public partial class Awose : Form
     {
         readonly List<AwoseAgent> agents = new();
+        int aw_selected = 0;
         Point aw_cursor = new(0, 0);
         Point lu_corner = new(0, 0);
         float aw_scale = 1;
-        int aw_agentsize = 15;
+        const int aw_agentsize = 15;
         //Thread animation;
 
         private void Aw_Refresh()
@@ -114,9 +115,22 @@ namespace Awose
         {
             aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
             aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+            aw_selected = 0;
+            Mistake_CMItem.Visible = false;
+            SepMistake_CMSepar.Visible = false;
             foreach (AwoseAgent item in agents)
             {
-                
+                if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                    aw_selected++;
+                else
+                {
+                    if (item.MistakeType > 0)
+                    {
+                        Mistake_CMItem.Text = item.MDescription;
+                        Mistake_CMItem.Visible = true;
+                        SepMistake_CMSepar.Visible = true;
+                    }
+                }
             }
         }
 

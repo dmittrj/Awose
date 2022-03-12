@@ -15,9 +15,9 @@ namespace Awose
             if (current > max) return max;
             return current;
         }
-        public static bool IsInRadius(int CurX, int CurY, Point obj, int diameter)
+        public static bool IsInRadius(int CurX, int CurY, AwoseAgent obj, float radius)
         {
-            return (Math.Sqrt(Math.Pow(CurX - obj.X, 2) + Math.Pow(CurY - obj.Y, 2)) <= diameter);
+            return (Math.Sqrt(Math.Pow(CurX - obj.X, 2) + Math.Pow(CurY - obj.Y, 2)) > radius);
         }
     }
 }

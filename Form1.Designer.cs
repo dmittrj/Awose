@@ -44,6 +44,7 @@ namespace Awose
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
+            this.CurrentObjectName_Label = new System.Windows.Forms.Label();
             this.SaveModel_SFD = new System.Windows.Forms.SaveFileDialog();
             this.ModelBoard_PB = new System.Windows.Forms.PictureBox();
             this.Space_CMStr = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -63,6 +64,7 @@ namespace Awose
             this.negativeChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Instrumental_Panel = new System.Windows.Forms.Panel();
             this.Main_MStr.SuspendLayout();
+            this.Control_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.Space_CMStr.SuspendLayout();
             this.SuspendLayout();
@@ -184,10 +186,23 @@ namespace Awose
             | System.Windows.Forms.AnchorStyles.Left)));
             this.Control_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.Control_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Control_Panel.Controls.Add(this.CurrentObjectName_Label);
             this.Control_Panel.Location = new System.Drawing.Point(0, 28);
             this.Control_Panel.Name = "Control_Panel";
             this.Control_Panel.Size = new System.Drawing.Size(248, 686);
             this.Control_Panel.TabIndex = 1;
+            // 
+            // CurrentObjectName_Label
+            // 
+            this.CurrentObjectName_Label.AutoSize = true;
+            this.CurrentObjectName_Label.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.CurrentObjectName_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CurrentObjectName_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.CurrentObjectName_Label.Location = new System.Drawing.Point(9, 8);
+            this.CurrentObjectName_Label.Name = "CurrentObjectName_Label";
+            this.CurrentObjectName_Label.Size = new System.Drawing.Size(87, 19);
+            this.CurrentObjectName_Label.TabIndex = 0;
+            this.CurrentObjectName_Label.Text = "Object name";
             // 
             // SaveModel_SFD
             // 
@@ -354,6 +369,8 @@ namespace Awose
             this.Load += new System.EventHandler(this.Awose_Load);
             this.Main_MStr.ResumeLayout(false);
             this.Main_MStr.PerformLayout();
+            this.Control_Panel.ResumeLayout(false);
+            this.Control_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();
             this.Space_CMStr.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -395,6 +412,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripSeparator SepMistake_CMSepar;
         private System.Windows.Forms.ToolStripMenuItem DeleteObject_CMItem;
         private System.Windows.Forms.ToolStripSeparator ObjectEditSep_CMSepar;
+        private System.Windows.Forms.Label CurrentObjectName_Label;
     }
 }
 

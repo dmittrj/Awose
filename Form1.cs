@@ -15,8 +15,8 @@ namespace Awose
     {
         readonly List<AwoseAgent> agents = new();
         int agentsNumeric = 1;
-        Stack<AwoseChange> aw_undo = new();
-        Stack<AwoseChange> aw_redo = new();
+        readonly Stack<AwoseChange> aw_undo = new();
+        readonly Stack<AwoseChange> aw_redo = new();
         int aw_selected = 0;
         Point aw_cursor = new(0, 0);
         Point lu_corner = new(0, 0);
@@ -27,7 +27,7 @@ namespace Awose
         private void Aw_Refresh()
         {
             float diameter = aw_agentsize * aw_scale;
-            Bitmap board = new Bitmap(ModelBoard_PB.Width, ModelBoard_PB.Height);
+            Bitmap board = new(ModelBoard_PB.Width, ModelBoard_PB.Height);
             using Graphics grfx = Graphics.FromImage(board);
             grfx.Clear(Color.FromArgb(35, 35, 35));
             foreach (AwoseAgent item in agents)
@@ -133,7 +133,18 @@ namespace Awose
 
         private void ModelBoard_PB_Click(object sender, EventArgs e)
         {
-
+            aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
+            aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+            aw_selected = 0;
+            foreach (AwoseAgent item in agents)
+            {
+                if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                    aw_selected++;
+                else
+                {
+                    CurrentObjectName_Label.Text = agents[aw_selected].Name;
+                }
+            }
         }
 
         private void ModelBoard_PB_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -162,10 +173,10 @@ namespace Awose
             }
         }
 
-        private void toolStripTextBox1_Click(object sender, EventArgs e)
-        {
+        //private void toolStripTextBox1_Click(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         private void DeleteObject_CMItem_Click(object sender, EventArgs e)
         {

@@ -204,6 +204,8 @@ namespace Awose
             this.ModelBoard_PB.Size = new System.Drawing.Size(993, 686);
             this.ModelBoard_PB.TabIndex = 2;
             this.ModelBoard_PB.TabStop = false;
+            this.ModelBoard_PB.Click += new System.EventHandler(this.ModelBoard_PB_Click);
+            this.ModelBoard_PB.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.ModelBoard_PB_MouseWheel);
             // 
             // Space_CMStr
             // 

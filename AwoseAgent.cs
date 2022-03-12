@@ -11,7 +11,9 @@ namespace Awose
     {
         public string Name { get; set; }
         public double X { get; set; }
+        public int X_screen;
         public double Y { get; set; }
+        public int Y_screen;
         public double Weight { get; set; }
         public double Charge { get; set; }
         public double VelocityX { get; set; }
@@ -29,6 +31,8 @@ namespace Awose
         {
             Name = name;
             X = x;
+            X_screen = (int)x;
+            Y_screen = (int)y;
             Y = y;
             Weight = weight;
             Charge = charge;

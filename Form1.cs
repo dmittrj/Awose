@@ -13,7 +13,7 @@ namespace Awose
 {
     public partial class Awose : Form
     {
-        List<AwoseAgent> agents = new();
+        readonly List<AwoseAgent> agents = new();
         Point aw_cursor = new(0, 0);
         Point lu_corner = new(0, 0);
         int aw_scale = 1;
@@ -31,21 +31,17 @@ namespace Awose
                 int dotNumber = 0;
                 foreach (Point dot in item.Spray)
                 {
-                    RectangleF spraydot = new(dot.X, dot.Y, 2, 2);
+                    RectangleF spraydot = new(dot.X, dot.Y, 1, 1);
                     if (item.MistakeType == 0)
-                        grfx.FillEllipse(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
+                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
                     if (item.MistakeType == 1)
-                        grfx.FillEllipse(new SolidBrush(Color.FromArgb(Math.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Math.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Math.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Math.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Math.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Math.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
                 }
-                RectangleF circle = new((float)(item.X - diameter / 2), (float)(item.Y - diameter / 2), diameter, diameter);
+                RectangleF circle = new((float)(item.X * aw_scale - diameter / 2), (float)(item.Y * aw_scale - diameter / 2), diameter, diameter);
                 grfx.FillEllipse(item.Dye, circle);
             }
             ModelBoard_PB.BackgroundImage = board;
         }
-
-
-
-
 
         public Awose()
         {
@@ -125,6 +121,24 @@ namespace Awose
             agents.Add(new AwoseAgent("Object " + (agents.Count + 1).ToString(), aw_cursor.X, aw_cursor.Y, 1, 0, 0, 0, false));
             //Aw_Refresh();
             Aw_CheckMistakes();
+        }
+
+        private void ModelBoard_PB_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ModelBoard_PB_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                aw_scale += 1;
+            }
+            else
+            {
+                if (aw_scale > 1)
+                    aw_scale -= 1;
+            }
         }
     }
 }

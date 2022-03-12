@@ -31,7 +31,7 @@ namespace Awose
                 int dotNumber = 0;
                 foreach (Point dot in item.Spray)
                 {
-                    RectangleF spraydot = new(dot.X, dot.Y, 1, 1);
+                    RectangleF spraydot = new(lu_corner.X + dot.X * aw_scale, lu_corner.Y + dot.Y * aw_scale, aw_scale, aw_scale);
                     if (item.MistakeType == 0)
                         grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
                     if (item.MistakeType == 1)

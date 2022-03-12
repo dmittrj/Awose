@@ -232,5 +232,13 @@ namespace Awose
             }
             Aw_CheckMistakes();
         }
+
+        private void ObjectMass_Label_Click(object sender, EventArgs e)
+        {
+            NewValue_TB.Location = new Point(Control_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectMass_Label.Location.X + 4,
+                Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectMass_Label.Location.Y - 25);
+            NewValue_TB.Text = agents[aw_selected].Weight.ToString();
+            NewValue_TB.Visible = true;
+        }
     }
 }

@@ -44,6 +44,7 @@ namespace Awose
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
+            this.NewValue_TB = new System.Windows.Forms.TextBox();
             this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
             this.ObjectCharge_Label = new System.Windows.Forms.Label();
             this.ObjectMass_Label = new System.Windows.Forms.Label();
@@ -193,12 +194,24 @@ namespace Awose
             | System.Windows.Forms.AnchorStyles.Left)));
             this.Control_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.Control_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Control_Panel.Controls.Add(this.NewValue_TB);
             this.Control_Panel.Controls.Add(this.ObjectSettings_Panel);
             this.Control_Panel.Controls.Add(this.CurrentObjectName_Label);
             this.Control_Panel.Location = new System.Drawing.Point(0, 28);
             this.Control_Panel.Name = "Control_Panel";
             this.Control_Panel.Size = new System.Drawing.Size(248, 686);
             this.Control_Panel.TabIndex = 1;
+            // 
+            // NewValue_TB
+            // 
+            this.NewValue_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.NewValue_TB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.NewValue_TB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.NewValue_TB.ForeColor = System.Drawing.Color.White;
+            this.NewValue_TB.Location = new System.Drawing.Point(188, 8);
+            this.NewValue_TB.Name = "NewValue_TB";
+            this.NewValue_TB.Size = new System.Drawing.Size(53, 18);
+            this.NewValue_TB.TabIndex = 3;
             // 
             // ObjectSettings_Panel
             // 
@@ -237,6 +250,7 @@ namespace Awose
             this.ObjectMass_Label.Size = new System.Drawing.Size(38, 19);
             this.ObjectMass_Label.TabIndex = 4;
             this.ObjectMass_Label.Text = "0 kg";
+            this.ObjectMass_Label.Click += new System.EventHandler(this.ObjectMass_Label_Click);
             // 
             // label3
             // 
@@ -504,6 +518,7 @@ namespace Awose
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label ObjectMass_Label;
         private System.Windows.Forms.Label ObjectCharge_Label;
+        private System.Windows.Forms.TextBox NewValue_TB;
     }
 }
 

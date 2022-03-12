@@ -14,6 +14,8 @@ namespace Awose
     public partial class Awose : Form
     {
         readonly List<AwoseAgent> agents = new();
+        Stack<AwoseChange> aw_undo = new();
+        Stack<AwoseChange> aw_redo = new();
         int aw_selected = 0;
         Point aw_cursor = new(0, 0);
         Point lu_corner = new(0, 0);
@@ -142,7 +144,7 @@ namespace Awose
         private void CreateObject_CMItem_Click(object sender, EventArgs e)
         {
             agents.Add(new AwoseAgent("Object " + (agents.Count + 1).ToString(), aw_cursor.X, aw_cursor.Y, 1, 0, 0, 0, false));
-            //Aw_Refresh();
+            aw_undo.Push(new AwoseChange(agents[^1], ChangeType.Creating));
             Aw_CheckMistakes();
         }
 
@@ -185,6 +187,21 @@ namespace Awose
         private void DeleteObject_CMItem_Click(object sender, EventArgs e)
         {
             agents.RemoveAt(aw_selected);
+        }
+
+        private void Simulation_MSItem_DropDownOpening(object sender, EventArgs e)
+        {
+            if (aw_undo.Count > 0)
+            {
+                Undo_MSItem.Text = "Undo " + aw_undo.Peek().ToString();
+                Undo_MSItem.Enabled = true;
+            } 
+            else
+            {
+                Undo_MSItem.Text = "Undo";
+                Undo_MSItem.Enabled = false;
+            }
+            
         }
     }
 }

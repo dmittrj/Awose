@@ -164,6 +164,7 @@ namespace Awose
             // Undo_MSItem
             // 
             this.Undo_MSItem.Name = "Undo_MSItem";
+            this.Undo_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.Undo_MSItem.Size = new System.Drawing.Size(246, 24);
             this.Undo_MSItem.Text = "Undo";
             this.Undo_MSItem.Click += new System.EventHandler(this.Undo_MSItem_Click);

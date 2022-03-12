@@ -208,6 +208,7 @@ namespace Awose
 
         private void Undo_MSItem_Click(object sender, EventArgs e)
         {
+            if (aw_undo.Count == 0) return;
             AwoseChange ch_undo = aw_undo.Pop();
             switch (ch_undo.Type)
             {
@@ -216,6 +217,11 @@ namespace Awose
                         agents.RemoveAt(agents.Count - 1);
                     break;
                 case ChangeType.Deleting:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_undo.Subject.Name) return;
+                    }
+                    agents.Add(ch_undo.Subject);
                     break;
                 default:
                     break;

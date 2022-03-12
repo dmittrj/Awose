@@ -80,6 +80,7 @@ namespace Awose
         
         private void Aw_CheckMistakes()
         {
+            LaunchSimulation_MSItem.Enabled = true;
             foreach (AwoseAgent item in agents)
             {
                 item.MistakeType = 0;
@@ -97,6 +98,7 @@ namespace Awose
                 {
                     item.MistakeType = 2;
                     item.MDescription = "Zero mass";
+                    LaunchSimulation_MSItem.Enabled = false;
                 }
             }
         }
@@ -234,6 +236,13 @@ namespace Awose
                     }
                     agents.Add(ch_undo.Subject);
                     break;
+                case ChangeType.ChangingMass:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_undo.Subject.Name) 
+                            item.Weight = ch_undo.OldValue;
+                    }
+                    break;
                 default:
                     break;
             }
@@ -242,7 +251,7 @@ namespace Awose
 
         private void ObjectMass_Label_Click(object sender, EventArgs e)
         {
-            NewValue_TB.Location = new Point(Control_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectMass_Label.Location.X + 4,
+            NewValue_TB.Location = new Point(Control_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectMass_Label.Location.X + 1,
                 Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectMass_Label.Location.Y - 26);
             NewValue_TB.Text = agents[aw_selected].Weight.ToString();
             editingValue = EditingValue.Mass;
@@ -264,6 +273,7 @@ namespace Awose
                         try
                         {
                             newValue = float.Parse(NewValue_TB.Text);
+                            aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingMass, agents[aw_selected].Weight, newValue));
                             agents[aw_selected].Weight = newValue;
                         } 
                         finally

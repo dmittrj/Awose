@@ -445,6 +445,7 @@ namespace Awose
             this.Controls.Add(this.Control_Panel);
             this.Controls.Add(this.Main_MStr);
             this.MainMenuStrip = this.Main_MStr;
+            this.MinimumSize = new System.Drawing.Size(350, 300);
             this.Name = "Awose";
             this.Text = "Awose";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

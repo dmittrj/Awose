@@ -209,9 +209,13 @@ namespace Awose
             this.NewValue_TB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.NewValue_TB.ForeColor = System.Drawing.Color.White;
             this.NewValue_TB.Location = new System.Drawing.Point(188, 8);
+            this.NewValue_TB.Multiline = true;
             this.NewValue_TB.Name = "NewValue_TB";
-            this.NewValue_TB.Size = new System.Drawing.Size(53, 18);
+            this.NewValue_TB.Size = new System.Drawing.Size(53, 23);
             this.NewValue_TB.TabIndex = 3;
+            this.NewValue_TB.Visible = false;
+            this.NewValue_TB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NewValue_TB_KeyDown);
+            this.NewValue_TB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.NewValue_TB_PreviewKeyDown);
             // 
             // ObjectSettings_Panel
             // 
@@ -458,6 +462,7 @@ namespace Awose
             this.Controls.Add(this.ModelBoard_PB);
             this.Controls.Add(this.Control_Panel);
             this.Controls.Add(this.Main_MStr);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.Main_MStr;
             this.MinimumSize = new System.Drawing.Size(350, 300);
             this.Name = "Awose";

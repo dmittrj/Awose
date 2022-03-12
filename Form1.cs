@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace Awose
 {
+    enum EditingValue { None, Mass, Charge }
     public partial class Awose : Form
     {
         readonly List<AwoseAgent> agents = new();
@@ -22,6 +23,7 @@ namespace Awose
         Point lu_corner = new(0, 0);
         float aw_scale = 1;
         const int aw_agentsize = 15;
+        EditingValue editingValue = EditingValue.None;
         //Thread animation;
 
         private void Aw_Refresh()
@@ -236,9 +238,46 @@ namespace Awose
         private void ObjectMass_Label_Click(object sender, EventArgs e)
         {
             NewValue_TB.Location = new Point(Control_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectMass_Label.Location.X + 4,
-                Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectMass_Label.Location.Y - 25);
+                Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectMass_Label.Location.Y - 26);
             NewValue_TB.Text = agents[aw_selected].Weight.ToString();
+            editingValue = EditingValue.Mass;
             NewValue_TB.Visible = true;
+            NewValue_TB.BringToFront();
+            NewValue_TB.Focus();
+        }
+
+        private void NewValue_TB_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                float newValue;
+                switch (editingValue)
+                {
+                    case EditingValue.None:
+                        break;
+                    case EditingValue.Mass:
+                        try
+                        {
+                            newValue = float.Parse(NewValue_TB.Text);
+                            agents[aw_selected].Weight = newValue;
+                        } 
+                        finally
+                        {
+                            NewValue_TB.Visible = false;
+                            ObjectMass_Label.Text = agents[aw_selected].Weight.ToString() + " kg";
+                        }
+                        break;
+                    case EditingValue.Charge:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void NewValue_TB_KeyDown(object sender, KeyEventArgs e)
+        {
+            //e.KeyCode
         }
     }
 }

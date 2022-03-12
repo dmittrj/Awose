@@ -16,13 +16,13 @@ namespace Awose
         readonly List<AwoseAgent> agents = new();
         Point aw_cursor = new(0, 0);
         Point lu_corner = new(0, 0);
-        int aw_scale = 1;
+        float aw_scale = 1;
         int aw_agentsize = 15;
         //Thread animation;
 
         private void Aw_Refresh()
         {
-            int diameter = aw_agentsize * aw_scale;
+            float diameter = aw_agentsize * aw_scale;
             Bitmap board = new Bitmap(ModelBoard_PB.Width, ModelBoard_PB.Height);
             using Graphics grfx = Graphics.FromImage(board);
             grfx.Clear(Color.FromArgb(35, 35, 35));
@@ -37,7 +37,7 @@ namespace Awose
                     if (item.MistakeType == 1)
                         grfx.FillRectangle(new SolidBrush(Color.FromArgb(Math.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Math.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Math.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
                 }
-                RectangleF circle = new((float)(item.X * aw_scale - diameter / 2), (float)(item.Y * aw_scale - diameter / 2), diameter, diameter);
+                RectangleF circle = new((float)(lu_corner.X + item.X * aw_scale - diameter / 2), (float)(lu_corner.Y + item.Y * aw_scale - diameter / 2), diameter, diameter);
                 grfx.FillEllipse(item.Dye, circle);
             }
             ModelBoard_PB.BackgroundImage = board;
@@ -112,8 +112,8 @@ namespace Awose
 
         private void Space_CMStr_Opening(object sender, CancelEventArgs e)
         {
-            aw_cursor.X = lu_corner.X + (Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) * aw_scale;
-            aw_cursor.Y = lu_corner.Y + (Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) * aw_scale;
+            aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
+            aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
         }
 
         private void CreateObject_CMItem_Click(object sender, EventArgs e)
@@ -130,14 +130,27 @@ namespace Awose
 
         private void ModelBoard_PB_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
+            Point beforeScaling = new();
+            //Point afterScaling = new();
             if (e.Delta > 0)
             {
-                aw_scale += 1;
+                beforeScaling.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+                beforeScaling.Y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+                aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
+                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+                aw_scale += .5f;
+                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
+                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
             }
-            else
+            else if (aw_scale > 1)
             {
-                if (aw_scale > 1)
-                    aw_scale -= 1;
+                beforeScaling.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+                beforeScaling.Y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+                aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
+                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+                aw_scale -= .5f;
+                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
+                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
             }
         }
     }

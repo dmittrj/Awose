@@ -9,8 +9,8 @@ namespace Awose
     enum ChangeType { Creating, Deleting}
     class AwoseChange
     {
-        AwoseAgent Subject { get; set; }
-        ChangeType Type { get; set; }
+        public AwoseAgent Subject { get; set; }
+        public ChangeType Type { get; set; }
         public AwoseChange(AwoseAgent subject, ChangeType type)
         {
             Subject = subject;

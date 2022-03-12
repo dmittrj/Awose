@@ -166,6 +166,7 @@ namespace Awose
             this.Undo_MSItem.Name = "Undo_MSItem";
             this.Undo_MSItem.Size = new System.Drawing.Size(246, 24);
             this.Undo_MSItem.Text = "Undo";
+            this.Undo_MSItem.Click += new System.EventHandler(this.Undo_MSItem_Click);
             // 
             // redoToolStripMenuItem
             // 

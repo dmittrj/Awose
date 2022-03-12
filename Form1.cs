@@ -14,6 +14,7 @@ namespace Awose
     public partial class Awose : Form
     {
         readonly List<AwoseAgent> agents = new();
+        int agentsNumeric = 1;
         Stack<AwoseChange> aw_undo = new();
         Stack<AwoseChange> aw_redo = new();
         int aw_selected = 0;
@@ -143,7 +144,7 @@ namespace Awose
 
         private void CreateObject_CMItem_Click(object sender, EventArgs e)
         {
-            agents.Add(new AwoseAgent("Object " + (agents.Count + 1).ToString(), aw_cursor.X, aw_cursor.Y, 1, 0, 0, 0, false));
+            agents.Add(new AwoseAgent("Object " + (agentsNumeric++).ToString(), aw_cursor.X, aw_cursor.Y, 1, 0, 0, 0, false));
             aw_undo.Push(new AwoseChange(agents[^1], ChangeType.Creating));
             Aw_CheckMistakes();
         }
@@ -186,6 +187,7 @@ namespace Awose
 
         private void DeleteObject_CMItem_Click(object sender, EventArgs e)
         {
+            aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.Deleting));
             agents.RemoveAt(aw_selected);
         }
 
@@ -202,6 +204,22 @@ namespace Awose
                 Undo_MSItem.Enabled = false;
             }
             
+        }
+
+        private void Undo_MSItem_Click(object sender, EventArgs e)
+        {
+            AwoseChange ch_undo = aw_undo.Pop();
+            switch (ch_undo.Type)
+            {
+                case ChangeType.Creating:
+                    if (agents[^1].Name == ch_undo.Subject.Name)
+                        agents.RemoveAt(agents.Count - 1);
+                    break;
+                case ChangeType.Deleting:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

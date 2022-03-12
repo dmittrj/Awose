@@ -118,18 +118,23 @@ namespace Awose
             aw_selected = 0;
             Mistake_CMItem.Visible = false;
             SepMistake_CMSepar.Visible = false;
+            DeleteObject_CMItem.Visible = false;
+            ObjectEditSep_CMSepar.Visible = false;
             foreach (AwoseAgent item in agents)
             {
                 if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
                     aw_selected++;
                 else
                 {
+                    DeleteObject_CMItem.Visible = true;
+                    ObjectEditSep_CMSepar.Visible = true;
                     if (item.MistakeType > 0)
                     {
                         Mistake_CMItem.Text = item.MDescription;
                         Mistake_CMItem.Visible = true;
                         SepMistake_CMSepar.Visible = true;
                     }
+                    break;
                 }
             }
         }
@@ -175,6 +180,11 @@ namespace Awose
         private void toolStripTextBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void DeleteObject_CMItem_Click(object sender, EventArgs e)
+        {
+            agents.RemoveAt(aw_selected);
         }
     }
 }

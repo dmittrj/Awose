@@ -216,7 +216,17 @@ namespace Awose
                 Undo_MSItem.Text = "Undo";
                 Undo_MSItem.Enabled = false;
             }
-            
+            if (aw_redo.Count > 0)
+            {
+                Redo_MSItem.Text = "Redo " + aw_redo.Peek().ToString();
+                Redo_MSItem.Enabled = true;
+            }
+            else
+            {
+                Redo_MSItem.Text = "Redo";
+                Redo_MSItem.Enabled = false;
+            }
+
         }
 
         private void Undo_MSItem_Click(object sender, EventArgs e)
@@ -246,6 +256,7 @@ namespace Awose
                 default:
                     break;
             }
+            aw_redo.Push(ch_undo);
             Aw_CheckMistakes();
         }
 
@@ -294,6 +305,37 @@ namespace Awose
         private void NewValue_TB_KeyDown(object sender, KeyEventArgs e)
         {
             //e.KeyCode
+        }
+
+        private void Redo_MSItem_Click(object sender, EventArgs e)
+        {
+            if (aw_redo.Count == 0) return;
+            AwoseChange ch_redo = aw_redo.Pop();
+            switch (ch_redo.Type)
+            {
+                case ChangeType.Deleting:
+                    if (agents[^1].Name == ch_redo.Subject.Name)
+                        agents.RemoveAt(agents.Count - 1);
+                    break;
+                case ChangeType.Creating:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_redo.Subject.Name) return;
+                    }
+                    agents.Add(ch_redo.Subject);
+                    break;
+                case ChangeType.ChangingMass:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_redo.Subject.Name)
+                            item.Weight = ch_redo.NewValue;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            aw_undo.Push(ch_redo);
+            Aw_CheckMistakes();
         }
     }
 }

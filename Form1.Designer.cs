@@ -41,7 +41,7 @@ namespace Awose
             this.SaveModel_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.Undo_MSItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Redo_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
             this.NewValue_TB = new System.Windows.Forms.TextBox();
@@ -101,7 +101,7 @@ namespace Awose
             this.SaveModel_MSItem,
             this.toolStripMenuItem2,
             this.Undo_MSItem,
-            this.redoToolStripMenuItem});
+            this.Redo_MSItem});
             this.Simulation_MSItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Simulation_MSItem.ForeColor = System.Drawing.Color.White;
             this.Simulation_MSItem.Name = "Simulation_MSItem";
@@ -174,11 +174,15 @@ namespace Awose
             this.Undo_MSItem.Text = "Undo";
             this.Undo_MSItem.Click += new System.EventHandler(this.Undo_MSItem_Click);
             // 
-            // redoToolStripMenuItem
+            // Redo_MSItem
             // 
-            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
-            this.redoToolStripMenuItem.Text = "Redo";
+            this.Redo_MSItem.Enabled = false;
+            this.Redo_MSItem.Name = "Redo_MSItem";
+            this.Redo_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.Z)));
+            this.Redo_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.Redo_MSItem.Text = "Redo";
+            this.Redo_MSItem.Click += new System.EventHandler(this.Redo_MSItem_Click);
             // 
             // hToolStripMenuItem
             // 
@@ -496,7 +500,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem SaveModel_MSItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem Undo_MSItem;
-        private System.Windows.Forms.ToolStripMenuItem redoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Redo_MSItem;
         private System.Windows.Forms.Panel Control_Panel;
         private System.Windows.Forms.SaveFileDialog SaveModel_SFD;
         private System.Windows.Forms.PictureBox ModelBoard_PB;

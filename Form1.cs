@@ -24,7 +24,6 @@ namespace Awose
         float aw_scale = 1;
         const int aw_agentsize = 15;
         EditingValue editingValue = EditingValue.None;
-        //Thread animation;
 
         private void Aw_Refresh()
         {
@@ -76,8 +75,6 @@ namespace Awose
             }
         }
 
-
-        
         private void Aw_CheckMistakes()
         {
             LaunchSimulation_MSItem.Enabled = true;
@@ -100,6 +97,26 @@ namespace Awose
                     item.MDescription = "Zero mass";
                     LaunchSimulation_MSItem.Enabled = false;
                 }
+            }
+        }
+
+        private void Aw_DrawControl()
+        {
+            if (aw_selected < agents.Count)
+            {
+                CurrentObjectName_Label.Text = agents[aw_selected].Name;
+                CurrentObjectName_Label.ForeColor = Color.LightSkyBlue;
+                CurrentObjectName_Label.Cursor = Cursors.IBeam;
+                ObjectMass_Label.Text = agents[aw_selected].Weight.ToString() + " kg";
+                ObjectCharge_Label.Text = agents[aw_selected].Charge.ToString() + " C";
+                ObjectSettings_Panel.Visible = true;
+            }
+            else
+            {
+                CurrentObjectName_Label.Text = "No object selected";
+                CurrentObjectName_Label.ForeColor = Color.DarkGray;
+                CurrentObjectName_Label.Cursor = Cursors.Default;
+                ObjectSettings_Panel.Visible = false;
             }
         }
 
@@ -155,21 +172,9 @@ namespace Awose
             {
                 if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
                     aw_selected++;
-                else
-                {
-                    CurrentObjectName_Label.Text = agents[aw_selected].Name;
-                    CurrentObjectName_Label.ForeColor = Color.LightSkyBlue;
-                    CurrentObjectName_Label.Cursor = Cursors.IBeam;
-                    ObjectMass_Label.Text = agents[aw_selected].Weight.ToString() + " kg";
-                    ObjectCharge_Label.Text = agents[aw_selected].Charge.ToString() + " C";
-                    ObjectSettings_Panel.Visible = true;
-                    return;
-                }
+                else break;
             }
-            CurrentObjectName_Label.Text = "No object selected";
-            CurrentObjectName_Label.ForeColor = Color.DarkGray;
-            CurrentObjectName_Label.Cursor = Cursors.Default;
-            ObjectSettings_Panel.Visible = false;
+            Aw_DrawControl();
         }
 
         private void ModelBoard_PB_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -201,6 +206,7 @@ namespace Awose
         {
             aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.Deleting));
             agents.RemoveAt(aw_selected);
+            Aw_DrawControl();
             Aw_CheckMistakes();
         }
 
@@ -259,6 +265,7 @@ namespace Awose
             }
             aw_redo.Push(ch_undo);
             Simulation_MSItem_DropDownOpening(sender, null);
+            Aw_DrawControl();
             Aw_CheckMistakes();
         }
 
@@ -292,7 +299,7 @@ namespace Awose
                         finally
                         {
                             NewValue_TB.Visible = false;
-                            ObjectMass_Label.Text = agents[aw_selected].Weight.ToString() + " kg";
+                            Aw_DrawControl();
                         }
                         break;
                     case EditingValue.Charge:
@@ -301,6 +308,7 @@ namespace Awose
                         break;
                 }
             }
+            //Aw_DrawControl();
             Aw_CheckMistakes();
         }
 
@@ -339,6 +347,7 @@ namespace Awose
             }
             aw_undo.Push(ch_redo);
             Simulation_MSItem_DropDownOpening(sender, null);
+            Aw_DrawControl();
             Aw_CheckMistakes();
         }
     }

@@ -43,6 +43,8 @@ namespace Awose
             this.Undo_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Redo_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.objectColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
             this.NewValue_TB = new System.Windows.Forms.TextBox();
             this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
@@ -82,7 +84,8 @@ namespace Awose
             this.Main_MStr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(11)))), ((int)(((byte)(11)))));
             this.Main_MStr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Simulation_MSItem,
-            this.hToolStripMenuItem});
+            this.hToolStripMenuItem,
+            this.displayToolStripMenuItem});
             this.Main_MStr.Location = new System.Drawing.Point(0, 0);
             this.Main_MStr.Name = "Main_MStr";
             this.Main_MStr.Size = new System.Drawing.Size(1241, 28);
@@ -192,6 +195,22 @@ namespace Awose
             this.hToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
             this.hToolStripMenuItem.Text = "Objects";
             // 
+            // displayToolStripMenuItem
+            // 
+            this.displayToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.objectColorsToolStripMenuItem});
+            this.displayToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.displayToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
+            this.displayToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
+            this.displayToolStripMenuItem.Text = "Display";
+            // 
+            // objectColorsToolStripMenuItem
+            // 
+            this.objectColorsToolStripMenuItem.Name = "objectColorsToolStripMenuItem";
+            this.objectColorsToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.objectColorsToolStripMenuItem.Text = "Object colors";
+            // 
             // Control_Panel
             // 
             this.Control_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -231,7 +250,7 @@ namespace Awose
             this.ObjectSettings_Panel.Controls.Add(this.label1);
             this.ObjectSettings_Panel.Location = new System.Drawing.Point(-1, 35);
             this.ObjectSettings_Panel.Name = "ObjectSettings_Panel";
-            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 94);
+            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 167);
             this.ObjectSettings_Panel.TabIndex = 2;
             this.ObjectSettings_Panel.Visible = false;
             // 
@@ -532,6 +551,8 @@ namespace Awose
         private System.Windows.Forms.Label ObjectMass_Label;
         private System.Windows.Forms.Label ObjectCharge_Label;
         private System.Windows.Forms.TextBox NewValue_TB;
+        private System.Windows.Forms.ToolStripMenuItem displayToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem objectColorsToolStripMenuItem;
     }
 }
 

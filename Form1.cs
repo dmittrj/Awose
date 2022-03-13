@@ -366,7 +366,8 @@ namespace Awose
                             newValue = float.Parse(NewValue_TB.Text);
                             aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingMass, agents[aw_selected].Weight, newValue));
                             agents[aw_selected].Weight = newValue;
-                        } 
+                        }
+                        catch { }
                         finally
                         {
                             NewValue_TB.Visible = false;

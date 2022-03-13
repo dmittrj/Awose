@@ -236,8 +236,9 @@ namespace Awose
             switch (ch_undo.Type)
             {
                 case ChangeType.Creating:
-                    if (agents[^1].Name == ch_undo.Subject.Name)
-                        agents.RemoveAt(agents.Count - 1);
+                    for (int i = 0; i < agents.Count; i++)
+                        if (agents[i].Name == ch_undo.Subject.Name)
+                            agents.RemoveAt(i);
                     break;
                 case ChangeType.Deleting:
                     foreach (AwoseAgent item in agents)
@@ -257,6 +258,7 @@ namespace Awose
                     break;
             }
             aw_redo.Push(ch_undo);
+            Simulation_MSItem_DropDownOpening(sender, null);
             Aw_CheckMistakes();
         }
 
@@ -314,8 +316,9 @@ namespace Awose
             switch (ch_redo.Type)
             {
                 case ChangeType.Deleting:
-                    if (agents[^1].Name == ch_redo.Subject.Name)
-                        agents.RemoveAt(agents.Count - 1);
+                    for (int i = 0; i < agents.Count; i++)
+                        if (agents[i].Name == ch_redo.Subject.Name)
+                            agents.RemoveAt(i);
                     break;
                 case ChangeType.Creating:
                     foreach (AwoseAgent item in agents)
@@ -335,6 +338,7 @@ namespace Awose
                     break;
             }
             aw_undo.Push(ch_redo);
+            Simulation_MSItem_DropDownOpening(sender, null);
             Aw_CheckMistakes();
         }
     }

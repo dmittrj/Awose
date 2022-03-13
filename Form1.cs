@@ -177,6 +177,15 @@ namespace Awose
 
         private void CreateObject_CMItem_Click(object sender, EventArgs e)
         {
+            aaw_loopNames:
+            foreach (AwoseAgent item in agents)
+            {
+                if (item.Name == "Object " + agentsNumeric.ToString())
+                {
+                    agentsNumeric++;
+                    goto aaw_loopNames;
+                }
+            }
             agents.Add(new AwoseAgent("Object " + (agentsNumeric++).ToString(), aw_cursor.X, aw_cursor.Y, 1, 0, 0, 0, false));
             aw_undo.Push(new AwoseChange(agents[^1], ChangeType.Creating));
             Aw_CheckMistakes();

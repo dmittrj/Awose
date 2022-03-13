@@ -100,6 +100,13 @@ namespace Awose
                         agents[j].MistakeType = 1;
                         agents[j].MDescription = "Multiple object with same name";
                     }
+            //No name
+            foreach (AwoseAgent item in agents)
+                if (item.Name == "")
+                {
+                    item.MistakeType = 1;
+                    item.MDescription = "No name";
+                }
             //Zero mass
             foreach (AwoseAgent item in agents)
             {

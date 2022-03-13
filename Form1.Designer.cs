@@ -46,6 +46,7 @@ namespace Awose
             this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.objectColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
+            this.MistakeIcon_PB = new System.Windows.Forms.PictureBox();
             this.NewValue_TB = new System.Windows.Forms.TextBox();
             this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
             this.ObjectCharge_Label = new System.Windows.Forms.Label();
@@ -59,6 +60,9 @@ namespace Awose
             this.Space_CMStr = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Mistake_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SepMistake_CMSepar = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ObjectEditSep_CMSepar = new System.Windows.Forms.ToolStripSeparator();
             this.CreateObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,8 +76,10 @@ namespace Awose
             this.positiveChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.negativeChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Instrumental_Panel = new System.Windows.Forms.Panel();
+            this.MistakeHint_Label = new System.Windows.Forms.Label();
             this.Main_MStr.SuspendLayout();
             this.Control_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
             this.ObjectSettings_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.Space_CMStr.SuspendLayout();
@@ -217,6 +223,7 @@ namespace Awose
             | System.Windows.Forms.AnchorStyles.Left)));
             this.Control_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.Control_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Control_Panel.Controls.Add(this.MistakeIcon_PB);
             this.Control_Panel.Controls.Add(this.NewValue_TB);
             this.Control_Panel.Controls.Add(this.ObjectSettings_Panel);
             this.Control_Panel.Controls.Add(this.CurrentObjectName_Label);
@@ -224,6 +231,17 @@ namespace Awose
             this.Control_Panel.Name = "Control_Panel";
             this.Control_Panel.Size = new System.Drawing.Size(248, 686);
             this.Control_Panel.TabIndex = 1;
+            // 
+            // MistakeIcon_PB
+            // 
+            this.MistakeIcon_PB.Location = new System.Drawing.Point(209, 3);
+            this.MistakeIcon_PB.Name = "MistakeIcon_PB";
+            this.MistakeIcon_PB.Size = new System.Drawing.Size(34, 29);
+            this.MistakeIcon_PB.TabIndex = 4;
+            this.MistakeIcon_PB.TabStop = false;
+            this.MistakeIcon_PB.Tag = "";
+            this.MistakeIcon_PB.MouseLeave += new System.EventHandler(this.MistakeIcon_PB_MouseLeave);
+            this.MistakeIcon_PB.MouseHover += new System.EventHandler(this.MistakeIcon_PB_MouseHover);
             // 
             // NewValue_TB
             // 
@@ -356,12 +374,15 @@ namespace Awose
             this.Space_CMStr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Mistake_CMItem,
             this.SepMistake_CMSepar,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5,
             this.DeleteObject_CMItem,
             this.ObjectEditSep_CMSepar,
             this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(158, 112);
+            this.Space_CMStr.Size = new System.Drawing.Size(198, 184);
             this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
             // 
             // Mistake_CMItem
@@ -369,22 +390,46 @@ namespace Awose
             this.Mistake_CMItem.Enabled = false;
             this.Mistake_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.Mistake_CMItem.Name = "Mistake_CMItem";
-            this.Mistake_CMItem.Size = new System.Drawing.Size(157, 24);
+            this.Mistake_CMItem.Size = new System.Drawing.Size(197, 24);
             this.Mistake_CMItem.Text = "Warning";
             this.Mistake_CMItem.Visible = false;
             // 
             // SepMistake_CMSepar
             // 
             this.SepMistake_CMSepar.Name = "SepMistake_CMSepar";
-            this.SepMistake_CMSepar.Size = new System.Drawing.Size(154, 6);
+            this.SepMistake_CMSepar.Size = new System.Drawing.Size(194, 6);
             this.SepMistake_CMSepar.Visible = false;
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(197, 24);
+            this.toolStripMenuItem3.Text = "Set velocity";
+            this.toolStripMenuItem3.Visible = false;
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(197, 24);
+            this.toolStripMenuItem4.Text = "Change charge sign";
+            this.toolStripMenuItem4.Visible = false;
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(197, 24);
+            this.toolStripMenuItem5.Text = "Pin up";
+            this.toolStripMenuItem5.Visible = false;
             // 
             // DeleteObject_CMItem
             // 
             this.DeleteObject_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.DeleteObject_CMItem.ForeColor = System.Drawing.Color.DarkRed;
             this.DeleteObject_CMItem.Name = "DeleteObject_CMItem";
-            this.DeleteObject_CMItem.Size = new System.Drawing.Size(157, 24);
+            this.DeleteObject_CMItem.Size = new System.Drawing.Size(197, 24);
             this.DeleteObject_CMItem.Text = "Delete object";
             this.DeleteObject_CMItem.Visible = false;
             this.DeleteObject_CMItem.Click += new System.EventHandler(this.DeleteObject_CMItem_Click);
@@ -392,14 +437,14 @@ namespace Awose
             // ObjectEditSep_CMSepar
             // 
             this.ObjectEditSep_CMSepar.Name = "ObjectEditSep_CMSepar";
-            this.ObjectEditSep_CMSepar.Size = new System.Drawing.Size(154, 6);
+            this.ObjectEditSep_CMSepar.Size = new System.Drawing.Size(194, 6);
             this.ObjectEditSep_CMSepar.Visible = false;
             // 
             // CreateObject_CMItem
             // 
             this.CreateObject_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CreateObject_CMItem.Name = "CreateObject_CMItem";
-            this.CreateObject_CMItem.Size = new System.Drawing.Size(157, 24);
+            this.CreateObject_CMItem.Size = new System.Drawing.Size(197, 24);
             this.CreateObject_CMItem.Text = "Create object";
             this.CreateObject_CMItem.Click += new System.EventHandler(this.CreateObject_CMItem_Click);
             // 
@@ -410,7 +455,7 @@ namespace Awose
             this.chargesToolStripMenuItem});
             this.presetsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.presetsToolStripMenuItem.Name = "presetsToolStripMenuItem";
-            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(157, 24);
+            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(197, 24);
             this.presetsToolStripMenuItem.Text = "Presets";
             // 
             // spaceToolStripMenuItem
@@ -479,12 +524,28 @@ namespace Awose
             this.Instrumental_Panel.TabIndex = 3;
             this.Instrumental_Panel.Visible = false;
             // 
+            // MistakeHint_Label
+            // 
+            this.MistakeHint_Label.AutoSize = true;
+            this.MistakeHint_Label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.MistakeHint_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MistakeHint_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.MistakeHint_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.MistakeHint_Label.ForeColor = System.Drawing.Color.White;
+            this.MistakeHint_Label.Location = new System.Drawing.Point(233, 49);
+            this.MistakeHint_Label.Name = "MistakeHint_Label";
+            this.MistakeHint_Label.Size = new System.Drawing.Size(52, 21);
+            this.MistakeHint_Label.TabIndex = 2;
+            this.MistakeHint_Label.Text = "Details";
+            this.MistakeHint_Label.Visible = false;
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.MistakeHint_Label);
             this.Controls.Add(this.Instrumental_Panel);
             this.Controls.Add(this.ModelBoard_PB);
             this.Controls.Add(this.Control_Panel);
@@ -500,6 +561,7 @@ namespace Awose
             this.Main_MStr.PerformLayout();
             this.Control_Panel.ResumeLayout(false);
             this.Control_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).EndInit();
             this.ObjectSettings_Panel.ResumeLayout(false);
             this.ObjectSettings_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();
@@ -553,6 +615,11 @@ namespace Awose
         private System.Windows.Forms.TextBox NewValue_TB;
         private System.Windows.Forms.ToolStripMenuItem displayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem objectColorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.PictureBox MistakeIcon_PB;
+        private System.Windows.Forms.Label MistakeHint_Label;
     }
 }
 

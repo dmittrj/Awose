@@ -99,6 +99,7 @@ namespace Awose
                         agents[i].MDescription = "Multiple object with same name";
                         agents[j].MistakeType = 1;
                         agents[j].MDescription = "Multiple object with same name";
+                        
                     }
             //No name
             foreach (AwoseAgent item in agents)
@@ -129,6 +130,39 @@ namespace Awose
                 ObjectMass_Label.Text = agents[aw_selected].Weight.ToString() + " kg";
                 ObjectCharge_Label.Text = agents[aw_selected].Charge.ToString() + " C";
                 ObjectSettings_Panel.Visible = true;
+                Bitmap btm_icon = new(34, 29);
+                using Graphics grfx = Graphics.FromImage(btm_icon);
+                grfx.Clear(Color.FromArgb(15, 15, 15));
+                if (agents[aw_selected].MistakeType == 1)
+                {
+                    Point[] triangle =
+                    {
+                        new Point(17, 3),
+                        new Point(4, 26),
+                        new Point(30, 26)
+                    };
+                    grfx.FillPolygon(Brushes.Khaki, triangle);
+                    grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), 16, 9, 3, 10);
+                    grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), 16, 21, 3, 3);
+                } else if (agents[aw_selected].MistakeType == 2)
+                {
+                    Point[] hexagon =
+                    {
+                        new Point(10, 3),
+                        new Point(24, 3),
+                        new Point(30, 14),
+                        new Point(24, 25),
+                        new Point(10, 25),
+                        new Point(5, 14)
+                    };
+                    grfx.FillPolygon(Brushes.IndianRed, hexagon);
+                    grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), 10, 13, 15, 3);
+                }
+                if (agents[aw_selected].MistakeType == 0)
+                    MistakeIcon_PB.Visible = false;
+                else MistakeIcon_PB.Visible = true;
+                MistakeIcon_PB.Image = btm_icon;
+                MistakeHint_Label.Text = agents[aw_selected].MDescription;
             }
             else
             {
@@ -189,6 +223,7 @@ namespace Awose
             agents.Add(new AwoseAgent("Object " + (agentsNumeric++).ToString(), aw_cursor.X, aw_cursor.Y, 1, 0, 0, 0, false));
             aw_undo.Push(new AwoseChange(agents[^1], ChangeType.Creating));
             Aw_CheckMistakes();
+            Aw_DrawControl();
         }
 
         private void ModelBoard_PB_Click(object sender, EventArgs e)
@@ -234,8 +269,8 @@ namespace Awose
         {
             aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.Deleting));
             agents.RemoveAt(aw_selected);
-            Aw_DrawControl();
             Aw_CheckMistakes();
+            Aw_DrawControl();
         }
 
         private void Simulation_MSItem_DropDownOpening(object sender, EventArgs e)
@@ -300,8 +335,8 @@ namespace Awose
             }
             aw_redo.Push(ch_undo);
             Simulation_MSItem_DropDownOpening(sender, null);
-            Aw_DrawControl();
             Aw_CheckMistakes();
+            Aw_DrawControl();
         }
 
         private void ObjectMass_Label_Click(object sender, EventArgs e)
@@ -347,8 +382,8 @@ namespace Awose
                         break;
                 }
             }
-            Aw_DrawControl();
             Aw_CheckMistakes();
+            Aw_DrawControl();
         }
 
         private void NewValue_TB_KeyDown(object sender, KeyEventArgs e)
@@ -393,8 +428,8 @@ namespace Awose
             }
             aw_undo.Push(ch_redo);
             Simulation_MSItem_DropDownOpening(sender, null);
-            Aw_DrawControl();
             Aw_CheckMistakes();
+            Aw_DrawControl();
         }
 
         private void CurrentObjectName_Label_Click(object sender, EventArgs e)
@@ -428,6 +463,16 @@ namespace Awose
             if (isBoardMoving)
             lu_corner = new Point(lu_remember.X - (aw_cursor.X - Cursor.Position.X),
                 lu_remember.Y - (aw_cursor.Y - Cursor.Position.Y));
+        }
+
+        private void MistakeIcon_PB_MouseHover(object sender, EventArgs e)
+        {
+            MistakeHint_Label.Visible = true;
+        }
+
+        private void MistakeIcon_PB_MouseLeave(object sender, EventArgs e)
+        {
+            MistakeHint_Label.Visible = false;
         }
     }
 }

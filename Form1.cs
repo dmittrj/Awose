@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Awose
 {
-    enum EditingValue { None, Mass, Charge }
+    enum EditingValue { None, Mass, Charge, Name }
     public partial class Awose : Form
     {
         readonly List<AwoseAgent> agents = new();
@@ -260,6 +260,13 @@ namespace Awose
                             item.Weight = ch_undo.OldValue;
                     }
                     break;
+                case ChangeType.ChangingName:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_undo.NewStringValue)
+                            item.Name = ch_undo.OldStringValue;
+                    }
+                    break;
                 default:
                     break;
             }
@@ -299,16 +306,20 @@ namespace Awose
                         finally
                         {
                             NewValue_TB.Visible = false;
-                            Aw_DrawControl();
                         }
                         break;
                     case EditingValue.Charge:
+                        break;
+                    case EditingValue.Name:
+                        aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingName, agents[aw_selected].Name, NewValue_TB.Text));
+                        agents[aw_selected].Name = NewValue_TB.Text;
+                        NewValue_TB.Visible = false;
                         break;
                     default:
                         break;
                 }
             }
-            //Aw_DrawControl();
+            Aw_DrawControl();
             Aw_CheckMistakes();
         }
 
@@ -342,6 +353,13 @@ namespace Awose
                             item.Weight = ch_redo.NewValue;
                     }
                     break;
+                case ChangeType.ChangingName:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_redo.OldStringValue)
+                            item.Name = ch_redo.NewStringValue;
+                    }
+                    break;
                 default:
                     break;
             }
@@ -349,6 +367,17 @@ namespace Awose
             Simulation_MSItem_DropDownOpening(sender, null);
             Aw_DrawControl();
             Aw_CheckMistakes();
+        }
+
+        private void CurrentObjectName_Label_Click(object sender, EventArgs e)
+        {
+            NewValue_TB.Location = new Point(Control_Panel.Location.X + CurrentObjectName_Label.Location.X + 1,
+                Control_Panel.Location.Y + CurrentObjectName_Label.Location.Y - 26);
+            NewValue_TB.Text = agents[aw_selected].Name;
+            editingValue = EditingValue.Name;
+            NewValue_TB.Visible = true;
+            NewValue_TB.BringToFront();
+            NewValue_TB.Focus();
         }
     }
 }

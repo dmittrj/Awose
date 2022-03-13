@@ -212,10 +212,10 @@ namespace Awose
             this.NewValue_TB.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.NewValue_TB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.NewValue_TB.ForeColor = System.Drawing.Color.White;
-            this.NewValue_TB.Location = new System.Drawing.Point(188, 8);
+            this.NewValue_TB.Location = new System.Drawing.Point(3, 588);
             this.NewValue_TB.Multiline = true;
             this.NewValue_TB.Name = "NewValue_TB";
-            this.NewValue_TB.Size = new System.Drawing.Size(53, 23);
+            this.NewValue_TB.Size = new System.Drawing.Size(232, 23);
             this.NewValue_TB.TabIndex = 3;
             this.NewValue_TB.Visible = false;
             this.NewValue_TB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NewValue_TB_KeyDown);
@@ -307,6 +307,7 @@ namespace Awose
             this.CurrentObjectName_Label.Size = new System.Drawing.Size(121, 19);
             this.CurrentObjectName_Label.TabIndex = 0;
             this.CurrentObjectName_Label.Text = "No object selected";
+            this.CurrentObjectName_Label.Click += new System.EventHandler(this.CurrentObjectName_Label_Click);
             // 
             // SaveModel_SFD
             // 

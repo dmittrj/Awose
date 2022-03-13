@@ -21,9 +21,11 @@ namespace Awose
         int aw_selected = 0;
         Point aw_cursor = new(0, 0);
         Point lu_corner = new(0, 0);
+        Point lu_remember = new(0, 0);
         float aw_scale = 1;
         const int aw_agentsize = 15;
         EditingValue editingValue = EditingValue.None;
+        bool isBoardMoving = false;
 
         private void Aw_Refresh()
         {
@@ -388,6 +390,28 @@ namespace Awose
             NewValue_TB.Visible = true;
             NewValue_TB.BringToFront();
             NewValue_TB.Focus();
+        }
+
+        private void ModelBoard_PB_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Middle)
+            {
+                isBoardMoving = true;
+                aw_cursor = Cursor.Position;
+                lu_remember = lu_corner;
+            }
+        }
+
+        private void ModelBoard_PB_MouseUp(object sender, MouseEventArgs e)
+        {
+            isBoardMoving = false;
+        }
+
+        private void ModelBoard_PB_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isBoardMoving)
+            lu_corner = new Point(lu_remember.X - (aw_cursor.X - Cursor.Position.X),
+                lu_remember.Y - (aw_cursor.Y - Cursor.Position.Y));
         }
     }
 }

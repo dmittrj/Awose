@@ -88,6 +88,16 @@ namespace Awose
                 agents[0].MistakeType = 1;
                 agents[0].MDescription = "Useless object";
             }
+            //Same name
+            for (int i = 0; i < agents.Count; i++)
+                for (int j = i + 1; j < agents.Count; j++)
+                    if (agents[i].Name == agents[j].Name)
+                    {
+                        agents[i].MistakeType = 1;
+                        agents[i].MDescription = "Multiple object with same name";
+                        agents[j].MistakeType = 1;
+                        agents[j].MDescription = "Multiple object with same name";
+                    }
             //Zero mass
             foreach (AwoseAgent item in agents)
             {

@@ -267,6 +267,7 @@ namespace Awose
 
         private void DeleteObject_CMItem_Click(object sender, EventArgs e)
         {
+            NewValue_TB.Visible = false;
             aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.Deleting));
             agents.RemoveAt(aw_selected);
             Aw_CheckMistakes();
@@ -352,7 +353,7 @@ namespace Awose
 
         private void NewValue_TB_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && NewValue_TB.Visible)
             {
                 float newValue;
                 switch (editingValue)
@@ -473,6 +474,11 @@ namespace Awose
         private void MistakeIcon_PB_MouseLeave(object sender, EventArgs e)
         {
             MistakeHint_Label.Visible = false;
+        }
+
+        private void NewValue_TB_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

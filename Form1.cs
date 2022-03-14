@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Awose
 {
     enum EditingValue { None, Mass, Charge, Name }
@@ -28,8 +29,9 @@ namespace Awose
         bool isBoardMoving = false;
         bool isLaunched = false;
         //constants
-        static int timeStep = 10;
-        public static float ConstG = 900000;
+        static int timeStep = 20;
+        public static float ConstG = 100000;
+        public static float ConstE = 100000;
 
         private void Aw_Refresh()
         {
@@ -70,8 +72,8 @@ namespace Awose
             }
             foreach (AwoseAgent item in agents)
             {
-                item.VelocityX += item.ForceGX * timeStep / item.Weight / 1000;
-                item.VelocityY += item.ForceGY * timeStep / item.Weight / 1000;
+                item.VelocityX += (item.ForceGX + item.ForceEX) * timeStep / item.Weight / 1000;
+                item.VelocityY += (item.ForceGY + item.ForceEY) * timeStep / item.Weight / 1000;
                 item.X += item.VelocityX * timeStep / 1000;
                 item.Y += item.VelocityY * timeStep / 1000;
             }
@@ -557,6 +559,16 @@ namespace Awose
             PauseSimulation_MSItem.Enabled = true;
             StopSimulation_MSItem.Enabled = true;
             ResetSimulation_MSItem.Enabled = true;
+            Aw_CheckMistakes();
+        }
+
+        private void StopSimulation_MSItem_Click(object sender, EventArgs e)
+        {
+            isLaunched = false;
+            LaunchSimulation_MSItem.Enabled = true;
+            PauseSimulation_MSItem.Enabled = false;
+            StopSimulation_MSItem.Enabled = false;
+            ResetSimulation_MSItem.Enabled = false;
             Aw_CheckMistakes();
         }
     }

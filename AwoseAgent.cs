@@ -21,6 +21,8 @@ namespace Awose
         public bool IsPinned { get; set; }
         public double ForceGX;
         public double ForceGY;
+        public double ForceEX;
+        public double ForceEY;
 
         public int MistakeType;
         public string MDescription;
@@ -50,9 +52,14 @@ namespace Awose
         {
             //gravity
             double tmpForceGX = 0, tmpForceGY = 0;
-            Calculations.Gravity(this, opposite, ref tmpForceGX, ref tmpForceGY);
+            double tmpForceEX = 0, tmpForceEY = 0;
+            double distance = Math.Pow(X - opposite.X, 2) + Math.Pow(Y - opposite.Y, 2);
+            Calculations.Gravity(this, opposite, ref tmpForceGX, ref tmpForceGY, distance);
             ForceGX += tmpForceGX;
             ForceGY += tmpForceGY;
+            Calculations.Electrical(this, opposite, ref tmpForceEX, ref tmpForceEY, distance);
+            ForceEX += tmpForceEX;
+            ForceEY += tmpForceEY;
         }
 
         public void AgentSprayUpdate()

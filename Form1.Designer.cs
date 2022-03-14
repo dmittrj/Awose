@@ -148,6 +148,7 @@ namespace Awose
             this.StopSimulation_MSItem.Name = "StopSimulation_MSItem";
             this.StopSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
             this.StopSimulation_MSItem.Text = "Stop simulation";
+            this.StopSimulation_MSItem.Click += new System.EventHandler(this.StopSimulation_MSItem_Click);
             // 
             // ResetSimulation_MSItem
             // 

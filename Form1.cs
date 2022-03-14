@@ -258,16 +258,16 @@ namespace Awose
 
         private void ModelBoard_PB_Click(object sender, EventArgs e)
         {
-            aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
-            aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-            aw_selected = 0;
-            foreach (AwoseAgent item in agents)
-            {
-                if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
-                    aw_selected++;
-                else break;
-            }
-            Aw_DrawControl();
+            //aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
+            //aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+            //aw_selected = 0;
+            //foreach (AwoseAgent item in agents)
+            //{
+            //    if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+            //        aw_selected++;
+            //    else break;
+            //}
+            //Aw_DrawControl();
         }
 
         private void ModelBoard_PB_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -507,13 +507,6 @@ namespace Awose
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    //aw_selected = 0;
-                    //foreach (AwoseAgent item in agents)
-                    //{
-                    //    if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
-                    //        aw_selected++;
-                    //    else break;
-                    //}
                     if (aw_selected >= agents.Count) return;
                     isObjectMoving = true;
                     aw_cursor = Cursor.Position;
@@ -531,6 +524,7 @@ namespace Awose
         private void ModelBoard_PB_MouseUp(object sender, MouseEventArgs e)
         {
             isBoardMoving = false;
+            if (isObjectMoving && aw_selected < agents.Count) agents[aw_selected].Spray.Clear();
             isObjectMoving = false;
         }
 
@@ -596,6 +590,21 @@ namespace Awose
             StopSimulation_MSItem.Enabled = false;
             ResetSimulation_MSItem.Enabled = false;
             Aw_CheckMistakes();
+        }
+
+        private void ModelBoard_PB_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Left) return;
+            aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
+            aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+            aw_selected = 0;
+            foreach (AwoseAgent item in agents)
+            {
+                if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                    aw_selected++;
+                else break;
+            }
+            Aw_DrawControl();
         }
     }
 }

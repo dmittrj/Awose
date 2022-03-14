@@ -23,6 +23,7 @@ namespace Awose
         Point aw_cursor = new(0, 0);
         Point lu_corner = new(0, 0);
         Point lu_remember = new(0, 0);
+        Point objBeforeMoving = new(0, 0);
         float aw_scale = 1;
         const int aw_agentsize = 15;
         EditingValue editingValue = EditingValue.None;
@@ -63,10 +64,12 @@ namespace Awose
 
         private void Aw_Step(int time)
         {
+            foreach (AwoseAgent item in agents)
+            {
+                item.ForceGX = item.ForceGY = item.ForceEX = item.ForceEY = 0;
+            }
             for (int i = 0; i < agents.Count; i++)
             {
-                agents[i].ForceGX = 0;
-                agents[i].ForceGY = 0;
                 for (int j = 0; j < agents.Count; j++)
                 {
                     if (i != j) agents[i].ForceCalc(agents[j]);
@@ -390,6 +393,37 @@ namespace Awose
                             item.Name = ch_undo.OldStringValue;
                     }
                     break;
+                case ChangeType.ChangingX:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_undo.Subject.Name)
+                        {
+                            item.X = ch_undo.OldValue;
+                            item.Spray.Clear();
+                        }
+                    }
+                    break;
+                case ChangeType.ChangingY:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_undo.Subject.Name)
+                        {
+                            item.Y = ch_undo.OldValue;
+                            item.Spray.Clear();
+                        }
+                    }
+                    break;
+                case ChangeType.ChangingXY:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_undo.Subject.Name)
+                        {
+                            item.X = ch_undo.OldPointValue.X;
+                            item.Y = ch_undo.OldPointValue.Y;
+                            item.Spray.Clear();
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
@@ -533,6 +567,37 @@ namespace Awose
                             item.Name = ch_redo.NewStringValue;
                     }
                     break;
+                case ChangeType.ChangingX:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_redo.Subject.Name)
+                        {
+                            item.X = ch_redo.NewValue;
+                            item.Spray.Clear();
+                        }
+                    }
+                    break;
+                case ChangeType.ChangingY:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_redo.Subject.Name)
+                        {
+                            item.Y = ch_redo.NewValue;
+                            item.Spray.Clear();
+                        }
+                    }
+                    break;
+                case ChangeType.ChangingXY:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_redo.Subject.Name)
+                        {
+                            item.X = ch_redo.NewPointValue.X;
+                            item.Y = ch_redo.NewPointValue.Y;
+                            item.Spray.Clear();
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
@@ -576,7 +641,10 @@ namespace Awose
         private void ModelBoard_PB_MouseUp(object sender, MouseEventArgs e)
         {
             isBoardMoving = false;
-            if (isObjectMoving && aw_selected < agents.Count) agents[aw_selected].Spray.Clear();
+            if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y)) { 
+                agents[aw_selected].Spray.Clear();
+                aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
+            }
             isObjectMoving = false;
         }
 
@@ -681,6 +749,11 @@ namespace Awose
             NewValue_TB.Visible = true;
             NewValue_TB.BringToFront();
             NewValue_TB.Focus();
+        }
+
+        private void ChangeSign_CMItem_Click(object sender, EventArgs e)
+        {
+            agents[aw_selected].Charge = -agents[aw_selected].Charge;
         }
     }
 }

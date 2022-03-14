@@ -65,7 +65,7 @@ namespace Awose
             this.Mistake_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SepMistake_CMSepar = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChangeSign_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ObjectEditSep_CMSepar = new System.Windows.Forms.ToolStripSeparator();
@@ -440,14 +440,14 @@ namespace Awose
             this.Mistake_CMItem,
             this.SepMistake_CMSepar,
             this.toolStripMenuItem3,
-            this.toolStripMenuItem4,
+            this.ChangeSign_CMItem,
             this.toolStripMenuItem5,
             this.DeleteObject_CMItem,
             this.ObjectEditSep_CMSepar,
             this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(198, 184);
+            this.Space_CMStr.Size = new System.Drawing.Size(198, 206);
             this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
             // 
             // Mistake_CMItem
@@ -473,13 +473,14 @@ namespace Awose
             this.toolStripMenuItem3.Text = "Set velocity";
             this.toolStripMenuItem3.Visible = false;
             // 
-            // toolStripMenuItem4
+            // ChangeSign_CMItem
             // 
-            this.toolStripMenuItem4.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(197, 24);
-            this.toolStripMenuItem4.Text = "Change charge sign";
-            this.toolStripMenuItem4.Visible = false;
+            this.ChangeSign_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ChangeSign_CMItem.Name = "ChangeSign_CMItem";
+            this.ChangeSign_CMItem.Size = new System.Drawing.Size(197, 24);
+            this.ChangeSign_CMItem.Text = "Change charge sign";
+            this.ChangeSign_CMItem.Visible = false;
+            this.ChangeSign_CMItem.Click += new System.EventHandler(this.ChangeSign_CMItem_Click);
             // 
             // toolStripMenuItem5
             // 
@@ -681,7 +682,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem displayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem objectColorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem ChangeSign_CMItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.PictureBox MistakeIcon_PB;
         private System.Windows.Forms.Label MistakeHint_Label;

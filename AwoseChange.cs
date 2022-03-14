@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace Awose
 {
     enum ChangeType { Creating, Deleting, ChangingMass, 
-        ChangingCharge, ChangingName, ChangingX, ChangingY}
+        ChangingCharge, ChangingName, ChangingX, ChangingY, ChangingXY}
     class AwoseChange
     {
         public AwoseAgent Subject { get; set; }
@@ -16,6 +17,8 @@ namespace Awose
         public double NewValue { get; set; }
         public string OldStringValue { get; set; }
         public string NewStringValue { get; set; }
+        public Point OldPointValue { get; set; }
+        public Point NewPointValue { get; set; }
         public AwoseChange(AwoseAgent subject, ChangeType type)
         {
             Subject = subject;
@@ -38,6 +41,14 @@ namespace Awose
             NewStringValue = newValue;
         }
 
+        public AwoseChange(AwoseAgent subject, ChangeType type, Point oldValue, Point newValue)
+        {
+            Subject = subject;
+            Type = type;
+            OldPointValue = oldValue;
+            NewPointValue = newValue;
+        }
+
         public override string ToString()
         {
             switch (Type)
@@ -53,9 +64,11 @@ namespace Awose
                 case ChangeType.ChangingName:
                     return "renaming " + OldStringValue + " to " + NewStringValue;
                 case ChangeType.ChangingX:
-                    return "X-axis movement of " + OldValue.ToString() + " -> " + NewValue.ToString();
+                    return "X-axis movement of " + Subject.Name + ":" + OldValue.ToString() + " -> " + NewValue.ToString();
                 case ChangeType.ChangingY:
-                    return "Y-axis movement of " + OldValue.ToString() + " -> " + NewValue.ToString();
+                    return "Y-axis movement of " + Subject.Name + ":" + OldValue.ToString() + " -> " + NewValue.ToString();
+                case ChangeType.ChangingXY:
+                    return "moving " + Subject.Name + " from (" + OldPointValue.X.ToString() + ", " + OldPointValue.Y.ToString() + ") to (" + NewPointValue.X.ToString() + ", " + NewPointValue.Y.ToString() + ")";
                 default:
                     return "";
             }

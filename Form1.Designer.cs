@@ -33,9 +33,9 @@ namespace Awose
             this.Main_MStr = new System.Windows.Forms.MenuStrip();
             this.Simulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LaunchSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pauseSimulationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopSimulationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PauseSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.StopSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ResetSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.openModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveModel_MSItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,9 +102,9 @@ namespace Awose
             // 
             this.Simulation_MSItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LaunchSimulation_MSItem,
-            this.pauseSimulationToolStripMenuItem,
-            this.stopSimulationToolStripMenuItem,
-            this.resetToolStripMenuItem,
+            this.PauseSimulation_MSItem,
+            this.StopSimulation_MSItem,
+            this.ResetSimulation_MSItem,
             this.toolStripMenuItem1,
             this.openModelToolStripMenuItem,
             this.SaveModel_MSItem,
@@ -129,28 +129,32 @@ namespace Awose
             this.LaunchSimulation_MSItem.Size = new System.Drawing.Size(246, 22);
             this.LaunchSimulation_MSItem.Text = "Launch simulation";
             this.LaunchSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.LaunchSimulation_MSItem.Click += new System.EventHandler(this.LaunchSimulation_MSItem_Click);
             // 
-            // pauseSimulationToolStripMenuItem
+            // PauseSimulation_MSItem
             // 
-            this.pauseSimulationToolStripMenuItem.BackColor = System.Drawing.Color.White;
-            this.pauseSimulationToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.pauseSimulationToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
-            this.pauseSimulationToolStripMenuItem.Name = "pauseSimulationToolStripMenuItem";
-            this.pauseSimulationToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
-            this.pauseSimulationToolStripMenuItem.Text = "Pause simulation";
-            this.pauseSimulationToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.PauseSimulation_MSItem.BackColor = System.Drawing.Color.White;
+            this.PauseSimulation_MSItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.PauseSimulation_MSItem.Enabled = false;
+            this.PauseSimulation_MSItem.ForeColor = System.Drawing.Color.Black;
+            this.PauseSimulation_MSItem.Name = "PauseSimulation_MSItem";
+            this.PauseSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.PauseSimulation_MSItem.Text = "Pause simulation";
+            this.PauseSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             // 
-            // stopSimulationToolStripMenuItem
+            // StopSimulation_MSItem
             // 
-            this.stopSimulationToolStripMenuItem.Name = "stopSimulationToolStripMenuItem";
-            this.stopSimulationToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
-            this.stopSimulationToolStripMenuItem.Text = "Stop simulation";
+            this.StopSimulation_MSItem.Enabled = false;
+            this.StopSimulation_MSItem.Name = "StopSimulation_MSItem";
+            this.StopSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.StopSimulation_MSItem.Text = "Stop simulation";
             // 
-            // resetToolStripMenuItem
+            // ResetSimulation_MSItem
             // 
-            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
-            this.resetToolStripMenuItem.Text = "Reset";
+            this.ResetSimulation_MSItem.Enabled = false;
+            this.ResetSimulation_MSItem.Name = "ResetSimulation_MSItem";
+            this.ResetSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.ResetSimulation_MSItem.Text = "Reset";
             // 
             // toolStripMenuItem1
             // 
@@ -578,9 +582,9 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem Simulation_MSItem;
         private System.Windows.Forms.ToolStripMenuItem hToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem LaunchSimulation_MSItem;
-        private System.Windows.Forms.ToolStripMenuItem pauseSimulationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stopSimulationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem PauseSimulation_MSItem;
+        private System.Windows.Forms.ToolStripMenuItem StopSimulation_MSItem;
+        private System.Windows.Forms.ToolStripMenuItem ResetSimulation_MSItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem openModelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SaveModel_MSItem;

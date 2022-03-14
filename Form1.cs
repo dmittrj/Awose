@@ -26,6 +26,10 @@ namespace Awose
         const int aw_agentsize = 15;
         EditingValue editingValue = EditingValue.None;
         bool isBoardMoving = false;
+        bool isLaunched = false;
+        //constants
+        static int timeStep = 10;
+        static float ConstG = 100;
 
         private void Aw_Refresh()
         {
@@ -52,6 +56,20 @@ namespace Awose
             ModelBoard_PB.BackgroundImage = board;
         }
 
+        private void Aw_Step(int time)
+        {
+            for (int i = 0; i < agents.Count; i++)
+            {
+                agents[i].ForceGX = 0;
+                agents[i].ForceGY = 0;
+                for (int j = 0; j < agents.Count; j++)
+                {
+                    if (i == j) break;
+                    agents[i].ForceCalc(agents[i]);
+                }
+            }
+        }
+
         public Awose()
         {
             InitializeComponent();
@@ -72,18 +90,20 @@ namespace Awose
                 {
                     item.AgentSprayUpdate();
                 }
+                if (isLaunched) Aw_Step(timeStep);
                 Aw_Refresh();
-                await Task.Delay(10);
+                await Task.Delay(timeStep);
             }
         }
 
         private void Aw_CheckMistakes()
         {
-            LaunchSimulation_MSItem.Enabled = true;
             foreach (AwoseAgent item in agents)
             {
                 item.MistakeType = 0;
             }
+            if (isLaunched) return;
+            LaunchSimulation_MSItem.Enabled = true;
             //Useless object
             if (agents.Count == 1)
             {
@@ -521,6 +541,16 @@ namespace Awose
         private void NewValue_TB_TextChanged_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void LaunchSimulation_MSItem_Click(object sender, EventArgs e)
+        {
+            isLaunched = true;
+            LaunchSimulation_MSItem.Enabled = false;
+            PauseSimulation_MSItem.Enabled = true;
+            StopSimulation_MSItem.Enabled = true;
+            ResetSimulation_MSItem.Enabled = true;
+            Aw_CheckMistakes();
         }
     }
 }

@@ -19,6 +19,8 @@ namespace Awose
         public double VelocityX { get; set; }
         public double VelocityY { get; set; }
         public bool IsPinned { get; set; }
+        public double ForceGX;
+        public double ForceGY;
 
         public int MistakeType;
         public string MDescription;
@@ -42,6 +44,13 @@ namespace Awose
             MistakeType = 0;
             MDescription = "";
             Dye = new SolidBrush(Color.White);
+        }
+
+        public void ForceCalc(AwoseAgent opposite)
+        {
+            //gravity
+            double tmpForceGX = 0, tmpForceGY = 0;
+            Calculations.Gravity(this, opposite, ref tmpForceGX, ref tmpForceGY);
         }
 
         public void AgentSprayUpdate()

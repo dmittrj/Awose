@@ -27,6 +27,7 @@ namespace Awose
         const int aw_agentsize = 15;
         EditingValue editingValue = EditingValue.None;
         bool isBoardMoving = false;
+        bool isObjectMoving = false;
         bool isLaunched = false;
         //constants
         static int timeStep = 20;
@@ -382,6 +383,7 @@ namespace Awose
                 Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectMass_Label.Location.Y - 26);
             NewValue_TB.Text = agents[aw_selected].Weight.ToString();
             editingValue = EditingValue.Mass;
+            NewValue_TB.SelectAll();
             NewValue_TB.Visible = true;
             NewValue_TB.BringToFront();
             NewValue_TB.Focus();
@@ -494,6 +496,7 @@ namespace Awose
                 Control_Panel.Location.Y + CurrentObjectName_Label.Location.Y - 26);
             NewValue_TB.Text = agents[aw_selected].Name;
             editingValue = EditingValue.Name;
+            NewValue_TB.SelectAll();
             NewValue_TB.Visible = true;
             NewValue_TB.BringToFront();
             NewValue_TB.Focus();
@@ -501,17 +504,34 @@ namespace Awose
 
         private void ModelBoard_PB_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Middle)
+            switch (e.Button)
             {
-                isBoardMoving = true;
-                aw_cursor = Cursor.Position;
-                lu_remember = lu_corner;
+                case MouseButtons.Left:
+                    //aw_selected = 0;
+                    //foreach (AwoseAgent item in agents)
+                    //{
+                    //    if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                    //        aw_selected++;
+                    //    else break;
+                    //}
+                    if (aw_selected >= agents.Count) return;
+                    isObjectMoving = true;
+                    aw_cursor = Cursor.Position;
+                    lu_remember = new Point((int)agents[aw_selected].X,
+                        (int)agents[aw_selected].Y);
+                    break;
+                case MouseButtons.Middle:
+                    isBoardMoving = true;
+                    aw_cursor = Cursor.Position;
+                    lu_remember = lu_corner;
+                    break;
             }
         }
 
         private void ModelBoard_PB_MouseUp(object sender, MouseEventArgs e)
         {
             isBoardMoving = false;
+            isObjectMoving = false;
         }
 
         private void ModelBoard_PB_MouseMove(object sender, MouseEventArgs e)
@@ -519,6 +539,11 @@ namespace Awose
             if (isBoardMoving)
             lu_corner = new Point(lu_remember.X - (aw_cursor.X - Cursor.Position.X),
                 lu_remember.Y - (aw_cursor.Y - Cursor.Position.Y));
+            if (isObjectMoving)
+            {
+                agents[aw_selected].X = lu_remember.X - (aw_cursor.X - Cursor.Position.X) / aw_scale;
+                agents[aw_selected].Y = lu_remember.Y - (aw_cursor.Y - Cursor.Position.Y) / aw_scale;
+            }
         }
 
         private void MistakeIcon_PB_MouseHover(object sender, EventArgs e)
@@ -542,6 +567,7 @@ namespace Awose
                 Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectCharge_Label.Location.Y - 26);
             NewValue_TB.Text = agents[aw_selected].Charge.ToString();
             editingValue = EditingValue.Charge;
+            NewValue_TB.SelectAll();
             NewValue_TB.Visible = true;
             NewValue_TB.BringToFront();
             NewValue_TB.Focus();

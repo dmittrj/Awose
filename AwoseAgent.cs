@@ -48,6 +48,7 @@ namespace Awose
             Dye = new SolidBrush(Color.White);
         }
 
+
         public void ForceCalc(AwoseAgent opposite)
         {
             //gravity

@@ -79,6 +79,7 @@ namespace Awose
                 item.X += item.VelocityX * timeStep / 1000;
                 item.Y += item.VelocityY * timeStep / 1000;
             }
+            Invoke((Action)Aw_DrawControlLite);
             //Aw_DrawControlLite();
         }
 
@@ -211,15 +212,15 @@ namespace Awose
         {
             if (aw_selected < agents.Count)
             {
-                ObjectPositionX_Label.Text = agents[aw_selected].X.ToString();
-                ObjectPositionY_Label.Text = agents[aw_selected].Y.ToString();
+                ObjectPositionX_Label.Text = ((int)agents[aw_selected].X).ToString();
+                ObjectPositionY_Label.Text = ((int)agents[aw_selected].Y).ToString();
                 ObjectSettings_Panel.Visible = true;
             }
             else
             {
                 CurrentObjectName_Label.Text = "No object selected";
                 CurrentObjectName_Label.ForeColor = Color.DarkGray;
-                CurrentObjectName_Label.Cursor = Cursors.Default;
+                //CurrentObjectName_Label.Cursor = Cursors.Default;
                 ObjectSettings_Panel.Visible = false;
             }
         }

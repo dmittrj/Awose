@@ -79,6 +79,7 @@ namespace Awose
                 item.X += item.VelocityX * timeStep / 1000;
                 item.Y += item.VelocityY * timeStep / 1000;
             }
+            //Aw_DrawControlLite();
         }
 
         public Awose()
@@ -196,6 +197,23 @@ namespace Awose
                 else MistakeIcon_PB.Visible = true;
                 MistakeIcon_PB.Image = btm_icon;
                 MistakeHint_Label.Text = agents[aw_selected].MDescription;
+            }
+            else
+            {
+                CurrentObjectName_Label.Text = "No object selected";
+                CurrentObjectName_Label.ForeColor = Color.DarkGray;
+                CurrentObjectName_Label.Cursor = Cursors.Default;
+                ObjectSettings_Panel.Visible = false;
+            }
+        }
+
+        private void Aw_DrawControlLite()
+        {
+            if (aw_selected < agents.Count)
+            {
+                ObjectPositionX_Label.Text = agents[aw_selected].X.ToString();
+                ObjectPositionY_Label.Text = agents[aw_selected].Y.ToString();
+                ObjectSettings_Panel.Visible = true;
             }
             else
             {

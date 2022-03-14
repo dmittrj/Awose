@@ -324,6 +324,13 @@ namespace Awose
                             item.Weight = ch_undo.OldValue;
                     }
                     break;
+                case ChangeType.ChangingCharge:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_undo.Subject.Name)
+                            item.Charge = ch_undo.OldValue;
+                    }
+                    break;
                 case ChangeType.ChangingName:
                     foreach (AwoseAgent item in agents)
                     {
@@ -427,6 +434,13 @@ namespace Awose
                     {
                         if (item.Name == ch_redo.Subject.Name)
                             item.Weight = ch_redo.NewValue;
+                    }
+                    break;
+                case ChangeType.ChangingCharge:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_redo.Subject.Name)
+                            item.Charge = ch_redo.NewValue;
                     }
                     break;
                 case ChangeType.ChangingName:

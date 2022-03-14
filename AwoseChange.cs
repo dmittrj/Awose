@@ -48,6 +48,8 @@ namespace Awose
                     return Subject.Name + " deletion";
                 case ChangeType.ChangingMass:
                     return Subject.Name + ": mass " + OldValue.ToString() + " -> " + NewValue.ToString();
+                case ChangeType.ChangingCharge:
+                    return Subject.Name + ": charge " + OldValue.ToString() + " -> " + NewValue.ToString();
                 case ChangeType.ChangingName:
                     return "renaming " + OldStringValue + " to " + NewStringValue;
                 default:

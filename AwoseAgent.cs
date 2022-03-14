@@ -69,7 +69,7 @@ namespace Awose
             {
                 if (Spray.Count > 0)
                     for (int i = 0; i < 10; i++)
-                if (Spray.Count > 0) Spray.Dequeue();
+                if (Spray.Count > 0) lock(Spray) Spray.Dequeue();
             }
             if (MistakeType > 0)
             {
@@ -77,8 +77,9 @@ namespace Awose
                 //Point tmp;
                 Random rnd = new();
                 int p = Spray.Count;
-                for (int i = 0; i <= p / 20; i++)
-                    Spray.Enqueue(new Point((int)X + rnd.Next(-Spray.Count / 10, Spray.Count / 8), (int)Y + rnd.Next(-Spray.Count / 10, Spray.Count / 8)));
+                for (int i = 0; i <= p * Awose.timeStep / 160; i++)
+                    lock (Spray) 
+                        Spray.Enqueue(new Point((int)X + rnd.Next(-Spray.Count / 10, Spray.Count / 8), (int)Y + rnd.Next(-Spray.Count / 10, Spray.Count / 8)));
             }
             
         }

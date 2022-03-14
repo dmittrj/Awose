@@ -49,6 +49,10 @@ namespace Awose
             this.MistakeIcon_PB = new System.Windows.Forms.PictureBox();
             this.NewValue_TB = new System.Windows.Forms.TextBox();
             this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
+            this.ObjectPositionY_Label = new System.Windows.Forms.Label();
+            this.ObjectPositionX_Label = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.ObjectCharge_Label = new System.Windows.Forms.Label();
             this.ObjectMass_Label = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -266,6 +270,10 @@ namespace Awose
             // ObjectSettings_Panel
             // 
             this.ObjectSettings_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectSettings_Panel.Controls.Add(this.ObjectPositionY_Label);
+            this.ObjectSettings_Panel.Controls.Add(this.ObjectPositionX_Label);
+            this.ObjectSettings_Panel.Controls.Add(this.label5);
+            this.ObjectSettings_Panel.Controls.Add(this.label4);
             this.ObjectSettings_Panel.Controls.Add(this.ObjectCharge_Label);
             this.ObjectSettings_Panel.Controls.Add(this.ObjectMass_Label);
             this.ObjectSettings_Panel.Controls.Add(this.label3);
@@ -276,6 +284,56 @@ namespace Awose
             this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 167);
             this.ObjectSettings_Panel.TabIndex = 2;
             this.ObjectSettings_Panel.Visible = false;
+            // 
+            // ObjectPositionY_Label
+            // 
+            this.ObjectPositionY_Label.AutoSize = true;
+            this.ObjectPositionY_Label.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ObjectPositionY_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ObjectPositionY_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.ObjectPositionY_Label.Location = new System.Drawing.Point(83, 92);
+            this.ObjectPositionY_Label.Name = "ObjectPositionY_Label";
+            this.ObjectPositionY_Label.Size = new System.Drawing.Size(17, 19);
+            this.ObjectPositionY_Label.TabIndex = 9;
+            this.ObjectPositionY_Label.Text = "0";
+            this.ObjectPositionY_Label.Click += new System.EventHandler(this.ObjectPositionY_Label_Click);
+            // 
+            // ObjectPositionX_Label
+            // 
+            this.ObjectPositionX_Label.AutoSize = true;
+            this.ObjectPositionX_Label.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ObjectPositionX_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ObjectPositionX_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.ObjectPositionX_Label.Location = new System.Drawing.Point(83, 73);
+            this.ObjectPositionX_Label.Name = "ObjectPositionX_Label";
+            this.ObjectPositionX_Label.Size = new System.Drawing.Size(17, 19);
+            this.ObjectPositionX_Label.TabIndex = 8;
+            this.ObjectPositionX_Label.Text = "0";
+            this.ObjectPositionX_Label.Click += new System.EventHandler(this.ObjectPositionX_Label_Click);
+            // 
+            // label5
+            // 
+            this.label5.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.ForeColor = System.Drawing.Color.White;
+            this.label5.Location = new System.Drawing.Point(17, 92);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(67, 19);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Y:";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label4
+            // 
+            this.label4.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(17, 73);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 19);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "X:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ObjectCharge_Label
             // 
@@ -627,6 +685,10 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.PictureBox MistakeIcon_PB;
         private System.Windows.Forms.Label MistakeHint_Label;
+        private System.Windows.Forms.Label ObjectPositionY_Label;
+        private System.Windows.Forms.Label ObjectPositionX_Label;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
     }
 }
 

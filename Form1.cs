@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Awose
 {
-    enum EditingValue { None, Mass, Charge, Name }
+    enum EditingValue { None, Mass, Charge, Name, X, Y }
     public partial class Awose : Form
     {
         readonly List<AwoseAgent> agents = new();
@@ -30,7 +30,7 @@ namespace Awose
         bool isObjectMoving = false;
         bool isLaunched = false;
         //constants
-        static int timeStep = 20;
+        public static int timeStep = 20;
         public static float ConstG = 100000;
         public static float ConstE = 100000;
 
@@ -44,16 +44,17 @@ namespace Awose
             foreach (AwoseAgent item in agents)
             {
                 int dotNumber = 0;
-                foreach (Point dot in item.Spray)
-                {
-                    RectangleF spraydot = new(lu_corner.X + dot.X * aw_scale, lu_corner.Y + dot.Y * aw_scale, aw_scale, aw_scale);
-                    if (item.MistakeType == 0)
-                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
-                    if (item.MistakeType == 1)
-                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
-                    if (item.MistakeType == 2)
-                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
-                }
+                lock (item.Spray)
+                    foreach (Point dot in item.Spray)
+                    {
+                        RectangleF spraydot = new(lu_corner.X + dot.X * aw_scale, lu_corner.Y + dot.Y * aw_scale, aw_scale, aw_scale);
+                        if (item.MistakeType == 0)
+                            grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
+                        if (item.MistakeType == 1)
+                            grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+                        if (item.MistakeType == 2)
+                            grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+                    }
                 RectangleF circle = new((float)(lu_corner.X + item.X * aw_scale - diameter / 2), (float)(lu_corner.Y + item.Y * aw_scale - diameter / 2), diameter, diameter);
                 grfx.FillEllipse(item.Dye, circle);
             }
@@ -159,6 +160,8 @@ namespace Awose
                 CurrentObjectName_Label.Cursor = Cursors.IBeam;
                 ObjectMass_Label.Text = agents[aw_selected].Weight.ToString() + " kg";
                 ObjectCharge_Label.Text = agents[aw_selected].Charge.ToString() + " C";
+                ObjectPositionX_Label.Text = agents[aw_selected].X.ToString();
+                ObjectPositionY_Label.Text = agents[aw_selected].Y.ToString();
                 ObjectSettings_Panel.Visible = true;
                 Bitmap btm_icon = new(34, 29);
                 using Graphics grfx = Graphics.FromImage(btm_icon);
@@ -429,6 +432,36 @@ namespace Awose
                         agents[aw_selected].Name = NewValue_TB.Text;
                         NewValue_TB.Visible = false;
                         break;
+                    case EditingValue.X:
+                        try
+                        {
+                            newValue = float.Parse(NewValue_TB.Text);
+                            aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingX, agents[aw_selected].X, newValue));
+                            agents[aw_selected].X = newValue;
+                        }
+                        catch { }
+                        finally
+                        {
+                            NewValue_TB.Visible = false;
+                            lock (agents[aw_selected].Spray)
+                                agents[aw_selected].Spray.Clear();
+                        }
+                        break;
+                    case EditingValue.Y:
+                        try
+                        {
+                            newValue = float.Parse(NewValue_TB.Text);
+                            aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingY, agents[aw_selected].Y, newValue));
+                            agents[aw_selected].Y = newValue;
+                        }
+                        catch { }
+                        finally
+                        {
+                            NewValue_TB.Visible = false;
+                            lock (agents[aw_selected].Spray)
+                                agents[aw_selected].Spray.Clear();
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -605,6 +638,30 @@ namespace Awose
                 else break;
             }
             Aw_DrawControl();
+        }
+
+        private void ObjectPositionX_Label_Click(object sender, EventArgs e)
+        {
+            NewValue_TB.Location = new Point(Control_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionX_Label.Location.X + 1,
+                Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionX_Label.Location.Y - 26);
+            NewValue_TB.Text = agents[aw_selected].X.ToString();
+            editingValue = EditingValue.X;
+            NewValue_TB.SelectAll();
+            NewValue_TB.Visible = true;
+            NewValue_TB.BringToFront();
+            NewValue_TB.Focus();
+        }
+
+        private void ObjectPositionY_Label_Click(object sender, EventArgs e)
+        {
+            NewValue_TB.Location = new Point(Control_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionY_Label.Location.X + 1,
+                Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionY_Label.Location.Y - 26);
+            NewValue_TB.Text = agents[aw_selected].Y.ToString();
+            editingValue = EditingValue.Y;
+            NewValue_TB.SelectAll();
+            NewValue_TB.Visible = true;
+            NewValue_TB.BringToFront();
+            NewValue_TB.Focus();
         }
     }
 }

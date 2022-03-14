@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Awose
 {
     enum ChangeType { Creating, Deleting, ChangingMass, 
-        ChangingCharge, ChangingName}
+        ChangingCharge, ChangingName, ChangingX, ChangingY}
     class AwoseChange
     {
         public AwoseAgent Subject { get; set; }
@@ -52,6 +52,10 @@ namespace Awose
                     return Subject.Name + ": charge " + OldValue.ToString() + " -> " + NewValue.ToString();
                 case ChangeType.ChangingName:
                     return "renaming " + OldStringValue + " to " + NewStringValue;
+                case ChangeType.ChangingX:
+                    return "X-axis movement of " + OldValue.ToString() + " -> " + NewValue.ToString();
+                case ChangeType.ChangingY:
+                    return "Y-axis movement of " + OldValue.ToString() + " -> " + NewValue.ToString();
                 default:
                     return "";
             }

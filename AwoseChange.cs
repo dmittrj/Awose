@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Awose
 {
-    enum ChangeType { Creating, Deleting, ChangingMass, ChangingName}
+    enum ChangeType { Creating, Deleting, ChangingMass, 
+        ChangingCharge, ChangingName}
     class AwoseChange
     {
         public AwoseAgent Subject { get; set; }

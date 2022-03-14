@@ -374,6 +374,17 @@ namespace Awose
                         }
                         break;
                     case EditingValue.Charge:
+                        try
+                        {
+                            newValue = float.Parse(NewValue_TB.Text);
+                            aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingCharge, agents[aw_selected].Charge, newValue));
+                            agents[aw_selected].Charge = newValue;
+                        }
+                        catch { }
+                        finally
+                        {
+                            NewValue_TB.Visible = false;
+                        }
                         break;
                     case EditingValue.Name:
                         aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingName, agents[aw_selected].Name, NewValue_TB.Text));
@@ -478,6 +489,22 @@ namespace Awose
         }
 
         private void NewValue_TB_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ObjectCharge_Label_Click(object sender, EventArgs e)
+        {
+            NewValue_TB.Location = new Point(Control_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectCharge_Label.Location.X + 1,
+                Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectCharge_Label.Location.Y - 26);
+            NewValue_TB.Text = agents[aw_selected].Charge.ToString();
+            editingValue = EditingValue.Charge;
+            NewValue_TB.Visible = true;
+            NewValue_TB.BringToFront();
+            NewValue_TB.Focus();
+        }
+
+        private void NewValue_TB_TextChanged_1(object sender, EventArgs e)
         {
 
         }

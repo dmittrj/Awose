@@ -283,6 +283,7 @@ namespace Awose
             this.ObjectCharge_Label.Size = new System.Drawing.Size(30, 19);
             this.ObjectCharge_Label.TabIndex = 5;
             this.ObjectCharge_Label.Text = "0 C";
+            this.ObjectCharge_Label.Click += new System.EventHandler(this.ObjectCharge_Label_Click);
             // 
             // ObjectMass_Label
             // 

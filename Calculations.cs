@@ -23,7 +23,9 @@ namespace Awose
         public static void Gravity(AwoseAgent agent1, AwoseAgent agent2, ref double forceX, ref double forceY)
         {
             double distance = Math.Pow(agent1.X - agent2.X, 2) + Math.Pow(agent1.Y - agent2.Y, 2);
-
+            double force = -agent1.Weight * agent2.Weight * Awose.ConstG / distance;
+            forceX = force * (agent1.X - agent2.X) / Math.Sqrt(distance);
+            forceY = force * (agent1.Y - agent2.Y) / Math.Sqrt(distance);
         }
     }
 }

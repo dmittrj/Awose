@@ -51,6 +51,8 @@ namespace Awose
             //gravity
             double tmpForceGX = 0, tmpForceGY = 0;
             Calculations.Gravity(this, opposite, ref tmpForceGX, ref tmpForceGY);
+            ForceGX += tmpForceGX;
+            ForceGY += tmpForceGY;
         }
 
         public void AgentSprayUpdate()

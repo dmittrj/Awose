@@ -29,7 +29,7 @@ namespace Awose
         bool isLaunched = false;
         //constants
         static int timeStep = 10;
-        static float ConstG = 100;
+        public static float ConstG = 900000;
 
         private void Aw_Refresh()
         {
@@ -37,6 +37,7 @@ namespace Awose
             Bitmap board = new(ModelBoard_PB.Width, ModelBoard_PB.Height);
             using Graphics grfx = Graphics.FromImage(board);
             grfx.Clear(Color.FromArgb(35, 35, 35));
+            lock (agents)
             foreach (AwoseAgent item in agents)
             {
                 int dotNumber = 0;
@@ -64,9 +65,15 @@ namespace Awose
                 agents[i].ForceGY = 0;
                 for (int j = 0; j < agents.Count; j++)
                 {
-                    if (i == j) break;
-                    agents[i].ForceCalc(agents[i]);
+                    if (i != j) agents[i].ForceCalc(agents[j]);
                 }
+            }
+            foreach (AwoseAgent item in agents)
+            {
+                item.VelocityX += item.ForceGX * timeStep / item.Weight / 1000;
+                item.VelocityY += item.ForceGY * timeStep / item.Weight / 1000;
+                item.X += item.VelocityX * timeStep / 1000;
+                item.Y += item.VelocityY * timeStep / 1000;
             }
         }
 

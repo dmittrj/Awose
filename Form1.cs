@@ -41,24 +41,90 @@ namespace Awose
             Bitmap board = new(ModelBoard_PB.Width, ModelBoard_PB.Height);
             using Graphics grfx = Graphics.FromImage(board);
             grfx.Clear(Color.FromArgb(35, 35, 35));
-            lock (agents)
-            foreach (AwoseAgent item in agents)
-            {
-                int dotNumber = 0;
-                lock (item.Spray)
-                    foreach (Point dot in item.Spray)
+            lock (agents) {
+                foreach (AwoseAgent item in agents)
+                {
+                    int dotNumber = 0;
+                    lock (item.Spray)
                     {
-                        RectangleF spraydot = new(lu_corner.X + dot.X * aw_scale, lu_corner.Y + dot.Y * aw_scale, aw_scale, aw_scale);
-                        if (item.MistakeType == 0)
-                            grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
-                        if (item.MistakeType == 1)
-                            grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
-                        if (item.MistakeType == 2)
-                            grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+                        foreach (Point dot in item.Spray)
+                        {
+                            RectangleF spraydot = new(lu_corner.X + dot.X * aw_scale, lu_corner.Y + dot.Y * aw_scale, aw_scale, aw_scale);
+                            if (item.MistakeType == 0)
+                                grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
+                            if (item.MistakeType == 1)
+                                grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+                            if (item.MistakeType == 2)
+                                grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+                        }
                     }
-                RectangleF circle = new((float)(lu_corner.X + item.X * aw_scale - diameter / 2), (float)(lu_corner.Y + item.Y * aw_scale - diameter / 2), diameter, diameter);
-                grfx.FillEllipse(item.Dye, circle);
-            }
+
+                    RectangleF circle = new((float)(lu_corner.X + item.X * aw_scale - diameter / 2), (float)(lu_corner.Y + item.Y * aw_scale - diameter / 2), diameter, diameter);
+                    if (circle.X + diameter < 0) {
+                        if (circle.Y + 0.5 * diameter < 15)
+                        {
+                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, 15, item.Name.Length * 7, 20));
+                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, 16));
+                        } 
+                        else if (circle.Y > ModelBoard_PB.Height)
+                        {
+                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
+                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, ModelBoard_PB.Height - 34));
+                        }
+                        else
+                        {
+                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, (int)circle.Y, item.Name.Length * 7, 20));
+                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, (int)circle.Y + 1));
+                        }
+                    } else if (circle.X > ModelBoard_PB.Width)
+                    {
+                        if (circle.Y + 0.5 * diameter < 15)
+                        {
+                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, 15, item.Name.Length * 7, 20));
+                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, 16));
+                        }
+                        else if (circle.Y > ModelBoard_PB.Height)
+                        {
+                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
+                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, ModelBoard_PB.Height - 34));
+                        }
+                        else
+                        {
+                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, (int)circle.Y, item.Name.Length * 7, 20));
+                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, (int)circle.Y + 1));
+                        }
+                    } else
+                    {
+                        if (circle.Y + 0.5 * diameter < 0)
+                        {
+                            Point[] triangle = {
+                                new Point((int)circle.X, 10),
+                                new Point((int)circle.X - 8, 20),
+                                new Point((int)circle.X + 8, 20)
+                            };
+                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, 20, item.Name.Length * 7, 20));
+                            grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
+                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 9, 21));
+                        }
+                        else if (circle.Y > ModelBoard_PB.Height)
+                        {
+                            Point[] triangle = {
+                                new Point((int)circle.X, ModelBoard_PB.Height - 10),
+                                new Point((int)circle.X - 8, ModelBoard_PB.Height - 20),
+                                new Point((int)circle.X + 8, ModelBoard_PB.Height - 20)
+                            };
+                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, ModelBoard_PB.Height - 40, item.Name.Length * 7, 20));
+                            grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
+                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 12, ModelBoard_PB.Height - 39));
+                        }
+                        else
+                        {
+                            grfx.FillEllipse(item.Dye, circle);
+                        }
+                    }
+                    
+                }
+        }
             ModelBoard_PB.BackgroundImage = board;
         }
 
@@ -249,6 +315,9 @@ namespace Awose
             SepMistake_CMSepar.Visible = false;
             DeleteObject_CMItem.Visible = false;
             ObjectEditSep_CMSepar.Visible = false;
+            SetVelocity_CMItem.Visible = false;
+            ChangeSign_CMItem.Visible = false;
+            PinUp_CMItem.Visible = false;
             foreach (AwoseAgent item in agents)
             {
                 if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
@@ -257,6 +326,9 @@ namespace Awose
                 {
                     DeleteObject_CMItem.Visible = true;
                     ObjectEditSep_CMSepar.Visible = true;
+                    SetVelocity_CMItem.Visible = true;
+                    ChangeSign_CMItem.Visible = true;
+                    PinUp_CMItem.Visible = true;
                     if (item.MistakeType > 0)
                     {
                         Mistake_CMItem.Text = item.MDescription;
@@ -758,6 +830,7 @@ namespace Awose
         private void ChangeSign_CMItem_Click(object sender, EventArgs e)
         {
             agents[aw_selected].Charge = -agents[aw_selected].Charge;
+            Aw_DrawControl();
         }
 
         private void Awose_FormClosing(object sender, FormClosingEventArgs e)

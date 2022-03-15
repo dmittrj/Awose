@@ -64,9 +64,9 @@ namespace Awose
             this.Space_CMStr = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Mistake_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SepMistake_CMSepar = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.SetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeSign_CMItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.PinUp_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ObjectEditSep_CMSepar = new System.Windows.Forms.ToolStripSeparator();
             this.CreateObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,6 +81,8 @@ namespace Awose
             this.negativeChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Instrumental_Panel = new System.Windows.Forms.Panel();
             this.MistakeHint_Label = new System.Windows.Forms.Label();
+            this.resetVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inTheOppositeDirectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_MStr.SuspendLayout();
             this.Control_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
@@ -442,9 +444,9 @@ namespace Awose
             this.Space_CMStr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Mistake_CMItem,
             this.SepMistake_CMSepar,
-            this.toolStripMenuItem3,
+            this.SetVelocity_CMItem,
             this.ChangeSign_CMItem,
-            this.toolStripMenuItem5,
+            this.PinUp_CMItem,
             this.DeleteObject_CMItem,
             this.ObjectEditSep_CMSepar,
             this.CreateObject_CMItem,
@@ -468,13 +470,16 @@ namespace Awose
             this.SepMistake_CMSepar.Size = new System.Drawing.Size(194, 6);
             this.SepMistake_CMSepar.Visible = false;
             // 
-            // toolStripMenuItem3
+            // SetVelocity_CMItem
             // 
-            this.toolStripMenuItem3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(197, 24);
-            this.toolStripMenuItem3.Text = "Set velocity";
-            this.toolStripMenuItem3.Visible = false;
+            this.SetVelocity_CMItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resetVelocityToolStripMenuItem,
+            this.inTheOppositeDirectionToolStripMenuItem});
+            this.SetVelocity_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.SetVelocity_CMItem.Name = "SetVelocity_CMItem";
+            this.SetVelocity_CMItem.Size = new System.Drawing.Size(197, 24);
+            this.SetVelocity_CMItem.Text = "Set velocity";
+            this.SetVelocity_CMItem.Visible = false;
             // 
             // ChangeSign_CMItem
             // 
@@ -485,13 +490,13 @@ namespace Awose
             this.ChangeSign_CMItem.Visible = false;
             this.ChangeSign_CMItem.Click += new System.EventHandler(this.ChangeSign_CMItem_Click);
             // 
-            // toolStripMenuItem5
+            // PinUp_CMItem
             // 
-            this.toolStripMenuItem5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(197, 24);
-            this.toolStripMenuItem5.Text = "Pin up";
-            this.toolStripMenuItem5.Visible = false;
+            this.PinUp_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PinUp_CMItem.Name = "PinUp_CMItem";
+            this.PinUp_CMItem.Size = new System.Drawing.Size(197, 24);
+            this.PinUp_CMItem.Text = "Pin up";
+            this.PinUp_CMItem.Visible = false;
             // 
             // DeleteObject_CMItem
             // 
@@ -608,6 +613,18 @@ namespace Awose
             this.MistakeHint_Label.Text = "Details";
             this.MistakeHint_Label.Visible = false;
             // 
+            // resetVelocityToolStripMenuItem
+            // 
+            this.resetVelocityToolStripMenuItem.Name = "resetVelocityToolStripMenuItem";
+            this.resetVelocityToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
+            this.resetVelocityToolStripMenuItem.Text = "Reset velocity";
+            // 
+            // inTheOppositeDirectionToolStripMenuItem
+            // 
+            this.inTheOppositeDirectionToolStripMenuItem.Name = "inTheOppositeDirectionToolStripMenuItem";
+            this.inTheOppositeDirectionToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
+            this.inTheOppositeDirectionToolStripMenuItem.Text = "In the opposite direction";
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -685,15 +702,17 @@ namespace Awose
         private System.Windows.Forms.TextBox NewValue_TB;
         private System.Windows.Forms.ToolStripMenuItem displayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem objectColorsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem SetVelocity_CMItem;
         private System.Windows.Forms.ToolStripMenuItem ChangeSign_CMItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem PinUp_CMItem;
         private System.Windows.Forms.PictureBox MistakeIcon_PB;
         private System.Windows.Forms.Label MistakeHint_Label;
         private System.Windows.Forms.Label ObjectPositionY_Label;
         private System.Windows.Forms.Label ObjectPositionX_Label;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ToolStripMenuItem resetVelocityToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inTheOppositeDirectionToolStripMenuItem;
     }
 }
 

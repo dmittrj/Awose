@@ -82,7 +82,11 @@ namespace Awose
                 item.X += item.VelocityX * timeStep / 1000;
                 item.Y += item.VelocityY * timeStep / 1000;
             }
-            Invoke((Action)Aw_DrawControlLite);
+            try
+            {
+                Invoke((Action)Aw_DrawControlLite);
+            }
+            catch { }
             //Aw_DrawControlLite();
         }
 
@@ -90,10 +94,10 @@ namespace Awose
         {
             InitializeComponent();
         }
-
+        Thread animation;
         private void Awose_Load(object sender, EventArgs e)
         {
-            Thread animation = new(AnimationEditor);
+            animation = new(AnimationEditor);
             animation.Start();
         }
 
@@ -754,6 +758,11 @@ namespace Awose
         private void ChangeSign_CMItem_Click(object sender, EventArgs e)
         {
             agents[aw_selected].Charge = -agents[aw_selected].Charge;
+        }
+
+        private void Awose_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            animation.Interrupt();
         }
     }
 }

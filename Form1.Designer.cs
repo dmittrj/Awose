@@ -142,6 +142,7 @@ namespace Awose
             this.PauseSimulation_MSItem.Enabled = false;
             this.PauseSimulation_MSItem.ForeColor = System.Drawing.Color.Black;
             this.PauseSimulation_MSItem.Name = "PauseSimulation_MSItem";
+            this.PauseSimulation_MSItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
             this.PauseSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
             this.PauseSimulation_MSItem.Text = "Pause simulation";
             this.PauseSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
@@ -150,6 +151,7 @@ namespace Awose
             // 
             this.StopSimulation_MSItem.Enabled = false;
             this.StopSimulation_MSItem.Name = "StopSimulation_MSItem";
+            this.StopSimulation_MSItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
             this.StopSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
             this.StopSimulation_MSItem.Text = "Stop simulation";
             this.StopSimulation_MSItem.Click += new System.EventHandler(this.StopSimulation_MSItem_Click);
@@ -158,6 +160,7 @@ namespace Awose
             // 
             this.ResetSimulation_MSItem.Enabled = false;
             this.ResetSimulation_MSItem.Name = "ResetSimulation_MSItem";
+            this.ResetSimulation_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.ResetSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
             this.ResetSimulation_MSItem.Text = "Reset";
             // 
@@ -447,7 +450,7 @@ namespace Awose
             this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(198, 206);
+            this.Space_CMStr.Size = new System.Drawing.Size(198, 184);
             this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
             // 
             // Mistake_CMItem
@@ -622,6 +625,7 @@ namespace Awose
             this.Name = "Awose";
             this.Text = "Awose";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Awose_FormClosing);
             this.Load += new System.EventHandler(this.Awose_Load);
             this.Main_MStr.ResumeLayout(false);
             this.Main_MStr.PerformLayout();

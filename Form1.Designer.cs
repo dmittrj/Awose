@@ -480,6 +480,7 @@ namespace Awose
             this.SetVelocity_CMItem.Size = new System.Drawing.Size(197, 24);
             this.SetVelocity_CMItem.Text = "Set velocity";
             this.SetVelocity_CMItem.Visible = false;
+            this.SetVelocity_CMItem.Click += new System.EventHandler(this.SetVelocity_CMItem_Click);
             // 
             // resetVelocityToolStripMenuItem
             // 

@@ -30,6 +30,8 @@ namespace Awose
         bool isBoardMoving = false;
         bool isObjectMoving = false;
         bool isLaunched = false;
+        int SettingVelocity = -1;
+        int c = -1;
         //constants
         public static int timeStep = 20;
         public static float ConstG = 100000;
@@ -41,6 +43,29 @@ namespace Awose
             Bitmap board = new(ModelBoard_PB.Width, ModelBoard_PB.Height);
             using Graphics grfx = Graphics.FromImage(board);
             grfx.Clear(Color.FromArgb(35, 35, 35));
+            if (SettingVelocity != -1)
+            {
+                int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+                int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+                float dx = aw_cursor.X - (Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7);
+                float dy = aw_cursor.Y - (Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29);
+                float l = (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
+                float ax = 15 * dx / l;
+                float ay = 15 * dy / l;
+                float bx = 7 * dy / l;
+                float by = 7 * dx / l;
+                Point[] arrow =
+                {
+                    new Point(x, y),
+                    new Point(x + (int)ax - (int)bx, y + (int)ay + (int)by),
+                    new Point(x + (int)ax + (int)bx, y + (int)ay - (int)by)
+                };
+                grfx.DrawLine(new Pen(Brushes.Tomato, 2),
+                    new Point(aw_cursor.X, aw_cursor.Y),
+                    new Point(Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7,
+                    Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29));
+                grfx.FillPolygon(Brushes.Tomato, arrow);
+            }
             lock (agents) {
                 foreach (AwoseAgent item in agents)
                 {
@@ -710,6 +735,7 @@ namespace Awose
 
         private void ModelBoard_PB_MouseDown(object sender, MouseEventArgs e)
         {
+            if (SettingVelocity != -1) return;
             switch (e.Button)
             {
                 case MouseButtons.Left:
@@ -804,6 +830,14 @@ namespace Awose
         private void ModelBoard_PB_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left) return;
+            if (SettingVelocity != -1)
+            {
+                int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+                int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+                SettingVelocity = -1;
+                agents[aw_selected].VelocityX = x - aw_cursor.X;
+                agents[aw_selected].VelocityY = y - aw_cursor.Y;
+            }
             aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
             aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
             aw_selected = 0;
@@ -855,6 +889,12 @@ namespace Awose
         {
             agents[aw_selected].IsPinned = !agents[aw_selected].IsPinned;
             Aw_CheckMistakes();
+        }
+
+        private void SetVelocity_CMItem_Click(object sender, EventArgs e)
+        {
+            Space_CMStr.Close();
+            SettingVelocity = aw_selected;
         }
     }
 }

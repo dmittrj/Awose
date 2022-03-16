@@ -756,6 +756,7 @@ namespace Awose
         private void ModelBoard_PB_MouseUp(object sender, MouseEventArgs e)
         {
             isBoardMoving = false;
+            if (isLaunched) return;
             if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y)) { 
                 agents[aw_selected].Spray.Clear();
                 aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
@@ -768,6 +769,7 @@ namespace Awose
             if (isBoardMoving)
             lu_corner = new Point(lu_remember.X - (aw_cursor.X - Cursor.Position.X),
                 lu_remember.Y - (aw_cursor.Y - Cursor.Position.Y));
+            if (isLaunched) return;
             if (isObjectMoving)
             {
                 agents[aw_selected].X = lu_remember.X - (aw_cursor.X - Cursor.Position.X) / aw_scale;

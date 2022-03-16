@@ -65,6 +65,8 @@ namespace Awose
             this.Mistake_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SepMistake_CMSepar = new System.Windows.Forms.ToolStripSeparator();
             this.SetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inTheOppositeDirectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeSign_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PinUp_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,8 +83,6 @@ namespace Awose
             this.negativeChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Instrumental_Panel = new System.Windows.Forms.Panel();
             this.MistakeHint_Label = new System.Windows.Forms.Label();
-            this.resetVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inTheOppositeDirectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_MStr.SuspendLayout();
             this.Control_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
@@ -452,7 +452,7 @@ namespace Awose
             this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(198, 184);
+            this.Space_CMStr.Size = new System.Drawing.Size(198, 206);
             this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
             // 
             // Mistake_CMItem
@@ -481,6 +481,18 @@ namespace Awose
             this.SetVelocity_CMItem.Text = "Set velocity";
             this.SetVelocity_CMItem.Visible = false;
             // 
+            // resetVelocityToolStripMenuItem
+            // 
+            this.resetVelocityToolStripMenuItem.Name = "resetVelocityToolStripMenuItem";
+            this.resetVelocityToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
+            this.resetVelocityToolStripMenuItem.Text = "Reset velocity";
+            // 
+            // inTheOppositeDirectionToolStripMenuItem
+            // 
+            this.inTheOppositeDirectionToolStripMenuItem.Name = "inTheOppositeDirectionToolStripMenuItem";
+            this.inTheOppositeDirectionToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
+            this.inTheOppositeDirectionToolStripMenuItem.Text = "In the opposite direction";
+            // 
             // ChangeSign_CMItem
             // 
             this.ChangeSign_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -497,6 +509,7 @@ namespace Awose
             this.PinUp_CMItem.Size = new System.Drawing.Size(197, 24);
             this.PinUp_CMItem.Text = "Pin up";
             this.PinUp_CMItem.Visible = false;
+            this.PinUp_CMItem.Click += new System.EventHandler(this.PinUp_CMItem_Click);
             // 
             // DeleteObject_CMItem
             // 
@@ -612,18 +625,6 @@ namespace Awose
             this.MistakeHint_Label.TabIndex = 2;
             this.MistakeHint_Label.Text = "Details";
             this.MistakeHint_Label.Visible = false;
-            // 
-            // resetVelocityToolStripMenuItem
-            // 
-            this.resetVelocityToolStripMenuItem.Name = "resetVelocityToolStripMenuItem";
-            this.resetVelocityToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
-            this.resetVelocityToolStripMenuItem.Text = "Reset velocity";
-            // 
-            // inTheOppositeDirectionToolStripMenuItem
-            // 
-            this.inTheOppositeDirectionToolStripMenuItem.Name = "inTheOppositeDirectionToolStripMenuItem";
-            this.inTheOppositeDirectionToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
-            this.inTheOppositeDirectionToolStripMenuItem.Text = "In the opposite direction";
             // 
             // Awose
             // 

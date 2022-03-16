@@ -143,6 +143,7 @@ namespace Awose
             }
             foreach (AwoseAgent item in agents)
             {
+                if (item.IsPinned) continue;
                 item.VelocityX += (item.ForceGX + item.ForceEX) * timeStep / item.Weight / 1000;
                 item.VelocityY += (item.ForceGY + item.ForceEY) * timeStep / item.Weight / 1000;
                 item.X += item.VelocityX * timeStep / 1000;
@@ -329,6 +330,7 @@ namespace Awose
                     SetVelocity_CMItem.Visible = true;
                     ChangeSign_CMItem.Visible = true;
                     PinUp_CMItem.Visible = true;
+                    PinUp_CMItem.Checked = agents[aw_selected].IsPinned;
                     if (item.MistakeType > 0)
                     {
                         Mistake_CMItem.Text = item.MDescription;
@@ -836,6 +838,11 @@ namespace Awose
         private void Awose_FormClosing(object sender, FormClosingEventArgs e)
         {
             animation.Interrupt();
+        }
+
+        private void PinUp_CMItem_Click(object sender, EventArgs e)
+        {
+            agents[aw_selected].IsPinned = !agents[aw_selected].IsPinned;
         }
     }
 }

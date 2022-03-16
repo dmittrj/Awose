@@ -65,7 +65,7 @@ namespace Awose
             this.Mistake_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SepMistake_CMSepar = new System.Windows.Forms.ToolStripSeparator();
             this.SetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ResetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inTheOppositeDirectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeSign_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PinUp_CMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -473,7 +473,7 @@ namespace Awose
             // SetVelocity_CMItem
             // 
             this.SetVelocity_CMItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.resetVelocityToolStripMenuItem,
+            this.ResetVelocity_CMItem,
             this.inTheOppositeDirectionToolStripMenuItem});
             this.SetVelocity_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SetVelocity_CMItem.Name = "SetVelocity_CMItem";
@@ -482,11 +482,12 @@ namespace Awose
             this.SetVelocity_CMItem.Visible = false;
             this.SetVelocity_CMItem.Click += new System.EventHandler(this.SetVelocity_CMItem_Click);
             // 
-            // resetVelocityToolStripMenuItem
+            // ResetVelocity_CMItem
             // 
-            this.resetVelocityToolStripMenuItem.Name = "resetVelocityToolStripMenuItem";
-            this.resetVelocityToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
-            this.resetVelocityToolStripMenuItem.Text = "Reset velocity";
+            this.ResetVelocity_CMItem.Name = "ResetVelocity_CMItem";
+            this.ResetVelocity_CMItem.Size = new System.Drawing.Size(228, 24);
+            this.ResetVelocity_CMItem.Text = "Reset velocity";
+            this.ResetVelocity_CMItem.Click += new System.EventHandler(this.ResetVelocity_CMItem_Click);
             // 
             // inTheOppositeDirectionToolStripMenuItem
             // 
@@ -713,7 +714,7 @@ namespace Awose
         private System.Windows.Forms.Label ObjectPositionX_Label;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ToolStripMenuItem resetVelocityToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ResetVelocity_CMItem;
         private System.Windows.Forms.ToolStripMenuItem inTheOppositeDirectionToolStripMenuItem;
     }
 }

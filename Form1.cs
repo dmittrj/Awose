@@ -896,5 +896,11 @@ namespace Awose
             Space_CMStr.Close();
             SettingVelocity = aw_selected;
         }
+
+        private void ResetVelocity_CMItem_Click(object sender, EventArgs e)
+        {
+            agents[aw_selected].VelocityX = 0;
+            agents[aw_selected].VelocityY = 0;
+        }
     }
 }

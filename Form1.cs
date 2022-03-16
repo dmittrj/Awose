@@ -197,6 +197,17 @@ namespace Awose
                 agents[0].MistakeType = 1;
                 agents[0].MDescription = "Useless object";
             }
+            int pinned = 0;
+            foreach (AwoseAgent item in agents)
+            {
+                if (item.IsPinned) pinned++;
+            }
+            if (pinned == agents.Count)
+                foreach (AwoseAgent item in agents)
+                {
+                    item.MistakeType = 1;
+                    item.MDescription = "Useless object";
+                }
             //Same name
             for (int i = 0; i < agents.Count; i++)
                 for (int j = i + 1; j < agents.Count; j++)
@@ -843,6 +854,7 @@ namespace Awose
         private void PinUp_CMItem_Click(object sender, EventArgs e)
         {
             agents[aw_selected].IsPinned = !agents[aw_selected].IsPinned;
+            Aw_CheckMistakes();
         }
     }
 }

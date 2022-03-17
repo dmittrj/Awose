@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace Awose
 {
     enum ChangeType { Creating, Deleting, ChangingMass, 
-        ChangingCharge, ChangingName, ChangingX, ChangingY, ChangingXY}
+        ChangingCharge, ChangingName, ChangingX, ChangingY, ChangingXY,
+    SettingVelocity}
     class AwoseChange
     {
         public AwoseAgent Subject { get; set; }
@@ -69,6 +70,8 @@ namespace Awose
                     return "Y-axis movement of " + Subject.Name + ":" + OldValue.ToString() + " -> " + NewValue.ToString();
                 case ChangeType.ChangingXY:
                     return "moving " + Subject.Name + " from (" + OldPointValue.X.ToString() + ", " + OldPointValue.Y.ToString() + ") to (" + NewPointValue.X.ToString() + ", " + NewPointValue.Y.ToString() + ")";
+                case ChangeType.SettingVelocity:
+                    return "setting velocity for " + Subject.Name;
                 default:
                     return "";
             }

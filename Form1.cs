@@ -538,6 +538,17 @@ namespace Awose
                         }
                     }
                     break;
+                case ChangeType.SettingVelocity:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_undo.Subject.Name)
+                        {
+                            item.VelocityX = ch_undo.OldPointValue.X;
+                            item.VelocityY = ch_undo.OldPointValue.Y;
+                            //item.Spray.Clear();
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
@@ -712,6 +723,17 @@ namespace Awose
                         }
                     }
                     break;
+                case ChangeType.SettingVelocity:
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (item.Name == ch_redo.Subject.Name)
+                        {
+                            item.VelocityX = ch_redo.NewPointValue.X;
+                            item.VelocityY = ch_redo.NewPointValue.Y;
+                            //item.Spray.Clear();
+                        }
+                    }
+                    break;
                 default:
                     break;
             }
@@ -837,6 +859,7 @@ namespace Awose
                 int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
                 int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
                 SettingVelocity = -1;
+                aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.SettingVelocity, new Point((int)agents[aw_selected].VelocityX, (int)agents[aw_selected].VelocityY), new Point(x - aw_cursor.X, y - aw_cursor.Y)));
                 agents[aw_selected].VelocityX = x - aw_cursor.X;
                 agents[aw_selected].VelocityY = y - aw_cursor.Y;
             }

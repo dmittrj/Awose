@@ -513,7 +513,7 @@ namespace Awose
                         if (item.Name == ch_undo.Subject.Name)
                         {
                             item.X = ch_undo.OldValue;
-                            item.Spray.Clear();
+                            lock (item.Spray) item.Spray.Clear();
                         }
                     }
                     break;
@@ -523,7 +523,7 @@ namespace Awose
                         if (item.Name == ch_undo.Subject.Name)
                         {
                             item.Y = ch_undo.OldValue;
-                            item.Spray.Clear();
+                            lock (item.Spray) item.Spray.Clear();
                         }
                     }
                     break;
@@ -534,7 +534,7 @@ namespace Awose
                         {
                             item.X = ch_undo.OldPointValue.X;
                             item.Y = ch_undo.OldPointValue.Y;
-                            item.Spray.Clear();
+                            lock (item.Spray) item.Spray.Clear();
                         }
                     }
                     break;

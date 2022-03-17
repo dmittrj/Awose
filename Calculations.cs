@@ -20,6 +20,13 @@ namespace Awose
             return (Math.Sqrt(Math.Pow(CurX - obj.X, 2) + Math.Pow(CurY - obj.Y, 2)) > radius);
         }
 
+        public static float FirstSpace(AwoseAgent planet, AwoseAgent satellite)
+        {
+            double distance = Math.Pow(planet.X - satellite.X, 2) + Math.Pow(planet.Y - satellite.Y, 2);
+            float FSV = (float)Math.Sqrt(Awose.ConstG * planet.Weight / Math.Sqrt(distance));
+            return FSV;
+        }
+
         public static void Gravity(AwoseAgent agent1, AwoseAgent agent2, ref double forceX, ref double forceY, double distance)
         {
             //double distance = Math.Pow(agent1.X - agent2.X, 2) + Math.Pow(agent1.Y - agent2.Y, 2);
@@ -33,5 +40,6 @@ namespace Awose
             forceX = force * (agent1.X - agent2.X) / Math.Sqrt(distance);
             forceY = force * (agent1.Y - agent2.Y) / Math.Sqrt(distance);
         }
+
     }
 }

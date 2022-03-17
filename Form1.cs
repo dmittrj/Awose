@@ -30,6 +30,7 @@ namespace Awose
         bool isBoardMoving = false;
         bool isObjectMoving = false;
         bool isLaunched = false;
+        bool isFirstSpaceSetting = false;
         int SettingVelocity = -1;
         int c = -1;
         //constants
@@ -65,6 +66,17 @@ namespace Awose
                     new Point(Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7,
                     Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29));
                 grfx.FillPolygon(Brushes.Tomato, arrow);
+            }
+            if (isFirstSpaceSetting)
+            {
+                int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+                int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+                grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
+                    new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y),
+                    new Point(x, (int)agents[aw_selected].Y));
+                grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
+                    new Point(x, (int)agents[aw_selected].Y),
+                    new Point(x, y));
             }
             lock (agents) {
                 foreach (AwoseAgent item in agents)
@@ -865,6 +877,23 @@ namespace Awose
             }
             aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
             aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+            if (isFirstSpaceSetting)
+            {
+                int rel = -1;
+                foreach (AwoseAgent item in agents)
+                {
+                    if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                        rel++;
+                    else break;
+                }
+                rel++;
+                if (rel != -1)
+                {
+                    isFirstSpaceSetting = false;
+                    agents[aw_selected].VelocityY = 0;
+                    agents[aw_selected].VelocityX = Calculations.FirstSpace(agents[rel], agents[aw_selected]);
+                }
+            }
             aw_selected = 0;
             foreach (AwoseAgent item in agents)
             {
@@ -926,6 +955,11 @@ namespace Awose
         {
             agents[aw_selected].VelocityX = 0;
             agents[aw_selected].VelocityY = 0;
+        }
+
+        private void SetFirstSpace_CMItem_Click(object sender, EventArgs e)
+        {
+            isFirstSpaceSetting = true;
         }
     }
 }

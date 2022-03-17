@@ -66,7 +66,7 @@ namespace Awose
             this.SepMistake_CMSepar = new System.Windows.Forms.ToolStripSeparator();
             this.SetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inTheOppositeDirectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SetFirstSpace_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeSign_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PinUp_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -474,7 +474,7 @@ namespace Awose
             // 
             this.SetVelocity_CMItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ResetVelocity_CMItem,
-            this.inTheOppositeDirectionToolStripMenuItem});
+            this.SetFirstSpace_CMItem});
             this.SetVelocity_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SetVelocity_CMItem.Name = "SetVelocity_CMItem";
             this.SetVelocity_CMItem.Size = new System.Drawing.Size(197, 24);
@@ -485,15 +485,16 @@ namespace Awose
             // ResetVelocity_CMItem
             // 
             this.ResetVelocity_CMItem.Name = "ResetVelocity_CMItem";
-            this.ResetVelocity_CMItem.Size = new System.Drawing.Size(228, 24);
+            this.ResetVelocity_CMItem.Size = new System.Drawing.Size(212, 24);
             this.ResetVelocity_CMItem.Text = "Reset velocity";
             this.ResetVelocity_CMItem.Click += new System.EventHandler(this.ResetVelocity_CMItem_Click);
             // 
-            // inTheOppositeDirectionToolStripMenuItem
+            // SetFirstSpace_CMItem
             // 
-            this.inTheOppositeDirectionToolStripMenuItem.Name = "inTheOppositeDirectionToolStripMenuItem";
-            this.inTheOppositeDirectionToolStripMenuItem.Size = new System.Drawing.Size(228, 24);
-            this.inTheOppositeDirectionToolStripMenuItem.Text = "In the opposite direction";
+            this.SetFirstSpace_CMItem.Name = "SetFirstSpace_CMItem";
+            this.SetFirstSpace_CMItem.Size = new System.Drawing.Size(212, 24);
+            this.SetFirstSpace_CMItem.Text = "Set first space velocity";
+            this.SetFirstSpace_CMItem.Click += new System.EventHandler(this.SetFirstSpace_CMItem_Click);
             // 
             // ChangeSign_CMItem
             // 
@@ -715,7 +716,7 @@ namespace Awose
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripMenuItem ResetVelocity_CMItem;
-        private System.Windows.Forms.ToolStripMenuItem inTheOppositeDirectionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem SetFirstSpace_CMItem;
     }
 }
 

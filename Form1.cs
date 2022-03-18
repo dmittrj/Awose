@@ -890,8 +890,10 @@ namespace Awose
                 if (rel != -1)
                 {
                     isFirstSpaceSetting = false;
-                    agents[aw_selected].VelocityY = 0;
-                    agents[aw_selected].VelocityX = Calculations.FirstSpace(agents[rel], agents[aw_selected]);
+                    double distance = Math.Sqrt(Math.Pow(agents[rel].X - agents[aw_selected].X, 2) + Math.Pow(agents[rel].Y - agents[aw_selected].Y, 2));
+                    float tempFV = Calculations.FirstSpace(agents[rel], agents[aw_selected]);
+                    agents[aw_selected].VelocityY = (agents[rel].X - agents[aw_selected].X) * tempFV / distance;
+                    agents[aw_selected].VelocityX = (agents[aw_selected].Y - agents[rel].Y) * tempFV / distance;
                 }
             }
             aw_selected = 0;

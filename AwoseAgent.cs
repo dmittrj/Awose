@@ -19,6 +19,8 @@ namespace Awose
         public double VelocityX { get; set; }
         public double VelocityY { get; set; }
         public bool IsPinned { get; set; }
+        public bool IsFirstSpace { get; set; }
+        public bool MovedAfterSetting = false;
         public double ForceGX;
         public double ForceGY;
         public double ForceEX;
@@ -45,6 +47,7 @@ namespace Awose
             IsPinned = isPinned;
             MistakeType = 0;
             MDescription = "";
+            IsFirstSpace = false;
             Dye = new SolidBrush(Color.White);
         }
 

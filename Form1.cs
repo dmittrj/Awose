@@ -273,6 +273,13 @@ namespace Awose
                     LaunchSimulation_MSItem.Enabled = false;
                 }
             }
+            //Moved after setting first space velocity
+            foreach (AwoseAgent item in agents)
+                if (item.IsFirstSpace && item.MovedAfterSetting)
+                {
+                    item.MistakeType = 1;
+                    item.MDescription = "The 1st space velocity should be set again";
+                }
         }
 
         private void Aw_DrawControl()
@@ -769,7 +776,11 @@ namespace Awose
 
         private void ModelBoard_PB_MouseDown(object sender, MouseEventArgs e)
         {
-            if (SettingVelocity != -1) return;
+            if (SettingVelocity != -1) {
+                lu_remember = new Point((int)agents[aw_selected].X,
+                        (int)agents[aw_selected].Y);
+                return; 
+            }
             switch (e.Button)
             {
                 case MouseButtons.Left:
@@ -794,8 +805,13 @@ namespace Awose
             if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y)) { 
                 agents[aw_selected].Spray.Clear();
                 aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
+                if (agents[aw_selected].IsFirstSpace)
+                {
+                    agents[aw_selected].MovedAfterSetting = true;
+                }
             }
             isObjectMoving = false;
+            Aw_CheckMistakes();
         }
 
         private void ModelBoard_PB_MouseMove(object sender, MouseEventArgs e)
@@ -894,6 +910,10 @@ namespace Awose
                     float tempFV = Calculations.FirstSpace(agents[rel], agents[aw_selected]);
                     agents[aw_selected].VelocityY = (agents[rel].X - agents[aw_selected].X) * tempFV / distance;
                     agents[aw_selected].VelocityX = (agents[aw_selected].Y - agents[rel].Y) * tempFV / distance;
+                    agents[aw_selected].IsFirstSpace = true;
+                    agents[aw_selected].MovedAfterSetting = false;
+                    agents[rel].IsFirstSpace = true;
+                    agents[rel].MovedAfterSetting = false;
                 }
             }
             aw_selected = 0;

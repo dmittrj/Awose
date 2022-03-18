@@ -83,6 +83,12 @@ namespace Awose
             this.negativeChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Instrumental_Panel = new System.Windows.Forms.Panel();
             this.MistakeHint_Label = new System.Windows.Forms.Label();
+            this.displayForcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayVelocitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayTrajectoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.doNotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nonfadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_MStr.SuspendLayout();
             this.Control_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
@@ -218,7 +224,10 @@ namespace Awose
             // displayToolStripMenuItem
             // 
             this.displayToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.objectColorsToolStripMenuItem});
+            this.objectColorsToolStripMenuItem,
+            this.displayForcesToolStripMenuItem,
+            this.displayVelocitiesToolStripMenuItem,
+            this.displayTrajectoriesToolStripMenuItem});
             this.displayToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.displayToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
@@ -228,7 +237,7 @@ namespace Awose
             // objectColorsToolStripMenuItem
             // 
             this.objectColorsToolStripMenuItem.Name = "objectColorsToolStripMenuItem";
-            this.objectColorsToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.objectColorsToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
             this.objectColorsToolStripMenuItem.Text = "Object colors";
             // 
             // Control_Panel
@@ -452,7 +461,7 @@ namespace Awose
             this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(198, 206);
+            this.Space_CMStr.Size = new System.Drawing.Size(198, 184);
             this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
             // 
             // Mistake_CMItem
@@ -629,6 +638,46 @@ namespace Awose
             this.MistakeHint_Label.Text = "Details";
             this.MistakeHint_Label.Visible = false;
             // 
+            // displayForcesToolStripMenuItem
+            // 
+            this.displayForcesToolStripMenuItem.Name = "displayForcesToolStripMenuItem";
+            this.displayForcesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.displayForcesToolStripMenuItem.Text = "Display forces";
+            // 
+            // displayVelocitiesToolStripMenuItem
+            // 
+            this.displayVelocitiesToolStripMenuItem.Name = "displayVelocitiesToolStripMenuItem";
+            this.displayVelocitiesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.displayVelocitiesToolStripMenuItem.Text = "Display velocities";
+            // 
+            // displayTrajectoriesToolStripMenuItem
+            // 
+            this.displayTrajectoriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.doNotToolStripMenuItem,
+            this.nonfadingLineToolStripMenuItem,
+            this.fadingLineToolStripMenuItem});
+            this.displayTrajectoriesToolStripMenuItem.Name = "displayTrajectoriesToolStripMenuItem";
+            this.displayTrajectoriesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.displayTrajectoriesToolStripMenuItem.Text = "Display trajectories";
+            // 
+            // doNotToolStripMenuItem
+            // 
+            this.doNotToolStripMenuItem.Name = "doNotToolStripMenuItem";
+            this.doNotToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.doNotToolStripMenuItem.Text = "Do not";
+            // 
+            // nonfadingLineToolStripMenuItem
+            // 
+            this.nonfadingLineToolStripMenuItem.Name = "nonfadingLineToolStripMenuItem";
+            this.nonfadingLineToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.nonfadingLineToolStripMenuItem.Text = "Non-fading line";
+            // 
+            // fadingLineToolStripMenuItem
+            // 
+            this.fadingLineToolStripMenuItem.Name = "fadingLineToolStripMenuItem";
+            this.fadingLineToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.fadingLineToolStripMenuItem.Text = "Fading line";
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -717,6 +766,12 @@ namespace Awose
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripMenuItem ResetVelocity_CMItem;
         private System.Windows.Forms.ToolStripMenuItem SetFirstSpace_CMItem;
+        private System.Windows.Forms.ToolStripMenuItem displayForcesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem displayVelocitiesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem displayTrajectoriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem doNotToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nonfadingLineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fadingLineToolStripMenuItem;
     }
 }
 

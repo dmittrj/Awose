@@ -912,6 +912,9 @@ namespace Awose
                             agents[rel].ChangeAfterFSV = false;
                             agents[aw_selected].Star = agents[rel].Name;
                             agents[rel].Satellites.Add(agents[aw_selected].Name);
+                        } else
+                        {
+                            isFirstSpaceSetting = false;
                         }
                     }
                     int possibleSelection = 0;

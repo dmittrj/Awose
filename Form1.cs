@@ -418,6 +418,7 @@ namespace Awose
                     agents[aw_selected].IsSelected = true;
                     break;
                 default:
+                    aw_selected = -1;
                     break;
             }
             Aw_DrawControl();
@@ -862,6 +863,7 @@ namespace Awose
                             break;
                         default:
                             //Text = selects.Count.ToString();
+                            aw_selected = -1;
                             PossibleSelections_LB.Items.Clear();
                             foreach (AwoseAgent item in selects)
                             {
@@ -1081,6 +1083,20 @@ namespace Awose
         private void SetFirstSpace_CMItem_Click(object sender, EventArgs e)
         {
             isFirstSpaceSetting = true;
+        }
+
+        private void PossibleSelections_LB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int possibleSelect = 0;
+            foreach (AwoseAgent item in agents)
+            {
+                if (item.Name == PossibleSelections_LB.SelectedItem.ToString())
+                    break;
+                else possibleSelect++;
+            }
+            aw_selected = possibleSelect;
+            PossibleSelections_LB.Visible = false;
+            Aw_DrawControl();
         }
     }
 }

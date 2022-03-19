@@ -90,12 +90,18 @@ namespace Awose
             this.Instrumental_Panel = new System.Windows.Forms.Panel();
             this.MistakeHint_Label = new System.Windows.Forms.Label();
             this.PossibleSelections_LB = new System.Windows.Forms.ListBox();
+            this.ObjectSpace_Panel = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.Main_MStr.SuspendLayout();
             this.Control_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
             this.ObjectSettings_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.Space_CMStr.SuspendLayout();
+            this.ObjectSpace_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // Main_MStr
@@ -287,6 +293,7 @@ namespace Awose
             | System.Windows.Forms.AnchorStyles.Left)));
             this.Control_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.Control_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Control_Panel.Controls.Add(this.ObjectSpace_Panel);
             this.Control_Panel.Controls.Add(this.MistakeIcon_PB);
             this.Control_Panel.Controls.Add(this.NewValue_TB);
             this.Control_Panel.Controls.Add(this.ObjectSettings_Panel);
@@ -336,7 +343,7 @@ namespace Awose
             this.ObjectSettings_Panel.Controls.Add(this.label1);
             this.ObjectSettings_Panel.Location = new System.Drawing.Point(-1, 35);
             this.ObjectSettings_Panel.Name = "ObjectSettings_Panel";
-            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 167);
+            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 129);
             this.ObjectSettings_Panel.TabIndex = 2;
             this.ObjectSettings_Panel.Visible = false;
             // 
@@ -690,6 +697,66 @@ namespace Awose
             this.PossibleSelections_LB.Size = new System.Drawing.Size(148, 142);
             this.PossibleSelections_LB.TabIndex = 4;
             this.PossibleSelections_LB.Visible = false;
+            this.PossibleSelections_LB.SelectedIndexChanged += new System.EventHandler(this.PossibleSelections_LB_SelectedIndexChanged);
+            // 
+            // ObjectSpace_Panel
+            // 
+            this.ObjectSpace_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectSpace_Panel.Controls.Add(this.label10);
+            this.ObjectSpace_Panel.Controls.Add(this.label12);
+            this.ObjectSpace_Panel.Controls.Add(this.label13);
+            this.ObjectSpace_Panel.Controls.Add(this.label14);
+            this.ObjectSpace_Panel.Location = new System.Drawing.Point(-1, 164);
+            this.ObjectSpace_Panel.Name = "ObjectSpace_Panel";
+            this.ObjectSpace_Panel.Size = new System.Drawing.Size(248, 129);
+            this.ObjectSpace_Panel.TabIndex = 5;
+            this.ObjectSpace_Panel.Visible = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label10.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.label10.Location = new System.Drawing.Point(127, 54);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(45, 19);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "None";
+            // 
+            // label12
+            // 
+            this.label12.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label12.ForeColor = System.Drawing.Color.White;
+            this.label12.Location = new System.Drawing.Point(119, 35);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(67, 19);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "Star:";
+            // 
+            // label13
+            // 
+            this.label13.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label13.ForeColor = System.Drawing.Color.White;
+            this.label13.Location = new System.Drawing.Point(17, 35);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(67, 19);
+            this.label13.TabIndex = 2;
+            this.label13.Text = "Satellites:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label14.ForeColor = System.Drawing.Color.White;
+            this.label14.Location = new System.Drawing.Point(9, 7);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(49, 19);
+            this.label14.TabIndex = 1;
+            this.label14.Text = "Space";
             // 
             // Awose
             // 
@@ -720,6 +787,8 @@ namespace Awose
             this.ObjectSettings_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();
             this.Space_CMStr.ResumeLayout(false);
+            this.ObjectSpace_Panel.ResumeLayout(false);
+            this.ObjectSpace_Panel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -787,6 +856,11 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem nonfadingLineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fadingLineToolStripMenuItem;
         private System.Windows.Forms.ListBox PossibleSelections_LB;
+        private System.Windows.Forms.Panel ObjectSpace_Panel;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
     }
 }
 

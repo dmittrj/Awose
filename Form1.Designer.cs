@@ -689,6 +689,7 @@ namespace Awose
             this.PossibleSelections_LB.Name = "PossibleSelections_LB";
             this.PossibleSelections_LB.Size = new System.Drawing.Size(148, 142);
             this.PossibleSelections_LB.TabIndex = 4;
+            this.PossibleSelections_LB.Visible = false;
             // 
             // Awose
             // 

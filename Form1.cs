@@ -25,6 +25,7 @@ namespace Awose
         //represents coordinate of up-left corner in in-simulation coordinates
         Point lu_corner = new(0, 0);
         //represents remembered point in screen coordinates
+        Point aw_remember = new(0, 0);
         Point lu_remember = new(0, 0);
         Point objBeforeMoving = new(0, 0);
         float aw_scale = 1;
@@ -292,7 +293,7 @@ namespace Awose
 
         private void Aw_DrawControl()
         {
-            if (aw_selected < agents.Count)
+            if (aw_selected != - 1)
             {
                 CurrentObjectName_Label.Text = agents[aw_selected].Name;
                 CurrentObjectName_Label.ForeColor = Color.LightSkyBlue;
@@ -347,7 +348,7 @@ namespace Awose
 
         private void Aw_DrawControlLite()
         {
-            if (aw_selected < agents.Count)
+            if (aw_selected != -1)
             {
                 ObjectPositionX_Label.Text = ((int)agents[aw_selected].X).ToString();
                 ObjectPositionY_Label.Text = ((int)agents[aw_selected].Y).ToString();
@@ -372,9 +373,6 @@ namespace Awose
 
         private void Space_CMStr_Opening(object sender, CancelEventArgs e)
         {
-            aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
-            aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-            aw_selected = 0;
             Mistake_CMItem.Visible = false;
             SepMistake_CMSepar.Visible = false;
             DeleteObject_CMItem.Visible = false;
@@ -382,27 +380,49 @@ namespace Awose
             SetVelocity_CMItem.Visible = false;
             ChangeSign_CMItem.Visible = false;
             PinUp_CMItem.Visible = false;
+            List<AwoseAgent> selects = new();
+            int possibleSelection = 0;
+            aw_selected = 0;
             foreach (AwoseAgent item in agents)
             {
+                item.IsSelected = false;
                 if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
-                    aw_selected++;
+                {
+                    selects.Add(item);
+                    possibleSelection = aw_selected++;
+                }
                 else
                 {
+                    aw_selected++;
+                }
+            }
+            switch (selects.Count)
+            {
+                case 0:
+                    aw_selected = -1;
+                    break;
+                case 1:
+                    aw_selected = possibleSelection;
                     DeleteObject_CMItem.Visible = true;
                     ObjectEditSep_CMSepar.Visible = true;
                     SetVelocity_CMItem.Visible = true;
                     ChangeSign_CMItem.Visible = true;
                     PinUp_CMItem.Visible = true;
                     PinUp_CMItem.Checked = agents[aw_selected].IsPinned;
-                    if (item.MistakeType > 0)
+                    if (agents[aw_selected].MistakeType > 0)
                     {
-                        Mistake_CMItem.Text = item.MDescription;
+                        Mistake_CMItem.Text = agents[aw_selected].MDescription;
                         Mistake_CMItem.Visible = true;
                         SepMistake_CMSepar.Visible = true;
                     }
+                    agents[aw_selected].IsSelected = true;
                     break;
-                }
+                default:
+                    break;
             }
+            Aw_DrawControl();
+            //aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
+            //aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
         }
 
         private void CreateObject_CMItem_Click(object sender, EventArgs e)
@@ -776,9 +796,26 @@ namespace Awose
             List<AwoseAgent> selects = new();
             PossibleSelections_LB.Visible = false;
             isObjectMoving = false;
+            isBoardMoving = false;
             switch (e.Button)
             {
                 case MouseButtons.Left:
+                    if (SettingVelocity != -1)
+                    {
+                        int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+                        int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+                        SettingVelocity = -1;
+                        aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.SettingVelocity, new Point((int)agents[aw_selected].VelocityX, (int)agents[aw_selected].VelocityY), new Point(x - aw_cursor.X, y - aw_cursor.Y)));
+                        agents[aw_selected].VelocityX = aw_cursor.X - aw_remember.X;
+                        agents[aw_selected].VelocityY = aw_cursor.Y - aw_remember.Y;
+                        return;
+                    }
+                    //if (SettingVelocity != -1)
+                    //{
+                    //    lu_remember = new Point((int)agents[aw_selected].X,
+                    //            (int)agents[aw_selected].Y);
+                    //    return;
+                    //}
                     int possibleSelection = 0;
                     aw_selected = 0;
                     foreach (AwoseAgent item in agents)
@@ -820,107 +857,88 @@ namespace Awose
                             PossibleSelections_LB.Visible = true;
                             break;
                     }
+                    Aw_DrawControl();
+                    break;
+                case MouseButtons.Middle:
+                    isBoardMoving = true;
+                    aw_cursor = Cursor.Position;
+                    lu_remember = lu_corner;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void ModelBoard_PB_MouseUp(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y))
+                    {
+                        agents[aw_selected].Spray.Clear();
+                        aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
+                    }
+                    isObjectMoving = false;
                     break;
                 case MouseButtons.Right:
                     break;
                 case MouseButtons.Middle:
+                    isBoardMoving = false;
                     break;
                 default:
                     break;
             }
 
-
-
-            //if (SettingVelocity != -1) {
-            //    lu_remember = new Point((int)agents[aw_selected].X,
-            //            (int)agents[aw_selected].Y);
-            //    return; 
-            //}
-            //switch (e.Button)
+            //if (e.Button == MouseButtons.Left)
             //{
-            //    case MouseButtons.Left:
-            //        if (aw_selected >= agents.Count) return;
-            //        isObjectMoving = true;
-            //        aw_cursor = Cursor.Position;
-            //        lu_remember = new Point((int)agents[aw_selected].X,
-            //            (int)agents[aw_selected].Y);
-            //        break;
-            //    case MouseButtons.Middle:
-            //        isBoardMoving = true;
-            //        aw_cursor = Cursor.Position;
-            //        lu_remember = lu_corner;
-            //        break;
-            //}
-        }
 
-        private void ModelBoard_PB_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                if (SettingVelocity != -1)
-                {
-                    int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
-                    int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-                    SettingVelocity = -1;
-                    aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.SettingVelocity, new Point((int)agents[aw_selected].VelocityX, (int)agents[aw_selected].VelocityY), new Point(x - aw_cursor.X, y - aw_cursor.Y)));
-                    agents[aw_selected].VelocityX = x - aw_cursor.X;
-                    agents[aw_selected].VelocityY = y - aw_cursor.Y;
-                }
-                aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
-                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-                if (isFirstSpaceSetting)
-                {
-                    int rel = -1;
-                    foreach (AwoseAgent item in agents)
-                    {
-                        if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
-                            rel++;
-                        else break;
-                    }
-                    rel++;
-                    if (rel != -1)
-                    {
-                        isFirstSpaceSetting = false;
-                        double distance = Math.Sqrt(Math.Pow(agents[rel].X - agents[aw_selected].X, 2) + Math.Pow(agents[rel].Y - agents[aw_selected].Y, 2));
-                        float tempFV = Calculations.FirstSpace(agents[rel], agents[aw_selected]);
-                        agents[aw_selected].VelocityY = (agents[rel].X - agents[aw_selected].X) * tempFV / distance;
-                        agents[aw_selected].VelocityX = (agents[aw_selected].Y - agents[rel].Y) * tempFV / distance;
-                        agents[aw_selected].IsFirstSpace = true;
-                        agents[aw_selected].MovedAfterSetting = false;
-                        agents[rel].IsFirstSpace = true;
-                        agents[rel].MovedAfterSetting = false;
-                    }
-                }
-                aw_selected = 0;
-                foreach (AwoseAgent item in agents)
-                {
-                    if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
-                        aw_selected++;
-                    else break;
-                }
-                Aw_DrawControl();
-            }
-            isBoardMoving = false;
-            if (isLaunched) return;
-            if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y)) { 
-                agents[aw_selected].Spray.Clear();
-                aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
-                if (agents[aw_selected].IsFirstSpace)
-                {
-                    agents[aw_selected].MovedAfterSetting = true;
-                }
-            }
-            isObjectMoving = false;
+            //    aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
+            //    aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+            //    if (isFirstSpaceSetting)
+            //    {
+            //        int rel = -1;
+            //        foreach (AwoseAgent item in agents)
+            //        {
+            //            if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+            //                rel++;
+            //            else break;
+            //        }
+            //        rel++;
+            //        if (rel != -1)
+            //        {
+            //            isFirstSpaceSetting = false;
+            //            double distance = Math.Sqrt(Math.Pow(agents[rel].X - agents[aw_selected].X, 2) + Math.Pow(agents[rel].Y - agents[aw_selected].Y, 2));
+            //            float tempFV = Calculations.FirstSpace(agents[rel], agents[aw_selected]);
+            //            agents[aw_selected].VelocityY = (agents[rel].X - agents[aw_selected].X) * tempFV / distance;
+            //            agents[aw_selected].VelocityX = (agents[aw_selected].Y - agents[rel].Y) * tempFV / distance;
+            //            agents[aw_selected].IsFirstSpace = true;
+            //            agents[aw_selected].MovedAfterSetting = false;
+            //            agents[rel].IsFirstSpace = true;
+            //            agents[rel].MovedAfterSetting = false;
+            //        }
+            //    }
+            //    aw_selected = 0;
+            //    foreach (AwoseAgent item in agents)
+            //    {
+            //        if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+            //            aw_selected++;
+            //        else break;
+            //    }
+            //    Aw_DrawControl();
+            //}
+            //if (isLaunched) return;
             Aw_CheckMistakes();
         }
 
         private void ModelBoard_PB_MouseMove(object sender, MouseEventArgs e)
         {
             if (isBoardMoving)
-            lu_corner = new Point(lu_remember.X - (aw_cursor.X - Cursor.Position.X),
+            {
+                lu_corner = new Point(lu_remember.X - (aw_cursor.X - Cursor.Position.X),
                 lu_remember.Y - (aw_cursor.Y - Cursor.Position.Y));
-            if (isLaunched) return;
-            if (isObjectMoving)
+            }
+            if (isObjectMoving && !isLaunched)
             {
                 agents[aw_selected].X = lu_remember.X - (aw_cursor.X - Cursor.Position.X) / aw_scale;
                 agents[aw_selected].Y = lu_remember.Y - (aw_cursor.Y - Cursor.Position.Y) / aw_scale;
@@ -1023,6 +1041,7 @@ namespace Awose
         {
             Space_CMStr.Close();
             SettingVelocity = aw_selected;
+            aw_remember = new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y);
         }
 
         private void ResetVelocity_CMItem_Click(object sender, EventArgs e)

@@ -20,8 +20,11 @@ namespace Awose
         readonly Stack<AwoseChange> aw_undo = new();
         readonly Stack<AwoseChange> aw_redo = new();
         int aw_selected = 0;
+        //represents click-point in in-simulation coordinates
         Point aw_cursor = new(0, 0);
+        //represents coordinate of up-left corner in in-simulation coordinates
         Point lu_corner = new(0, 0);
+        //represents remembered point in screen coordinates
         Point lu_remember = new(0, 0);
         Point objBeforeMoving = new(0, 0);
         float aw_scale = 1;
@@ -32,7 +35,7 @@ namespace Awose
         bool isLaunched = false;
         bool isFirstSpaceSetting = false;
         int SettingVelocity = -1;
-        int c = -1;
+        //int c = -1;
         //constants
         public static int timeStep = 20;
         public static float ConstG = 100000;
@@ -762,26 +765,84 @@ namespace Awose
 
         private void ModelBoard_PB_MouseDown(object sender, MouseEventArgs e)
         {
-            if (SettingVelocity != -1) {
-                lu_remember = new Point((int)agents[aw_selected].X,
-                        (int)agents[aw_selected].Y);
-                return; 
-            }
+            aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
+            aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+            Text = aw_cursor.X.ToString() + " " + aw_cursor.Y.ToString();
+            List<AwoseAgent> selects = new();
+            PossibleSelections_LB.Visible = false;
+            isObjectMoving = false;
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    if (aw_selected >= agents.Count) return;
-                    isObjectMoving = true;
-                    aw_cursor = Cursor.Position;
-                    lu_remember = new Point((int)agents[aw_selected].X,
-                        (int)agents[aw_selected].Y);
+                    int possibleSelection = 0;
+                    aw_selected = 0;
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                        {
+                            selects.Add(item);
+                            possibleSelection = aw_selected++;
+                        } else
+                        {
+                            aw_selected++;
+                        }
+                    }
+                    switch (selects.Count)
+                    {
+                        case 0:
+                            //Text = "0";
+                            aw_selected = -1;
+                            break;
+                        case 1:
+                            //Text = "1";
+                            aw_selected = possibleSelection;
+                            isObjectMoving = true;
+                            aw_cursor = Cursor.Position;
+                            lu_remember = new Point((int)agents[aw_selected].X,
+                                (int)agents[aw_selected].Y);
+                            break;
+                        default:
+                            //Text = selects.Count.ToString();
+                            PossibleSelections_LB.Items.Clear();
+                            foreach (AwoseAgent item in selects)
+                            {
+                                PossibleSelections_LB.Items.Add(item.Name);
+                            }
+                            PossibleSelections_LB.Location = aw_cursor;
+                            PossibleSelections_LB.Visible = true;
+                            break;
+                    }
+                    break;
+                case MouseButtons.Right:
                     break;
                 case MouseButtons.Middle:
-                    isBoardMoving = true;
-                    aw_cursor = Cursor.Position;
-                    lu_remember = lu_corner;
+                    break;
+                default:
                     break;
             }
+
+
+
+            //if (SettingVelocity != -1) {
+            //    lu_remember = new Point((int)agents[aw_selected].X,
+            //            (int)agents[aw_selected].Y);
+            //    return; 
+            //}
+            //switch (e.Button)
+            //{
+            //    case MouseButtons.Left:
+            //        if (aw_selected >= agents.Count) return;
+            //        isObjectMoving = true;
+            //        aw_cursor = Cursor.Position;
+            //        lu_remember = new Point((int)agents[aw_selected].X,
+            //            (int)agents[aw_selected].Y);
+            //        break;
+            //    case MouseButtons.Middle:
+            //        isBoardMoving = true;
+            //        aw_cursor = Cursor.Position;
+            //        lu_remember = lu_corner;
+            //        break;
+            //}
         }
 
         private void ModelBoard_PB_MouseUp(object sender, MouseEventArgs e)

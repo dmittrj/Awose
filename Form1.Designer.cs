@@ -89,6 +89,7 @@ namespace Awose
             this.negativeChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Instrumental_Panel = new System.Windows.Forms.Panel();
             this.MistakeHint_Label = new System.Windows.Forms.Label();
+            this.PossibleSelections_LB = new System.Windows.Forms.ListBox();
             this.Main_MStr.SuspendLayout();
             this.Control_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
@@ -676,12 +677,26 @@ namespace Awose
             this.MistakeHint_Label.Text = "Details";
             this.MistakeHint_Label.Visible = false;
             // 
+            // PossibleSelections_LB
+            // 
+            this.PossibleSelections_LB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(14)))), ((int)(((byte)(14)))));
+            this.PossibleSelections_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PossibleSelections_LB.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PossibleSelections_LB.ForeColor = System.Drawing.Color.White;
+            this.PossibleSelections_LB.FormattingEnabled = true;
+            this.PossibleSelections_LB.ItemHeight = 20;
+            this.PossibleSelections_LB.Location = new System.Drawing.Point(618, 277);
+            this.PossibleSelections_LB.Name = "PossibleSelections_LB";
+            this.PossibleSelections_LB.Size = new System.Drawing.Size(148, 142);
+            this.PossibleSelections_LB.TabIndex = 4;
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.PossibleSelections_LB);
             this.Controls.Add(this.MistakeHint_Label);
             this.Controls.Add(this.Instrumental_Panel);
             this.Controls.Add(this.ModelBoard_PB);
@@ -770,6 +785,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem doNotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nonfadingLineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fadingLineToolStripMenuItem;
+        private System.Windows.Forms.ListBox PossibleSelections_LB;
     }
 }
 

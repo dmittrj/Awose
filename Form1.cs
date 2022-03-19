@@ -414,20 +414,6 @@ namespace Awose
             Aw_DrawControl();
         }
 
-        private void ModelBoard_PB_Click(object sender, EventArgs e)
-        {
-            //aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
-            //aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-            //aw_selected = 0;
-            //foreach (AwoseAgent item in agents)
-            //{
-            //    if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
-            //        aw_selected++;
-            //    else break;
-            //}
-            //Aw_DrawControl();
-        }
-
         private void ModelBoard_PB_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             Point beforeScaling = new();
@@ -800,6 +786,51 @@ namespace Awose
 
         private void ModelBoard_PB_MouseUp(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (SettingVelocity != -1)
+                {
+                    int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+                    int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+                    SettingVelocity = -1;
+                    aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.SettingVelocity, new Point((int)agents[aw_selected].VelocityX, (int)agents[aw_selected].VelocityY), new Point(x - aw_cursor.X, y - aw_cursor.Y)));
+                    agents[aw_selected].VelocityX = x - aw_cursor.X;
+                    agents[aw_selected].VelocityY = y - aw_cursor.Y;
+                }
+                aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
+                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+                if (isFirstSpaceSetting)
+                {
+                    int rel = -1;
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                            rel++;
+                        else break;
+                    }
+                    rel++;
+                    if (rel != -1)
+                    {
+                        isFirstSpaceSetting = false;
+                        double distance = Math.Sqrt(Math.Pow(agents[rel].X - agents[aw_selected].X, 2) + Math.Pow(agents[rel].Y - agents[aw_selected].Y, 2));
+                        float tempFV = Calculations.FirstSpace(agents[rel], agents[aw_selected]);
+                        agents[aw_selected].VelocityY = (agents[rel].X - agents[aw_selected].X) * tempFV / distance;
+                        agents[aw_selected].VelocityX = (agents[aw_selected].Y - agents[rel].Y) * tempFV / distance;
+                        agents[aw_selected].IsFirstSpace = true;
+                        agents[aw_selected].MovedAfterSetting = false;
+                        agents[rel].IsFirstSpace = true;
+                        agents[rel].MovedAfterSetting = false;
+                    }
+                }
+                aw_selected = 0;
+                foreach (AwoseAgent item in agents)
+                {
+                    if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                        aw_selected++;
+                    else break;
+                }
+                Aw_DrawControl();
+            }
             isBoardMoving = false;
             if (isLaunched) return;
             if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y)) { 
@@ -878,54 +909,6 @@ namespace Awose
             ResetSimulation_MSItem.Enabled = false;
             Aw_CheckMistakes();
         }
-
-        private void ModelBoard_PB_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button != MouseButtons.Left) return;
-            if (SettingVelocity != -1)
-            {
-                int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
-                int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-                SettingVelocity = -1;
-                aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.SettingVelocity, new Point((int)agents[aw_selected].VelocityX, (int)agents[aw_selected].VelocityY), new Point(x - aw_cursor.X, y - aw_cursor.Y)));
-                agents[aw_selected].VelocityX = x - aw_cursor.X;
-                agents[aw_selected].VelocityY = y - aw_cursor.Y;
-            }
-            aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
-            aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-            if (isFirstSpaceSetting)
-            {
-                int rel = -1;
-                foreach (AwoseAgent item in agents)
-                {
-                    if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
-                        rel++;
-                    else break;
-                }
-                rel++;
-                if (rel != -1)
-                {
-                    isFirstSpaceSetting = false;
-                    double distance = Math.Sqrt(Math.Pow(agents[rel].X - agents[aw_selected].X, 2) + Math.Pow(agents[rel].Y - agents[aw_selected].Y, 2));
-                    float tempFV = Calculations.FirstSpace(agents[rel], agents[aw_selected]);
-                    agents[aw_selected].VelocityY = (agents[rel].X - agents[aw_selected].X) * tempFV / distance;
-                    agents[aw_selected].VelocityX = (agents[aw_selected].Y - agents[rel].Y) * tempFV / distance;
-                    agents[aw_selected].IsFirstSpace = true;
-                    agents[aw_selected].MovedAfterSetting = false;
-                    agents[rel].IsFirstSpace = true;
-                    agents[rel].MovedAfterSetting = false;
-                }
-            }
-            aw_selected = 0;
-            foreach (AwoseAgent item in agents)
-            {
-                if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
-                    aw_selected++;
-                else break;
-            }
-            Aw_DrawControl();
-        }
-
         private void ObjectPositionX_Label_Click(object sender, EventArgs e)
         {
             NewValue_TB.Location = new Point(Control_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionX_Label.Location.X + 1,

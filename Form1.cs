@@ -284,7 +284,7 @@ namespace Awose
             }
             //Moved after setting first space velocity
             foreach (AwoseAgent item in agents)
-                if (item.IsFirstSpace && item.MovedAfterSetting)
+                if (item.Star != "" && item.ChangeAfterFSV)
                 {
                     item.MistakeType = 1;
                     item.MDescription = "The 1st space velocity should be set again";
@@ -826,8 +826,8 @@ namespace Awose
                             float tempFV = Calculations.FirstSpace(agents[rel], agents[aw_selected]);
                             agents[aw_selected].VelocityY = (agents[rel].X - agents[aw_selected].X) * tempFV / distance;
                             agents[aw_selected].VelocityX = (agents[aw_selected].Y - agents[rel].Y) * tempFV / distance;
-                            agents[aw_selected].MovedAfterSetting = false;
-                            agents[rel].MovedAfterSetting = false;
+                            agents[aw_selected].ChangeAfterFSV = false;
+                            agents[rel].ChangeAfterFSV = false;
                             agents[aw_selected].Star = agents[rel].Name;
                             agents[rel].Satellites.Add(agents[aw_selected].Name);
                         }
@@ -894,6 +894,18 @@ namespace Awose
                     {
                         agents[aw_selected].Spray.Clear();
                         aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
+                        if (agents[aw_selected].Star != "")
+                        {
+                            agents[aw_selected].ChangeAfterFSV = true;
+                        } else if (agents[aw_selected].Satellites.Count > 0)
+                        {
+                            foreach (AwoseAgent item in agents)
+                            {
+                                if (agents[aw_selected].Satellites.Contains(item.Name))
+                                    item.ChangeAfterFSV = true;
+                            }
+                            //agents[aw_selected].ChangeAfterFSV = true;
+                        }
                     }
                     isObjectMoving = false;
                     break;

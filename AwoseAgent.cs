@@ -54,8 +54,8 @@ namespace Awose
         /// Star (object around which this object revolves)
         /// </summary>
         public string Star { get; set; }
-        public bool IsFirstSpace { get; set; }
-        public bool MovedAfterSetting = false;
+        //public bool IsFirstSpace { get; set; }
+        public bool ChangeAfterFSV = false;
         public double ForceGX;
         public double ForceGY;
         public double ForceEX;
@@ -84,7 +84,7 @@ namespace Awose
             IsPinned = isPinned;
             MistakeType = 0;
             MDescription = "";
-            IsFirstSpace = false;
+            //IsFirstSpace = false;
             IsSelected = false;
             Dye = new SolidBrush(Color.White);
             Satellites = new List<string>();

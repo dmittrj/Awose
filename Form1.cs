@@ -782,7 +782,8 @@ namespace Awose
                         {
                             selects.Add(item);
                             possibleSelection = aw_selected++;
-                        } else
+                        } 
+                        else
                         {
                             aw_selected++;
                         }

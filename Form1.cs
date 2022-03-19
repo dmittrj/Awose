@@ -160,6 +160,11 @@ namespace Awose
                         else
                         {
                             grfx.FillEllipse(item.Dye, circle);
+                            if (item.IsSelected)
+                            {
+                                RectangleF bigcircle = new((float)(lu_corner.X + item.X * aw_scale - (diameter * 2) / 2), (float)(lu_corner.Y + item.Y * aw_scale - (diameter * 2) / 2), (int)(diameter * 2), (int)(diameter * 2));
+                                grfx.DrawEllipse(new Pen(Brushes.White, 2 * aw_scale), bigcircle);
+                            }
                         }
                     }
                     
@@ -778,6 +783,7 @@ namespace Awose
                     aw_selected = 0;
                     foreach (AwoseAgent item in agents)
                     {
+                        item.IsSelected = false;
                         if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
                         {
                             selects.Add(item);
@@ -791,16 +797,15 @@ namespace Awose
                     switch (selects.Count)
                     {
                         case 0:
-                            //Text = "0";
                             aw_selected = -1;
                             break;
                         case 1:
-                            //Text = "1";
                             aw_selected = possibleSelection;
                             isObjectMoving = true;
                             aw_cursor = Cursor.Position;
                             lu_remember = new Point((int)agents[aw_selected].X,
                                 (int)agents[aw_selected].Y);
+                            agents[aw_selected].IsSelected = true;
                             break;
                         default:
                             //Text = selects.Count.ToString();
@@ -809,7 +814,9 @@ namespace Awose
                             {
                                 PossibleSelections_LB.Items.Add(item.Name);
                             }
-                            PossibleSelections_LB.Location = aw_cursor;
+                            PossibleSelections_LB.Location = new Point(Cursor.Position.X,
+                                Cursor.Position.Y - 10);
+                            PossibleSelections_LB.Height = (PossibleSelections_LB.Items.Count + 1) * PossibleSelections_LB.ItemHeight;
                             PossibleSelections_LB.Visible = true;
                             break;
                     }

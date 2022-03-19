@@ -27,6 +27,8 @@ namespace Awose
         public double ForceEX;
         public double ForceEY;
 
+        public bool IsSelected;
+
         public int MistakeType;
         public string MDescription;
         public SolidBrush Dye { get; set; }
@@ -49,6 +51,7 @@ namespace Awose
             MistakeType = 0;
             MDescription = "";
             IsFirstSpace = false;
+            IsSelected = false;
             Dye = new SolidBrush(Color.White);
         }
 

@@ -53,7 +53,8 @@ namespace Awose
             this.fadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
             this.ObjectSpace_Panel = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
+            this.Space_Satellites_LB = new System.Windows.Forms.ListBox();
+            this.Space_Star_Label = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -306,7 +307,8 @@ namespace Awose
             // ObjectSpace_Panel
             // 
             this.ObjectSpace_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ObjectSpace_Panel.Controls.Add(this.label10);
+            this.ObjectSpace_Panel.Controls.Add(this.Space_Satellites_LB);
+            this.ObjectSpace_Panel.Controls.Add(this.Space_Star_Label);
             this.ObjectSpace_Panel.Controls.Add(this.label12);
             this.ObjectSpace_Panel.Controls.Add(this.label13);
             this.ObjectSpace_Panel.Controls.Add(this.label14);
@@ -316,17 +318,32 @@ namespace Awose
             this.ObjectSpace_Panel.TabIndex = 5;
             this.ObjectSpace_Panel.Visible = false;
             // 
-            // label10
+            // Space_Satellites_LB
             // 
-            this.label10.AutoSize = true;
-            this.label10.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label10.ForeColor = System.Drawing.Color.LightSkyBlue;
-            this.label10.Location = new System.Drawing.Point(127, 54);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(45, 19);
-            this.label10.TabIndex = 5;
-            this.label10.Text = "None";
+            this.Space_Satellites_LB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(14)))), ((int)(((byte)(14)))));
+            this.Space_Satellites_LB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Space_Satellites_LB.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Space_Satellites_LB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Space_Satellites_LB.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.Space_Satellites_LB.FormattingEnabled = true;
+            this.Space_Satellites_LB.ItemHeight = 17;
+            this.Space_Satellites_LB.Location = new System.Drawing.Point(30, 55);
+            this.Space_Satellites_LB.Name = "Space_Satellites_LB";
+            this.Space_Satellites_LB.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.Space_Satellites_LB.Size = new System.Drawing.Size(83, 51);
+            this.Space_Satellites_LB.TabIndex = 6;
+            // 
+            // Space_Star_Label
+            // 
+            this.Space_Star_Label.AutoSize = true;
+            this.Space_Star_Label.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.Space_Star_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.Space_Star_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.Space_Star_Label.Location = new System.Drawing.Point(127, 54);
+            this.Space_Star_Label.Name = "Space_Star_Label";
+            this.Space_Star_Label.Size = new System.Drawing.Size(45, 19);
+            this.Space_Star_Label.TabIndex = 5;
+            this.Space_Star_Label.Text = "None";
             // 
             // label12
             // 
@@ -566,7 +583,7 @@ namespace Awose
             this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(198, 206);
+            this.Space_CMStr.Size = new System.Drawing.Size(198, 184);
             this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
             // 
             // Mistake_CMItem
@@ -670,32 +687,32 @@ namespace Awose
             this.bigPlanetToolStripMenuItem,
             this.blackHoleToolStripMenuItem});
             this.spaceToolStripMenuItem.Name = "spaceToolStripMenuItem";
-            this.spaceToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.spaceToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
             this.spaceToolStripMenuItem.Text = "Space";
             // 
             // CreateStar_CMItem
             // 
             this.CreateStar_CMItem.Name = "CreateStar_CMItem";
-            this.CreateStar_CMItem.Size = new System.Drawing.Size(180, 24);
+            this.CreateStar_CMItem.Size = new System.Drawing.Size(152, 24);
             this.CreateStar_CMItem.Text = "Star";
             this.CreateStar_CMItem.Click += new System.EventHandler(this.CreateStar_CMItem_Click);
             // 
             // smallPlanetToolStripMenuItem
             // 
             this.smallPlanetToolStripMenuItem.Name = "smallPlanetToolStripMenuItem";
-            this.smallPlanetToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.smallPlanetToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.smallPlanetToolStripMenuItem.Text = "Small planet";
             // 
             // bigPlanetToolStripMenuItem
             // 
             this.bigPlanetToolStripMenuItem.Name = "bigPlanetToolStripMenuItem";
-            this.bigPlanetToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.bigPlanetToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.bigPlanetToolStripMenuItem.Text = "Big planet";
             // 
             // blackHoleToolStripMenuItem
             // 
             this.blackHoleToolStripMenuItem.Name = "blackHoleToolStripMenuItem";
-            this.blackHoleToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.blackHoleToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.blackHoleToolStripMenuItem.Text = "Black hole";
             // 
             // chargesToolStripMenuItem
@@ -704,19 +721,19 @@ namespace Awose
             this.positiveChargeToolStripMenuItem,
             this.negativeChargeToolStripMenuItem});
             this.chargesToolStripMenuItem.Name = "chargesToolStripMenuItem";
-            this.chargesToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.chargesToolStripMenuItem.Size = new System.Drawing.Size(128, 24);
             this.chargesToolStripMenuItem.Text = "Charges";
             // 
             // positiveChargeToolStripMenuItem
             // 
             this.positiveChargeToolStripMenuItem.Name = "positiveChargeToolStripMenuItem";
-            this.positiveChargeToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.positiveChargeToolStripMenuItem.Size = new System.Drawing.Size(177, 24);
             this.positiveChargeToolStripMenuItem.Text = "Positive charge";
             // 
             // negativeChargeToolStripMenuItem
             // 
             this.negativeChargeToolStripMenuItem.Name = "negativeChargeToolStripMenuItem";
-            this.negativeChargeToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.negativeChargeToolStripMenuItem.Size = new System.Drawing.Size(177, 24);
             this.negativeChargeToolStripMenuItem.Text = "Negative charge";
             // 
             // Instrumental_Panel
@@ -858,10 +875,11 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem fadingLineToolStripMenuItem;
         private System.Windows.Forms.ListBox PossibleSelections_LB;
         private System.Windows.Forms.Panel ObjectSpace_Panel;
-        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label Space_Star_Label;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ListBox Space_Satellites_LB;
     }
 }
 

@@ -381,6 +381,22 @@ namespace Awose
                 else MistakeIcon_PB.Visible = true;
                 MistakeIcon_PB.Image = btm_icon;
                 MistakeHint_Label.Text = agents[aw_selected].MDescription;
+                if (agents[aw_selected].Star != "" || agents[aw_selected].Satellites.Count > 0)
+                {
+                    if (agents[aw_selected].Star == "")
+                    {
+                        Space_Star_Label.Text = "None";
+                    } else
+                    {
+                        Space_Star_Label.Text = agents[aw_selected].Star;
+                    }
+                    Space_Satellites_LB.Items.Clear();
+                    foreach (string item in agents[aw_selected].Satellites)
+                    {
+                        Space_Satellites_LB.Items.Add(item);
+                    }
+                    ObjectSpace_Panel.Visible = true;
+                }
             }
             else
             {
@@ -388,6 +404,7 @@ namespace Awose
                 CurrentObjectName_Label.ForeColor = Color.DarkGray;
                 CurrentObjectName_Label.Cursor = Cursors.Default;
                 ObjectSettings_Panel.Visible = false;
+                ObjectSpace_Panel.Visible = false;
             }
         }
 

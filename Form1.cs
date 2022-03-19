@@ -1181,5 +1181,23 @@ namespace Awose
             PossibleSelections_LB.Visible = false;
             Aw_DrawControl();
         }
+
+        private void CreateStar_CMItem_Click(object sender, EventArgs e)
+        {
+            int starsNumeric = 1;
+        aaw_loopStarNames:
+            foreach (AwoseAgent item in agents)
+            {
+                if (item.Name == "Star " + starsNumeric.ToString())
+                {
+                    starsNumeric++;
+                    goto aaw_loopStarNames;
+                }
+            }
+            agents.Add(new AwoseAgent("Star " + starsNumeric.ToString(), aw_cursor.X, aw_cursor.Y, 150, 0, 0, 0, true));
+            aw_undo.Push(new AwoseChange(agents[^1], ChangeType.Creating));
+            Aw_CheckMistakes();
+            Aw_DrawControl();
+        }
     }
 }

@@ -7,24 +7,61 @@ using System.Threading.Tasks;
 
 namespace Awose
 {
+    enum FirstSpaceObject { None, Satellite, Planet, Star }
     class AwoseAgent
     {
+        //User information
+        /// <summary>
+        /// Name of object to identify it
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// X-coordinate of object
+        /// </summary>
         public double X { get; set; }
         public int X_screen;
+        /// <summary>
+        /// Y-coordinate of object
+        /// </summary>
         public double Y { get; set; }
         public int Y_screen;
+        /// <summary>
+        /// Object mass, kg
+        /// </summary>
         public double Weight { get; set; }
+        /// <summary>
+        /// Electrical charge
+        /// </summary>
         public double Charge { get; set; }
+        /// <summary>
+        /// X-axis velocity
+        /// </summary>
         public double VelocityX { get; set; }
+        /// <summary>
+        /// Y-axis velocity
+        /// </summary>
         public double VelocityY { get; set; }
+        /// <summary>
+        /// Is this object pinned (pinned objects don't move)
+        /// </summary>
         public bool IsPinned { get; set; }
-        public bool IsFirstSpace { get; set; }
-        public bool MovedAfterSetting = false;
+        /// <summary>
+        /// List of satellites (objects that revolve
+        /// around this object)
+        /// </summary>
+        public List<string> Satellites { get; set; }
+        /// <summary>
+        /// Star (object around which this object revolves)
+        /// </summary>
+        public string Star { get; set; }
+        //public bool IsFirstSpace { get; set; }
+        public bool ChangeAfterFSV = false;
         public double ForceGX;
         public double ForceGY;
         public double ForceEX;
         public double ForceEY;
+
+        public bool IsSelected;
 
         public int MistakeType;
         public string MDescription;
@@ -47,8 +84,11 @@ namespace Awose
             IsPinned = isPinned;
             MistakeType = 0;
             MDescription = "";
-            IsFirstSpace = false;
+            //IsFirstSpace = false;
+            IsSelected = false;
             Dye = new SolidBrush(Color.White);
+            Satellites = new List<string>();
+            Star = "";
         }
 
 

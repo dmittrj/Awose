@@ -45,6 +45,12 @@ namespace Awose
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.objectColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayForcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayVelocitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayTrajectoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.doNotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nonfadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Control_Panel = new System.Windows.Forms.Panel();
             this.MistakeIcon_PB = new System.Windows.Forms.PictureBox();
             this.NewValue_TB = new System.Windows.Forms.TextBox();
@@ -83,12 +89,7 @@ namespace Awose
             this.negativeChargeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Instrumental_Panel = new System.Windows.Forms.Panel();
             this.MistakeHint_Label = new System.Windows.Forms.Label();
-            this.displayForcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.displayVelocitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.displayTrajectoriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.doNotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nonfadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PossibleSelections_LB = new System.Windows.Forms.ListBox();
             this.Main_MStr.SuspendLayout();
             this.Control_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
@@ -239,6 +240,46 @@ namespace Awose
             this.objectColorsToolStripMenuItem.Name = "objectColorsToolStripMenuItem";
             this.objectColorsToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
             this.objectColorsToolStripMenuItem.Text = "Object colors";
+            // 
+            // displayForcesToolStripMenuItem
+            // 
+            this.displayForcesToolStripMenuItem.Name = "displayForcesToolStripMenuItem";
+            this.displayForcesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.displayForcesToolStripMenuItem.Text = "Display forces";
+            // 
+            // displayVelocitiesToolStripMenuItem
+            // 
+            this.displayVelocitiesToolStripMenuItem.Name = "displayVelocitiesToolStripMenuItem";
+            this.displayVelocitiesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.displayVelocitiesToolStripMenuItem.Text = "Display velocities";
+            // 
+            // displayTrajectoriesToolStripMenuItem
+            // 
+            this.displayTrajectoriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.doNotToolStripMenuItem,
+            this.nonfadingLineToolStripMenuItem,
+            this.fadingLineToolStripMenuItem});
+            this.displayTrajectoriesToolStripMenuItem.Name = "displayTrajectoriesToolStripMenuItem";
+            this.displayTrajectoriesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.displayTrajectoriesToolStripMenuItem.Text = "Display trajectories";
+            // 
+            // doNotToolStripMenuItem
+            // 
+            this.doNotToolStripMenuItem.Name = "doNotToolStripMenuItem";
+            this.doNotToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.doNotToolStripMenuItem.Text = "Do not";
+            // 
+            // nonfadingLineToolStripMenuItem
+            // 
+            this.nonfadingLineToolStripMenuItem.Name = "nonfadingLineToolStripMenuItem";
+            this.nonfadingLineToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.nonfadingLineToolStripMenuItem.Text = "Non-fading line";
+            // 
+            // fadingLineToolStripMenuItem
+            // 
+            this.fadingLineToolStripMenuItem.Name = "fadingLineToolStripMenuItem";
+            this.fadingLineToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.fadingLineToolStripMenuItem.Text = "Fading line";
             // 
             // Control_Panel
             // 
@@ -441,8 +482,6 @@ namespace Awose
             this.ModelBoard_PB.Size = new System.Drawing.Size(993, 686);
             this.ModelBoard_PB.TabIndex = 2;
             this.ModelBoard_PB.TabStop = false;
-            this.ModelBoard_PB.Click += new System.EventHandler(this.ModelBoard_PB_Click);
-            this.ModelBoard_PB.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ModelBoard_PB_MouseClick);
             this.ModelBoard_PB.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ModelBoard_PB_MouseDown);
             this.ModelBoard_PB.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ModelBoard_PB_MouseMove);
             this.ModelBoard_PB.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ModelBoard_PB_MouseUp);
@@ -638,45 +677,19 @@ namespace Awose
             this.MistakeHint_Label.Text = "Details";
             this.MistakeHint_Label.Visible = false;
             // 
-            // displayForcesToolStripMenuItem
+            // PossibleSelections_LB
             // 
-            this.displayForcesToolStripMenuItem.Name = "displayForcesToolStripMenuItem";
-            this.displayForcesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.displayForcesToolStripMenuItem.Text = "Display forces";
-            // 
-            // displayVelocitiesToolStripMenuItem
-            // 
-            this.displayVelocitiesToolStripMenuItem.Name = "displayVelocitiesToolStripMenuItem";
-            this.displayVelocitiesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.displayVelocitiesToolStripMenuItem.Text = "Display velocities";
-            // 
-            // displayTrajectoriesToolStripMenuItem
-            // 
-            this.displayTrajectoriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.doNotToolStripMenuItem,
-            this.nonfadingLineToolStripMenuItem,
-            this.fadingLineToolStripMenuItem});
-            this.displayTrajectoriesToolStripMenuItem.Name = "displayTrajectoriesToolStripMenuItem";
-            this.displayTrajectoriesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.displayTrajectoriesToolStripMenuItem.Text = "Display trajectories";
-            // 
-            // doNotToolStripMenuItem
-            // 
-            this.doNotToolStripMenuItem.Name = "doNotToolStripMenuItem";
-            this.doNotToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
-            this.doNotToolStripMenuItem.Text = "Do not";
-            // 
-            // nonfadingLineToolStripMenuItem
-            // 
-            this.nonfadingLineToolStripMenuItem.Name = "nonfadingLineToolStripMenuItem";
-            this.nonfadingLineToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
-            this.nonfadingLineToolStripMenuItem.Text = "Non-fading line";
-            // 
-            // fadingLineToolStripMenuItem
-            // 
-            this.fadingLineToolStripMenuItem.Name = "fadingLineToolStripMenuItem";
-            this.fadingLineToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
-            this.fadingLineToolStripMenuItem.Text = "Fading line";
+            this.PossibleSelections_LB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(14)))), ((int)(((byte)(14)))));
+            this.PossibleSelections_LB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PossibleSelections_LB.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.PossibleSelections_LB.ForeColor = System.Drawing.Color.White;
+            this.PossibleSelections_LB.FormattingEnabled = true;
+            this.PossibleSelections_LB.ItemHeight = 20;
+            this.PossibleSelections_LB.Location = new System.Drawing.Point(618, 277);
+            this.PossibleSelections_LB.Name = "PossibleSelections_LB";
+            this.PossibleSelections_LB.Size = new System.Drawing.Size(148, 142);
+            this.PossibleSelections_LB.TabIndex = 4;
+            this.PossibleSelections_LB.Visible = false;
             // 
             // Awose
             // 
@@ -684,6 +697,7 @@ namespace Awose
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.PossibleSelections_LB);
             this.Controls.Add(this.MistakeHint_Label);
             this.Controls.Add(this.Instrumental_Panel);
             this.Controls.Add(this.ModelBoard_PB);
@@ -772,6 +786,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem doNotToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nonfadingLineToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fadingLineToolStripMenuItem;
+        private System.Windows.Forms.ListBox PossibleSelections_LB;
     }
 }
 

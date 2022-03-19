@@ -619,6 +619,18 @@ namespace Awose
                             newValue = float.Parse(NewValue_TB.Text);
                             aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingMass, agents[aw_selected].Weight, newValue));
                             agents[aw_selected].Weight = newValue;
+                            if (agents[aw_selected].Star != "")
+                            {
+                                agents[aw_selected].ChangeAfterFSV = true;
+                            }
+                            else if (agents[aw_selected].Satellites.Count > 0)
+                            {
+                                foreach (AwoseAgent item in agents)
+                                {
+                                    if (agents[aw_selected].Satellites.Contains(item.Name))
+                                        item.ChangeAfterFSV = true;
+                                }
+                            }
                         }
                         catch { }
                         finally
@@ -650,6 +662,18 @@ namespace Awose
                             newValue = float.Parse(NewValue_TB.Text);
                             aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingX, agents[aw_selected].X, newValue));
                             agents[aw_selected].X = newValue;
+                            if (agents[aw_selected].Star != "")
+                            {
+                                agents[aw_selected].ChangeAfterFSV = true;
+                            }
+                            else if (agents[aw_selected].Satellites.Count > 0)
+                            {
+                                foreach (AwoseAgent item in agents)
+                                {
+                                    if (agents[aw_selected].Satellites.Contains(item.Name))
+                                        item.ChangeAfterFSV = true;
+                                }
+                            }
                         }
                         catch { }
                         finally
@@ -665,6 +689,18 @@ namespace Awose
                             newValue = float.Parse(NewValue_TB.Text);
                             aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingY, agents[aw_selected].Y, newValue));
                             agents[aw_selected].Y = newValue;
+                            if (agents[aw_selected].Star != "")
+                            {
+                                agents[aw_selected].ChangeAfterFSV = true;
+                            }
+                            else if (agents[aw_selected].Satellites.Count > 0)
+                            {
+                                foreach (AwoseAgent item in agents)
+                                {
+                                    if (agents[aw_selected].Satellites.Contains(item.Name))
+                                        item.ChangeAfterFSV = true;
+                                }
+                            }
                         }
                         catch { }
                         finally
@@ -906,7 +942,6 @@ namespace Awose
                                 if (agents[aw_selected].Satellites.Contains(item.Name))
                                     item.ChangeAfterFSV = true;
                             }
-                            //agents[aw_selected].ChangeAfterFSV = true;
                         }
                     }
                     isObjectMoving = false;

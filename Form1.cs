@@ -160,6 +160,30 @@ namespace Awose
                         }
                         else
                         {
+                            if (!isLaunched)
+                                if (Math.Abs(item.VelocityX) + Math.Abs(item.VelocityY) > 10)
+                                {
+                                    int x = (int)item.X + (int)item.VelocityX;
+                                    int y = (int)item.Y + (int)item.VelocityY;
+                                    float dx = (float)item.VelocityX;
+                                    float dy = (float)item.VelocityY;
+                                    float l = (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
+                                    float ax = 15 * dx / l;
+                                    float ay = 15 * dy / l;
+                                    float bx = 7 * dy / l;
+                                    float by = 7 * dx / l;
+                                    Point[] arrow =
+                                    {
+                                        new Point(x, y),
+                                        new Point(x - (int)ax + (int)bx, y - (int)ay - (int)by),
+                                        new Point(x - (int)ax - (int)bx, y - (int)ay + (int)by)
+                                    };
+                                    grfx.DrawLine(new Pen(Brushes.DimGray, 2),
+                                        new Point((int)item.X, (int)item.Y),
+                                        new Point((int)item.X + (int)item.VelocityX,
+                                        (int)item.Y + (int)item.VelocityY));
+                                    grfx.FillPolygon(Brushes.DimGray, arrow);
+                                }
                             grfx.FillEllipse(item.Dye, circle);
                             if (item.IsSelected)
                             {
@@ -272,6 +296,34 @@ namespace Awose
                     item.MistakeType = 1;
                     item.MDescription = "No name";
                 }
+            //Moved after setting first space velocity
+            foreach (AwoseAgent item in agents)
+                if (item.Star != "" && item.ChangeAfterFSV)
+                {
+                    item.MistakeType = 1;
+                    item.MDescription = "The 1st space velocity should be set again";
+                }
+            //Satellite for itself
+            foreach (AwoseAgent item in agents)
+            {
+                if (item.Satellites.Contains(item.Star))
+                {
+                    item.MistakeType = 1;
+                    item.MDescription = "This object is a satellite for itself";
+                }
+            }
+            //Pinned satellites
+            foreach (AwoseAgent item in agents)
+            {
+                if (item.Star != "" && item.IsPinned)
+                {
+                    item.MistakeType = 1;
+                    item.MDescription = "Pinned satellite";
+                }
+            }
+
+            //Errors
+
             //Zero mass
             foreach (AwoseAgent item in agents)
             {
@@ -282,13 +334,6 @@ namespace Awose
                     LaunchSimulation_MSItem.Enabled = false;
                 }
             }
-            //Moved after setting first space velocity
-            foreach (AwoseAgent item in agents)
-                if (item.Star != "" && item.ChangeAfterFSV)
-                {
-                    item.MistakeType = 1;
-                    item.MDescription = "The 1st space velocity should be set again";
-                }
         }
 
         private void Aw_DrawControl()

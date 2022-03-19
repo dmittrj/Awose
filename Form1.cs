@@ -810,12 +810,28 @@ namespace Awose
                         agents[aw_selected].VelocityY = aw_cursor.Y - aw_remember.Y;
                         return;
                     }
-                    //if (SettingVelocity != -1)
-                    //{
-                    //    lu_remember = new Point((int)agents[aw_selected].X,
-                    //            (int)agents[aw_selected].Y);
-                    //    return;
-                    //}
+                    if (isFirstSpaceSetting)
+                    {
+                        int rel = 0;
+                        foreach (AwoseAgent item in agents)
+                        {
+                            if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                                break;
+                            else rel++;
+                        }
+                        if (rel < agents.Count)
+                        {
+                            isFirstSpaceSetting = false;
+                            double distance = Math.Sqrt(Math.Pow(agents[rel].X - agents[aw_selected].X, 2) + Math.Pow(agents[rel].Y - agents[aw_selected].Y, 2));
+                            float tempFV = Calculations.FirstSpace(agents[rel], agents[aw_selected]);
+                            agents[aw_selected].VelocityY = (agents[rel].X - agents[aw_selected].X) * tempFV / distance;
+                            agents[aw_selected].VelocityX = (agents[aw_selected].Y - agents[rel].Y) * tempFV / distance;
+                            agents[aw_selected].MovedAfterSetting = false;
+                            agents[rel].MovedAfterSetting = false;
+                            agents[aw_selected].Star = agents[rel].Name;
+                            agents[rel].Satellites.Add(agents[aw_selected].Name);
+                        }
+                    }
                     int possibleSelection = 0;
                     aw_selected = 0;
                     foreach (AwoseAgent item in agents)

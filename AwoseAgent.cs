@@ -49,11 +49,11 @@ namespace Awose
         /// List of satellites (objects that revolve
         /// around this object)
         /// </summary>
-        List<AwoseAgent> Satellites { get; set; }
+        public List<string> Satellites { get; set; }
         /// <summary>
         /// Star (object around which this object revolves)
         /// </summary>
-        AwoseAgent Star { get; set; }
+        public string Star { get; set; }
         public bool IsFirstSpace { get; set; }
         public bool MovedAfterSetting = false;
         public double ForceGX;
@@ -87,6 +87,8 @@ namespace Awose
             IsFirstSpace = false;
             IsSelected = false;
             Dye = new SolidBrush(Color.White);
+            Satellites = new List<string>();
+            Star = "";
         }
 
 

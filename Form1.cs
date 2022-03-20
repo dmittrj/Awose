@@ -19,7 +19,7 @@ namespace Awose
         int agentsNumeric = 1;
         readonly Stack<AwoseChange> aw_undo = new();
         readonly Stack<AwoseChange> aw_redo = new();
-        int aw_selected = 0;
+        int aw_selected = -1;
         //represents click-point in in-simulation coordinates
         Point aw_cursor = new(0, 0);
         //represents coordinate of up-left corner in in-simulation coordinates

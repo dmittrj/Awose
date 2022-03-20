@@ -396,6 +396,9 @@ namespace Awose
                         Space_Satellites_LB.Items.Add(item);
                     }
                     ObjectSpace_Panel.Visible = true;
+                } else
+                {
+                    ObjectSpace_Panel.Visible = false;
                 }
             }
             else
@@ -404,7 +407,6 @@ namespace Awose
                 CurrentObjectName_Label.ForeColor = Color.DarkGray;
                 CurrentObjectName_Label.Cursor = Cursors.Default;
                 ObjectSettings_Panel.Visible = false;
-                ObjectSpace_Panel.Visible = false;
             }
         }
 
@@ -534,7 +536,25 @@ namespace Awose
         {
             NewValue_TB.Visible = false;
             aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.Deleting));
+            foreach (AwoseAgent item in agents)
+            {
+                if (item.Satellites.Contains(agents[aw_selected].Name))
+                {
+                    item.Satellites.Remove(agents[aw_selected].Name);
+                }
+                if (item.Star == agents[aw_selected].Name)
+                {
+                    item.Star = "";
+                }
+            }
             agents.RemoveAt(aw_selected);
+            if (agents.Count > 0)
+            {
+                aw_selected = agents.Count - 1;
+            } else
+            {
+                aw_selected = -1;
+            }
             Aw_CheckMistakes();
             Aw_DrawControl();
         }
@@ -928,7 +948,8 @@ namespace Awose
                             agents[aw_selected].ChangeAfterFSV = false;
                             agents[rel].ChangeAfterFSV = false;
                             agents[aw_selected].Star = agents[rel].Name;
-                            agents[rel].Satellites.Add(agents[aw_selected].Name);
+                            if (!agents[rel].Satellites.Contains(agents[aw_selected].Name))
+                                agents[rel].Satellites.Add(agents[aw_selected].Name);
                         } else
                         {
                             isFirstSpaceSetting = false;

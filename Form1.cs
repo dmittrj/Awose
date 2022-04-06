@@ -1017,6 +1017,8 @@ namespace Awose
                     if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y))
                     {
                         agents[aw_selected].Spray.Clear();
+                        agents[aw_selected].X_screen = aw_cursor.X - Cursor.Position.X;
+                        agents[aw_selected].Y_screen = aw_cursor.Y - Cursor.Position.Y;
                         aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
                         if (agents[aw_selected].Star != "")
                         {
@@ -1249,6 +1251,11 @@ namespace Awose
                 item.Restore();
             }
             Aw_CheckMistakes();
+        }
+
+        private void ModelBoard_PB_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

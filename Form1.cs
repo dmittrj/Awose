@@ -187,8 +187,8 @@ namespace Awose
                             grfx.FillEllipse(item.Dye, circle);
                             if (item.IsSelected)
                             {
-                                RectangleF bigcircle = new((float)(lu_corner.X + item.X * aw_scale - (diameter * 2) / 2), (float)(lu_corner.Y + item.Y * aw_scale - (diameter * 2) / 2), (int)(diameter * 2), (int)(diameter * 2));
-                                grfx.DrawEllipse(new Pen(Brushes.White, 2 * aw_scale), bigcircle);
+                                RectangleF bigcircle = new((float)(lu_corner.X + item.X * aw_scale - (diameter * 1.7) / 2), (float)(lu_corner.Y + item.Y * aw_scale - (diameter * 1.7) / 2), (int)(diameter * 1.7), (int)(diameter * 1.7));
+                                grfx.DrawEllipse(new Pen(Brushes.White, (int)(1.5 * aw_scale)), bigcircle);
                             }
                         }
                     }

@@ -174,11 +174,11 @@ namespace Awose
             // 
             // ResetSimulation_MSItem
             // 
-            this.ResetSimulation_MSItem.Enabled = false;
             this.ResetSimulation_MSItem.Name = "ResetSimulation_MSItem";
             this.ResetSimulation_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.ResetSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
             this.ResetSimulation_MSItem.Text = "Reset";
+            this.ResetSimulation_MSItem.Click += new System.EventHandler(this.ResetSimulation_MSItem_Click);
             // 
             // toolStripMenuItem1
             // 

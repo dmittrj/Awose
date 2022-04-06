@@ -1130,6 +1130,10 @@ namespace Awose
 
         private void LaunchSimulation_MSItem_Click(object sender, EventArgs e)
         {
+            foreach (AwoseAgent item in agents)
+            {
+                item.Backup();
+            }
             isLaunched = true;
             LaunchSimulation_MSItem.Enabled = false;
             PauseSimulation_MSItem.Enabled = true;
@@ -1144,7 +1148,7 @@ namespace Awose
             LaunchSimulation_MSItem.Enabled = true;
             PauseSimulation_MSItem.Enabled = false;
             StopSimulation_MSItem.Enabled = false;
-            ResetSimulation_MSItem.Enabled = false;
+            ResetSimulation_MSItem.Enabled = true;
             Aw_CheckMistakes();
         }
         private void ObjectPositionX_Label_Click(object sender, EventArgs e)
@@ -1236,6 +1240,15 @@ namespace Awose
             aw_undo.Push(new AwoseChange(agents[^1], ChangeType.Creating));
             Aw_CheckMistakes();
             Aw_DrawControl();
+        }
+
+        private void ResetSimulation_MSItem_Click(object sender, EventArgs e)
+        {
+            foreach (AwoseAgent item in agents)
+            {
+                item.Restore();
+            }
+            Aw_CheckMistakes();
         }
     }
 }

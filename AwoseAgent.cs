@@ -70,6 +70,12 @@ namespace Awose
         public Queue<Point> Trajectory = new();
         public readonly Queue<Point> Spray = new();
 
+        //backups
+        private double Backup_X;
+        private double Backup_Y;
+        private double Backup_VelocityX;
+        private double Backup_VelocityY;
+
         public AwoseAgent(string name, double x, double y, double weight, double charge, double velocityX, double velocityY, bool isPinned)
         {
             Name = name;
@@ -91,6 +97,21 @@ namespace Awose
             Star = "";
         }
 
+        public void Backup()
+        {
+            Backup_X = X;
+            Backup_Y = Y;
+            Backup_VelocityX = VelocityX;
+            Backup_VelocityY = VelocityY;
+        }
+
+        public void Restore()
+        {
+            X = Backup_X;
+            Y = Backup_Y;
+            VelocityX = Backup_VelocityX;
+            VelocityY = Backup_VelocityY;
+        }
 
         public void ForceCalc(AwoseAgent opposite)
         {

@@ -61,6 +61,34 @@ namespace Awose
                 float ay = 15 * dy / l;
                 float bx = 7 * dy / l;
                 float by = 7 * dx / l;
+                agents[aw_selected].ForceEX = 0;
+                agents[aw_selected].ForceEY = 0;
+                agents[aw_selected].ForceGX = 0; 
+                agents[aw_selected].ForceGY = 0;
+                List<PointF> tmpTraj = new();
+                double tmpVelocityX = x - dx;
+                double tmpVelocityY = y - dy;
+                double tmpX = agents[aw_selected].X;
+                double tmpY = agents[aw_selected].Y;
+                for (int i = 0; i < 200; i++)
+                {
+                    foreach (AwoseAgent item in agents)
+                    {
+                        if (agents[aw_selected].Name != item.Name)
+                            agents[aw_selected].ForceCalc(item, tmpX, tmpY, tmpVelocityX, tmpVelocityY);
+                    }
+                    tmpVelocityX += (agents[aw_selected].ForceGX + agents[aw_selected].ForceEX) * timeStep / agents[aw_selected].Weight / 1000;
+                    tmpVelocityY += (agents[aw_selected].ForceGY + agents[aw_selected].ForceEY) * timeStep / agents[aw_selected].Weight / 1000;
+                    tmpX += tmpVelocityX * timeStep / 1000;
+                    tmpY += tmpVelocityY * timeStep / 1000;
+                    tmpTraj.Add(new PointF((float)(lu_corner.X + tmpX * aw_scale), (float)(lu_corner.Y + tmpY * aw_scale)));
+                }
+                for (int i = 0; i < 199; i++)
+                {
+                   grfx.DrawLine(new Pen(Brushes.White, 1),
+                   new Point((int)tmpTraj[i].X, (int)tmpTraj[i].Y),
+                   new Point((int)tmpTraj[i+1].X, (int)tmpTraj[i+1].Y));
+                }
                 Point[] arrow =
                 {
                     new Point(x, y),

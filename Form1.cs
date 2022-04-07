@@ -52,8 +52,10 @@ namespace Awose
             {
                 int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
                 int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-                float dx = aw_cursor.X - (Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7);
-                float dy = aw_cursor.Y - (Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29);
+                //float dx = aw_cursor.X - (Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7);
+                //float dy = aw_cursor.Y - (Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29);
+                float dx = agents[aw_selected].X_screen;
+                float dy = agents[aw_selected].Y_screen;
                 float l = (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
                 float ax = 15 * dx / l;
                 float ay = 15 * dy / l;
@@ -66,9 +68,9 @@ namespace Awose
                     new Point(x + (int)ax + (int)bx, y + (int)ay - (int)by)
                 };
                 grfx.DrawLine(new Pen(Brushes.Tomato, 2),
-                    new Point(aw_cursor.X, aw_cursor.Y),
-                    new Point(Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7,
-                    Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29));
+                    new Point((int)dx, (int)dy),
+                    new Point(x,
+                    y));
                 grfx.FillPolygon(Brushes.Tomato, arrow);
             }
             if (isFirstSpaceSetting)
@@ -529,6 +531,11 @@ namespace Awose
                 aw_scale -= .5f;
                 lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
                 lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
+            }
+            foreach (AwoseAgent item in agents)
+            {
+                item.X_screen = (int)(lu_corner.X + item.X * aw_scale);
+                item.Y_screen = (int)(lu_corner.Y + item.Y * aw_scale);
             }
         }
 
@@ -1038,49 +1045,15 @@ namespace Awose
                     break;
                 case MouseButtons.Middle:
                     isBoardMoving = false;
+                    foreach (AwoseAgent item in agents)
+                    {
+                        item.X_screen = (int)(lu_corner.X + item.X * aw_scale);
+                        item.Y_screen = (int)(lu_corner.Y + item.Y * aw_scale);
+                    }
                     break;
                 default:
                     break;
             }
-
-            //if (e.Button == MouseButtons.Left)
-            //{
-
-            //    aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
-            //    aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-            //    if (isFirstSpaceSetting)
-            //    {
-            //        int rel = -1;
-            //        foreach (AwoseAgent item in agents)
-            //        {
-            //            if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
-            //                rel++;
-            //            else break;
-            //        }
-            //        rel++;
-            //        if (rel != -1)
-            //        {
-            //            isFirstSpaceSetting = false;
-            //            double distance = Math.Sqrt(Math.Pow(agents[rel].X - agents[aw_selected].X, 2) + Math.Pow(agents[rel].Y - agents[aw_selected].Y, 2));
-            //            float tempFV = Calculations.FirstSpace(agents[rel], agents[aw_selected]);
-            //            agents[aw_selected].VelocityY = (agents[rel].X - agents[aw_selected].X) * tempFV / distance;
-            //            agents[aw_selected].VelocityX = (agents[aw_selected].Y - agents[rel].Y) * tempFV / distance;
-            //            agents[aw_selected].IsFirstSpace = true;
-            //            agents[aw_selected].MovedAfterSetting = false;
-            //            agents[rel].IsFirstSpace = true;
-            //            agents[rel].MovedAfterSetting = false;
-            //        }
-            //    }
-            //    aw_selected = 0;
-            //    foreach (AwoseAgent item in agents)
-            //    {
-            //        if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
-            //            aw_selected++;
-            //        else break;
-            //    }
-            //    Aw_DrawControl();
-            //}
-            //if (isLaunched) return;
             Aw_CheckMistakes();
         }
 

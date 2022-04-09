@@ -56,6 +56,13 @@ namespace Awose
                 (int)((realY + lu_corner.Y) * aw_scale));
         }
 
+        private Point GetCursorPosition()
+        {
+            return new Point(
+                Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7,
+                Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29);
+        }
+
         private void Aw_Refresh()
         {
             float diameter = aw_agentsize * aw_scale;
@@ -554,28 +561,20 @@ namespace Awose
             Aw_DrawControl();
         }
 
-        private void ModelBoard_PB_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void ModelBoard_PB_MouseWheel(object sender, MouseEventArgs e)
         {
-            Point beforeScaling = new();
+            PointF beforeScaling = GetCursorPosition();
             if (e.Delta > 0)
             {
-                beforeScaling.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
-                beforeScaling.Y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-                aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
-                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
                 aw_scale += .5f;
-                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
-                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
+                lu_corner.X = (int)((beforeScaling.X / aw_scale) - (beforeScaling.X / (aw_scale - .5f)) + lu_corner.X);
+                lu_corner.Y = (int)((beforeScaling.Y / aw_scale) - (beforeScaling.Y / (aw_scale - .5f)) + lu_corner.Y);
             }
             else if (aw_scale > 1)
             {
-                beforeScaling.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
-                beforeScaling.Y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-                aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
-                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-                aw_scale -= .5f;
-                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
-                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
+                aw_scale += .5f;
+                lu_corner.X = (int)((beforeScaling.X / aw_scale) - (beforeScaling.X / (aw_scale - .5f)) + lu_corner.X);
+                lu_corner.Y = (int)((beforeScaling.Y / aw_scale) - (beforeScaling.Y / (aw_scale - .5f)) + lu_corner.Y);
             }
             foreach (AwoseAgent item in agents)
             {
@@ -1009,10 +1008,11 @@ namespace Awose
                     }
                     int possibleSelection = 0;
                     aw_selected = 0;
+                    PointF point = ScreenToReal(aw_cursor.X, aw_cursor.Y);
                     foreach (AwoseAgent item in agents)
                     {
                         item.IsSelected = false;
-                        if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                        if (Calculations.IsInRadius((int)point.X, (int)point.Y, item, aw_agentsize * aw_scale))
                         {
                             selects.Add(item);
                             possibleSelection = aw_selected++;

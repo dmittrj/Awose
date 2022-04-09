@@ -42,6 +42,13 @@ namespace Awose
         public static float ConstG = 100000;
         public static float ConstE = 100000;
 
+        private PointF RealToScreen(float realX, float realY)
+        {
+            return new(
+                (-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale,
+                (-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+        }
+
         private void Aw_Refresh()
         {
             float diameter = aw_agentsize * aw_scale;

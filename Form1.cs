@@ -42,11 +42,11 @@ namespace Awose
         public static float ConstG = 100000;
         public static float ConstE = 100000;
 
-        private PointF RealToScreen(float realX, float realY)
+        private PointF ScreenToReal(float screenX, float screenY)
         {
             return new(
-                (-lu_corner.X + realX) / aw_scale,
-                (-lu_corner.Y + realY) / aw_scale);
+                screenX / aw_scale - lu_corner.X,
+                screenY / aw_scale - lu_corner.Y);
         }
 
         private void Aw_Refresh()
@@ -538,7 +538,7 @@ namespace Awose
                     goto aaw_loopNames;
                 }
             }
-            PointF newAgentPoint = RealToScreen(aw_cursor.X, aw_cursor.Y);
+            PointF newAgentPoint = ScreenToReal(aw_cursor.X, aw_cursor.Y);
             Text = newAgentPoint.X.ToString() + ", " + newAgentPoint.Y.ToString();
             agents.Add(new AwoseAgent("Object " + (agentsNumeric++).ToString(), aw_cursor.X, aw_cursor.Y, 1, 0, 0, 0, false));
             aw_undo.Push(new AwoseChange(agents[^1], ChangeType.Creating));

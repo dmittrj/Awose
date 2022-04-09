@@ -16,31 +16,52 @@ namespace Awose
     public partial class Awose : Form
     {
         readonly List<AwoseAgent> agents = new();
-        int agentsNumeric = 1;
+        private int agentsNumeric = 1;
         readonly Stack<AwoseChange> aw_undo = new();
         readonly Stack<AwoseChange> aw_redo = new();
-        int aw_selected = -1;
-        //represents click-point in in-simulation coordinates
-        Point aw_cursor = new(0, 0);
+        private int aw_selected = -1;
+        //represents click-point in screen coordinates
+        private Point aw_cursor = new(0, 0);
         //represents coordinate of up-left corner in in-simulation coordinates
-        Point lu_corner = new(0, 0);
+        private Point lu_corner = new(0, 0);
         //represents remembered point in screen coordinates
-        Point aw_remember = new(0, 0);
-        Point lu_remember = new(0, 0);
-        Point objBeforeMoving = new(0, 0);
-        float aw_scale = 1;
+        private Point aw_remember = new(0, 0);
+        private Point lu_remember = new(0, 0);
+        private Point objBeforeMoving = new(0, 0);
+        private float aw_scale = 1;
         const int aw_agentsize = 15;
-        EditingValue editingValue = EditingValue.None;
-        bool isBoardMoving = false;
-        bool isObjectMoving = false;
-        bool isLaunched = false;
-        bool isFirstSpaceSetting = false;
-        int SettingVelocity = -1;
+        private EditingValue editingValue = EditingValue.None;
+        private bool isBoardMoving = false;
+        private bool isObjectMoving = false;
+        private bool isLaunched = false;
+        private bool isFirstSpaceSetting = false;
+        private int SettingVelocity = -1;
         //int c = -1;
         //constants
         public static int timeStep = 20;
         public static float ConstG = 100000;
         public static float ConstE = 100000;
+
+        private PointF ScreenToReal(float screenX, float screenY)
+        {
+            return new(
+                screenX / aw_scale - lu_corner.X,
+                screenY / aw_scale - lu_corner.Y);
+        }
+
+        private Point RealToScreen(double realX, double realY)
+        {
+            return new(
+                (int)((realX + lu_corner.X) * aw_scale),
+                (int)((realY + lu_corner.Y) * aw_scale));
+        }
+
+        private Point GetCursorPosition()
+        {
+            return new Point(
+                Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7,
+                Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29);
+        }
 
         private void Aw_Refresh()
         {
@@ -130,7 +151,8 @@ namespace Awose
                         }
                     }
 
-                    RectangleF circle = new((float)(lu_corner.X + item.X * aw_scale - diameter / 2), (float)(lu_corner.Y + item.Y * aw_scale - diameter / 2), diameter, diameter);
+                    Point point = RealToScreen(item.X, item.Y);
+                    RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
                     if (circle.X + diameter < 0) {
                         if (circle.Y + 0.5 * diameter < 15)
                         {
@@ -531,34 +553,28 @@ namespace Awose
                     goto aaw_loopNames;
                 }
             }
-            agents.Add(new AwoseAgent("Object " + (agentsNumeric++).ToString(), aw_cursor.X, aw_cursor.Y, 1, 0, 0, 0, false));
+            PointF newAgentPoint = ScreenToReal(aw_cursor.X, aw_cursor.Y);
+            Text = newAgentPoint.X.ToString() + ", " + newAgentPoint.Y.ToString();
+            agents.Add(new AwoseAgent("Object " + (agentsNumeric++).ToString(), newAgentPoint.X, newAgentPoint.Y, 1, 0, 0, 0, false));
             aw_undo.Push(new AwoseChange(agents[^1], ChangeType.Creating));
             Aw_CheckMistakes();
             Aw_DrawControl();
         }
 
-        private void ModelBoard_PB_MouseWheel(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void ModelBoard_PB_MouseWheel(object sender, MouseEventArgs e)
         {
-            Point beforeScaling = new();
+            PointF beforeScaling = GetCursorPosition();
             if (e.Delta > 0)
             {
-                beforeScaling.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
-                beforeScaling.Y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-                aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
-                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
                 aw_scale += .5f;
-                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
-                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
+                lu_corner.X = (int)((beforeScaling.X / aw_scale) - (beforeScaling.X / (aw_scale - .5f)) + lu_corner.X);
+                lu_corner.Y = (int)((beforeScaling.Y / aw_scale) - (beforeScaling.Y / (aw_scale - .5f)) + lu_corner.Y);
             }
             else if (aw_scale > 1)
             {
-                beforeScaling.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
-                beforeScaling.Y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-                aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
-                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-                aw_scale -= .5f;
-                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
-                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
+                aw_scale += .5f;
+                lu_corner.X = (int)((beforeScaling.X / aw_scale) - (beforeScaling.X / (aw_scale - .5f)) + lu_corner.X);
+                lu_corner.Y = (int)((beforeScaling.Y / aw_scale) - (beforeScaling.Y / (aw_scale - .5f)) + lu_corner.Y);
             }
             foreach (AwoseAgent item in agents)
             {
@@ -944,9 +960,9 @@ namespace Awose
 
         private void ModelBoard_PB_MouseDown(object sender, MouseEventArgs e)
         {
-            aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
-            aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-            Text = aw_cursor.X.ToString() + " " + aw_cursor.Y.ToString();
+            aw_cursor.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+            aw_cursor.Y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+            Text = aw_cursor.X.ToString() + ", " + aw_cursor.Y.ToString();
             List<AwoseAgent> selects = new();
             PossibleSelections_LB.Visible = false;
             isObjectMoving = false;
@@ -992,10 +1008,11 @@ namespace Awose
                     }
                     int possibleSelection = 0;
                     aw_selected = 0;
+                    PointF point = ScreenToReal(aw_cursor.X, aw_cursor.Y);
                     foreach (AwoseAgent item in agents)
                     {
                         item.IsSelected = false;
-                        if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                        if (Calculations.IsInRadius((int)point.X, (int)point.Y, item, aw_agentsize * aw_scale))
                         {
                             selects.Add(item);
                             possibleSelection = aw_selected++;

@@ -49,6 +49,13 @@ namespace Awose
                 screenY / aw_scale - lu_corner.Y);
         }
 
+        private Point RealToScreen(double realX, double realY)
+        {
+            return new(
+                (int)((realX + lu_corner.X) * aw_scale),
+                (int)((realY + lu_corner.Y) * aw_scale));
+        }
+
         private void Aw_Refresh()
         {
             float diameter = aw_agentsize * aw_scale;
@@ -137,7 +144,8 @@ namespace Awose
                         }
                     }
 
-                    RectangleF circle = new((float)(lu_corner.X + item.X * aw_scale - diameter / 2), (float)(lu_corner.Y + item.Y * aw_scale - diameter / 2), diameter, diameter);
+                    Point point = RealToScreen(item.X, item.Y);
+                    RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
                     if (circle.X + diameter < 0) {
                         if (circle.Y + 0.5 * diameter < 15)
                         {
@@ -540,7 +548,7 @@ namespace Awose
             }
             PointF newAgentPoint = ScreenToReal(aw_cursor.X, aw_cursor.Y);
             Text = newAgentPoint.X.ToString() + ", " + newAgentPoint.Y.ToString();
-            agents.Add(new AwoseAgent("Object " + (agentsNumeric++).ToString(), aw_cursor.X, aw_cursor.Y, 1, 0, 0, 0, false));
+            agents.Add(new AwoseAgent("Object " + (agentsNumeric++).ToString(), newAgentPoint.X, newAgentPoint.Y, 1, 0, 0, 0, false));
             aw_undo.Push(new AwoseChange(agents[^1], ChangeType.Creating));
             Aw_CheckMistakes();
             Aw_DrawControl();

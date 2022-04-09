@@ -575,6 +575,34 @@ namespace Awose
                 aw_scale += .5f;
                 lu_corner.X = (int)((beforeScaling.X / aw_scale) - (beforeScaling.X / (aw_scale - .5f)) + lu_corner.X);
                 lu_corner.Y = (int)((beforeScaling.Y / aw_scale) - (beforeScaling.Y / (aw_scale - .5f)) + lu_corner.Y);
+                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+                aw_scale -= .5f;
+                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
+                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
+                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+                aw_scale -= .5f;
+                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
+                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
+                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+                aw_scale -= .5f;
+                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
+                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
+                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+                aw_scale -= .5f;
+                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
+                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
+                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+                aw_scale -= .5f;
+                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
+                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
+                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+                aw_scale -= .5f;
+                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
+                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
+                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+                aw_scale -= .5f;
+                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
+                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
             }
             foreach (AwoseAgent item in agents)
             {
@@ -1053,7 +1081,7 @@ namespace Awose
                     break;
                 case MouseButtons.Middle:
                     isBoardMoving = true;
-                    aw_cursor = Cursor.Position;
+                    //aw_cursor = Cursor.Position;
                     lu_remember = lu_corner;
                     break;
                 default:

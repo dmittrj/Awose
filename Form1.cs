@@ -45,8 +45,8 @@ namespace Awose
         private PointF RealToScreen(float realX, float realY)
         {
             return new(
-                (-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale,
-                (-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+                (-lu_corner.X + realX - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale,
+                (-lu_corner.Y + realY - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
         }
 
         private void Aw_Refresh()
@@ -951,9 +951,9 @@ namespace Awose
 
         private void ModelBoard_PB_MouseDown(object sender, MouseEventArgs e)
         {
-            aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);
-            aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-            Text = aw_cursor.X.ToString() + " " + aw_cursor.Y.ToString();
+            aw_cursor.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+            aw_cursor.Y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+            Text = aw_cursor.X.ToString() + ", " + aw_cursor.Y.ToString();
             List<AwoseAgent> selects = new();
             PossibleSelections_LB.Visible = false;
             isObjectMoving = false;

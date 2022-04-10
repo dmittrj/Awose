@@ -13,6 +13,8 @@ using System.Windows.Forms;
 namespace Awose
 {
     enum EditingValue { None, Mass, Charge, Name, X, Y }
+
+    enum MovingEntity { None, Board, Agent }
     public partial class Awose : Form
     {
         readonly List<AwoseAgent> agents = new();
@@ -22,15 +24,17 @@ namespace Awose
         private int aw_selected = -1;
         //represents click-point in screen coordinates
         private Point aw_cursor = new(0, 0);
-        //represents coordinate of up-left corner in in-simulation coordinates
-        private Point lu_corner = new(0, 0);
+        //represents coordinate of up-left corner in real coordinates
+        private PointF lu_corner = new(0, 0);
         //represents remembered point in screen coordinates
         private Point aw_remember = new(0, 0);
-        private Point lu_remember = new(0, 0);
+        //represents remembered up-left corner in real coordinates
+        private PointF lu_remember = new(0, 0);
         private Point objBeforeMoving = new(0, 0);
         private float aw_scale = 1;
         const int aw_agentsize = 15;
         private EditingValue editingValue = EditingValue.None;
+        private MovingEntity movingEntity = MovingEntity.None;
         private bool isBoardMoving = false;
         private bool isObjectMoving = false;
         private bool isLaunched = false;
@@ -41,6 +45,7 @@ namespace Awose
         public static int timeStep = 20;
         public static float ConstG = 100000;
         public static float ConstE = 100000;
+
 
         private PointF ScreenToReal(float screenX, float screenY)
         {
@@ -967,13 +972,15 @@ namespace Awose
 
         private void ModelBoard_PB_MouseDown(object sender, MouseEventArgs e)
         {
-            aw_cursor.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
-            aw_cursor.Y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-            Text = aw_cursor.X.ToString() + ", " + aw_cursor.Y.ToString();
+            //aw_cursor.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+            //aw_cursor.Y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+            aw_cursor = GetCursorPosition();
+            //Text = aw_cursor.X.ToString() + ", " + aw_cursor.Y.ToString();
             List<AwoseAgent> selects = new();
             PossibleSelections_LB.Visible = false;
-            isObjectMoving = false;
-            isBoardMoving = false;
+            //isObjectMoving = false;
+            //isBoardMoving = false;
+            movingEntity = MovingEntity.None;
             switch (e.Button)
             {
                 case MouseButtons.Left:
@@ -1059,9 +1066,11 @@ namespace Awose
                     Aw_DrawControl();
                     break;
                 case MouseButtons.Middle:
-                    isBoardMoving = true;
+                    //isBoardMoving = true;
+                    movingEntity = MovingEntity.Board;
                     Cursor = Cursors.NoMove2D;
                     //aw_cursor = Cursor.Position;
+                    aw_remember = GetCursorPosition();
                     lu_remember = lu_corner;
                     break;
                 default:
@@ -1117,28 +1126,34 @@ namespace Awose
             RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
             RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
             bool hoverAgent = false;
-            if (isBoardMoving)
+            switch (movingEntity)
             {
-                Cursor = Cursors.NoMove2D;
-            } 
-            else
-            {
-                foreach (AwoseAgent item in agents)
-                {
-                    if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                case MovingEntity.None:
+                    foreach (AwoseAgent item in agents)
                     {
-                        hoverAgent = true;
-                        break;
+                        if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                        {
+                            hoverAgent = true;
+                            break;
+                        }
                     }
-                }
-                if (hoverAgent)
-                {
-                    Cursor = Cursors.Default;
-                }
-                else
-                {
-                    Cursor = Cursors.Cross;
-                }
+                    if (hoverAgent)
+                    {
+                        Cursor = Cursors.Default;
+                    }
+                    else
+                    {
+                        Cursor = Cursors.Cross;
+                    }
+                    break;
+                case MovingEntity.Board:
+                    Cursor = Cursors.NoMove2D;
+                    lu_corner = lu_remember - ((aw_remember - GetCursorPosition()) / aw_scale);
+                    break;
+                case MovingEntity.Agent:
+                    break;
+                default:
+                    break;
             }
             
             

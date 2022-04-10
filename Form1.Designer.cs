@@ -560,6 +560,7 @@ namespace Awose
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ModelBoard_PB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
             this.ModelBoard_PB.ContextMenuStrip = this.Space_CMStr;
+            this.ModelBoard_PB.Cursor = System.Windows.Forms.Cursors.Cross;
             this.ModelBoard_PB.Location = new System.Drawing.Point(248, 28);
             this.ModelBoard_PB.Name = "ModelBoard_PB";
             this.ModelBoard_PB.Size = new System.Drawing.Size(993, 686);

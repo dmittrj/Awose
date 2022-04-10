@@ -41,5 +41,10 @@ namespace Awose
             forceY = force * (agent1.Y - agent2.Y) / Math.Sqrt(distance);
         }
 
+        public static int BruteRound(float number, float divider)
+        {
+            if (divider == 0) return 0;
+            return (int)Math.Round(number) / (int)divider * (int)divider;
+        }
     }
 }

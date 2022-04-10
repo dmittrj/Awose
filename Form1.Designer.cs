@@ -112,9 +112,6 @@ namespace Awose
             this.RT_Scale_Label = new System.Windows.Forms.Label();
             this.ControlLayer_Panel = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -598,7 +595,7 @@ namespace Awose
             this.ModelBoard_PB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ModelBoard_PB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.ModelBoard_PB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.ModelBoard_PB.ContextMenuStrip = this.Space_CMStr;
             this.ModelBoard_PB.Cursor = System.Windows.Forms.Cursors.Cross;
             this.ModelBoard_PB.Location = new System.Drawing.Point(248, 28);
@@ -987,13 +984,11 @@ namespace Awose
             this.ControlLayer_Panel.Name = "ControlLayer_Panel";
             this.ControlLayer_Panel.Size = new System.Drawing.Size(248, 686);
             this.ControlLayer_Panel.TabIndex = 9;
+            this.ControlLayer_Panel.Visible = false;
             // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.listBox1);
-            this.panel3.Controls.Add(this.label10);
-            this.panel3.Controls.Add(this.label11);
             this.panel3.Controls.Add(this.label15);
             this.panel3.Controls.Add(this.label16);
             this.panel3.Location = new System.Drawing.Point(-1, 164);
@@ -1002,54 +997,16 @@ namespace Awose
             this.panel3.TabIndex = 5;
             this.panel3.Visible = false;
             // 
-            // listBox1
-            // 
-            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(14)))), ((int)(((byte)(14)))));
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.listBox1.ForeColor = System.Drawing.Color.LightSkyBlue;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 17;
-            this.listBox1.Location = new System.Drawing.Point(30, 55);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.listBox1.Size = new System.Drawing.Size(83, 51);
-            this.listBox1.TabIndex = 6;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label10.ForeColor = System.Drawing.Color.LightSkyBlue;
-            this.label10.Location = new System.Drawing.Point(127, 54);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(45, 19);
-            this.label10.TabIndex = 5;
-            this.label10.Text = "None";
-            // 
-            // label11
-            // 
-            this.label11.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(119, 35);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(67, 19);
-            this.label11.TabIndex = 3;
-            this.label11.Text = "Star:";
-            // 
             // label15
             // 
             this.label15.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.label15.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label15.ForeColor = System.Drawing.Color.White;
-            this.label15.Location = new System.Drawing.Point(17, 35);
+            this.label15.Location = new System.Drawing.Point(9, 35);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(67, 19);
+            this.label15.Size = new System.Drawing.Size(154, 19);
             this.label15.TabIndex = 2;
-            this.label15.Text = "Satellites:";
+            this.label15.Text = "Grid color";
             // 
             // label16
             // 
@@ -1059,9 +1016,9 @@ namespace Awose
             this.label16.ForeColor = System.Drawing.Color.White;
             this.label16.Location = new System.Drawing.Point(9, 7);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(49, 19);
+            this.label16.Size = new System.Drawing.Size(55, 19);
             this.label16.TabIndex = 1;
-            this.label16.Text = "Space";
+            this.label16.Text = "Beauty";
             // 
             // pictureBox1
             // 
@@ -1355,9 +1312,6 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.Panel ControlLayer_Panel;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.PictureBox pictureBox1;

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Awose
 {
     enum FirstSpaceObject { None, Satellite, Planet, Star }
-    class AwoseAgent
+    public class AwoseAgent
     {
         //User information
         /// <summary>

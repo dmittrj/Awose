@@ -17,7 +17,10 @@ namespace Awose
     enum MovingEntity { None, Board, Agent }
     public partial class Awose : Form
     {
+        [Obsolete]
         readonly List<AwoseAgent> agents = new();
+        public static List<AwoseLayer> Layers { get; set; }
+        private int CurrentLayer = 0;
         private int agentsNumeric = 1;
         readonly Stack<AwoseChange> aw_undo = new();
         readonly Stack<AwoseChange> aw_redo = new();
@@ -79,10 +82,39 @@ namespace Awose
 
         private void Aw_Refresh()
         {
+            const int GRID_FREQUENCY = 100;
             float diameter = aw_agentsize * aw_scale;
             Bitmap board = new(ModelBoard_PB.Width, ModelBoard_PB.Height);
             using Graphics grfx = Graphics.FromImage(board);
-            grfx.Clear(Color.FromArgb(35, 35, 35));
+            //Drawing background
+            grfx.Clear(Color.FromArgb(5, 5, 5));
+            //Drawing grid
+            int horLine = Calculations.BruteRound(lu_corner.X, aw_scale * GRID_FREQUENCY);
+            int verLine = Calculations.BruteRound(lu_corner.Y, aw_scale * GRID_FREQUENCY);
+            for (int i = horLine + (int)(aw_scale * GRID_FREQUENCY / 2); i < lu_corner.X + ModelBoard_PB.Width; i += (int)(aw_scale * GRID_FREQUENCY))
+            {
+                grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorSub, 2),
+                    new Point(i, 0),
+                    new Point(i, ModelBoard_PB.Height));
+            }
+            for (int i = verLine + (int)(aw_scale * GRID_FREQUENCY / 2); i < lu_corner.Y + ModelBoard_PB.Height; i += (int)(aw_scale * GRID_FREQUENCY))
+            {
+                grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorSub, 2),
+                    new Point(0, i),
+                    new Point(ModelBoard_PB.Width, i));
+            }
+            for (int i = horLine; i < lu_corner.X + ModelBoard_PB.Width; i += (int)(aw_scale * GRID_FREQUENCY))
+            {
+                grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorMain, 3),
+                    new Point(i, 0),
+                    new Point(i, ModelBoard_PB.Height));
+            }
+            for (int i = verLine; i < lu_corner.Y + ModelBoard_PB.Height; i += (int)(aw_scale * GRID_FREQUENCY))
+            {
+                grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorMain, 3),
+                    new Point(0, i),
+                    new Point(ModelBoard_PB.Width, i));
+            }
             if (SettingVelocity != -1)
             {
                 int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
@@ -300,6 +332,8 @@ namespace Awose
         Thread animation;
         private void Awose_Load(object sender, EventArgs e)
         {
+            Layers = new List<AwoseLayer>();
+            Layers.Add(new AwoseLayer(Layers.Count + 1));
             animation = new(AnimationEditor);
             animation.Start();
         }

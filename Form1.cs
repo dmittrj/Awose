@@ -1134,8 +1134,8 @@ namespace Awose
         {
             Point point = GetCursorPosition();
             PointF pointCursor = ScreenToReal(point.X, point.Y);
-            RT_X_Label.Text = pointCursor.X.ToString();
-            RT_Y_Label.Text = pointCursor.Y.ToString();
+            RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
+            RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
             if (isBoardMoving)
             {
                 lu_corner = new Point(lu_remember.X - (aw_cursor.X - Cursor.Position.X),

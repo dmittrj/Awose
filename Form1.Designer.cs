@@ -118,16 +118,12 @@ namespace Awose
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             ControlAgents_Panel = new System.Windows.Forms.Panel();
             ControlAgents_Panel.SuspendLayout();
             this.ObjectSpace_Panel.SuspendLayout();
@@ -1055,115 +1051,40 @@ namespace Awose
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.label17);
             this.panel4.Controls.Add(this.label18);
-            this.panel4.Controls.Add(this.label19);
-            this.panel4.Controls.Add(this.label20);
-            this.panel4.Controls.Add(this.label21);
-            this.panel4.Controls.Add(this.label22);
-            this.panel4.Controls.Add(this.label23);
-            this.panel4.Controls.Add(this.label24);
+            this.panel4.Controls.Add(this.label17);
+            this.panel4.Controls.Add(this.label11);
+            this.panel4.Controls.Add(this.label10);
             this.panel4.Controls.Add(this.label25);
             this.panel4.Location = new System.Drawing.Point(-1, 35);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(248, 129);
             this.panel4.TabIndex = 2;
             // 
-            // label17
+            // label11
             // 
-            this.label17.AutoSize = true;
-            this.label17.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label17.ForeColor = System.Drawing.Color.LightSkyBlue;
-            this.label17.Location = new System.Drawing.Point(83, 92);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(17, 19);
-            this.label17.TabIndex = 9;
-            this.label17.Text = "0";
+            this.label11.AutoSize = true;
+            this.label11.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label11.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.label11.Location = new System.Drawing.Point(83, 32);
+            this.label11.Name = "label11";
+            this.label11.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label11.Size = new System.Drawing.Size(134, 28);
+            this.label11.TabIndex = 4;
+            this.label11.Text = "F=G×M¹m¹r⁻²";
             // 
-            // label18
+            // label10
             // 
-            this.label18.AutoSize = true;
-            this.label18.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label18.ForeColor = System.Drawing.Color.LightSkyBlue;
-            this.label18.Location = new System.Drawing.Point(83, 73);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(17, 19);
-            this.label18.TabIndex = 8;
-            this.label18.Text = "0";
-            // 
-            // label19
-            // 
-            this.label19.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label19.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label19.ForeColor = System.Drawing.Color.White;
-            this.label19.Location = new System.Drawing.Point(17, 92);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(67, 19);
-            this.label19.TabIndex = 7;
-            this.label19.Text = "Y:";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label20
-            // 
-            this.label20.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label20.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label20.ForeColor = System.Drawing.Color.White;
-            this.label20.Location = new System.Drawing.Point(17, 73);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(67, 19);
-            this.label20.TabIndex = 6;
-            this.label20.Text = "X:";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label21.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label21.ForeColor = System.Drawing.Color.LightSkyBlue;
-            this.label21.Location = new System.Drawing.Point(83, 54);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(30, 19);
-            this.label21.TabIndex = 5;
-            this.label21.Text = "0 C";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label22.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label22.ForeColor = System.Drawing.Color.LightSkyBlue;
-            this.label22.Location = new System.Drawing.Point(83, 35);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(38, 19);
-            this.label22.TabIndex = 4;
-            this.label22.Text = "0 kg";
-            // 
-            // label23
-            // 
-            this.label23.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label23.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label23.ForeColor = System.Drawing.Color.White;
-            this.label23.Location = new System.Drawing.Point(17, 54);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(67, 19);
-            this.label23.TabIndex = 3;
-            this.label23.Text = "Charge:";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label24
-            // 
-            this.label24.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label24.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label24.ForeColor = System.Drawing.Color.White;
-            this.label24.Location = new System.Drawing.Point(17, 35);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(67, 19);
-            this.label24.TabIndex = 2;
-            this.label24.Text = "Mass:";
-            this.label24.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label10.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(10, 40);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(74, 19);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "Law";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label25
             // 
@@ -1173,9 +1094,9 @@ namespace Awose
             this.label25.ForeColor = System.Drawing.Color.White;
             this.label25.Location = new System.Drawing.Point(9, 7);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(86, 19);
+            this.label25.Size = new System.Drawing.Size(58, 19);
             this.label25.TabIndex = 1;
-            this.label25.Text = "Parameters";
+            this.label25.Text = "Gravity";
             // 
             // label26
             // 
@@ -1188,6 +1109,30 @@ namespace Awose
             this.label26.Size = new System.Drawing.Size(54, 19);
             this.label26.TabIndex = 0;
             this.label26.Text = "Layer1";
+            // 
+            // label17
+            // 
+            this.label17.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label17.ForeColor = System.Drawing.Color.White;
+            this.label17.Location = new System.Drawing.Point(9, 63);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(75, 19);
+            this.label17.TabIndex = 5;
+            this.label17.Text = "Constant";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label18
+            // 
+            this.label18.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label18.ForeColor = System.Drawing.Color.White;
+            this.label18.Location = new System.Drawing.Point(9, 85);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(75, 19);
+            this.label18.TabIndex = 6;
+            this.label18.Text = "Interaction";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Awose
             // 
@@ -1327,17 +1272,13 @@ namespace Awose
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.PictureBox GridColor_Blue_PB;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
     }
 }
 

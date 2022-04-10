@@ -15,10 +15,14 @@ namespace Awose
         public SolidBrush GridColorMain { get; set; }
         public SolidBrush GridColorSub { get; set; }
         public AwoseLayer MotherLayer { get; set; }
+        public float ELaw { get; set; }
+        public float GLaw { get; set; }
         public AwoseLayer(int layerNumber)
         {
             Agents = new List<AwoseAgent>();
             LayerNumber = layerNumber;
+            ELaw = -2;
+            GLaw = -2;
             switch ((layerNumber - 1) % 2)
             {
                 case 0:

@@ -96,6 +96,15 @@ namespace Awose
             this.Instrumental_Panel = new System.Windows.Forms.Panel();
             this.MistakeHint_Label = new System.Windows.Forms.Label();
             this.PossibleSelections_LB = new System.Windows.Forms.ListBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.RT_Y_Label = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.RT_X_Label = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.RT_E_Label = new System.Windows.Forms.Label();
+            this.RT_g_Label = new System.Windows.Forms.Label();
             this.Main_MStr.SuspendLayout();
             this.Control_Panel.SuspendLayout();
             this.ObjectSpace_Panel.SuspendLayout();
@@ -103,6 +112,7 @@ namespace Awose
             this.ObjectSettings_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.Space_CMStr.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Main_MStr
@@ -777,12 +787,127 @@ namespace Awose
             this.PossibleSelections_LB.Visible = false;
             this.PossibleSelections_LB.SelectedIndexChanged += new System.EventHandler(this.PossibleSelections_LB_SelectedIndexChanged);
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.RT_g_Label);
+            this.panel1.Controls.Add(this.RT_E_Label);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.RT_Y_Label);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.RT_X_Label);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Location = new System.Drawing.Point(254, 617);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(79, 92);
+            this.panel1.TabIndex = 6;
+            // 
+            // RT_Y_Label
+            // 
+            this.RT_Y_Label.AutoSize = true;
+            this.RT_Y_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RT_Y_Label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.RT_Y_Label.ForeColor = System.Drawing.Color.White;
+            this.RT_Y_Label.Location = new System.Drawing.Point(31, 26);
+            this.RT_Y_Label.Name = "RT_Y_Label";
+            this.RT_Y_Label.Size = new System.Drawing.Size(14, 15);
+            this.RT_Y_Label.TabIndex = 12;
+            this.RT_Y_Label.Text = "0";
+            // 
+            // label8
+            // 
+            this.label8.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.label8.ForeColor = System.Drawing.Color.LightGray;
+            this.label8.Location = new System.Drawing.Point(3, 26);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(27, 19);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Y:";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // RT_X_Label
+            // 
+            this.RT_X_Label.AutoSize = true;
+            this.RT_X_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RT_X_Label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.RT_X_Label.ForeColor = System.Drawing.Color.White;
+            this.RT_X_Label.Location = new System.Drawing.Point(31, 7);
+            this.RT_X_Label.Name = "RT_X_Label";
+            this.RT_X_Label.Size = new System.Drawing.Size(14, 15);
+            this.RT_X_Label.TabIndex = 10;
+            this.RT_X_Label.Text = "0";
+            // 
+            // label6
+            // 
+            this.label6.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.label6.ForeColor = System.Drawing.Color.LightGray;
+            this.label6.Location = new System.Drawing.Point(3, 7);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(27, 19);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "X:";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label7
+            // 
+            this.label7.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.label7.ForeColor = System.Drawing.Color.LightGray;
+            this.label7.Location = new System.Drawing.Point(3, 45);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(27, 19);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "E:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label9
+            // 
+            this.label9.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.label9.ForeColor = System.Drawing.Color.LightGray;
+            this.label9.Location = new System.Drawing.Point(3, 64);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(27, 19);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "g:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // RT_E_Label
+            // 
+            this.RT_E_Label.AutoSize = true;
+            this.RT_E_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RT_E_Label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.RT_E_Label.ForeColor = System.Drawing.Color.White;
+            this.RT_E_Label.Location = new System.Drawing.Point(31, 45);
+            this.RT_E_Label.Name = "RT_E_Label";
+            this.RT_E_Label.Size = new System.Drawing.Size(14, 15);
+            this.RT_E_Label.TabIndex = 15;
+            this.RT_E_Label.Text = "0";
+            // 
+            // RT_g_Label
+            // 
+            this.RT_g_Label.AutoSize = true;
+            this.RT_g_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RT_g_Label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.RT_g_Label.ForeColor = System.Drawing.Color.White;
+            this.RT_g_Label.Location = new System.Drawing.Point(31, 64);
+            this.RT_g_Label.Name = "RT_g_Label";
+            this.RT_g_Label.Size = new System.Drawing.Size(14, 15);
+            this.RT_g_Label.TabIndex = 16;
+            this.RT_g_Label.Text = "0";
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.PossibleSelections_LB);
             this.Controls.Add(this.MistakeHint_Label);
             this.Controls.Add(this.Instrumental_Panel);
@@ -808,6 +933,8 @@ namespace Awose
             this.ObjectSettings_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();
             this.Space_CMStr.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -881,6 +1008,15 @@ namespace Awose
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ListBox Space_Satellites_LB;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label RT_X_Label;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label RT_Y_Label;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label RT_g_Label;
+        private System.Windows.Forms.Label RT_E_Label;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label7;
     }
 }
 

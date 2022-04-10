@@ -1132,6 +1132,10 @@ namespace Awose
 
         private void ModelBoard_PB_MouseMove(object sender, MouseEventArgs e)
         {
+            Point point = GetCursorPosition();
+            PointF pointCursor = ScreenToReal(point.X, point.Y);
+            RT_X_Label.Text = pointCursor.X.ToString();
+            RT_Y_Label.Text = pointCursor.Y.ToString();
             if (isBoardMoving)
             {
                 lu_corner = new Point(lu_remember.X - (aw_cursor.X - Cursor.Position.X),

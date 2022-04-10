@@ -30,6 +30,7 @@ namespace Awose
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Panel ControlAgents_Panel;
             this.Main_MStr = new System.Windows.Forms.MenuStrip();
             this.Simulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LaunchSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +52,6 @@ namespace Awose
             this.doNotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nonfadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Control_Panel = new System.Windows.Forms.Panel();
             this.ObjectSpace_Panel = new System.Windows.Forms.Panel();
             this.Space_Satellites_LB = new System.Windows.Forms.ListBox();
             this.Space_Star_Label = new System.Windows.Forms.Label();
@@ -79,6 +79,10 @@ namespace Awose
             this.SetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SetFirstSpace_CMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.copyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeSign_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PinUp_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,18 +110,39 @@ namespace Awose
             this.RT_X_Label = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.RT_Scale_Label = new System.Windows.Forms.Label();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.copyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.applyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ControlLayer_Panel = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            ControlAgents_Panel = new System.Windows.Forms.Panel();
             this.Main_MStr.SuspendLayout();
-            this.Control_Panel.SuspendLayout();
+            ControlAgents_Panel.SuspendLayout();
             this.ObjectSpace_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
             this.ObjectSettings_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.Space_CMStr.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.ControlLayer_Panel.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // Main_MStr
@@ -303,21 +328,21 @@ namespace Awose
             this.fadingLineToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
             this.fadingLineToolStripMenuItem.Text = "Fading line";
             // 
-            // Control_Panel
+            // ControlAgents_Panel
             // 
-            this.Control_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            ControlAgents_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.Control_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.Control_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Control_Panel.Controls.Add(this.ObjectSpace_Panel);
-            this.Control_Panel.Controls.Add(this.MistakeIcon_PB);
-            this.Control_Panel.Controls.Add(this.NewValue_TB);
-            this.Control_Panel.Controls.Add(this.ObjectSettings_Panel);
-            this.Control_Panel.Controls.Add(this.CurrentObjectName_Label);
-            this.Control_Panel.Location = new System.Drawing.Point(0, 28);
-            this.Control_Panel.Name = "Control_Panel";
-            this.Control_Panel.Size = new System.Drawing.Size(248, 686);
-            this.Control_Panel.TabIndex = 1;
+            ControlAgents_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            ControlAgents_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            ControlAgents_Panel.Controls.Add(this.ObjectSpace_Panel);
+            ControlAgents_Panel.Controls.Add(this.MistakeIcon_PB);
+            ControlAgents_Panel.Controls.Add(this.NewValue_TB);
+            ControlAgents_Panel.Controls.Add(this.ObjectSettings_Panel);
+            ControlAgents_Panel.Controls.Add(this.CurrentObjectName_Label);
+            ControlAgents_Panel.Location = new System.Drawing.Point(0, 28);
+            ControlAgents_Panel.Name = "ControlAgents_Panel";
+            ControlAgents_Panel.Size = new System.Drawing.Size(248, 686);
+            ControlAgents_Panel.TabIndex = 1;
             // 
             // ObjectSpace_Panel
             // 
@@ -647,6 +672,29 @@ namespace Awose
             this.SetFirstSpace_CMItem.Text = "Set first space velocity";
             this.SetFirstSpace_CMItem.Click += new System.EventHandler(this.SetFirstSpace_CMItem_Click);
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(212, 24);
+            this.toolStripMenuItem3.Text = "Update satellites";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(209, 6);
+            // 
+            // copyVelocityToolStripMenuItem
+            // 
+            this.copyVelocityToolStripMenuItem.Name = "copyVelocityToolStripMenuItem";
+            this.copyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
+            this.copyVelocityToolStripMenuItem.Text = "Copy velocity";
+            // 
+            // applyVelocityToolStripMenuItem
+            // 
+            this.applyVelocityToolStripMenuItem.Name = "applyVelocityToolStripMenuItem";
+            this.applyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
+            this.applyVelocityToolStripMenuItem.Text = "Apply velocity";
+            // 
             // ChangeSign_CMItem
             // 
             this.ChangeSign_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -924,28 +972,256 @@ namespace Awose
             this.RT_Scale_Label.TabIndex = 8;
             this.RT_Scale_Label.Text = "1:1";
             // 
-            // toolStripSeparator1
+            // ControlLayer_Panel
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(209, 6);
+            this.ControlLayer_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.ControlLayer_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ControlLayer_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ControlLayer_Panel.Controls.Add(this.panel3);
+            this.ControlLayer_Panel.Controls.Add(this.pictureBox1);
+            this.ControlLayer_Panel.Controls.Add(this.textBox1);
+            this.ControlLayer_Panel.Controls.Add(this.panel4);
+            this.ControlLayer_Panel.Controls.Add(this.label26);
+            this.ControlLayer_Panel.Location = new System.Drawing.Point(319, 28);
+            this.ControlLayer_Panel.Name = "ControlLayer_Panel";
+            this.ControlLayer_Panel.Size = new System.Drawing.Size(248, 686);
+            this.ControlLayer_Panel.TabIndex = 9;
             // 
-            // copyVelocityToolStripMenuItem
+            // panel3
             // 
-            this.copyVelocityToolStripMenuItem.Name = "copyVelocityToolStripMenuItem";
-            this.copyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
-            this.copyVelocityToolStripMenuItem.Text = "Copy velocity";
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.listBox1);
+            this.panel3.Controls.Add(this.label10);
+            this.panel3.Controls.Add(this.label11);
+            this.panel3.Controls.Add(this.label15);
+            this.panel3.Controls.Add(this.label16);
+            this.panel3.Location = new System.Drawing.Point(-1, 164);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(248, 129);
+            this.panel3.TabIndex = 5;
+            this.panel3.Visible = false;
             // 
-            // applyVelocityToolStripMenuItem
+            // listBox1
             // 
-            this.applyVelocityToolStripMenuItem.Name = "applyVelocityToolStripMenuItem";
-            this.applyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
-            this.applyVelocityToolStripMenuItem.Text = "Apply velocity";
+            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(14)))), ((int)(((byte)(14)))), ((int)(((byte)(14)))));
+            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.listBox1.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 17;
+            this.listBox1.Location = new System.Drawing.Point(30, 55);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.listBox1.Size = new System.Drawing.Size(83, 51);
+            this.listBox1.TabIndex = 6;
             // 
-            // toolStripMenuItem3
+            // label10
             // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(212, 24);
-            this.toolStripMenuItem3.Text = "Update satellites";
+            this.label10.AutoSize = true;
+            this.label10.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label10.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.label10.Location = new System.Drawing.Point(127, 54);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(45, 19);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "None";
+            // 
+            // label11
+            // 
+            this.label11.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(119, 35);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(67, 19);
+            this.label11.TabIndex = 3;
+            this.label11.Text = "Star:";
+            // 
+            // label15
+            // 
+            this.label15.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Location = new System.Drawing.Point(17, 35);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(67, 19);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "Satellites:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label16.ForeColor = System.Drawing.Color.White;
+            this.label16.Location = new System.Drawing.Point(9, 7);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(49, 19);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "Space";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(209, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(34, 29);
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Tag = "";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.textBox1.ForeColor = System.Drawing.Color.White;
+            this.textBox1.Location = new System.Drawing.Point(3, 588);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(232, 23);
+            this.textBox1.TabIndex = 3;
+            this.textBox1.Visible = false;
+            // 
+            // panel4
+            // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.label17);
+            this.panel4.Controls.Add(this.label18);
+            this.panel4.Controls.Add(this.label19);
+            this.panel4.Controls.Add(this.label20);
+            this.panel4.Controls.Add(this.label21);
+            this.panel4.Controls.Add(this.label22);
+            this.panel4.Controls.Add(this.label23);
+            this.panel4.Controls.Add(this.label24);
+            this.panel4.Controls.Add(this.label25);
+            this.panel4.Location = new System.Drawing.Point(-1, 35);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(248, 129);
+            this.panel4.TabIndex = 2;
+            this.panel4.Visible = false;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label17.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.label17.Location = new System.Drawing.Point(83, 92);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(17, 19);
+            this.label17.TabIndex = 9;
+            this.label17.Text = "0";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label18.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.label18.Location = new System.Drawing.Point(83, 73);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(17, 19);
+            this.label18.TabIndex = 8;
+            this.label18.Text = "0";
+            // 
+            // label19
+            // 
+            this.label19.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label19.ForeColor = System.Drawing.Color.White;
+            this.label19.Location = new System.Drawing.Point(17, 92);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(67, 19);
+            this.label19.TabIndex = 7;
+            this.label19.Text = "Y:";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label20
+            // 
+            this.label20.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label20.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label20.ForeColor = System.Drawing.Color.White;
+            this.label20.Location = new System.Drawing.Point(17, 73);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(67, 19);
+            this.label20.TabIndex = 6;
+            this.label20.Text = "X:";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label21.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label21.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.label21.Location = new System.Drawing.Point(83, 54);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(30, 19);
+            this.label21.TabIndex = 5;
+            this.label21.Text = "0 C";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label22.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label22.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.label22.Location = new System.Drawing.Point(83, 35);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(38, 19);
+            this.label22.TabIndex = 4;
+            this.label22.Text = "0 kg";
+            // 
+            // label23
+            // 
+            this.label23.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label23.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label23.ForeColor = System.Drawing.Color.White;
+            this.label23.Location = new System.Drawing.Point(17, 54);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(67, 19);
+            this.label23.TabIndex = 3;
+            this.label23.Text = "Charge:";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label24
+            // 
+            this.label24.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label24.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label24.ForeColor = System.Drawing.Color.White;
+            this.label24.Location = new System.Drawing.Point(17, 35);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(67, 19);
+            this.label24.TabIndex = 2;
+            this.label24.Text = "Mass:";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label25.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label25.ForeColor = System.Drawing.Color.White;
+            this.label25.Location = new System.Drawing.Point(9, 7);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(86, 19);
+            this.label25.TabIndex = 1;
+            this.label25.Text = "Parameters";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label26.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label26.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.label26.Location = new System.Drawing.Point(9, 8);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(54, 19);
+            this.label26.TabIndex = 0;
+            this.label26.Text = "Layer1";
             // 
             // Awose
             // 
@@ -953,13 +1229,14 @@ namespace Awose
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.ControlLayer_Panel);
             this.Controls.Add(this.RT_Scale_Label);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.PossibleSelections_LB);
             this.Controls.Add(this.MistakeHint_Label);
             this.Controls.Add(this.Instrumental_Panel);
             this.Controls.Add(this.ModelBoard_PB);
-            this.Controls.Add(this.Control_Panel);
+            this.Controls.Add(ControlAgents_Panel);
             this.Controls.Add(this.Main_MStr);
             this.KeyPreview = true;
             this.MainMenuStrip = this.Main_MStr;
@@ -971,8 +1248,8 @@ namespace Awose
             this.Load += new System.EventHandler(this.Awose_Load);
             this.Main_MStr.ResumeLayout(false);
             this.Main_MStr.PerformLayout();
-            this.Control_Panel.ResumeLayout(false);
-            this.Control_Panel.PerformLayout();
+            ControlAgents_Panel.ResumeLayout(false);
+            ControlAgents_Panel.PerformLayout();
             this.ObjectSpace_Panel.ResumeLayout(false);
             this.ObjectSpace_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).EndInit();
@@ -982,6 +1259,13 @@ namespace Awose
             this.Space_CMStr.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.ControlLayer_Panel.ResumeLayout(false);
+            this.ControlLayer_Panel.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1002,7 +1286,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem Undo_MSItem;
         private System.Windows.Forms.ToolStripMenuItem Redo_MSItem;
-        private System.Windows.Forms.Panel Control_Panel;
+        private System.Windows.Forms.Panel ControlAgents_Panel;
         private System.Windows.Forms.SaveFileDialog SaveModel_SFD;
         private System.Windows.Forms.PictureBox ModelBoard_PB;
         private System.Windows.Forms.ContextMenuStrip Space_CMStr;
@@ -1069,6 +1353,26 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem copyVelocityToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem applyVelocityToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.Panel ControlLayer_Panel;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
     }
 }
 

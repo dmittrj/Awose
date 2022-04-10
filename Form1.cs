@@ -748,8 +748,8 @@ namespace Awose
 
         private void ObjectMass_Label_Click(object sender, EventArgs e)
         {
-            NewValue_TB.Location = new Point(Control_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectMass_Label.Location.X + 1,
-                Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectMass_Label.Location.Y - 26);
+            NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectMass_Label.Location.X + 1,
+                ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectMass_Label.Location.Y - 26);
             NewValue_TB.Text = agents[aw_selected].Weight.ToString();
             editingValue = EditingValue.Mass;
             NewValue_TB.SelectAll();
@@ -969,8 +969,8 @@ namespace Awose
 
         private void CurrentObjectName_Label_Click(object sender, EventArgs e)
         {
-            NewValue_TB.Location = new Point(Control_Panel.Location.X + CurrentObjectName_Label.Location.X + 1,
-                Control_Panel.Location.Y + CurrentObjectName_Label.Location.Y - 26);
+            NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + CurrentObjectName_Label.Location.X + 1,
+                ControlAgents_Panel.Location.Y + CurrentObjectName_Label.Location.Y - 26);
             NewValue_TB.Text = agents[aw_selected].Name;
             editingValue = EditingValue.Name;
             NewValue_TB.SelectAll();
@@ -1195,8 +1195,8 @@ namespace Awose
 
         private void ObjectCharge_Label_Click(object sender, EventArgs e)
         {
-            NewValue_TB.Location = new Point(Control_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectCharge_Label.Location.X + 1,
-                Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectCharge_Label.Location.Y - 26);
+            NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectCharge_Label.Location.X + 1,
+                ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectCharge_Label.Location.Y - 26);
             NewValue_TB.Text = agents[aw_selected].Charge.ToString();
             editingValue = EditingValue.Charge;
             NewValue_TB.SelectAll();
@@ -1235,8 +1235,8 @@ namespace Awose
         }
         private void ObjectPositionX_Label_Click(object sender, EventArgs e)
         {
-            NewValue_TB.Location = new Point(Control_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionX_Label.Location.X + 1,
-                Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionX_Label.Location.Y - 26);
+            NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionX_Label.Location.X + 1,
+                ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionX_Label.Location.Y - 26);
             NewValue_TB.Text = agents[aw_selected].X.ToString();
             editingValue = EditingValue.X;
             NewValue_TB.SelectAll();
@@ -1247,8 +1247,8 @@ namespace Awose
 
         private void ObjectPositionY_Label_Click(object sender, EventArgs e)
         {
-            NewValue_TB.Location = new Point(Control_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionY_Label.Location.X + 1,
-                Control_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionY_Label.Location.Y - 26);
+            NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionY_Label.Location.X + 1,
+                ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionY_Label.Location.Y - 26);
             NewValue_TB.Text = agents[aw_selected].Y.ToString();
             editingValue = EditingValue.Y;
             NewValue_TB.SelectAll();

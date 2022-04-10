@@ -23,19 +23,21 @@ namespace Awose
         readonly Stack<AwoseChange> aw_redo = new();
         private int aw_selected = -1;
         //represents click-point in screen coordinates
-        private Point aw_cursor = new(0, 0);
+        private PointParticle aw_cursor = new(0, 0);
         //represents coordinate of up-left corner in real coordinates
-        private PointF lu_corner = new(0, 0);
+        private PointParticle lu_corner = new(0, 0);
         //represents remembered point in screen coordinates
-        private Point aw_remember = new(0, 0);
+        private PointParticle aw_remember = new(0, 0);
         //represents remembered up-left corner in real coordinates
-        private PointF lu_remember = new(0, 0);
+        private PointParticle lu_remember = new(0, 0);
         private Point objBeforeMoving = new(0, 0);
         private float aw_scale = 1;
         const int aw_agentsize = 15;
         private EditingValue editingValue = EditingValue.None;
         private MovingEntity movingEntity = MovingEntity.None;
+        [Obsolete]
         private bool isBoardMoving = false;
+        [Obsolete]
         private bool isObjectMoving = false;
         private bool isLaunched = false;
         private bool isFirstSpaceSetting = false;
@@ -46,12 +48,19 @@ namespace Awose
         public static float ConstG = 100000;
         public static float ConstE = 100000;
 
-
+        [Obsolete]
         private PointF ScreenToReal(float screenX, float screenY)
         {
             return new(
                 screenX / aw_scale - lu_corner.X,
                 screenY / aw_scale - lu_corner.Y);
+        }
+
+        private PointParticle ScreenToReal(PointParticle screenPoint)
+        {
+            return new(
+                screenPoint.X / aw_scale - lu_corner.X,
+                screenPoint.Y / aw_scale - lu_corner.Y);
         }
 
         private Point RealToScreen(double realX, double realY)
@@ -61,9 +70,9 @@ namespace Awose
                 (int)((realY + lu_corner.Y) * aw_scale));
         }
 
-        private Point GetCursorPosition()
+        private PointParticle GetCursorPosition()
         {
-            return new Point(
+            return new PointParticle(
                 Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7,
                 Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29);
         }
@@ -568,7 +577,7 @@ namespace Awose
 
         private void ModelBoard_PB_MouseWheel(object sender, MouseEventArgs e)
         {
-            PointF beforeScaling = GetCursorPosition();
+            PointParticle beforeScaling = GetCursorPosition();
             if (e.Delta > 0)
             {
                 aw_scale += .5f;
@@ -989,7 +998,7 @@ namespace Awose
                         int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
                         int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
                         SettingVelocity = -1;
-                        aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.SettingVelocity, new Point((int)agents[aw_selected].VelocityX, (int)agents[aw_selected].VelocityY), new Point(x - aw_cursor.X, y - aw_cursor.Y)));
+                        //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.SettingVelocity, new Point((int)agents[aw_selected].VelocityX, (int)agents[aw_selected].VelocityY), new Point(x - aw_cursor.X, y - aw_cursor.Y)));
                         agents[aw_selected].VelocityX = aw_cursor.X - aw_remember.X;
                         agents[aw_selected].VelocityY = aw_cursor.Y - aw_remember.Y;
                         return;
@@ -1044,9 +1053,9 @@ namespace Awose
                         case 1:
                             aw_selected = possibleSelection;
                             isObjectMoving = true;
-                            aw_cursor = Cursor.Position;
-                            lu_remember = new Point((int)agents[aw_selected].X,
-                                (int)agents[aw_selected].Y);
+                            //aw_cursor = Cursor.Position;
+                            //lu_remember = new Point((int)agents[aw_selected].X,
+                            //    (int)agents[aw_selected].Y);
                             agents[aw_selected].IsSelected = true;
                             break;
                         default:
@@ -1086,9 +1095,9 @@ namespace Awose
                     if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y))
                     {
                         agents[aw_selected].Spray.Clear();
-                        agents[aw_selected].X_screen = aw_cursor.X - Cursor.Position.X;
-                        agents[aw_selected].Y_screen = aw_cursor.Y - Cursor.Position.Y;
-                        aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
+                        //agents[aw_selected].X_screen = aw_cursor.X - Cursor.Position.X;
+                        //agents[aw_selected].Y_screen = aw_cursor.Y - Cursor.Position.Y;
+                        //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
                         if (agents[aw_selected].Star != "")
                         {
                             agents[aw_selected].ChangeAfterFSV = true;
@@ -1148,7 +1157,7 @@ namespace Awose
                     break;
                 case MovingEntity.Board:
                     Cursor = Cursors.NoMove2D;
-                    lu_corner = lu_remember - ((aw_remember - GetCursorPosition()) / aw_scale);
+                    //lu_corner = lu_remember - ((aw_remember - GetCursorPosition()) / aw_scale);
                     break;
                 case MovingEntity.Agent:
                     break;
@@ -1159,8 +1168,8 @@ namespace Awose
             
             if (isBoardMoving)
             {
-                lu_corner = new Point(lu_remember.X - (aw_cursor.X - Cursor.Position.X),
-                lu_remember.Y - (aw_cursor.Y - Cursor.Position.Y));
+                //lu_corner = new Point(lu_remember.X - (aw_cursor.X - Cursor.Position.X),
+                //lu_remember.Y - (aw_cursor.Y - Cursor.Position.Y));
             }
             if (isObjectMoving && !isLaunched)
             {
@@ -1269,7 +1278,7 @@ namespace Awose
         {
             Space_CMStr.Close();
             SettingVelocity = aw_selected;
-            aw_remember = new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y);
+            //aw_remember = new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y);
         }
 
         private void ResetVelocity_CMItem_Click(object sender, EventArgs e)

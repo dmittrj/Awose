@@ -18,19 +18,22 @@ namespace Awose
         /// <summary>
         /// X-coordinate of object
         /// </summary>
+        [Obsolete]
         public double X { get; set; }
         public int X_screen;
         /// <summary>
         /// Y-coordinate of object
         /// </summary>
+        [Obsolete]
         public double Y { get; set; }
         public int Y_screen;
         /// <summary>
         /// Object mass, kg
         /// </summary>
+        public PointParticle Location { get; set; }
         public double Weight { get; set; }
         /// <summary>
-        /// Electrical charge
+        /// Electrical charge, C
         /// </summary>
         public double Charge { get; set; }
         /// <summary>

@@ -37,6 +37,7 @@ namespace Awose
         //represents remembered up-left corner in real coordinates
         private PointParticle lu_remember = new(0, 0);
         private Point objBeforeMoving = new(0, 0);
+        private Point boardBeforeMoving = new(0, 0);
         private float aw_scale = 1;
         const int aw_agentsize = 15;
         private EditingValue editingValue = EditingValue.None;
@@ -93,8 +94,8 @@ namespace Awose
             //Drawing background
             grfx.Clear(Color.FromArgb(5, 5, 5));
             //Displaying grid
-            int horLine = Calculations.BruteRound(lu_corner.X, aw_scale * GRID_FREQUENCY);
-            int verLine = Calculations.BruteRound(lu_corner.Y, aw_scale * GRID_FREQUENCY);
+            int horLine = (int)lu_corner.X - Calculations.BruteRound(lu_corner.X, aw_scale * GRID_FREQUENCY);
+            int verLine = (int)lu_corner.Y - Calculations.BruteRound(lu_corner.Y, aw_scale * GRID_FREQUENCY);
             for (int i = horLine + (int)(aw_scale * GRID_FREQUENCY / 2); i < lu_corner.X + ModelBoard_PB.Width; i += (int)(aw_scale * GRID_FREQUENCY))
             {
                 grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorSub, 2),
@@ -1162,11 +1163,12 @@ namespace Awose
                     Aw_DrawControl();
                     break;
                 case MouseButtons.Middle:
+                    boardBeforeMoving = Cursor.Position;
                     //isBoardMoving = true;
                     movingEntity = MovingEntity.Board;
-                    Cursor = Cursors.NoMove2D;
+                    ModelBoard_PB.Cursor = Cursors.NoMove2D;
                     //aw_cursor = Cursor.Position;
-                    aw_remember = GetCursorPosition();
+                    //aw_remember = GetCursorPosition();
                     lu_remember = lu_corner;
                     break;
                 default:
@@ -1202,7 +1204,8 @@ namespace Awose
                 case MouseButtons.Right:
                     break;
                 case MouseButtons.Middle:
-                    isBoardMoving = false;
+                    movingEntity = MovingEntity.None;
+                    //isBoardMoving = false;
                     foreach (AwoseAgent item in agents)
                     {
                         item.X_screen = (int)(lu_corner.X + item.X * aw_scale);
@@ -1243,8 +1246,9 @@ namespace Awose
                     }
                     break;
                 case MovingEntity.Board:
-                    Cursor = Cursors.NoMove2D;
+                    //Cursor = Cursors.NoMove2D;
                     //lu_corner = lu_remember - ((aw_remember - GetCursorPosition()) / aw_scale);
+                    lu_corner = lu_remember - (PointParticle.ToPointParticle(boardBeforeMoving) - PointParticle.ToPointParticle(Cursor.Position)) / aw_scale;
                     break;
                 case MovingEntity.Agent:
                     break;

@@ -10,6 +10,7 @@ namespace Awose
     enum GridColors { Blue, Pink }
     public class AwoseLayer
     {
+        public string Name { get; set; }
         public List<AwoseAgent> Agents { get; set; }
         public int LayerNumber { get; set; }
         public SolidBrush GridColorMain { get; set; }
@@ -28,6 +29,10 @@ namespace Awose
                 case 0:
                     GridColorMain = new SolidBrush(Color.FromArgb(21, 47, 53));
                     GridColorSub = new SolidBrush(Color.FromArgb(19, 22, 23));
+                    break;
+                case 2:
+                    GridColorMain = new SolidBrush(Color.FromArgb(53, 47, 21));
+                    GridColorSub = new SolidBrush(Color.FromArgb(23, 22, 19));
                     break;
                 default:
                     break;

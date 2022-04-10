@@ -84,6 +84,7 @@ namespace Awose
         {
             const int GRID_FREQUENCY = 100;
             float diameter = aw_agentsize * aw_scale;
+            if (ModelBoard_PB.Width <= 0 || ModelBoard_PB.Height <= 0) return;
             Bitmap board = new(ModelBoard_PB.Width, ModelBoard_PB.Height);
             using Graphics grfx = Graphics.FromImage(board);
             //Drawing background

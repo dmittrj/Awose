@@ -378,7 +378,7 @@ namespace Awose
         private void Awose_Load(object sender, EventArgs e)
         {
             Layers = new List<AwoseLayer>();
-            Layers.Add(new AwoseLayer(Layers.Count + 1));
+            Layers.Add(new AwoseLayer("Layer 1", Layers.Count + 1));
             animation = new(AnimationEditor);
             animation.Start();
         }

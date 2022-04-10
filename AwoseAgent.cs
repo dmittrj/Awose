@@ -85,17 +85,17 @@ namespace Awose
         private double Backup_VelocityX;
         private double Backup_VelocityY;
 
-        public AwoseAgent(string name, float x, float y, double weight, double charge, double velocityX, double velocityY, bool isPinned)
+        public AwoseAgent(string name, float x, float y, double weight, double charge, float velocityX, float velocityY, bool isPinned)
         {
             Name = name;
-            Location.X = x;
+            Location = new PointParticle(x, y);
             X_screen = (int)x;
             Y_screen = (int)y;
-            Location.Y = y;
             Weight = weight;
             Charge = charge;
-            VelocityX = velocityX;
-            VelocityY = velocityY;
+            Velocity = new Vector(new PointParticle(velocityX, velocityY));
+            //VelocityX = velocityX;
+            //VelocityY = velocityY;
             IsPinned = isPinned;
             MistakeType = 0;
             MDescription = "";
@@ -142,10 +142,10 @@ namespace Awose
             double tmpForceGX = 0, tmpForceGY = 0;
             double tmpForceEX = 0, tmpForceEY = 0;
             double distance = Math.Pow(tmpX - opposite.X, 2) + Math.Pow(tmpY - opposite.Y, 2);
-            Calculations.Gravity(new AwoseAgent("Temp", tmpX, tmpY, Weight, Charge, tmpVX, tmpVY, false), opposite, ref tmpForceGX, ref tmpForceGY, distance);
+            //Calculations.Gravity(new AwoseAgent("Temp", tmpX, tmpY, Weight, Charge, tmpVX, tmpVY, false), opposite, ref tmpForceGX, ref tmpForceGY, distance);
             ForceGX += tmpForceGX;
             ForceGY += tmpForceGY;
-            Calculations.Electrical(new AwoseAgent("Temp", tmpX, tmpY, Weight, Charge, tmpVX, tmpVY, false), opposite, ref tmpForceEX, ref tmpForceEY, distance);
+            //Calculations.Electrical(new AwoseAgent("Temp", tmpX, tmpY, Weight, Charge, tmpVX, tmpVY, false), opposite, ref tmpForceEX, ref tmpForceEY, distance);
             ForceEX += tmpForceEX;
             ForceEY += tmpForceEY;
         }

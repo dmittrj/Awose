@@ -18,8 +18,9 @@ namespace Awose
         public AwoseLayer MotherLayer { get; set; }
         public float ELaw { get; set; }
         public float GLaw { get; set; }
-        public AwoseLayer(int layerNumber)
+        public AwoseLayer(string name, int layerNumber)
         {
+            Name = name;
             Agents = new List<AwoseAgent>();
             LayerNumber = layerNumber;
             ELaw = -2;

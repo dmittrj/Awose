@@ -1111,10 +1111,28 @@ namespace Awose
 
         private void ModelBoard_PB_MouseMove(object sender, MouseEventArgs e)
         {
-            Point point = GetCursorPosition();
-            PointF pointCursor = ScreenToReal(point.X, point.Y);
+            aw_cursor = GetCursorPosition();
+            PointF pointCursor = ScreenToReal(aw_cursor.X, aw_cursor.Y);
             RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
             RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
+            bool hoverAgent = false;
+            foreach (AwoseAgent item in agents)
+            {
+                if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                {
+                    hoverAgent = true;
+                    break;
+                }
+            }
+            if (hoverAgent)
+            {
+                Cursor = Cursors.Default;
+            } 
+            else
+            {
+                Cursor = Cursors.Cross;
+            }
+            
             if (isBoardMoving)
             {
                 lu_corner = new Point(lu_remember.X - (aw_cursor.X - Cursor.Position.X),

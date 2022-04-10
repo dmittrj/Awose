@@ -30,8 +30,8 @@ namespace Awose
         /// <summary>
         /// Object mass, kg
         /// </summary>
-        public PointParticle Location { get; set; }
         public double Weight { get; set; }
+        public PointParticle Location { get; set; }
         /// <summary>
         /// Electrical charge, C
         /// </summary>
@@ -39,15 +39,21 @@ namespace Awose
         /// <summary>
         /// X-axis velocity
         /// </summary>
+        [Obsolete("Use Velocity.X", false)]
         public double VelocityX { get; set; }
         /// <summary>
         /// Y-axis velocity
         /// </summary>
+        [Obsolete("Use Velocity.Y", false)]
         public double VelocityY { get; set; }
         /// <summary>
         /// Is this object pinned (pinned objects don't move)
         /// </summary>
         public bool IsPinned { get; set; }
+        /// <summary>
+        /// Velocity of the object
+        /// </summary>
+        public Vector Velocity { get; set; }
         /// <summary>
         /// List of satellites (objects that revolve
         /// around this object)
@@ -79,13 +85,13 @@ namespace Awose
         private double Backup_VelocityX;
         private double Backup_VelocityY;
 
-        public AwoseAgent(string name, double x, double y, double weight, double charge, double velocityX, double velocityY, bool isPinned)
+        public AwoseAgent(string name, float x, float y, double weight, double charge, double velocityX, double velocityY, bool isPinned)
         {
             Name = name;
-            X = x;
+            Location.X = x;
             X_screen = (int)x;
             Y_screen = (int)y;
-            Y = y;
+            Location.Y = y;
             Weight = weight;
             Charge = charge;
             VelocityX = velocityX;
@@ -130,7 +136,7 @@ namespace Awose
             ForceEY += tmpForceEY;
         }
 
-        public void ForceCalc(AwoseAgent opposite, double tmpX, double tmpY, double tmpVX, double tmpVY)
+        public void ForceCalc(AwoseAgent opposite, float tmpX, float tmpY, double tmpVX, double tmpVY)
         {
             //gravity
             double tmpForceGX = 0, tmpForceGY = 0;

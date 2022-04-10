@@ -92,7 +92,7 @@ namespace Awose
             using Graphics grfx = Graphics.FromImage(board);
             //Drawing background
             grfx.Clear(Color.FromArgb(5, 5, 5));
-            //Drawing grid
+            //Displaying grid
             int horLine = Calculations.BruteRound(lu_corner.X, aw_scale * GRID_FREQUENCY);
             int verLine = Calculations.BruteRound(lu_corner.Y, aw_scale * GRID_FREQUENCY);
             for (int i = horLine + (int)(aw_scale * GRID_FREQUENCY / 2); i < lu_corner.X + ModelBoard_PB.Width; i += (int)(aw_scale * GRID_FREQUENCY))
@@ -119,6 +119,7 @@ namespace Awose
                     new Point(0, i),
                     new Point(drawingValues.GridWidth, i));
             }
+            //Hiding or drawing grid due to checkbox
             if (DispGrid_Editing_CMItem.Checked)
             {
                 if (drawingValues.GridWidth < ModelBoard_PB.Width)
@@ -141,6 +142,24 @@ namespace Awose
                     drawingValues.GridHeight -= 40;
                 }
             }
+
+            //Drawing agents
+            lock (Layers)
+            {
+                foreach (AwoseLayer layer in Layers)
+                {
+                    foreach (AwoseAgent agent in layer.Agents)
+                    {
+                        Point point = RealToScreen(agent.Location.X, agent.Location.Y);
+                        RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
+                        grfx.FillEllipse(agent.Dye, circle);
+                    }
+                }
+            }
+            
+            
+            
+            
             if (SettingVelocity != -1)
             {
                 int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
@@ -161,8 +180,8 @@ namespace Awose
                 List<PointF> tmpTraj = new();
                 double tmpVelocityX = x - dx;
                 double tmpVelocityY = y - dy;
-                double tmpX = agents[aw_selected].X;
-                double tmpY = agents[aw_selected].Y;
+                float tmpX = agents[aw_selected].Location.X;
+                float tmpY = agents[aw_selected].Location.Y;
                 for (int i = 0; i < 200; i++)
                 {
                     foreach (AwoseAgent item in agents)
@@ -172,8 +191,8 @@ namespace Awose
                     }
                     tmpVelocityX += (agents[aw_selected].ForceGX + agents[aw_selected].ForceEX) * timeStep / agents[aw_selected].Weight / 1000;
                     tmpVelocityY += (agents[aw_selected].ForceGY + agents[aw_selected].ForceEY) * timeStep / agents[aw_selected].Weight / 1000;
-                    tmpX += tmpVelocityX * timeStep / 1000;
-                    tmpY += tmpVelocityY * timeStep / 1000;
+                    //tmpX += tmpVelocityX * timeStep / 1000;
+                    //tmpY += tmpVelocityY * timeStep / 1000;
                     tmpTraj.Add(new PointF((float)(lu_corner.X + tmpX * aw_scale), (float)(lu_corner.Y + tmpY * aw_scale)));
                 }
                 for (int i = 0; i < 199; i++)
@@ -623,19 +642,22 @@ namespace Awose
 
         private void CreateObject_CMItem_Click(object sender, EventArgs e)
         {
+            int agentsNum = 1;
             aaw_loopNames:
-            foreach (AwoseAgent item in agents)
+            foreach (AwoseAgent item in Layers[CurrentLayer].Agents)
             {
-                if (item.Name == "Object " + agentsNumeric.ToString())
+                if (item.Name == "Object " + agentsNum.ToString())
                 {
-                    agentsNumeric++;
+                    agentsNum++;
                     goto aaw_loopNames;
                 }
             }
-            PointF newAgentPoint = ScreenToReal(aw_cursor.X, aw_cursor.Y);
-            Text = newAgentPoint.X.ToString() + ", " + newAgentPoint.Y.ToString();
-            agents.Add(new AwoseAgent("Object " + (agentsNumeric++).ToString(), newAgentPoint.X, newAgentPoint.Y, 1, 0, 0, 0, false));
-            aw_undo.Push(new AwoseChange(agents[^1], ChangeType.Creating));
+            PointParticle newAgentPoint = ScreenToReal(aw_cursor);
+            //PointF newAgentPoint = ScreenToReal(aw_cursor.X, aw_cursor.Y);
+            //Text = newAgentPoint.X.ToString() + ", " + newAgentPoint.Y.ToString();
+            Layers[CurrentLayer].Agents.Add(new AwoseAgent("Object " + agentsNum.ToString(), newAgentPoint.X, newAgentPoint.Y, 1, 0, 0, 0, false));
+            //agents.Add(new AwoseAgent("Object " + (agentsNumeric++).ToString(), newAgentPoint.X, newAgentPoint.Y, 1, 0, 0, 0, false));
+            aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[^1], Layers[CurrentLayer], ChangeType.Creating));
             Aw_CheckMistakes();
             Aw_DrawControl();
         }
@@ -672,7 +694,7 @@ namespace Awose
         private void DeleteObject_CMItem_Click(object sender, EventArgs e)
         {
             NewValue_TB.Visible = false;
-            aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.Deleting));
+            //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.Deleting));
             foreach (AwoseAgent item in agents)
             {
                 if (item.Satellites.Contains(agents[aw_selected].Name))
@@ -1384,7 +1406,7 @@ namespace Awose
                 }
             }
             agents.Add(new AwoseAgent("Star " + starsNumeric.ToString(), aw_cursor.X, aw_cursor.Y, 150, 0, 0, 0, true));
-            aw_undo.Push(new AwoseChange(agents[^1], ChangeType.Creating));
+            //aw_undo.Push(new AwoseChange(agents[^1], ChangeType.Creating));
             Aw_CheckMistakes();
             Aw_DrawControl();
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Awose
 {
-    class Vector
+    public class Vector
     {
         public PointParticle Head { get; set; }
         public PointParticle Tail { get; set; }

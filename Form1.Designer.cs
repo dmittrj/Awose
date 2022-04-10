@@ -106,6 +106,10 @@ namespace Awose
             this.RT_X_Label = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.RT_Scale_Label = new System.Windows.Forms.Label();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.copyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.Main_MStr.SuspendLayout();
             this.Control_Panel.SuspendLayout();
             this.ObjectSpace_Panel.SuspendLayout();
@@ -617,7 +621,11 @@ namespace Awose
             // 
             this.SetVelocity_CMItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ResetVelocity_CMItem,
-            this.SetFirstSpace_CMItem});
+            this.SetFirstSpace_CMItem,
+            this.toolStripMenuItem3,
+            this.toolStripSeparator1,
+            this.copyVelocityToolStripMenuItem,
+            this.applyVelocityToolStripMenuItem});
             this.SetVelocity_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SetVelocity_CMItem.Name = "SetVelocity_CMItem";
             this.SetVelocity_CMItem.Size = new System.Drawing.Size(197, 24);
@@ -916,6 +924,29 @@ namespace Awose
             this.RT_Scale_Label.TabIndex = 8;
             this.RT_Scale_Label.Text = "1:1";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(209, 6);
+            // 
+            // copyVelocityToolStripMenuItem
+            // 
+            this.copyVelocityToolStripMenuItem.Name = "copyVelocityToolStripMenuItem";
+            this.copyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
+            this.copyVelocityToolStripMenuItem.Text = "Copy velocity";
+            // 
+            // applyVelocityToolStripMenuItem
+            // 
+            this.applyVelocityToolStripMenuItem.Name = "applyVelocityToolStripMenuItem";
+            this.applyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
+            this.applyVelocityToolStripMenuItem.Text = "Apply velocity";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(212, 24);
+            this.toolStripMenuItem3.Text = "Update satellites";
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1034,6 +1065,10 @@ namespace Awose
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label RT_Scale_Label;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem copyVelocityToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem applyVelocityToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
     }
 }
 

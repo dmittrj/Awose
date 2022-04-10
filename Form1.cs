@@ -24,7 +24,7 @@ namespace Awose
         public DrawingValues drawingValues = new();
         public static List<AwoseLayer> Layers { get; set; }
         private int CurrentLayer = 0;
-        private int agentsNumeric = 1;
+        private readonly int agentsNumeric = 1;
         readonly Stack<AwoseChange> aw_undo = new();
         readonly Stack<AwoseChange> aw_redo = new();
         private int aw_selected = -1;

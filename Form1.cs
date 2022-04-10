@@ -1238,11 +1238,11 @@ namespace Awose
                     }
                     if (hoverAgent)
                     {
-                        Cursor = Cursors.Default;
+                       ModelBoard_PB.Cursor = Cursors.Default;
                     }
                     else
                     {
-                        Cursor = Cursors.Cross;
+                        ModelBoard_PB.Cursor = Cursors.Cross;
                     }
                     break;
                 case MovingEntity.Board:

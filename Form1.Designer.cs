@@ -30,6 +30,26 @@ namespace Awose
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Panel ControlAgents_Panel;
+            this.ObjectSpace_Panel = new System.Windows.Forms.Panel();
+            this.Space_Satellites_LB = new System.Windows.Forms.ListBox();
+            this.Space_Star_Label = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.MistakeIcon_PB = new System.Windows.Forms.PictureBox();
+            this.NewValue_TB = new System.Windows.Forms.TextBox();
+            this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
+            this.ObjectPositionY_Label = new System.Windows.Forms.Label();
+            this.ObjectPositionX_Label = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ObjectCharge_Label = new System.Windows.Forms.Label();
+            this.ObjectMass_Label = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.CurrentObjectName_Label = new System.Windows.Forms.Label();
             this.Main_MStr = new System.Windows.Forms.MenuStrip();
             this.Simulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LaunchSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,26 +71,10 @@ namespace Awose
             this.doNotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nonfadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Control_Panel = new System.Windows.Forms.Panel();
-            this.ObjectSpace_Panel = new System.Windows.Forms.Panel();
-            this.Space_Satellites_LB = new System.Windows.Forms.ListBox();
-            this.Space_Star_Label = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.MistakeIcon_PB = new System.Windows.Forms.PictureBox();
-            this.NewValue_TB = new System.Windows.Forms.TextBox();
-            this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
-            this.ObjectPositionY_Label = new System.Windows.Forms.Label();
-            this.ObjectPositionX_Label = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.ObjectCharge_Label = new System.Windows.Forms.Label();
-            this.ObjectMass_Label = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.CurrentObjectName_Label = new System.Windows.Forms.Label();
+            this.displayGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.doNotToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.DispGrid_Editing_CMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveModel_SFD = new System.Windows.Forms.SaveFileDialog();
             this.ModelBoard_PB = new System.Windows.Forms.PictureBox();
             this.Space_CMStr = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -79,6 +83,10 @@ namespace Awose
             this.SetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SetFirstSpace_CMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.copyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.applyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeSign_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PinUp_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,218 +114,51 @@ namespace Awose
             this.RT_X_Label = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.RT_Scale_Label = new System.Windows.Forms.Label();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.copyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.applyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.Main_MStr.SuspendLayout();
-            this.Control_Panel.SuspendLayout();
+            this.ControlLayer_Panel = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.GridColor_Blue_PB = new System.Windows.Forms.PictureBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            ControlAgents_Panel = new System.Windows.Forms.Panel();
+            ControlAgents_Panel.SuspendLayout();
             this.ObjectSpace_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
             this.ObjectSettings_Panel.SuspendLayout();
+            this.Main_MStr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.Space_CMStr.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.ControlLayer_Panel.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GridColor_Blue_PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Main_MStr
+            // ControlAgents_Panel
             // 
-            this.Main_MStr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(11)))), ((int)(((byte)(11)))));
-            this.Main_MStr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Simulation_MSItem,
-            this.hToolStripMenuItem,
-            this.displayToolStripMenuItem});
-            this.Main_MStr.Location = new System.Drawing.Point(0, 0);
-            this.Main_MStr.Name = "Main_MStr";
-            this.Main_MStr.Size = new System.Drawing.Size(1241, 28);
-            this.Main_MStr.TabIndex = 0;
-            this.Main_MStr.Text = "menuStrip1";
-            // 
-            // Simulation_MSItem
-            // 
-            this.Simulation_MSItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.LaunchSimulation_MSItem,
-            this.PauseSimulation_MSItem,
-            this.StopSimulation_MSItem,
-            this.ResetSimulation_MSItem,
-            this.toolStripMenuItem1,
-            this.openModelToolStripMenuItem,
-            this.SaveModel_MSItem,
-            this.toolStripMenuItem2,
-            this.Undo_MSItem,
-            this.Redo_MSItem});
-            this.Simulation_MSItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Simulation_MSItem.ForeColor = System.Drawing.Color.White;
-            this.Simulation_MSItem.Name = "Simulation_MSItem";
-            this.Simulation_MSItem.Size = new System.Drawing.Size(92, 24);
-            this.Simulation_MSItem.Text = "Simulation";
-            this.Simulation_MSItem.DropDownOpening += new System.EventHandler(this.Simulation_MSItem_DropDownOpening);
-            // 
-            // LaunchSimulation_MSItem
-            // 
-            this.LaunchSimulation_MSItem.BackColor = System.Drawing.Color.White;
-            this.LaunchSimulation_MSItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.LaunchSimulation_MSItem.ForeColor = System.Drawing.Color.Black;
-            this.LaunchSimulation_MSItem.Name = "LaunchSimulation_MSItem";
-            this.LaunchSimulation_MSItem.Padding = new System.Windows.Forms.Padding(0);
-            this.LaunchSimulation_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.LaunchSimulation_MSItem.Size = new System.Drawing.Size(246, 22);
-            this.LaunchSimulation_MSItem.Text = "Launch simulation";
-            this.LaunchSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            this.LaunchSimulation_MSItem.Click += new System.EventHandler(this.LaunchSimulation_MSItem_Click);
-            // 
-            // PauseSimulation_MSItem
-            // 
-            this.PauseSimulation_MSItem.BackColor = System.Drawing.Color.White;
-            this.PauseSimulation_MSItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.PauseSimulation_MSItem.Enabled = false;
-            this.PauseSimulation_MSItem.ForeColor = System.Drawing.Color.Black;
-            this.PauseSimulation_MSItem.Name = "PauseSimulation_MSItem";
-            this.PauseSimulation_MSItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
-            this.PauseSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
-            this.PauseSimulation_MSItem.Text = "Pause simulation";
-            this.PauseSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
-            // 
-            // StopSimulation_MSItem
-            // 
-            this.StopSimulation_MSItem.Enabled = false;
-            this.StopSimulation_MSItem.Name = "StopSimulation_MSItem";
-            this.StopSimulation_MSItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.StopSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
-            this.StopSimulation_MSItem.Text = "Stop simulation";
-            this.StopSimulation_MSItem.Click += new System.EventHandler(this.StopSimulation_MSItem_Click);
-            // 
-            // ResetSimulation_MSItem
-            // 
-            this.ResetSimulation_MSItem.Name = "ResetSimulation_MSItem";
-            this.ResetSimulation_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.ResetSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
-            this.ResetSimulation_MSItem.Text = "Reset";
-            this.ResetSimulation_MSItem.Click += new System.EventHandler(this.ResetSimulation_MSItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(243, 6);
-            // 
-            // openModelToolStripMenuItem
-            // 
-            this.openModelToolStripMenuItem.Name = "openModelToolStripMenuItem";
-            this.openModelToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
-            this.openModelToolStripMenuItem.Text = "Open modeling...";
-            // 
-            // SaveModel_MSItem
-            // 
-            this.SaveModel_MSItem.Name = "SaveModel_MSItem";
-            this.SaveModel_MSItem.Size = new System.Drawing.Size(246, 24);
-            this.SaveModel_MSItem.Text = "Save modeling...";
-            this.SaveModel_MSItem.Click += new System.EventHandler(this.SaveModel_MSItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(243, 6);
-            // 
-            // Undo_MSItem
-            // 
-            this.Undo_MSItem.Name = "Undo_MSItem";
-            this.Undo_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.Undo_MSItem.Size = new System.Drawing.Size(246, 24);
-            this.Undo_MSItem.Text = "Undo";
-            this.Undo_MSItem.Click += new System.EventHandler(this.Undo_MSItem_Click);
-            // 
-            // Redo_MSItem
-            // 
-            this.Redo_MSItem.Enabled = false;
-            this.Redo_MSItem.Name = "Redo_MSItem";
-            this.Redo_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.Z)));
-            this.Redo_MSItem.Size = new System.Drawing.Size(246, 24);
-            this.Redo_MSItem.Text = "Redo";
-            this.Redo_MSItem.Click += new System.EventHandler(this.Redo_MSItem_Click);
-            // 
-            // hToolStripMenuItem
-            // 
-            this.hToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.hToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.hToolStripMenuItem.Name = "hToolStripMenuItem";
-            this.hToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
-            this.hToolStripMenuItem.Text = "Objects";
-            // 
-            // displayToolStripMenuItem
-            // 
-            this.displayToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.objectColorsToolStripMenuItem,
-            this.displayForcesToolStripMenuItem,
-            this.displayVelocitiesToolStripMenuItem,
-            this.displayTrajectoriesToolStripMenuItem});
-            this.displayToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.displayToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
-            this.displayToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
-            this.displayToolStripMenuItem.Text = "Display";
-            // 
-            // objectColorsToolStripMenuItem
-            // 
-            this.objectColorsToolStripMenuItem.Name = "objectColorsToolStripMenuItem";
-            this.objectColorsToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.objectColorsToolStripMenuItem.Text = "Object colors";
-            // 
-            // displayForcesToolStripMenuItem
-            // 
-            this.displayForcesToolStripMenuItem.Name = "displayForcesToolStripMenuItem";
-            this.displayForcesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.displayForcesToolStripMenuItem.Text = "Display forces";
-            // 
-            // displayVelocitiesToolStripMenuItem
-            // 
-            this.displayVelocitiesToolStripMenuItem.Name = "displayVelocitiesToolStripMenuItem";
-            this.displayVelocitiesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.displayVelocitiesToolStripMenuItem.Text = "Display velocities";
-            // 
-            // displayTrajectoriesToolStripMenuItem
-            // 
-            this.displayTrajectoriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.doNotToolStripMenuItem,
-            this.nonfadingLineToolStripMenuItem,
-            this.fadingLineToolStripMenuItem});
-            this.displayTrajectoriesToolStripMenuItem.Name = "displayTrajectoriesToolStripMenuItem";
-            this.displayTrajectoriesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.displayTrajectoriesToolStripMenuItem.Text = "Display trajectories";
-            // 
-            // doNotToolStripMenuItem
-            // 
-            this.doNotToolStripMenuItem.Name = "doNotToolStripMenuItem";
-            this.doNotToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
-            this.doNotToolStripMenuItem.Text = "Do not";
-            // 
-            // nonfadingLineToolStripMenuItem
-            // 
-            this.nonfadingLineToolStripMenuItem.Name = "nonfadingLineToolStripMenuItem";
-            this.nonfadingLineToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
-            this.nonfadingLineToolStripMenuItem.Text = "Non-fading line";
-            // 
-            // fadingLineToolStripMenuItem
-            // 
-            this.fadingLineToolStripMenuItem.Name = "fadingLineToolStripMenuItem";
-            this.fadingLineToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
-            this.fadingLineToolStripMenuItem.Text = "Fading line";
-            // 
-            // Control_Panel
-            // 
-            this.Control_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            ControlAgents_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.Control_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.Control_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Control_Panel.Controls.Add(this.ObjectSpace_Panel);
-            this.Control_Panel.Controls.Add(this.MistakeIcon_PB);
-            this.Control_Panel.Controls.Add(this.NewValue_TB);
-            this.Control_Panel.Controls.Add(this.ObjectSettings_Panel);
-            this.Control_Panel.Controls.Add(this.CurrentObjectName_Label);
-            this.Control_Panel.Location = new System.Drawing.Point(0, 28);
-            this.Control_Panel.Name = "Control_Panel";
-            this.Control_Panel.Size = new System.Drawing.Size(248, 686);
-            this.Control_Panel.TabIndex = 1;
+            ControlAgents_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            ControlAgents_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            ControlAgents_Panel.Controls.Add(this.ObjectSpace_Panel);
+            ControlAgents_Panel.Controls.Add(this.MistakeIcon_PB);
+            ControlAgents_Panel.Controls.Add(this.NewValue_TB);
+            ControlAgents_Panel.Controls.Add(this.ObjectSettings_Panel);
+            ControlAgents_Panel.Controls.Add(this.CurrentObjectName_Label);
+            ControlAgents_Panel.Location = new System.Drawing.Point(0, 28);
+            ControlAgents_Panel.Name = "ControlAgents_Panel";
+            ControlAgents_Panel.Size = new System.Drawing.Size(248, 686);
+            ControlAgents_Panel.TabIndex = 1;
             // 
             // ObjectSpace_Panel
             // 
@@ -563,6 +404,222 @@ namespace Awose
             this.CurrentObjectName_Label.Text = "No object selected";
             this.CurrentObjectName_Label.Click += new System.EventHandler(this.CurrentObjectName_Label_Click);
             // 
+            // Main_MStr
+            // 
+            this.Main_MStr.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(11)))), ((int)(((byte)(11)))), ((int)(((byte)(11)))));
+            this.Main_MStr.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Simulation_MSItem,
+            this.hToolStripMenuItem,
+            this.displayToolStripMenuItem});
+            this.Main_MStr.Location = new System.Drawing.Point(0, 0);
+            this.Main_MStr.Name = "Main_MStr";
+            this.Main_MStr.Size = new System.Drawing.Size(1241, 28);
+            this.Main_MStr.TabIndex = 0;
+            this.Main_MStr.Text = "menuStrip1";
+            // 
+            // Simulation_MSItem
+            // 
+            this.Simulation_MSItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LaunchSimulation_MSItem,
+            this.PauseSimulation_MSItem,
+            this.StopSimulation_MSItem,
+            this.ResetSimulation_MSItem,
+            this.toolStripMenuItem1,
+            this.openModelToolStripMenuItem,
+            this.SaveModel_MSItem,
+            this.toolStripMenuItem2,
+            this.Undo_MSItem,
+            this.Redo_MSItem});
+            this.Simulation_MSItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Simulation_MSItem.ForeColor = System.Drawing.Color.White;
+            this.Simulation_MSItem.Name = "Simulation_MSItem";
+            this.Simulation_MSItem.Size = new System.Drawing.Size(92, 24);
+            this.Simulation_MSItem.Text = "Simulation";
+            this.Simulation_MSItem.DropDownOpening += new System.EventHandler(this.Simulation_MSItem_DropDownOpening);
+            // 
+            // LaunchSimulation_MSItem
+            // 
+            this.LaunchSimulation_MSItem.BackColor = System.Drawing.Color.White;
+            this.LaunchSimulation_MSItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.LaunchSimulation_MSItem.ForeColor = System.Drawing.Color.Black;
+            this.LaunchSimulation_MSItem.Name = "LaunchSimulation_MSItem";
+            this.LaunchSimulation_MSItem.Padding = new System.Windows.Forms.Padding(0);
+            this.LaunchSimulation_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.LaunchSimulation_MSItem.Size = new System.Drawing.Size(246, 22);
+            this.LaunchSimulation_MSItem.Text = "Launch simulation";
+            this.LaunchSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.LaunchSimulation_MSItem.Click += new System.EventHandler(this.LaunchSimulation_MSItem_Click);
+            // 
+            // PauseSimulation_MSItem
+            // 
+            this.PauseSimulation_MSItem.BackColor = System.Drawing.Color.White;
+            this.PauseSimulation_MSItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.PauseSimulation_MSItem.Enabled = false;
+            this.PauseSimulation_MSItem.ForeColor = System.Drawing.Color.Black;
+            this.PauseSimulation_MSItem.Name = "PauseSimulation_MSItem";
+            this.PauseSimulation_MSItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
+            this.PauseSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.PauseSimulation_MSItem.Text = "Pause simulation";
+            this.PauseSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            // 
+            // StopSimulation_MSItem
+            // 
+            this.StopSimulation_MSItem.Enabled = false;
+            this.StopSimulation_MSItem.Name = "StopSimulation_MSItem";
+            this.StopSimulation_MSItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
+            this.StopSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.StopSimulation_MSItem.Text = "Stop simulation";
+            this.StopSimulation_MSItem.Click += new System.EventHandler(this.StopSimulation_MSItem_Click);
+            // 
+            // ResetSimulation_MSItem
+            // 
+            this.ResetSimulation_MSItem.Name = "ResetSimulation_MSItem";
+            this.ResetSimulation_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.ResetSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.ResetSimulation_MSItem.Text = "Reset";
+            this.ResetSimulation_MSItem.Click += new System.EventHandler(this.ResetSimulation_MSItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(243, 6);
+            // 
+            // openModelToolStripMenuItem
+            // 
+            this.openModelToolStripMenuItem.Name = "openModelToolStripMenuItem";
+            this.openModelToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
+            this.openModelToolStripMenuItem.Text = "Open modeling...";
+            // 
+            // SaveModel_MSItem
+            // 
+            this.SaveModel_MSItem.Name = "SaveModel_MSItem";
+            this.SaveModel_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.SaveModel_MSItem.Text = "Save modeling...";
+            this.SaveModel_MSItem.Click += new System.EventHandler(this.SaveModel_MSItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(243, 6);
+            // 
+            // Undo_MSItem
+            // 
+            this.Undo_MSItem.Name = "Undo_MSItem";
+            this.Undo_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.Undo_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.Undo_MSItem.Text = "Undo";
+            this.Undo_MSItem.Click += new System.EventHandler(this.Undo_MSItem_Click);
+            // 
+            // Redo_MSItem
+            // 
+            this.Redo_MSItem.Enabled = false;
+            this.Redo_MSItem.Name = "Redo_MSItem";
+            this.Redo_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.Z)));
+            this.Redo_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.Redo_MSItem.Text = "Redo";
+            this.Redo_MSItem.Click += new System.EventHandler(this.Redo_MSItem_Click);
+            // 
+            // hToolStripMenuItem
+            // 
+            this.hToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.hToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.hToolStripMenuItem.Name = "hToolStripMenuItem";
+            this.hToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
+            this.hToolStripMenuItem.Text = "Objects";
+            // 
+            // displayToolStripMenuItem
+            // 
+            this.displayToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.objectColorsToolStripMenuItem,
+            this.displayForcesToolStripMenuItem,
+            this.displayVelocitiesToolStripMenuItem,
+            this.displayTrajectoriesToolStripMenuItem,
+            this.displayGridToolStripMenuItem});
+            this.displayToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.displayToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
+            this.displayToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
+            this.displayToolStripMenuItem.Text = "Display";
+            // 
+            // objectColorsToolStripMenuItem
+            // 
+            this.objectColorsToolStripMenuItem.Name = "objectColorsToolStripMenuItem";
+            this.objectColorsToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.objectColorsToolStripMenuItem.Text = "Object colors";
+            // 
+            // displayForcesToolStripMenuItem
+            // 
+            this.displayForcesToolStripMenuItem.Name = "displayForcesToolStripMenuItem";
+            this.displayForcesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.displayForcesToolStripMenuItem.Text = "Display forces";
+            // 
+            // displayVelocitiesToolStripMenuItem
+            // 
+            this.displayVelocitiesToolStripMenuItem.Name = "displayVelocitiesToolStripMenuItem";
+            this.displayVelocitiesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.displayVelocitiesToolStripMenuItem.Text = "Display velocities";
+            // 
+            // displayTrajectoriesToolStripMenuItem
+            // 
+            this.displayTrajectoriesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.doNotToolStripMenuItem,
+            this.nonfadingLineToolStripMenuItem,
+            this.fadingLineToolStripMenuItem});
+            this.displayTrajectoriesToolStripMenuItem.Name = "displayTrajectoriesToolStripMenuItem";
+            this.displayTrajectoriesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.displayTrajectoriesToolStripMenuItem.Text = "Display trajectories";
+            // 
+            // doNotToolStripMenuItem
+            // 
+            this.doNotToolStripMenuItem.Name = "doNotToolStripMenuItem";
+            this.doNotToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.doNotToolStripMenuItem.Text = "Do not";
+            // 
+            // nonfadingLineToolStripMenuItem
+            // 
+            this.nonfadingLineToolStripMenuItem.Name = "nonfadingLineToolStripMenuItem";
+            this.nonfadingLineToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.nonfadingLineToolStripMenuItem.Text = "Non-fading line";
+            // 
+            // fadingLineToolStripMenuItem
+            // 
+            this.fadingLineToolStripMenuItem.Name = "fadingLineToolStripMenuItem";
+            this.fadingLineToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
+            this.fadingLineToolStripMenuItem.Text = "Fading line";
+            // 
+            // displayGridToolStripMenuItem
+            // 
+            this.displayGridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.doNotToolStripMenuItem1,
+            this.DispGrid_Editing_CMItem,
+            this.displayToolStripMenuItem1});
+            this.displayGridToolStripMenuItem.Name = "displayGridToolStripMenuItem";
+            this.displayGridToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.displayGridToolStripMenuItem.Text = "Display grid";
+            // 
+            // doNotToolStripMenuItem1
+            // 
+            this.doNotToolStripMenuItem1.Name = "doNotToolStripMenuItem1";
+            this.doNotToolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
+            this.doNotToolStripMenuItem1.Text = "Do not";
+            // 
+            // DispGrid_Editing_CMItem
+            // 
+            this.DispGrid_Editing_CMItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.DispGrid_Editing_CMItem.Checked = true;
+            this.DispGrid_Editing_CMItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DispGrid_Editing_CMItem.Name = "DispGrid_Editing_CMItem";
+            this.DispGrid_Editing_CMItem.Size = new System.Drawing.Size(210, 24);
+            this.DispGrid_Editing_CMItem.Text = "While editing mode";
+            this.DispGrid_Editing_CMItem.Click += new System.EventHandler(this.DispGrid_Editing_CMItem_Click);
+            // 
+            // displayToolStripMenuItem1
+            // 
+            this.displayToolStripMenuItem1.Name = "displayToolStripMenuItem1";
+            this.displayToolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
+            this.displayToolStripMenuItem1.Text = "Display";
+            // 
             // SaveModel_SFD
             // 
             this.SaveModel_SFD.Filter = "Awose File|*.awose";
@@ -573,7 +630,7 @@ namespace Awose
             this.ModelBoard_PB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ModelBoard_PB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.ModelBoard_PB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.ModelBoard_PB.ContextMenuStrip = this.Space_CMStr;
             this.ModelBoard_PB.Cursor = System.Windows.Forms.Cursors.Cross;
             this.ModelBoard_PB.Location = new System.Drawing.Point(248, 28);
@@ -646,6 +703,29 @@ namespace Awose
             this.SetFirstSpace_CMItem.Size = new System.Drawing.Size(212, 24);
             this.SetFirstSpace_CMItem.Text = "Set first space velocity";
             this.SetFirstSpace_CMItem.Click += new System.EventHandler(this.SetFirstSpace_CMItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(212, 24);
+            this.toolStripMenuItem3.Text = "Update satellites";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(209, 6);
+            // 
+            // copyVelocityToolStripMenuItem
+            // 
+            this.copyVelocityToolStripMenuItem.Name = "copyVelocityToolStripMenuItem";
+            this.copyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
+            this.copyVelocityToolStripMenuItem.Text = "Copy velocity";
+            // 
+            // applyVelocityToolStripMenuItem
+            // 
+            this.applyVelocityToolStripMenuItem.Name = "applyVelocityToolStripMenuItem";
+            this.applyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
+            this.applyVelocityToolStripMenuItem.Text = "Apply velocity";
             // 
             // ChangeSign_CMItem
             // 
@@ -924,28 +1004,172 @@ namespace Awose
             this.RT_Scale_Label.TabIndex = 8;
             this.RT_Scale_Label.Text = "1:1";
             // 
-            // toolStripSeparator1
+            // ControlLayer_Panel
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(209, 6);
+            this.ControlLayer_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.ControlLayer_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ControlLayer_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ControlLayer_Panel.Controls.Add(this.panel3);
+            this.ControlLayer_Panel.Controls.Add(this.pictureBox1);
+            this.ControlLayer_Panel.Controls.Add(this.textBox1);
+            this.ControlLayer_Panel.Controls.Add(this.panel4);
+            this.ControlLayer_Panel.Controls.Add(this.label26);
+            this.ControlLayer_Panel.Location = new System.Drawing.Point(0, 28);
+            this.ControlLayer_Panel.Name = "ControlLayer_Panel";
+            this.ControlLayer_Panel.Size = new System.Drawing.Size(248, 686);
+            this.ControlLayer_Panel.TabIndex = 9;
             // 
-            // copyVelocityToolStripMenuItem
+            // panel3
             // 
-            this.copyVelocityToolStripMenuItem.Name = "copyVelocityToolStripMenuItem";
-            this.copyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
-            this.copyVelocityToolStripMenuItem.Text = "Copy velocity";
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.GridColor_Blue_PB);
+            this.panel3.Controls.Add(this.label15);
+            this.panel3.Controls.Add(this.label16);
+            this.panel3.Location = new System.Drawing.Point(-1, 164);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(248, 129);
+            this.panel3.TabIndex = 5;
             // 
-            // applyVelocityToolStripMenuItem
+            // GridColor_Blue_PB
             // 
-            this.applyVelocityToolStripMenuItem.Name = "applyVelocityToolStripMenuItem";
-            this.applyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
-            this.applyVelocityToolStripMenuItem.Text = "Apply velocity";
+            this.GridColor_Blue_PB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GridColor_Blue_PB.Location = new System.Drawing.Point(13, 60);
+            this.GridColor_Blue_PB.Name = "GridColor_Blue_PB";
+            this.GridColor_Blue_PB.Size = new System.Drawing.Size(20, 20);
+            this.GridColor_Blue_PB.TabIndex = 3;
+            this.GridColor_Blue_PB.TabStop = false;
             // 
-            // toolStripMenuItem3
+            // label15
             // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(212, 24);
-            this.toolStripMenuItem3.Text = "Update satellites";
+            this.label15.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label15.ForeColor = System.Drawing.Color.White;
+            this.label15.Location = new System.Drawing.Point(9, 35);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(154, 19);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "Grid color";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label16.ForeColor = System.Drawing.Color.White;
+            this.label16.Location = new System.Drawing.Point(9, 7);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(55, 19);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "Beauty";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(209, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(34, 29);
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Tag = "";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.textBox1.ForeColor = System.Drawing.Color.White;
+            this.textBox1.Location = new System.Drawing.Point(3, 588);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(232, 23);
+            this.textBox1.TabIndex = 3;
+            this.textBox1.Visible = false;
+            // 
+            // panel4
+            // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.label18);
+            this.panel4.Controls.Add(this.label17);
+            this.panel4.Controls.Add(this.label11);
+            this.panel4.Controls.Add(this.label10);
+            this.panel4.Controls.Add(this.label25);
+            this.panel4.Location = new System.Drawing.Point(-1, 35);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(248, 129);
+            this.panel4.TabIndex = 2;
+            // 
+            // label18
+            // 
+            this.label18.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label18.ForeColor = System.Drawing.Color.White;
+            this.label18.Location = new System.Drawing.Point(9, 85);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(75, 19);
+            this.label18.TabIndex = 6;
+            this.label18.Text = "Interaction";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label17
+            // 
+            this.label17.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label17.ForeColor = System.Drawing.Color.White;
+            this.label17.Location = new System.Drawing.Point(9, 63);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(75, 19);
+            this.label17.TabIndex = 5;
+            this.label17.Text = "Constant";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label11.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.label11.Location = new System.Drawing.Point(83, 32);
+            this.label11.Name = "label11";
+            this.label11.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.label11.Size = new System.Drawing.Size(134, 28);
+            this.label11.TabIndex = 4;
+            this.label11.Text = "F=G×M¹m¹r⁻²";
+            // 
+            // label10
+            // 
+            this.label10.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label10.ForeColor = System.Drawing.Color.White;
+            this.label10.Location = new System.Drawing.Point(10, 40);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(74, 19);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "Law";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label25.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label25.ForeColor = System.Drawing.Color.White;
+            this.label25.Location = new System.Drawing.Point(9, 7);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(58, 19);
+            this.label25.TabIndex = 1;
+            this.label25.Text = "Gravity";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label26.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label26.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.label26.Location = new System.Drawing.Point(9, 8);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(54, 19);
+            this.label26.TabIndex = 0;
+            this.label26.Text = "Layer1";
             // 
             // Awose
             // 
@@ -953,13 +1177,14 @@ namespace Awose
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.ControlLayer_Panel);
             this.Controls.Add(this.RT_Scale_Label);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.PossibleSelections_LB);
             this.Controls.Add(this.MistakeHint_Label);
             this.Controls.Add(this.Instrumental_Panel);
             this.Controls.Add(this.ModelBoard_PB);
-            this.Controls.Add(this.Control_Panel);
+            this.Controls.Add(ControlAgents_Panel);
             this.Controls.Add(this.Main_MStr);
             this.KeyPreview = true;
             this.MainMenuStrip = this.Main_MStr;
@@ -969,19 +1194,27 @@ namespace Awose
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Awose_FormClosing);
             this.Load += new System.EventHandler(this.Awose_Load);
-            this.Main_MStr.ResumeLayout(false);
-            this.Main_MStr.PerformLayout();
-            this.Control_Panel.ResumeLayout(false);
-            this.Control_Panel.PerformLayout();
+            ControlAgents_Panel.ResumeLayout(false);
+            ControlAgents_Panel.PerformLayout();
             this.ObjectSpace_Panel.ResumeLayout(false);
             this.ObjectSpace_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).EndInit();
             this.ObjectSettings_Panel.ResumeLayout(false);
             this.ObjectSettings_Panel.PerformLayout();
+            this.Main_MStr.ResumeLayout(false);
+            this.Main_MStr.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();
             this.Space_CMStr.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.ControlLayer_Panel.ResumeLayout(false);
+            this.ControlLayer_Panel.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GridColor_Blue_PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1002,7 +1235,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem Undo_MSItem;
         private System.Windows.Forms.ToolStripMenuItem Redo_MSItem;
-        private System.Windows.Forms.Panel Control_Panel;
+        private System.Windows.Forms.Panel ControlAgents_Panel;
         private System.Windows.Forms.SaveFileDialog SaveModel_SFD;
         private System.Windows.Forms.PictureBox ModelBoard_PB;
         private System.Windows.Forms.ContextMenuStrip Space_CMStr;
@@ -1069,6 +1302,24 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem copyVelocityToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem applyVelocityToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.Panel ControlLayer_Panel;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.PictureBox GridColor_Blue_PB;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ToolStripMenuItem displayGridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem doNotToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem DispGrid_Editing_CMItem;
+        private System.Windows.Forms.ToolStripMenuItem displayToolStripMenuItem1;
     }
 }
 

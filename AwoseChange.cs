@@ -13,6 +13,7 @@ namespace Awose
     class AwoseChange
     {
         public AwoseAgent Subject { get; set; }
+        public AwoseLayer EventSpace { get; set; }
         public ChangeType Type { get; set; }
         public double OldValue { get; set; }
         public double NewValue { get; set; }
@@ -20,8 +21,9 @@ namespace Awose
         public string NewStringValue { get; set; }
         public Point OldPointValue { get; set; }
         public Point NewPointValue { get; set; }
-        public AwoseChange(AwoseAgent subject, ChangeType type)
+        public AwoseChange(AwoseAgent subject, AwoseLayer layer, ChangeType type)
         {
+            EventSpace = layer;
             Subject = subject;
             Type = type;
         }

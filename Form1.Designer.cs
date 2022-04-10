@@ -612,6 +612,7 @@ namespace Awose
             this.DispGrid_Editing_CMItem.Name = "DispGrid_Editing_CMItem";
             this.DispGrid_Editing_CMItem.Size = new System.Drawing.Size(210, 24);
             this.DispGrid_Editing_CMItem.Text = "While editing mode";
+            this.DispGrid_Editing_CMItem.Click += new System.EventHandler(this.DispGrid_Editing_CMItem_Click);
             // 
             // displayToolStripMenuItem1
             // 

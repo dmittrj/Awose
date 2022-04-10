@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -117,13 +119,27 @@ namespace Awose
                     new Point(0, i),
                     new Point(drawingValues.GridWidth, i));
             }
-            if (DispGrid_Editing_CMItem.Checked && drawingValues.GridWidth < ModelBoard_PB.Width)
+            if (DispGrid_Editing_CMItem.Checked)
             {
-                drawingValues.GridWidth += 40;
+                if (drawingValues.GridWidth < ModelBoard_PB.Width)
+                {
+                    drawingValues.GridWidth += 40;
+                }
+                if (drawingValues.GridHeight < ModelBoard_PB.Height)
+                {
+                    drawingValues.GridHeight += 40;
+                }
             }
-            if (DispGrid_Editing_CMItem.Checked && drawingValues.GridHeight < ModelBoard_PB.Height)
+            else
             {
-                drawingValues.GridHeight += 40;
+                if (drawingValues.GridWidth > 0)
+                {
+                    drawingValues.GridWidth -= 40;
+                }
+                if (drawingValues.GridHeight > 0)
+                {
+                    drawingValues.GridHeight -= 40;
+                }
             }
             if (SettingVelocity != -1)
             {
@@ -541,7 +557,12 @@ namespace Awose
         {
             if (SaveModel_SFD.ShowDialog() == DialogResult.OK)
             {
-
+                FileInfo fileInfo = new(SaveModel_SFD.FileName);
+                FileStream file = fileInfo.Create();
+                string serializedobject = JsonConvert.SerializeObject(Layers);
+                byte[] array = System.Text.Encoding.Default.GetBytes(serializedobject);
+                file.Write(array);
+                file.Close();
             }
         }
 
@@ -1380,6 +1401,18 @@ namespace Awose
         private void ModelBoard_PB_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void DispGrid_Editing_CMItem_Click(object sender, EventArgs e)
+        {
+            if (DispGrid_Editing_CMItem.Checked)
+            {
+                DispGrid_Editing_CMItem.Checked = false;
+            } 
+            else
+            {
+                DispGrid_Editing_CMItem.Checked = true;
+            }
         }
     }
 }

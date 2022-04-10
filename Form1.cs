@@ -19,6 +19,7 @@ namespace Awose
     {
         [Obsolete]
         readonly List<AwoseAgent> agents = new();
+        public DrawingValues drawingValues = new();
         public static List<AwoseLayer> Layers { get; set; }
         private int CurrentLayer = 0;
         private int agentsNumeric = 1;
@@ -96,25 +97,33 @@ namespace Awose
             {
                 grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorSub, 2),
                     new Point(i, 0),
-                    new Point(i, ModelBoard_PB.Height));
+                    new Point(i, drawingValues.GridHeight));
             }
             for (int i = verLine + (int)(aw_scale * GRID_FREQUENCY / 2); i < lu_corner.Y + ModelBoard_PB.Height; i += (int)(aw_scale * GRID_FREQUENCY))
             {
                 grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorSub, 2),
                     new Point(0, i),
-                    new Point(ModelBoard_PB.Width, i));
+                    new Point(drawingValues.GridWidth, i));
             }
             for (int i = horLine; i < lu_corner.X + ModelBoard_PB.Width; i += (int)(aw_scale * GRID_FREQUENCY))
             {
                 grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorMain, 2),
                     new Point(i, 0),
-                    new Point(i, ModelBoard_PB.Height));
+                    new Point(i, drawingValues.GridHeight));
             }
             for (int i = verLine; i < lu_corner.Y + ModelBoard_PB.Height; i += (int)(aw_scale * GRID_FREQUENCY))
             {
                 grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorMain, 2),
                     new Point(0, i),
-                    new Point(ModelBoard_PB.Width, i));
+                    new Point(drawingValues.GridWidth, i));
+            }
+            if (DispGrid_Editing_CMItem.Checked && drawingValues.GridWidth < ModelBoard_PB.Width)
+            {
+                drawingValues.GridWidth += 40;
+            }
+            if (DispGrid_Editing_CMItem.Checked && drawingValues.GridHeight < ModelBoard_PB.Height)
+            {
+                drawingValues.GridHeight += 40;
             }
             if (SettingVelocity != -1)
             {

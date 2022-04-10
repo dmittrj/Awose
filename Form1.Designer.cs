@@ -71,6 +71,10 @@ namespace Awose
             this.doNotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nonfadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fadingLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.doNotToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.DispGrid_Editing_CMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveModel_SFD = new System.Windows.Forms.SaveFileDialog();
             this.ModelBoard_PB = new System.Windows.Forms.PictureBox();
             this.Space_CMStr = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -124,10 +128,6 @@ namespace Awose
             this.label10 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.displayGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.doNotToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.whileEditingModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.displayToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ControlAgents_Panel = new System.Windows.Forms.Panel();
             ControlAgents_Panel.SuspendLayout();
             this.ObjectSpace_Panel.SuspendLayout();
@@ -587,6 +587,37 @@ namespace Awose
             this.fadingLineToolStripMenuItem.Name = "fadingLineToolStripMenuItem";
             this.fadingLineToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
             this.fadingLineToolStripMenuItem.Text = "Fading line";
+            // 
+            // displayGridToolStripMenuItem
+            // 
+            this.displayGridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.doNotToolStripMenuItem1,
+            this.DispGrid_Editing_CMItem,
+            this.displayToolStripMenuItem1});
+            this.displayGridToolStripMenuItem.Name = "displayGridToolStripMenuItem";
+            this.displayGridToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.displayGridToolStripMenuItem.Text = "Display grid";
+            // 
+            // doNotToolStripMenuItem1
+            // 
+            this.doNotToolStripMenuItem1.Name = "doNotToolStripMenuItem1";
+            this.doNotToolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
+            this.doNotToolStripMenuItem1.Text = "Do not";
+            // 
+            // DispGrid_Editing_CMItem
+            // 
+            this.DispGrid_Editing_CMItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.DispGrid_Editing_CMItem.Checked = true;
+            this.DispGrid_Editing_CMItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.DispGrid_Editing_CMItem.Name = "DispGrid_Editing_CMItem";
+            this.DispGrid_Editing_CMItem.Size = new System.Drawing.Size(210, 24);
+            this.DispGrid_Editing_CMItem.Text = "While editing mode";
+            // 
+            // displayToolStripMenuItem1
+            // 
+            this.displayToolStripMenuItem1.Name = "displayToolStripMenuItem1";
+            this.displayToolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
+            this.displayToolStripMenuItem1.Text = "Display";
             // 
             // SaveModel_SFD
             // 
@@ -1139,37 +1170,6 @@ namespace Awose
             this.label26.TabIndex = 0;
             this.label26.Text = "Layer1";
             // 
-            // displayGridToolStripMenuItem
-            // 
-            this.displayGridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.doNotToolStripMenuItem1,
-            this.whileEditingModeToolStripMenuItem,
-            this.displayToolStripMenuItem1});
-            this.displayGridToolStripMenuItem.Name = "displayGridToolStripMenuItem";
-            this.displayGridToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
-            this.displayGridToolStripMenuItem.Text = "Display grid";
-            // 
-            // doNotToolStripMenuItem1
-            // 
-            this.doNotToolStripMenuItem1.Name = "doNotToolStripMenuItem1";
-            this.doNotToolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
-            this.doNotToolStripMenuItem1.Text = "Do not";
-            // 
-            // whileEditingModeToolStripMenuItem
-            // 
-            this.whileEditingModeToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.whileEditingModeToolStripMenuItem.Checked = true;
-            this.whileEditingModeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.whileEditingModeToolStripMenuItem.Name = "whileEditingModeToolStripMenuItem";
-            this.whileEditingModeToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
-            this.whileEditingModeToolStripMenuItem.Text = "While editing mode";
-            // 
-            // displayToolStripMenuItem1
-            // 
-            this.displayToolStripMenuItem1.Name = "displayToolStripMenuItem1";
-            this.displayToolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
-            this.displayToolStripMenuItem1.Text = "Display";
-            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1317,7 +1317,7 @@ namespace Awose
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.ToolStripMenuItem displayGridToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem doNotToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem whileEditingModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem DispGrid_Editing_CMItem;
         private System.Windows.Forms.ToolStripMenuItem displayToolStripMenuItem1;
     }
 }

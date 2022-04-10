@@ -1060,6 +1060,7 @@ namespace Awose
                     break;
                 case MouseButtons.Middle:
                     isBoardMoving = true;
+                    Cursor = Cursors.NoMove2D;
                     //aw_cursor = Cursor.Position;
                     lu_remember = lu_corner;
                     break;
@@ -1116,22 +1117,30 @@ namespace Awose
             RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
             RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
             bool hoverAgent = false;
-            foreach (AwoseAgent item in agents)
+            if (isBoardMoving)
             {
-                if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
-                {
-                    hoverAgent = true;
-                    break;
-                }
-            }
-            if (hoverAgent)
-            {
-                Cursor = Cursors.Default;
+                Cursor = Cursors.NoMove2D;
             } 
             else
             {
-                Cursor = Cursors.Cross;
+                foreach (AwoseAgent item in agents)
+                {
+                    if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                    {
+                        hoverAgent = true;
+                        break;
+                    }
+                }
+                if (hoverAgent)
+                {
+                    Cursor = Cursors.Default;
+                }
+                else
+                {
+                    Cursor = Cursors.Cross;
+                }
             }
+            
             
             if (isBoardMoving)
             {

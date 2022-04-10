@@ -572,43 +572,22 @@ namespace Awose
             }
             else if (aw_scale > 1)
             {
-                aw_scale += .5f;
-                lu_corner.X = (int)((beforeScaling.X / aw_scale) - (beforeScaling.X / (aw_scale - .5f)) + lu_corner.X);
-                lu_corner.Y = (int)((beforeScaling.Y / aw_scale) - (beforeScaling.Y / (aw_scale - .5f)) + lu_corner.Y);
-                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
                 aw_scale -= .5f;
                 lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
                 lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
-                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-                aw_scale -= .5f;
-                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
-                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
-                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-                aw_scale -= .5f;
-                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
-                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
-                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-                aw_scale -= .5f;
-                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
-                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
-                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-                aw_scale -= .5f;
-                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
-                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
-                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-                aw_scale -= .5f;
-                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
-                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
-                aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
-                aw_scale -= .5f;
-                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
-                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
+                //aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
             }
             foreach (AwoseAgent item in agents)
             {
                 item.X_screen = (int)(lu_corner.X + item.X * aw_scale);
                 item.Y_screen = (int)(lu_corner.Y + item.Y * aw_scale);
             }
+            float tmpScale = aw_scale;
+            while (Math.Round(tmpScale) != tmpScale)
+            {
+                tmpScale *= 2;
+            }
+            RT_Scale_Label.Text = tmpScale.ToString() + ":" + (tmpScale / aw_scale).ToString();
         }
 
         private void DeleteObject_CMItem_Click(object sender, EventArgs e)

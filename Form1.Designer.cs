@@ -97,14 +97,15 @@ namespace Awose
             this.MistakeHint_Label = new System.Windows.Forms.Label();
             this.PossibleSelections_LB = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.RT_g_Label = new System.Windows.Forms.Label();
+            this.RT_E_Label = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.RT_Y_Label = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.RT_X_Label = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.RT_E_Label = new System.Windows.Forms.Label();
-            this.RT_g_Label = new System.Windows.Forms.Label();
+            this.RT_Scale_Label = new System.Windows.Forms.Label();
             this.Main_MStr.SuspendLayout();
             this.Control_Panel.SuspendLayout();
             this.ObjectSpace_Panel.SuspendLayout();
@@ -805,6 +806,54 @@ namespace Awose
             this.panel1.Size = new System.Drawing.Size(79, 92);
             this.panel1.TabIndex = 6;
             // 
+            // RT_g_Label
+            // 
+            this.RT_g_Label.AutoSize = true;
+            this.RT_g_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RT_g_Label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.RT_g_Label.ForeColor = System.Drawing.Color.White;
+            this.RT_g_Label.Location = new System.Drawing.Point(31, 64);
+            this.RT_g_Label.Name = "RT_g_Label";
+            this.RT_g_Label.Size = new System.Drawing.Size(14, 15);
+            this.RT_g_Label.TabIndex = 16;
+            this.RT_g_Label.Text = "0";
+            // 
+            // RT_E_Label
+            // 
+            this.RT_E_Label.AutoSize = true;
+            this.RT_E_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RT_E_Label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.RT_E_Label.ForeColor = System.Drawing.Color.White;
+            this.RT_E_Label.Location = new System.Drawing.Point(31, 45);
+            this.RT_E_Label.Name = "RT_E_Label";
+            this.RT_E_Label.Size = new System.Drawing.Size(14, 15);
+            this.RT_E_Label.TabIndex = 15;
+            this.RT_E_Label.Text = "0";
+            // 
+            // label9
+            // 
+            this.label9.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.label9.ForeColor = System.Drawing.Color.LightGray;
+            this.label9.Location = new System.Drawing.Point(3, 64);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(27, 19);
+            this.label9.TabIndex = 14;
+            this.label9.Text = "g:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label7
+            // 
+            this.label7.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.label7.ForeColor = System.Drawing.Color.LightGray;
+            this.label7.Location = new System.Drawing.Point(3, 45);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(27, 19);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "E:";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // RT_Y_Label
             // 
             this.RT_Y_Label.AutoSize = true;
@@ -853,53 +902,19 @@ namespace Awose
             this.label6.Text = "X:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // label7
+            // RT_Scale_Label
             // 
-            this.label7.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.label7.ForeColor = System.Drawing.Color.LightGray;
-            this.label7.Location = new System.Drawing.Point(3, 45);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(27, 19);
-            this.label7.TabIndex = 13;
-            this.label7.Text = "E:";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label9
-            // 
-            this.label9.Cursor = System.Windows.Forms.Cursors.Default;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.label9.ForeColor = System.Drawing.Color.LightGray;
-            this.label9.Location = new System.Drawing.Point(3, 64);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(27, 19);
-            this.label9.TabIndex = 14;
-            this.label9.Text = "g:";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // RT_E_Label
-            // 
-            this.RT_E_Label.AutoSize = true;
-            this.RT_E_Label.Cursor = System.Windows.Forms.Cursors.Default;
-            this.RT_E_Label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.RT_E_Label.ForeColor = System.Drawing.Color.White;
-            this.RT_E_Label.Location = new System.Drawing.Point(31, 45);
-            this.RT_E_Label.Name = "RT_E_Label";
-            this.RT_E_Label.Size = new System.Drawing.Size(14, 15);
-            this.RT_E_Label.TabIndex = 15;
-            this.RT_E_Label.Text = "0";
-            // 
-            // RT_g_Label
-            // 
-            this.RT_g_Label.AutoSize = true;
-            this.RT_g_Label.Cursor = System.Windows.Forms.Cursors.Default;
-            this.RT_g_Label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.RT_g_Label.ForeColor = System.Drawing.Color.White;
-            this.RT_g_Label.Location = new System.Drawing.Point(31, 64);
-            this.RT_g_Label.Name = "RT_g_Label";
-            this.RT_g_Label.Size = new System.Drawing.Size(14, 15);
-            this.RT_g_Label.TabIndex = 16;
-            this.RT_g_Label.Text = "0";
+            this.RT_Scale_Label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.RT_Scale_Label.AutoSize = true;
+            this.RT_Scale_Label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.RT_Scale_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RT_Scale_Label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.RT_Scale_Label.ForeColor = System.Drawing.Color.LightGray;
+            this.RT_Scale_Label.Location = new System.Drawing.Point(339, 690);
+            this.RT_Scale_Label.Name = "RT_Scale_Label";
+            this.RT_Scale_Label.Size = new System.Drawing.Size(22, 15);
+            this.RT_Scale_Label.TabIndex = 8;
+            this.RT_Scale_Label.Text = "1:1";
             // 
             // Awose
             // 
@@ -907,6 +922,7 @@ namespace Awose
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.RT_Scale_Label);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.PossibleSelections_LB);
             this.Controls.Add(this.MistakeHint_Label);
@@ -1017,6 +1033,7 @@ namespace Awose
         private System.Windows.Forms.Label RT_E_Label;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label RT_Scale_Label;
     }
 }
 

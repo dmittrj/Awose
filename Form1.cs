@@ -105,13 +105,13 @@ namespace Awose
             }
             for (int i = horLine; i < lu_corner.X + ModelBoard_PB.Width; i += (int)(aw_scale * GRID_FREQUENCY))
             {
-                grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorMain, 3),
+                grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorMain, 2),
                     new Point(i, 0),
                     new Point(i, ModelBoard_PB.Height));
             }
             for (int i = verLine; i < lu_corner.Y + ModelBoard_PB.Height; i += (int)(aw_scale * GRID_FREQUENCY))
             {
-                grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorMain, 3),
+                grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorMain, 2),
                     new Point(0, i),
                     new Point(ModelBoard_PB.Width, i));
             }

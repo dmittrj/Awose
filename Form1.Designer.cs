@@ -118,12 +118,16 @@ namespace Awose
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
+            this.displayGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.doNotToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.whileEditingModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ControlAgents_Panel = new System.Windows.Forms.Panel();
             ControlAgents_Panel.SuspendLayout();
             this.ObjectSpace_Panel.SuspendLayout();
@@ -530,7 +534,8 @@ namespace Awose
             this.objectColorsToolStripMenuItem,
             this.displayForcesToolStripMenuItem,
             this.displayVelocitiesToolStripMenuItem,
-            this.displayTrajectoriesToolStripMenuItem});
+            this.displayTrajectoriesToolStripMenuItem,
+            this.displayGridToolStripMenuItem});
             this.displayToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.displayToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.displayToolStripMenuItem.Name = "displayToolStripMenuItem";
@@ -1061,6 +1066,30 @@ namespace Awose
             this.panel4.Size = new System.Drawing.Size(248, 129);
             this.panel4.TabIndex = 2;
             // 
+            // label18
+            // 
+            this.label18.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label18.ForeColor = System.Drawing.Color.White;
+            this.label18.Location = new System.Drawing.Point(9, 85);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(75, 19);
+            this.label18.TabIndex = 6;
+            this.label18.Text = "Interaction";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label17
+            // 
+            this.label17.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label17.ForeColor = System.Drawing.Color.White;
+            this.label17.Location = new System.Drawing.Point(9, 63);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(75, 19);
+            this.label17.TabIndex = 5;
+            this.label17.Text = "Constant";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -1110,29 +1139,36 @@ namespace Awose
             this.label26.TabIndex = 0;
             this.label26.Text = "Layer1";
             // 
-            // label17
+            // displayGridToolStripMenuItem
             // 
-            this.label17.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label17.ForeColor = System.Drawing.Color.White;
-            this.label17.Location = new System.Drawing.Point(9, 63);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(75, 19);
-            this.label17.TabIndex = 5;
-            this.label17.Text = "Constant";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.displayGridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.doNotToolStripMenuItem1,
+            this.whileEditingModeToolStripMenuItem,
+            this.displayToolStripMenuItem1});
+            this.displayGridToolStripMenuItem.Name = "displayGridToolStripMenuItem";
+            this.displayGridToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
+            this.displayGridToolStripMenuItem.Text = "Display grid";
             // 
-            // label18
+            // doNotToolStripMenuItem1
             // 
-            this.label18.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label18.ForeColor = System.Drawing.Color.White;
-            this.label18.Location = new System.Drawing.Point(9, 85);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(75, 19);
-            this.label18.TabIndex = 6;
-            this.label18.Text = "Interaction";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.doNotToolStripMenuItem1.Name = "doNotToolStripMenuItem1";
+            this.doNotToolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
+            this.doNotToolStripMenuItem1.Text = "Do not";
+            // 
+            // whileEditingModeToolStripMenuItem
+            // 
+            this.whileEditingModeToolStripMenuItem.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.whileEditingModeToolStripMenuItem.Checked = true;
+            this.whileEditingModeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.whileEditingModeToolStripMenuItem.Name = "whileEditingModeToolStripMenuItem";
+            this.whileEditingModeToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.whileEditingModeToolStripMenuItem.Text = "While editing mode";
+            // 
+            // displayToolStripMenuItem1
+            // 
+            this.displayToolStripMenuItem1.Name = "displayToolStripMenuItem1";
+            this.displayToolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
+            this.displayToolStripMenuItem1.Text = "Display";
             // 
             // Awose
             // 
@@ -1279,6 +1315,10 @@ namespace Awose
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ToolStripMenuItem displayGridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem doNotToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem whileEditingModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem displayToolStripMenuItem1;
     }
 }
 

@@ -658,7 +658,7 @@ namespace Awose
             //Text = newAgentPoint.X.ToString() + ", " + newAgentPoint.Y.ToString();
             Layers[CurrentLayer].Agents.Add(new AwoseAgent("Object " + agentsNum.ToString(), newAgentPoint.X, newAgentPoint.Y, 1, 0, 0, 0, false));
             //agents.Add(new AwoseAgent("Object " + (agentsNumeric++).ToString(), newAgentPoint.X, newAgentPoint.Y, 1, 0, 0, 0, false));
-            aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[^1], Layers[CurrentLayer], ChangeType.Creating));
+            aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[^1], Layers[CurrentLayer].Name, ChangeType.Creating));
             Aw_CheckMistakes();
             Aw_DrawControl();
         }
@@ -751,9 +751,16 @@ namespace Awose
             switch (ch_undo.Type)
             {
                 case ChangeType.Creating:
-                    for (int i = 0; i < agents.Count; i++)
-                        if (agents[i].Name == ch_undo.Subject.Name)
-                            agents.RemoveAt(i);
+                    foreach (AwoseLayer item in Layers)
+                    {
+                        if (item.Name == ch_undo.EventSpace)
+                        {
+                            for (int i = 0; i < item.Agents.Count; i++)
+                                if (item.Agents[i].Name == ch_undo.Subject.Name)
+                                    item.Agents.RemoveAt(i);
+                            break;
+                        }
+                    }
                     break;
                 case ChangeType.Deleting:
                     foreach (AwoseAgent item in agents)

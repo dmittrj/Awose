@@ -401,9 +401,12 @@ namespace Awose
 
         private void Aw_CheckMistakes()
         {
-            foreach (AwoseAgent item in agents)
+            foreach (AwoseLayer layer in Layers)
             {
-                item.MistakeType = 0;
+                foreach (AwoseAgent agent in layer.Agents)
+                {
+                    agent.MistakeType = 0;
+                }
             }
             if (isLaunched) return;
             LaunchSimulation_MSItem.Enabled = true;
@@ -984,11 +987,18 @@ namespace Awose
                             agents.RemoveAt(i);
                     break;
                 case ChangeType.Creating:
-                    foreach (AwoseAgent item in agents)
+                    foreach (AwoseLayer layer in Layers)
                     {
-                        if (item.Name == ch_redo.Subject.Name) return;
+                        if (layer.Name == ch_redo.EventSpace)
+                        {
+                            foreach (AwoseAgent agent in layer.Agents)
+                            {
+                                if (agent.Name == ch_redo.Subject.Name) return;
+                            }
+                            layer.Agents.Add(ch_redo.Subject);
+                            break;
+                        }
                     }
-                    agents.Add(ch_redo.Subject);
                     break;
                 case ChangeType.ChangingMass:
                     foreach (AwoseAgent item in agents)

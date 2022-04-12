@@ -17,6 +17,8 @@ namespace Awose
     enum EditingValue { None, Mass, Charge, Name, X, Y }
 
     enum MovingEntity { None, Board, Agent }
+
+    enum SpecialCondition { None, SetVelocity}
     public partial class Awose : Form
     {
         [Obsolete]
@@ -42,6 +44,7 @@ namespace Awose
         const int aw_agentsize = 15;
         private EditingValue editingValue = EditingValue.None;
         private MovingEntity movingEntity = MovingEntity.None;
+        private SpecialCondition specialCondition = SpecialCondition.None;
         [Obsolete]
         private bool isBoardMoving = false;
         [Obsolete]
@@ -192,7 +195,20 @@ namespace Awose
                 //grfx.DrawArc(new Pen(Brushes.Gray, aw_scale * 2), circle, 280, 70);
             }
 
-
+            //Drawing arrows, lines etc
+            switch (specialCondition)
+            {
+                case SpecialCondition.None:
+                    break;
+                case SpecialCondition.SetVelocity:
+                    PointParticle cursor = GetCursorPosition();
+                    grfx.DrawLine(new Pen(Brushes.Tomato, 2),
+                    new PointF(aw_remember.X, aw_remember.Y),
+                    new PointF(cursor.X, cursor.Y));
+                    break;
+                default:
+                    break;
+            }
 
             if (SettingVelocity != -1)
             {
@@ -660,6 +676,7 @@ namespace Awose
             }
             if (hoverAgent)
             {
+                Layers[CurrentLayer].IsThereSelections();
                 DeleteObject_CMItem.Visible = true;
                 ObjectEditSep_CMSepar.Visible = true;
                 SetVelocity_CMItem.Visible = true;
@@ -909,17 +926,17 @@ namespace Awose
                         try
                         {
                             newValue = float.Parse(NewValue_TB.Text);
-                            aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingMass, agents[aw_selected].Weight, newValue));
-                            agents[aw_selected].Weight = newValue;
-                            if (agents[aw_selected].Star != "")
+                            aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected], ChangeType.ChangingMass, Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Weight, newValue));
+                            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Weight = newValue;
+                            if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Star != "")
                             {
-                                agents[aw_selected].ChangeAfterFSV = true;
+                                Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].ChangeAfterFSV = true;
                             }
-                            else if (agents[aw_selected].Satellites.Count > 0)
+                            else if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Satellites.Count > 0)
                             {
-                                foreach (AwoseAgent item in agents)
+                                foreach (AwoseAgent item in Layers[CurrentLayer].Agents)
                                 {
-                                    if (agents[aw_selected].Satellites.Contains(item.Name))
+                                    if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Satellites.Contains(item.Name))
                                         item.ChangeAfterFSV = true;
                                 }
                             }
@@ -934,8 +951,8 @@ namespace Awose
                         try
                         {
                             newValue = float.Parse(NewValue_TB.Text);
-                            aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingCharge, agents[aw_selected].Charge, newValue));
-                            agents[aw_selected].Charge = newValue;
+                            //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingCharge, agents[aw_selected].Charge, newValue));
+                            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge = newValue;
                         }
                         catch { }
                         finally
@@ -944,19 +961,19 @@ namespace Awose
                         }
                         break;
                     case EditingValue.Name:
-                        aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingName, agents[aw_selected].Name, NewValue_TB.Text));
-                        agents[aw_selected].Name = NewValue_TB.Text;
+                        aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected], ChangeType.ChangingName, agents[aw_selected].Name, NewValue_TB.Text));
+                        Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Name = NewValue_TB.Text;
                         NewValue_TB.Visible = false;
                         break;
                     case EditingValue.X:
                         try
                         {
                             newValue = float.Parse(NewValue_TB.Text);
-                            aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingX, agents[aw_selected].X, newValue));
-                            agents[aw_selected].X = newValue;
-                            if (agents[aw_selected].Star != "")
+                            //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingX, agents[aw_selected].X, newValue));
+                            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.X = newValue;
+                            if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Star != "")
                             {
-                                agents[aw_selected].ChangeAfterFSV = true;
+                                Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].ChangeAfterFSV = true;
                             }
                             else if (agents[aw_selected].Satellites.Count > 0)
                             {
@@ -1274,25 +1291,25 @@ namespace Awose
                 case MouseButtons.Left:
                     movingEntity = MovingEntity.None;
                     Phantom = null;
-                    if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y))
-                    {
-                        agents[aw_selected].Spray.Clear();
-                        //agents[aw_selected].X_screen = aw_cursor.X - Cursor.Position.X;
-                        //agents[aw_selected].Y_screen = aw_cursor.Y - Cursor.Position.Y;
-                        //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
-                        if (agents[aw_selected].Star != "")
-                        {
-                            agents[aw_selected].ChangeAfterFSV = true;
-                        } else if (agents[aw_selected].Satellites.Count > 0)
-                        {
-                            foreach (AwoseAgent item in agents)
-                            {
-                                if (agents[aw_selected].Satellites.Contains(item.Name))
-                                    item.ChangeAfterFSV = true;
-                            }
-                        }
-                    }
-                    isObjectMoving = false;
+                    //if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y))
+                    //{
+                    //    agents[aw_selected].Spray.Clear();
+                    //    //agents[aw_selected].X_screen = aw_cursor.X - Cursor.Position.X;
+                    //    //agents[aw_selected].Y_screen = aw_cursor.Y - Cursor.Position.Y;
+                    //    //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
+                    //    if (agents[aw_selected].Star != "")
+                    //    {
+                    //        agents[aw_selected].ChangeAfterFSV = true;
+                    //    } else if (agents[aw_selected].Satellites.Count > 0)
+                    //    {
+                    //        foreach (AwoseAgent item in agents)
+                    //        {
+                    //            if (agents[aw_selected].Satellites.Contains(item.Name))
+                    //                item.ChangeAfterFSV = true;
+                    //        }
+                    //    }
+                    //}
+                    //isObjectMoving = false;
                     break;
                 case MouseButtons.Right:
                     break;
@@ -1386,7 +1403,7 @@ namespace Awose
         {
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectCharge_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectCharge_Label.Location.Y - 26);
-            NewValue_TB.Text = agents[aw_selected].Charge.ToString();
+            NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge.ToString();
             editingValue = EditingValue.Charge;
             NewValue_TB.SelectAll();
             NewValue_TB.Visible = true;
@@ -1426,7 +1443,7 @@ namespace Awose
         {
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionX_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionX_Label.Location.Y - 26);
-            NewValue_TB.Text = agents[aw_selected].X.ToString();
+            NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.X.ToString();
             editingValue = EditingValue.X;
             NewValue_TB.SelectAll();
             NewValue_TB.Visible = true;
@@ -1438,7 +1455,7 @@ namespace Awose
         {
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionY_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionY_Label.Location.Y - 26);
-            NewValue_TB.Text = agents[aw_selected].Y.ToString();
+            NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.Y.ToString();
             editingValue = EditingValue.Y;
             NewValue_TB.SelectAll();
             NewValue_TB.Visible = true;
@@ -1468,7 +1485,9 @@ namespace Awose
         private void SetVelocity_CMItem_Click(object sender, EventArgs e)
         {
             Space_CMStr.Close();
-            SettingVelocity = aw_selected;
+            //SettingVelocity = aw_selected;
+            aw_remember = GetCursorPosition();
+            specialCondition = SpecialCondition.SetVelocity;
             //aw_remember = new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y);
         }
 

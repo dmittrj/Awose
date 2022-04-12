@@ -33,6 +33,10 @@ namespace Awose
         {
             return new PointParticle(left.X / right, left.Y / right);
         }
+        public static PointParticle operator -(PointParticle target)
+        {
+            return new PointParticle(-target.X, -target.Y);
+        }
         public static PointParticle ToPointParticle(Point point)
         {
             return new PointParticle(point.X, point.Y);

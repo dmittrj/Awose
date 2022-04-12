@@ -49,6 +49,7 @@ namespace Awose
         private bool isLaunched = false;
         private bool isFirstSpaceSetting = false;
         private int SettingVelocity = -1;
+        private AwoseAgent Phantom = null;
         //int c = -1;
         //constants
         public static int timeStep = 20;
@@ -174,10 +175,22 @@ namespace Awose
                     }
                 }
             }
-            
-            
-            
-            
+            if (Phantom != null)
+            {
+                Point point = RealToScreen(Phantom.Location.X, Phantom.Location.Y);
+                RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
+                for (int i = 0; i < 360; i+= 60)
+                {
+                    grfx.DrawArc(new Pen(Brushes.LightGray, aw_scale * 2), circle, i, 40);
+                }
+                //grfx.DrawArc(new Pen(Brushes.Gray, aw_scale * 2), circle, 10, 70);
+                //grfx.DrawArc(new Pen(Brushes.Gray, aw_scale * 2), circle, 100, 70);
+                //grfx.DrawArc(new Pen(Brushes.Gray, aw_scale * 2), circle, 190, 70);
+                //grfx.DrawArc(new Pen(Brushes.Gray, aw_scale * 2), circle, 280, 70);
+            }
+
+
+
             if (SettingVelocity != -1)
             {
                 int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
@@ -510,8 +523,8 @@ namespace Awose
                 CurrentObjectName_Label.Text = agent.Name;
                 CurrentObjectName_Label.ForeColor = Color.LightSkyBlue;
                 CurrentObjectName_Label.Cursor = Cursors.IBeam;
-                ObjectMass_Label.Text = agent.Weight.ToString() + " kg";
-                ObjectCharge_Label.Text = agent.Charge.ToString() + " C";
+                ObjectMass_Label.Text = Math.Round(agent.Weight, 5).ToString() + " kg";
+                ObjectCharge_Label.Text = Math.Round(agent.Charge, 5).ToString() + " C";
                 ObjectPositionX_Label.Text = agent.Location.X.ToString();
                 ObjectPositionY_Label.Text = agent.Location.Y.ToString();
                 ObjectSettings_Panel.Visible = true;
@@ -1130,6 +1143,15 @@ namespace Awose
                     {
                         if (Calculations.IsInRadius(pointCursor.X, pointCursor.Y, agent, aw_agentsize * aw_scale))
                         {
+                            if (Layers[CurrentLayer].IsThereSelections())
+                            {
+                                if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected] == agent)
+                                {
+                                    aw_remember = GetCursorPosition();
+                                    Phantom = new AwoseAgent("Phantom", ScreenToReal(aw_remember).X, ScreenToReal(aw_remember).Y);
+                                    movingEntity = MovingEntity.Agent;
+                                }
+                            }
                             hoverAgent = true;
                             agent.IsSelected = true;
                         } 
@@ -1148,6 +1170,7 @@ namespace Awose
                         ControlAgents_Panel.Visible = false;
                         ControlLayer_Panel.Visible = true;
                     }
+                    
                     if (SettingVelocity != -1)
                     {
                         int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
@@ -1248,6 +1271,8 @@ namespace Awose
             switch (e.Button)
             {
                 case MouseButtons.Left:
+                    movingEntity = MovingEntity.None;
+                    Phantom = null;
                     if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y))
                     {
                         agents[aw_selected].Spray.Clear();
@@ -1318,6 +1343,11 @@ namespace Awose
                     lu_corner = lu_remember - (PointParticle.ToPointParticle(boardBeforeMoving) - PointParticle.ToPointParticle(Cursor.Position)) / aw_scale;
                     break;
                 case MovingEntity.Agent:
+                    if (Layers[CurrentLayer].IsThereSelections())
+                    {
+                        Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location = -lu_corner + GetCursorPosition() / aw_scale;
+
+                    }
                     break;
                 default:
                     break;

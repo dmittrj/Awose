@@ -108,6 +108,12 @@ namespace Awose
             Star = "";
         }
 
+        public AwoseAgent(string name, float x, float y)
+        {
+            Name = name;
+            Location = new PointParticle(x, y);
+        }
+
         public void Backup()
         {
             Backup_X = X;

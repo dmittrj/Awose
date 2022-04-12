@@ -643,43 +643,40 @@ namespace Awose
             List<AwoseAgent> selects = new();
             int possibleSelection = 0;
             aw_selected = 0;
-            foreach (AwoseAgent item in agents)
+            aw_cursor = GetCursorPosition();
+            PointParticle pointCursor = ScreenToReal(aw_cursor);
+            bool hoverAgent = false;
+            foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
             {
-                item.IsSelected = false;
-                if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                if (Calculations.IsInRadius(pointCursor.X, pointCursor.Y, agent, aw_agentsize * aw_scale))
                 {
-                    selects.Add(item);
-                    possibleSelection = aw_selected++;
+                    hoverAgent = true;
+                    agent.IsSelected = true;
                 }
                 else
                 {
-                    aw_selected++;
+                    agent.IsSelected = false;
                 }
             }
-            switch (selects.Count)
+            if (hoverAgent)
             {
-                case 0:
-                    aw_selected = -1;
-                    break;
-                case 1:
-                    aw_selected = possibleSelection;
-                    DeleteObject_CMItem.Visible = true;
-                    ObjectEditSep_CMSepar.Visible = true;
-                    SetVelocity_CMItem.Visible = true;
-                    ChangeSign_CMItem.Visible = true;
-                    PinUp_CMItem.Visible = true;
-                    PinUp_CMItem.Checked = agents[aw_selected].IsPinned;
-                    if (agents[aw_selected].MistakeType > 0)
-                    {
-                        Mistake_CMItem.Text = agents[aw_selected].MDescription;
-                        Mistake_CMItem.Visible = true;
-                        SepMistake_CMSepar.Visible = true;
-                    }
-                    agents[aw_selected].IsSelected = true;
-                    break;
-                default:
-                    aw_selected = -1;
-                    break;
+                DeleteObject_CMItem.Visible = true;
+                ObjectEditSep_CMSepar.Visible = true;
+                SetVelocity_CMItem.Visible = true;
+                ChangeSign_CMItem.Visible = true;
+                PinUp_CMItem.Visible = true;
+                ControlAgents_Panel.Visible = true;
+                ControlLayer_Panel.Visible = false;
+            }
+            else
+            {
+                DeleteObject_CMItem.Visible = false;
+                ObjectEditSep_CMSepar.Visible = false;
+                SetVelocity_CMItem.Visible = false;
+                ChangeSign_CMItem.Visible = false;
+                PinUp_CMItem.Visible = false;
+                ControlAgents_Panel.Visible = false;
+                ControlLayer_Panel.Visible = true;
             }
             Aw_DrawControl();
             //aw_cursor.X = (int)((-lu_corner.X + Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7) / aw_scale);

@@ -18,6 +18,8 @@ namespace Awose
         public AwoseLayer MotherLayer { get; set; }
         public float ELaw { get; set; }
         public float GLaw { get; set; }
+        public int Selected { get; set; }
+
         public AwoseLayer(string name, int layerNumber)
         {
             Name = name;
@@ -38,6 +40,21 @@ namespace Awose
                 default:
                     break;
             }
+        }
+    
+        public bool IsThereSelections()
+        {
+            int x = 0;
+            foreach (AwoseAgent item in Agents)
+            {
+                if (item.IsSelected) {
+                    Selected = x;
+                    return true; 
+                }
+                x++;
+            }
+            Selected = -1;
+            return false;
         }
     }
 }

@@ -30,7 +30,7 @@ namespace Awose
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Panel ControlAgents_Panel;
+            this.ControlAgents_Panel = new System.Windows.Forms.Panel();
             this.ObjectSpace_Panel = new System.Windows.Forms.Panel();
             this.Space_Satellites_LB = new System.Windows.Forms.ListBox();
             this.Space_Star_Label = new System.Windows.Forms.Label();
@@ -128,8 +128,7 @@ namespace Awose
             this.label10 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            ControlAgents_Panel = new System.Windows.Forms.Panel();
-            ControlAgents_Panel.SuspendLayout();
+            this.ControlAgents_Panel.SuspendLayout();
             this.ObjectSpace_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
             this.ObjectSettings_Panel.SuspendLayout();
@@ -146,19 +145,19 @@ namespace Awose
             // 
             // ControlAgents_Panel
             // 
-            ControlAgents_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ControlAgents_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            ControlAgents_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            ControlAgents_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            ControlAgents_Panel.Controls.Add(this.ObjectSpace_Panel);
-            ControlAgents_Panel.Controls.Add(this.MistakeIcon_PB);
-            ControlAgents_Panel.Controls.Add(this.NewValue_TB);
-            ControlAgents_Panel.Controls.Add(this.ObjectSettings_Panel);
-            ControlAgents_Panel.Controls.Add(this.CurrentObjectName_Label);
-            ControlAgents_Panel.Location = new System.Drawing.Point(0, 28);
-            ControlAgents_Panel.Name = "ControlAgents_Panel";
-            ControlAgents_Panel.Size = new System.Drawing.Size(248, 686);
-            ControlAgents_Panel.TabIndex = 1;
+            this.ControlAgents_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ControlAgents_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ControlAgents_Panel.Controls.Add(this.ObjectSpace_Panel);
+            this.ControlAgents_Panel.Controls.Add(this.MistakeIcon_PB);
+            this.ControlAgents_Panel.Controls.Add(this.NewValue_TB);
+            this.ControlAgents_Panel.Controls.Add(this.ObjectSettings_Panel);
+            this.ControlAgents_Panel.Controls.Add(this.CurrentObjectName_Label);
+            this.ControlAgents_Panel.Location = new System.Drawing.Point(0, 28);
+            this.ControlAgents_Panel.Name = "ControlAgents_Panel";
+            this.ControlAgents_Panel.Size = new System.Drawing.Size(248, 686);
+            this.ControlAgents_Panel.TabIndex = 1;
             // 
             // ObjectSpace_Panel
             // 
@@ -1184,7 +1183,7 @@ namespace Awose
             this.Controls.Add(this.MistakeHint_Label);
             this.Controls.Add(this.Instrumental_Panel);
             this.Controls.Add(this.ModelBoard_PB);
-            this.Controls.Add(ControlAgents_Panel);
+            this.Controls.Add(this.ControlAgents_Panel);
             this.Controls.Add(this.Main_MStr);
             this.KeyPreview = true;
             this.MainMenuStrip = this.Main_MStr;
@@ -1194,8 +1193,8 @@ namespace Awose
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Awose_FormClosing);
             this.Load += new System.EventHandler(this.Awose_Load);
-            ControlAgents_Panel.ResumeLayout(false);
-            ControlAgents_Panel.PerformLayout();
+            this.ControlAgents_Panel.ResumeLayout(false);
+            this.ControlAgents_Panel.PerformLayout();
             this.ObjectSpace_Panel.ResumeLayout(false);
             this.ObjectSpace_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).EndInit();

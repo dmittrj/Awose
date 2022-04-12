@@ -504,16 +504,25 @@ namespace Awose
 
         private void Aw_DrawControl()
         {
-            if (aw_selected != - 1)
+            if (Layers[CurrentLayer].IsThereSelections())
             {
-                CurrentObjectName_Label.Text = agents[aw_selected].Name;
+                AwoseAgent agent = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected];
+                CurrentObjectName_Label.Text = agent.Name;
                 CurrentObjectName_Label.ForeColor = Color.LightSkyBlue;
                 CurrentObjectName_Label.Cursor = Cursors.IBeam;
-                ObjectMass_Label.Text = agents[aw_selected].Weight.ToString() + " kg";
-                ObjectCharge_Label.Text = agents[aw_selected].Charge.ToString() + " C";
-                ObjectPositionX_Label.Text = agents[aw_selected].X.ToString();
-                ObjectPositionY_Label.Text = agents[aw_selected].Y.ToString();
+                ObjectMass_Label.Text = agent.Weight.ToString() + " kg";
+                ObjectCharge_Label.Text = agent.Charge.ToString() + " C";
+                ObjectPositionX_Label.Text = agent.Location.X.ToString();
+                ObjectPositionY_Label.Text = agent.Location.Y.ToString();
                 ObjectSettings_Panel.Visible = true;
+            }
+            return;
+
+
+
+            if (aw_selected != - 1)
+            {
+                
                 Bitmap btm_icon = new(34, 29);
                 using Graphics grfx = Graphics.FromImage(btm_icon);
                 grfx.Clear(Color.FromArgb(15, 15, 15));
@@ -1131,7 +1140,13 @@ namespace Awose
                     }
                     if (hoverAgent)
                     {
-                        //Layers[CurrentLayer].Agents;
+                        ControlAgents_Panel.Visible = true;
+                        ControlLayer_Panel.Visible = false;
+                    } 
+                    else
+                    {
+                        ControlAgents_Panel.Visible = false;
+                        ControlLayer_Panel.Visible = true;
                     }
                     if (SettingVelocity != -1)
                     {

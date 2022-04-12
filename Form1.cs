@@ -96,25 +96,25 @@ namespace Awose
             //Displaying grid
             int horLine = (int)lu_corner.X - Calculations.BruteRound(lu_corner.X, aw_scale * GRID_FREQUENCY);
             int verLine = (int)lu_corner.Y - Calculations.BruteRound(lu_corner.Y, aw_scale * GRID_FREQUENCY);
-            for (int i = horLine + (int)(aw_scale * GRID_FREQUENCY / 2); i < lu_corner.X + ModelBoard_PB.Width; i += (int)(aw_scale * GRID_FREQUENCY))
+            for (int i = horLine + (int)(aw_scale * GRID_FREQUENCY / 2); i < ModelBoard_PB.Width; i += (int)(aw_scale * GRID_FREQUENCY))
             {
                 grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorSub, 2),
                     new Point(i, 0),
                     new Point(i, drawingValues.GridHeight));
             }
-            for (int i = verLine + (int)(aw_scale * GRID_FREQUENCY / 2); i < lu_corner.Y + ModelBoard_PB.Height; i += (int)(aw_scale * GRID_FREQUENCY))
+            for (int i = verLine + (int)(aw_scale * GRID_FREQUENCY / 2); i < ModelBoard_PB.Height; i += (int)(aw_scale * GRID_FREQUENCY))
             {
                 grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorSub, 2),
                     new Point(0, i),
                     new Point(drawingValues.GridWidth, i));
             }
-            for (int i = horLine; i < lu_corner.X + ModelBoard_PB.Width; i += (int)(aw_scale * GRID_FREQUENCY))
+            for (int i = horLine; i < ModelBoard_PB.Width; i += (int)(aw_scale * GRID_FREQUENCY))
             {
                 grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorMain, 2),
                     new Point(i, 0),
                     new Point(i, drawingValues.GridHeight));
             }
-            for (int i = verLine; i < lu_corner.Y + ModelBoard_PB.Height; i += (int)(aw_scale * GRID_FREQUENCY))
+            for (int i = verLine; i < ModelBoard_PB.Height; i += (int)(aw_scale * GRID_FREQUENCY))
             {
                 grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorMain, 2),
                     new Point(0, i),

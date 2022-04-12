@@ -24,7 +24,7 @@ namespace Awose
         public DrawingValues drawingValues = new();
         public static List<AwoseLayer> Layers { get; set; }
         private int CurrentLayer = 0;
-        private readonly int agentsNumeric = 1;
+        //private readonly int agentsNumeric = 1;
         readonly Stack<AwoseChange> aw_undo = new();
         readonly Stack<AwoseChange> aw_redo = new();
         private int aw_selected = -1;
@@ -154,6 +154,23 @@ namespace Awose
                         Point point = RealToScreen(agent.Location.X, agent.Location.Y);
                         RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
                         grfx.FillEllipse(agent.Dye, circle);
+                        if (agent.IsSelected)
+                        {
+                            RectangleF ring = new((float)(point.X - diameter), (float)(point.Y - diameter), diameter * 2, diameter * 2);
+                            RectangleF circle_left = new((float)(point.X - (diameter * 1.25)), (float)(point.Y - (diameter / 4)), diameter / 2, diameter / 2);
+                            RectangleF circle_right = new((float)(point.X + (diameter * 0.75)), (float)(point.Y - (diameter / 4)), diameter / 2, diameter / 2);
+                            RectangleF circle_up = new((float)(point.X - (diameter / 4)), (float)(point.Y - (diameter * 1.25)), diameter / 2, diameter / 2);
+                            RectangleF circle_down = new((float)(point.X - (diameter / 4)), (float)(point.Y + (diameter * 0.75)), diameter / 2, diameter / 2);
+                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), ring);
+                            grfx.FillEllipse(Brushes.Black, circle_left);
+                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_left);
+                            grfx.FillEllipse(Brushes.Black, circle_right);
+                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_right);
+                            grfx.FillEllipse(Brushes.Black, circle_up);
+                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_up);
+                            grfx.FillEllipse(Brushes.Black, circle_down);
+                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_down);
+                        }
                     }
                 }
             }
@@ -1089,6 +1106,8 @@ namespace Awose
             //aw_cursor.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
             //aw_cursor.Y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
             aw_cursor = GetCursorPosition();
+            PointParticle pointCursor = ScreenToReal(aw_cursor);
+            bool hoverAgent = false;
             //Text = aw_cursor.X.ToString() + ", " + aw_cursor.Y.ToString();
             List<AwoseAgent> selects = new();
             PossibleSelections_LB.Visible = false;
@@ -1098,6 +1117,22 @@ namespace Awose
             switch (e.Button)
             {
                 case MouseButtons.Left:
+                    foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+                    {
+                        if (Calculations.IsInRadius(pointCursor.X, pointCursor.Y, agent, aw_agentsize * aw_scale))
+                        {
+                            hoverAgent = true;
+                            agent.IsSelected = true;
+                        } 
+                        else
+                        {
+                            agent.IsSelected = false;
+                        }
+                    }
+                    if (hoverAgent)
+                    {
+                        //Layers[CurrentLayer].Agents;
+                    }
                     if (SettingVelocity != -1)
                     {
                         int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
@@ -1238,16 +1273,16 @@ namespace Awose
         private void ModelBoard_PB_MouseMove(object sender, MouseEventArgs e)
         {
             aw_cursor = GetCursorPosition();
-            PointF pointCursor = ScreenToReal(aw_cursor.X, aw_cursor.Y);
+            PointParticle pointCursor = ScreenToReal(aw_cursor);
             RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
             RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
             bool hoverAgent = false;
             switch (movingEntity)
             {
                 case MovingEntity.None:
-                    foreach (AwoseAgent item in agents)
+                    foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
                     {
-                        if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
+                        if (Calculations.IsInRadius(pointCursor.X, pointCursor.Y, agent, aw_agentsize * aw_scale))
                         {
                             hoverAgent = true;
                             break;
@@ -1255,11 +1290,11 @@ namespace Awose
                     }
                     if (hoverAgent)
                     {
-                       ModelBoard_PB.Cursor = Cursors.Default;
+                       ModelBoard_PB.Cursor = Cursors.Hand;
                     }
                     else
                     {
-                        ModelBoard_PB.Cursor = Cursors.Cross;
+                       ModelBoard_PB.Cursor = Cursors.Cross;
                     }
                     break;
                 case MovingEntity.Board:

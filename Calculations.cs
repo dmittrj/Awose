@@ -17,7 +17,7 @@ namespace Awose
         }
         public static bool IsInRadius(float CurX, float CurY, AwoseAgent obj, float radius)
         {
-            return (Math.Sqrt(Math.Pow(CurX - obj.X, 2) + Math.Pow(CurY - obj.Y, 2)) <= radius);
+            return (Math.Sqrt(Math.Pow(CurX - obj.Location.X, 2) + Math.Pow(CurY - obj.Location.Y, 2)) <= radius);
         }
 
         public static float FirstSpace(AwoseAgent planet, AwoseAgent satellite)

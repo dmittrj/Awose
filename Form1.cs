@@ -94,8 +94,8 @@ namespace Awose
             //Drawing background
             grfx.Clear(Color.FromArgb(5, 5, 5));
             //Displaying grid
-            int horLine = (int)lu_corner.X - Calculations.BruteRound(lu_corner.X, aw_scale * GRID_FREQUENCY);
-            int verLine = (int)lu_corner.Y - Calculations.BruteRound(lu_corner.Y, aw_scale * GRID_FREQUENCY);
+            int horLine = (int)(lu_corner.X * aw_scale) - Calculations.BruteRound(lu_corner.X * aw_scale, aw_scale * GRID_FREQUENCY);
+            int verLine = (int)(lu_corner.Y * aw_scale) - Calculations.BruteRound(lu_corner.Y * aw_scale, aw_scale * GRID_FREQUENCY);
             for (int i = horLine + (int)(aw_scale * GRID_FREQUENCY / 2); i < ModelBoard_PB.Width; i += (int)(aw_scale * GRID_FREQUENCY))
             {
                 grfx.DrawLine(new Pen(Layers[CurrentLayer].GridColorSub, 2),
@@ -678,9 +678,9 @@ namespace Awose
             else if (aw_scale > 1)
             {
                 aw_scale -= .5f;
-                lu_corner.X = (int)(-aw_cursor.X * aw_scale + beforeScaling.X);
-                lu_corner.Y = (int)(-aw_cursor.Y * aw_scale + beforeScaling.Y);
-                //aw_cursor.Y = (int)((-lu_corner.Y + Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29) / aw_scale);
+                lu_corner.X = (int)((beforeScaling.X / aw_scale) - (beforeScaling.X / (aw_scale + .5f)) + lu_corner.X);
+                lu_corner.Y = (int)((beforeScaling.Y / aw_scale) - (beforeScaling.Y / (aw_scale + .5f)) + lu_corner.Y);
+
             }
             foreach (AwoseAgent item in agents)
             {

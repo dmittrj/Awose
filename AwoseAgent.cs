@@ -75,6 +75,7 @@ namespace Awose
         public int MistakeType;
         public string MDescription;
         public SolidBrush Dye { get; set; }
+        public SolidBrush DyeDim { get; set; }
 
         public Queue<Point> Trajectory = new();
         public readonly Queue<Point> Spray = new();
@@ -102,6 +103,7 @@ namespace Awose
             //IsFirstSpace = false;
             IsSelected = false;
             Dye = new SolidBrush(Color.White);
+            DyeDim = new SolidBrush(Color.Gray);
             Satellites = new List<string>();
             Star = "";
         }

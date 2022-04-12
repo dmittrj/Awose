@@ -50,6 +50,7 @@ namespace Awose
         private bool isFirstSpaceSetting = false;
         private int SettingVelocity = -1;
         private AwoseAgent Phantom = null;
+        private int AnimationCounter = 0;
         //int c = -1;
         //constants
         public static int timeStep = 20;
@@ -87,6 +88,8 @@ namespace Awose
 
         private void Aw_Refresh()
         {
+            AnimationCounter++;
+            AnimationCounter %= 360;
             const int GRID_FREQUENCY = 100;
             float diameter = aw_agentsize * aw_scale;
             if (ModelBoard_PB.Width <= 0 || ModelBoard_PB.Height <= 0) return;
@@ -179,7 +182,7 @@ namespace Awose
             {
                 Point point = RealToScreen(Phantom.Location.X, Phantom.Location.Y);
                 RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
-                for (int i = 0; i < 360; i+= 60)
+                for (int i = AnimationCounter; i < 360 + AnimationCounter; i+= 60)
                 {
                     grfx.DrawArc(new Pen(Brushes.LightGray, aw_scale * 2), circle, i, 40);
                 }

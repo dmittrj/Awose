@@ -129,22 +129,22 @@ namespace Awose
             {
                 if (drawingValues.GridWidth < ModelBoard_PB.Width)
                 {
-                    drawingValues.GridWidth += 40;
+                    drawingValues.GridWidth += 60;
                 }
                 if (drawingValues.GridHeight < ModelBoard_PB.Height)
                 {
-                    drawingValues.GridHeight += 40;
+                    drawingValues.GridHeight += 60;
                 }
             }
             else
             {
                 if (drawingValues.GridWidth > 0)
                 {
-                    drawingValues.GridWidth -= 40;
+                    drawingValues.GridWidth -= 60;
                 }
                 if (drawingValues.GridHeight > 0)
                 {
-                    drawingValues.GridHeight -= 40;
+                    drawingValues.GridHeight -= 60;
                 }
             }
 
@@ -640,8 +640,8 @@ namespace Awose
             SetVelocity_CMItem.Visible = false;
             ChangeSign_CMItem.Visible = false;
             PinUp_CMItem.Visible = false;
-            List<AwoseAgent> selects = new();
-            int possibleSelection = 0;
+            //List<AwoseAgent> selects = new();
+            //int possibleSelection = 0;
             aw_selected = 0;
             aw_cursor = GetCursorPosition();
             PointParticle pointCursor = ScreenToReal(aw_cursor);
@@ -665,6 +665,7 @@ namespace Awose
                 SetVelocity_CMItem.Visible = true;
                 ChangeSign_CMItem.Visible = true;
                 PinUp_CMItem.Visible = true;
+                PinUp_CMItem.Checked = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].IsPinned;
                 ControlAgents_Panel.Visible = true;
                 ControlLayer_Panel.Visible = false;
             }
@@ -1447,7 +1448,7 @@ namespace Awose
 
         private void ChangeSign_CMItem_Click(object sender, EventArgs e)
         {
-            agents[aw_selected].Charge = -agents[aw_selected].Charge;
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge = -Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge;
             Aw_DrawControl();
         }
 
@@ -1458,7 +1459,9 @@ namespace Awose
 
         private void PinUp_CMItem_Click(object sender, EventArgs e)
         {
-            agents[aw_selected].IsPinned = !agents[aw_selected].IsPinned;
+            //agents[aw_selected].IsPinned = !agents[aw_selected].IsPinned;
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].IsPinned =
+                !Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].IsPinned;
             Aw_CheckMistakes();
         }
 

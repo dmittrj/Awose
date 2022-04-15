@@ -1295,6 +1295,7 @@ namespace Awose
                 case MouseButtons.Left:
                     movingEntity = MovingEntity.None;
                     Phantom = null;
+                    Aw_DrawControl();
                     //if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y))
                     //{
                     //    agents[aw_selected].Spray.Clear();

@@ -1274,6 +1274,11 @@ namespace Awose
                     }
                     Aw_DrawControl();
                     break;
+                case MouseButtons.Right:
+                    movingEntity = MovingEntity.None;
+                    Phantom = null;
+                    Aw_DrawControl();
+                    break;
                 case MouseButtons.Middle:
                     boardBeforeMoving = Cursor.Position;
                     //isBoardMoving = true;

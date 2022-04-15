@@ -1163,7 +1163,7 @@ namespace Awose
                 case MouseButtons.Left:
                     foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
                     {
-                        if (Calculations.IsInRadius(pointCursor.X, pointCursor.Y, agent, aw_agentsize * aw_scale))
+                        if (Calculations.IsInRadius(pointCursor.X, pointCursor.Y, agent, aw_agentsize * aw_scale) && !hoverAgent)
                         {
                             if (Layers[CurrentLayer].IsThereSelections())
                             {

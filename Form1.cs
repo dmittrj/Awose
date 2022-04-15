@@ -547,6 +547,10 @@ namespace Awose
                 ObjectPositionX_Label.Text = agent.Location.X.ToString();
                 ObjectPositionY_Label.Text = agent.Location.Y.ToString();
                 ObjectSettings_Panel.Visible = true;
+            } else
+            {
+                ControlLayer_Panel.Visible = true;
+                ControlAgents_Panel.Visible = false;
             }
             return;
 

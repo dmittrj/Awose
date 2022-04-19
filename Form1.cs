@@ -760,24 +760,24 @@ namespace Awose
         {
             NewValue_TB.Visible = false;
             //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.Deleting));
-            foreach (AwoseAgent item in agents)
+            //foreach (AwoseAgent item in agents)
+            //{
+            //    if (item.Satellites.Contains(agents[aw_selected].Name))
+            //    {
+            //        item.Satellites.Remove(agents[aw_selected].Name);
+            //    }
+            //    if (item.Star == agents[aw_selected].Name)
+            //    {
+            //        item.Star = "";
+            //    }
+            //}
+            Layers[CurrentLayer].Agents.RemoveAt(Layers[CurrentLayer].Selected);
+            if (Layers[CurrentLayer].Agents.Count > 0)
             {
-                if (item.Satellites.Contains(agents[aw_selected].Name))
-                {
-                    item.Satellites.Remove(agents[aw_selected].Name);
-                }
-                if (item.Star == agents[aw_selected].Name)
-                {
-                    item.Star = "";
-                }
-            }
-            agents.RemoveAt(aw_selected);
-            if (agents.Count > 0)
-            {
-                aw_selected = agents.Count - 1;
+                Layers[CurrentLayer].Selected = Layers[CurrentLayer].Agents.Count - 1;
             } else
             {
-                aw_selected = -1;
+                Layers[CurrentLayer].Selected = -1;
             }
             Aw_CheckMistakes();
             Aw_DrawControl();

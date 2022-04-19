@@ -909,7 +909,7 @@ namespace Awose
         {
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectMass_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectMass_Label.Location.Y - 26);
-            NewValue_TB.Text = agents[aw_selected].Weight.ToString();
+            NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Weight.ToString();
             editingValue = EditingValue.Mass;
             NewValue_TB.SelectAll();
             NewValue_TB.Visible = true;
@@ -930,7 +930,7 @@ namespace Awose
                         try
                         {
                             newValue = float.Parse(NewValue_TB.Text);
-                            aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected], ChangeType.ChangingMass, Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Weight, newValue));
+                            //aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected], ChangeType.ChangingMass, Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Weight, newValue));
                             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Weight = newValue;
                             if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Star != "")
                             {
@@ -965,7 +965,7 @@ namespace Awose
                         }
                         break;
                     case EditingValue.Name:
-                        aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected], ChangeType.ChangingName, agents[aw_selected].Name, NewValue_TB.Text));
+                        //aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected], ChangeType.ChangingName, agents[aw_selected].Name, NewValue_TB.Text));
                         Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Name = NewValue_TB.Text;
                         NewValue_TB.Visible = false;
                         break;
@@ -1137,7 +1137,7 @@ namespace Awose
         {
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + CurrentObjectName_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + CurrentObjectName_Label.Location.Y - 26);
-            NewValue_TB.Text = agents[aw_selected].Name;
+            NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Name.ToString();
             editingValue = EditingValue.Name;
             NewValue_TB.SelectAll();
             NewValue_TB.Visible = true;
@@ -1300,6 +1300,7 @@ namespace Awose
                 case MouseButtons.Left:
                     movingEntity = MovingEntity.None;
                     Phantom = null;
+                    //aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
                     Aw_DrawControl();
                     //if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y))
                     //{

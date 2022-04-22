@@ -992,52 +992,52 @@ namespace Awose
                             newValue = float.Parse(NewValue_TB.Text);
                             //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingX, agents[aw_selected].X, newValue));
                             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.X = newValue;
-                            if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Star != "")
-                            {
-                                Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].ChangeAfterFSV = true;
-                            }
-                            else if (agents[aw_selected].Satellites.Count > 0)
-                            {
-                                foreach (AwoseAgent item in agents)
-                                {
-                                    if (agents[aw_selected].Satellites.Contains(item.Name))
-                                        item.ChangeAfterFSV = true;
-                                }
-                            }
+                            //if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Star != "")
+                            //{
+                            //    Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].ChangeAfterFSV = true;
+                            //}
+                            //else if (agents[aw_selected].Satellites.Count > 0)
+                            //{
+                            //    foreach (AwoseAgent item in agents)
+                            //    {
+                            //        if (agents[aw_selected].Satellites.Contains(item.Name))
+                            //            item.ChangeAfterFSV = true;
+                            //    }
+                            //}
                         }
                         catch { }
                         finally
                         {
                             NewValue_TB.Visible = false;
-                            lock (agents[aw_selected].Spray)
-                                agents[aw_selected].Spray.Clear();
+                            //lock (agents[aw_selected].Spray)
+                            //    agents[aw_selected].Spray.Clear();
                         }
                         break;
                     case EditingValue.Y:
                         try
                         {
                             newValue = float.Parse(NewValue_TB.Text);
-                            aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingY, agents[aw_selected].Y, newValue));
-                            agents[aw_selected].Y = newValue;
-                            if (agents[aw_selected].Star != "")
-                            {
-                                agents[aw_selected].ChangeAfterFSV = true;
-                            }
-                            else if (agents[aw_selected].Satellites.Count > 0)
-                            {
-                                foreach (AwoseAgent item in agents)
-                                {
-                                    if (agents[aw_selected].Satellites.Contains(item.Name))
-                                        item.ChangeAfterFSV = true;
-                                }
-                            }
+                            //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingY, agents[aw_selected].Y, newValue));
+                            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.Y = newValue;
+                            //if (agents[aw_selected].Star != "")
+                            //{
+                            //    agents[aw_selected].ChangeAfterFSV = true;
+                            //}
+                            //else if (agents[aw_selected].Satellites.Count > 0)
+                            //{
+                            //    foreach (AwoseAgent item in agents)
+                            //    {
+                            //        if (agents[aw_selected].Satellites.Contains(item.Name))
+                            //            item.ChangeAfterFSV = true;
+                            //    }
+                            //}
                         }
                         catch { }
                         finally
                         {
                             NewValue_TB.Visible = false;
-                            lock (agents[aw_selected].Spray)
-                                agents[aw_selected].Spray.Clear();
+                            //lock (agents[aw_selected].Spray)
+                            //    agents[aw_selected].Spray.Clear();
                         }
                         break;
                     default:

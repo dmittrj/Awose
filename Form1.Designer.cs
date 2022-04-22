@@ -31,6 +31,9 @@ namespace Awose
         {
             this.components = new System.ComponentModel.Container();
             this.ControlAgents_Panel = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.ObjectSpace_Panel = new System.Windows.Forms.Panel();
             this.Space_Satellites_LB = new System.Windows.Forms.ListBox();
             this.Space_Star_Label = new System.Windows.Forms.Label();
@@ -133,6 +136,7 @@ namespace Awose
             this.LayersBar_Panel = new System.Windows.Forms.Panel();
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.ControlAgents_Panel.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.ObjectSpace_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
             this.ObjectSettings_Panel.SuspendLayout();
@@ -154,6 +158,7 @@ namespace Awose
             | System.Windows.Forms.AnchorStyles.Left)));
             this.ControlAgents_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.ControlAgents_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ControlAgents_Panel.Controls.Add(this.panel2);
             this.ControlAgents_Panel.Controls.Add(this.ObjectSpace_Panel);
             this.ControlAgents_Panel.Controls.Add(this.MistakeIcon_PB);
             this.ControlAgents_Panel.Controls.Add(this.NewValue_TB);
@@ -164,6 +169,40 @@ namespace Awose
             this.ControlAgents_Panel.Size = new System.Drawing.Size(248, 686);
             this.ControlAgents_Panel.TabIndex = 1;
             // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.label22);
+            this.panel2.Controls.Add(this.label23);
+            this.panel2.Location = new System.Drawing.Point(0, 178);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(248, 129);
+            this.panel2.TabIndex = 6;
+            this.panel2.Visible = false;
+            // 
+            // label22
+            // 
+            this.label22.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label22.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label22.ForeColor = System.Drawing.Color.White;
+            this.label22.Location = new System.Drawing.Point(10, 35);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(67, 19);
+            this.label22.TabIndex = 2;
+            this.label22.Text = "Sprite";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label23.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label23.ForeColor = System.Drawing.Color.White;
+            this.label23.Location = new System.Drawing.Point(9, 7);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(55, 19);
+            this.label23.TabIndex = 1;
+            this.label23.Text = "Beauty";
+            // 
             // ObjectSpace_Panel
             // 
             this.ObjectSpace_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -172,7 +211,7 @@ namespace Awose
             this.ObjectSpace_Panel.Controls.Add(this.label12);
             this.ObjectSpace_Panel.Controls.Add(this.label13);
             this.ObjectSpace_Panel.Controls.Add(this.label14);
-            this.ObjectSpace_Panel.Location = new System.Drawing.Point(36, 299);
+            this.ObjectSpace_Panel.Location = new System.Drawing.Point(34, 317);
             this.ObjectSpace_Panel.Name = "ObjectSpace_Panel";
             this.ObjectSpace_Panel.Size = new System.Drawing.Size(248, 129);
             this.ObjectSpace_Panel.TabIndex = 5;
@@ -302,7 +341,7 @@ namespace Awose
             // 
             // label19
             // 
-            this.label19.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label19.Cursor = System.Windows.Forms.Cursors.Default;
             this.label19.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label19.ForeColor = System.Drawing.Color.White;
             this.label19.Location = new System.Drawing.Point(17, 110);
@@ -340,7 +379,7 @@ namespace Awose
             // 
             // label5
             // 
-            this.label5.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label5.Cursor = System.Windows.Forms.Cursors.Default;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.ForeColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(17, 92);
@@ -352,7 +391,7 @@ namespace Awose
             // 
             // label4
             // 
-            this.label4.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label4.Cursor = System.Windows.Forms.Cursors.Default;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.ForeColor = System.Drawing.Color.White;
             this.label4.Location = new System.Drawing.Point(17, 73);
@@ -390,7 +429,7 @@ namespace Awose
             // 
             // label3
             // 
-            this.label3.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label3.Cursor = System.Windows.Forms.Cursors.Default;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(17, 54);
@@ -402,7 +441,7 @@ namespace Awose
             // 
             // label2
             // 
-            this.label2.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label2.Cursor = System.Windows.Forms.Cursors.Default;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(17, 35);
@@ -1253,6 +1292,8 @@ namespace Awose
             this.Load += new System.EventHandler(this.Awose_Load);
             this.ControlAgents_Panel.ResumeLayout(false);
             this.ControlAgents_Panel.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ObjectSpace_Panel.ResumeLayout(false);
             this.ObjectSpace_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).EndInit();
@@ -1382,6 +1423,9 @@ namespace Awose
         private System.Windows.Forms.Button CreateNewLayer_Button;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button Pinned_CB;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
     }
 }
 

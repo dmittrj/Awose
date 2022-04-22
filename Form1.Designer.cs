@@ -40,6 +40,8 @@ namespace Awose
             this.MistakeIcon_PB = new System.Windows.Forms.PictureBox();
             this.NewValue_TB = new System.Windows.Forms.TextBox();
             this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
+            this.Pinned_CB = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
             this.ObjectPositionY_Label = new System.Windows.Forms.Label();
             this.ObjectPositionX_Label = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -128,6 +130,8 @@ namespace Awose
             this.label10 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
+            this.LayersBar_Panel = new System.Windows.Forms.Panel();
+            this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectSpace_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
@@ -141,6 +145,7 @@ namespace Awose
             ((System.ComponentModel.ISupportInitialize)(this.GridColor_Blue_PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel4.SuspendLayout();
+            this.LayersBar_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // ControlAgents_Panel
@@ -167,7 +172,7 @@ namespace Awose
             this.ObjectSpace_Panel.Controls.Add(this.label12);
             this.ObjectSpace_Panel.Controls.Add(this.label13);
             this.ObjectSpace_Panel.Controls.Add(this.label14);
-            this.ObjectSpace_Panel.Location = new System.Drawing.Point(-1, 164);
+            this.ObjectSpace_Panel.Location = new System.Drawing.Point(36, 299);
             this.ObjectSpace_Panel.Name = "ObjectSpace_Panel";
             this.ObjectSpace_Panel.Size = new System.Drawing.Size(248, 129);
             this.ObjectSpace_Panel.TabIndex = 5;
@@ -263,6 +268,8 @@ namespace Awose
             // ObjectSettings_Panel
             // 
             this.ObjectSettings_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectSettings_Panel.Controls.Add(this.Pinned_CB);
+            this.ObjectSettings_Panel.Controls.Add(this.label19);
             this.ObjectSettings_Panel.Controls.Add(this.ObjectPositionY_Label);
             this.ObjectSettings_Panel.Controls.Add(this.ObjectPositionX_Label);
             this.ObjectSettings_Panel.Controls.Add(this.label5);
@@ -274,9 +281,36 @@ namespace Awose
             this.ObjectSettings_Panel.Controls.Add(this.label1);
             this.ObjectSettings_Panel.Location = new System.Drawing.Point(-1, 35);
             this.ObjectSettings_Panel.Name = "ObjectSettings_Panel";
-            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 129);
+            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 144);
             this.ObjectSettings_Panel.TabIndex = 2;
             this.ObjectSettings_Panel.Visible = false;
+            // 
+            // Pinned_CB
+            // 
+            this.Pinned_CB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Pinned_CB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Pinned_CB.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.Pinned_CB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Black;
+            this.Pinned_CB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.Pinned_CB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Pinned_CB.Location = new System.Drawing.Point(86, 113);
+            this.Pinned_CB.Name = "Pinned_CB";
+            this.Pinned_CB.Size = new System.Drawing.Size(15, 15);
+            this.Pinned_CB.TabIndex = 11;
+            this.Pinned_CB.UseVisualStyleBackColor = true;
+            this.Pinned_CB.Click += new System.EventHandler(this.Pinned_CB_Click);
+            // 
+            // label19
+            // 
+            this.label19.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label19.ForeColor = System.Drawing.Color.White;
+            this.label19.Location = new System.Drawing.Point(17, 110);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(67, 19);
+            this.label19.TabIndex = 10;
+            this.label19.Text = "Pinned:";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ObjectPositionY_Label
             // 
@@ -1170,13 +1204,36 @@ namespace Awose
             this.label26.TabIndex = 0;
             this.label26.Text = "Layer1";
             // 
+            // LayersBar_Panel
+            // 
+            this.LayersBar_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LayersBar_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.LayersBar_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LayersBar_Panel.Controls.Add(this.CreateNewLayer_Button);
+            this.LayersBar_Panel.Location = new System.Drawing.Point(1146, 37);
+            this.LayersBar_Panel.Name = "LayersBar_Panel";
+            this.LayersBar_Panel.Size = new System.Drawing.Size(83, 34);
+            this.LayersBar_Panel.TabIndex = 10;
+            // 
+            // CreateNewLayer_Button
+            // 
+            this.CreateNewLayer_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.CreateNewLayer_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.CreateNewLayer_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CreateNewLayer_Button.Location = new System.Drawing.Point(4, 5);
+            this.CreateNewLayer_Button.Name = "CreateNewLayer_Button";
+            this.CreateNewLayer_Button.Size = new System.Drawing.Size(23, 23);
+            this.CreateNewLayer_Button.TabIndex = 0;
+            this.CreateNewLayer_Button.UseVisualStyleBackColor = true;
+            this.CreateNewLayer_Button.Click += new System.EventHandler(this.CreateNewLayer_Button_Click);
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
-            this.Controls.Add(this.ControlLayer_Panel);
+            this.Controls.Add(this.LayersBar_Panel);
             this.Controls.Add(this.RT_Scale_Label);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.PossibleSelections_LB);
@@ -1185,6 +1242,7 @@ namespace Awose
             this.Controls.Add(this.ModelBoard_PB);
             this.Controls.Add(this.ControlAgents_Panel);
             this.Controls.Add(this.Main_MStr);
+            this.Controls.Add(this.ControlLayer_Panel);
             this.KeyPreview = true;
             this.MainMenuStrip = this.Main_MStr;
             this.MinimumSize = new System.Drawing.Size(350, 300);
@@ -1214,6 +1272,7 @@ namespace Awose
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.LayersBar_Panel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1319,6 +1378,10 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem doNotToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem DispGrid_Editing_CMItem;
         private System.Windows.Forms.ToolStripMenuItem displayToolStripMenuItem1;
+        private System.Windows.Forms.Panel LayersBar_Panel;
+        private System.Windows.Forms.Button CreateNewLayer_Button;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button Pinned_CB;
     }
 }
 

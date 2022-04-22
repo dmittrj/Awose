@@ -427,6 +427,16 @@ namespace Awose
         Thread animation;
         private void Awose_Load(object sender, EventArgs e)
         {
+            Bitmap button_img = new(23, 23);
+            using Graphics grfx = Graphics.FromImage(button_img);
+            grfx.Clear(Color.FromArgb(15, 15, 15));
+            grfx.FillRectangle(Brushes.White, 11, 6, 2, 11);
+            grfx.FillRectangle(Brushes.White, 6, 11, 11, 2);
+            CreateNewLayer_Button.BackgroundImage = button_img;
+
+            
+
+
             Layers = new List<AwoseLayer>();
             Layers.Add(new AwoseLayer("Layer 1", Layers.Count + 1));
             animation = new(AnimationEditor);
@@ -547,6 +557,13 @@ namespace Awose
                 ObjectPositionX_Label.Text = agent.Location.X.ToString();
                 ObjectPositionY_Label.Text = agent.Location.Y.ToString();
                 ObjectSettings_Panel.Visible = true;
+                if (agent.IsPinned)
+                {
+                    Pinned_CB.BackgroundImage = DrawingValues.DrawTick();
+                } else
+                {
+                    Pinned_CB.BackgroundImage = null;
+                }
             } else
             {
                 ControlLayer_Panel.Visible = true;
@@ -1569,6 +1586,29 @@ namespace Awose
             {
                 DispGrid_Editing_CMItem.Checked = true;
             }
+        }
+
+        private void CreateNewLayer_Button_Click(object sender, EventArgs e)
+        {
+            int layersNum = 1;
+        alw_loopNames:
+            foreach (AwoseAgent item in Layers[CurrentLayer].Agents)
+            {
+                if (item.Name == "Layer" + layersNum.ToString())
+                {
+                    layersNum++;
+                    goto alw_loopNames;
+                }
+            }
+
+            Layers.Add(new AwoseLayer("Layer" + layersNum.ToString(), Layers.Count));
+        }
+
+        private void Pinned_CB_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].IsPinned =
+                !Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].IsPinned;
+            Aw_DrawControl();
         }
     }
 }

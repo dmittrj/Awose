@@ -160,7 +160,7 @@ namespace Awose
                     {
                         Point point = RealToScreen(agent.Location.X, agent.Location.Y);
                         RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
-                        grfx.FillEllipse(agent.Dye, circle);
+                        grfx.FillEllipse(new SolidBrush(agent.Dye), circle);
                         if (agent.IsSelected)
                         {
                             RectangleF ring = new((float)(point.X - diameter), (float)(point.Y - diameter), diameter * 2, diameter * 2);
@@ -377,7 +377,7 @@ namespace Awose
                                         (int)item.Y + (int)item.VelocityY));
                                     grfx.FillPolygon(Brushes.DimGray, arrow);
                                 }
-                            grfx.FillEllipse(item.Dye, circle);
+                            grfx.FillEllipse(new SolidBrush(item.Dye), circle);
                             if (item.IsSelected)
                             {
                                 RectangleF bigcircle = new((float)(lu_corner.X + item.X * aw_scale - (diameter * 1.7) / 2), (float)(lu_corner.Y + item.Y * aw_scale - (diameter * 1.7) / 2), (int)(diameter * 1.7), (int)(diameter * 1.7));
@@ -564,6 +564,10 @@ namespace Awose
                 {
                     Pinned_CB.BackgroundImage = null;
                 }
+                ObjectSprite_White_PB.Image = DrawingValues.DrawCircle(ObjectSprite_White_PB.Width,
+                    ObjectSprite_White_PB.Height, Color.White, agent.Sprite == SpriteType.White);
+                ObjectSprite_Color_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Color_PB.Width,
+                    ObjectSprite_Color_PB.Height, agent.Dye, agent.Sprite == SpriteType.Color);
             } else
             {
                 ControlLayer_Panel.Visible = true;

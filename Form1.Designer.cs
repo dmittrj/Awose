@@ -31,7 +31,9 @@ namespace Awose
         {
             this.components = new System.ComponentModel.Container();
             this.ControlAgents_Panel = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.ObjectBeauty_Panel = new System.Windows.Forms.Panel();
+            this.ObjectSprite_Color_PB = new System.Windows.Forms.PictureBox();
+            this.ObjectSprite_White_PB = new System.Windows.Forms.PictureBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.ObjectSpace_Panel = new System.Windows.Forms.Panel();
@@ -136,7 +138,9 @@ namespace Awose
             this.LayersBar_Panel = new System.Windows.Forms.Panel();
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.ControlAgents_Panel.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.ObjectBeauty_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Color_PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_White_PB)).BeginInit();
             this.ObjectSpace_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
             this.ObjectSettings_Panel.SuspendLayout();
@@ -158,7 +162,7 @@ namespace Awose
             | System.Windows.Forms.AnchorStyles.Left)));
             this.ControlAgents_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.ControlAgents_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ControlAgents_Panel.Controls.Add(this.panel2);
+            this.ControlAgents_Panel.Controls.Add(this.ObjectBeauty_Panel);
             this.ControlAgents_Panel.Controls.Add(this.ObjectSpace_Panel);
             this.ControlAgents_Panel.Controls.Add(this.MistakeIcon_PB);
             this.ControlAgents_Panel.Controls.Add(this.NewValue_TB);
@@ -169,16 +173,33 @@ namespace Awose
             this.ControlAgents_Panel.Size = new System.Drawing.Size(248, 686);
             this.ControlAgents_Panel.TabIndex = 1;
             // 
-            // panel2
+            // ObjectBeauty_Panel
             // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.label22);
-            this.panel2.Controls.Add(this.label23);
-            this.panel2.Location = new System.Drawing.Point(0, 178);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(248, 129);
-            this.panel2.TabIndex = 6;
-            this.panel2.Visible = false;
+            this.ObjectBeauty_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_Color_PB);
+            this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_White_PB);
+            this.ObjectBeauty_Panel.Controls.Add(this.label22);
+            this.ObjectBeauty_Panel.Controls.Add(this.label23);
+            this.ObjectBeauty_Panel.Location = new System.Drawing.Point(-1, 178);
+            this.ObjectBeauty_Panel.Name = "ObjectBeauty_Panel";
+            this.ObjectBeauty_Panel.Size = new System.Drawing.Size(248, 129);
+            this.ObjectBeauty_Panel.TabIndex = 6;
+            // 
+            // ObjectSprite_Color_PB
+            // 
+            this.ObjectSprite_Color_PB.Location = new System.Drawing.Point(34, 61);
+            this.ObjectSprite_Color_PB.Name = "ObjectSprite_Color_PB";
+            this.ObjectSprite_Color_PB.Size = new System.Drawing.Size(18, 18);
+            this.ObjectSprite_Color_PB.TabIndex = 4;
+            this.ObjectSprite_Color_PB.TabStop = false;
+            // 
+            // ObjectSprite_White_PB
+            // 
+            this.ObjectSprite_White_PB.Location = new System.Drawing.Point(14, 61);
+            this.ObjectSprite_White_PB.Name = "ObjectSprite_White_PB";
+            this.ObjectSprite_White_PB.Size = new System.Drawing.Size(18, 18);
+            this.ObjectSprite_White_PB.TabIndex = 3;
+            this.ObjectSprite_White_PB.TabStop = false;
             // 
             // label22
             // 
@@ -513,6 +534,7 @@ namespace Awose
             // 
             this.LaunchSimulation_MSItem.BackColor = System.Drawing.Color.White;
             this.LaunchSimulation_MSItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.LaunchSimulation_MSItem.Enabled = false;
             this.LaunchSimulation_MSItem.ForeColor = System.Drawing.Color.Black;
             this.LaunchSimulation_MSItem.Name = "LaunchSimulation_MSItem";
             this.LaunchSimulation_MSItem.Padding = new System.Windows.Forms.Padding(0);
@@ -545,6 +567,7 @@ namespace Awose
             // 
             // ResetSimulation_MSItem
             // 
+            this.ResetSimulation_MSItem.Enabled = false;
             this.ResetSimulation_MSItem.Name = "ResetSimulation_MSItem";
             this.ResetSimulation_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
             this.ResetSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
@@ -564,6 +587,7 @@ namespace Awose
             // 
             // SaveModel_MSItem
             // 
+            this.SaveModel_MSItem.Enabled = false;
             this.SaveModel_MSItem.Name = "SaveModel_MSItem";
             this.SaveModel_MSItem.Size = new System.Drawing.Size(246, 24);
             this.SaveModel_MSItem.Text = "Save modeling...";
@@ -576,6 +600,7 @@ namespace Awose
             // 
             // Undo_MSItem
             // 
+            this.Undo_MSItem.Enabled = false;
             this.Undo_MSItem.Name = "Undo_MSItem";
             this.Undo_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.Undo_MSItem.Size = new System.Drawing.Size(246, 24);
@@ -616,18 +641,21 @@ namespace Awose
             // 
             // objectColorsToolStripMenuItem
             // 
+            this.objectColorsToolStripMenuItem.Enabled = false;
             this.objectColorsToolStripMenuItem.Name = "objectColorsToolStripMenuItem";
             this.objectColorsToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
             this.objectColorsToolStripMenuItem.Text = "Object colors";
             // 
             // displayForcesToolStripMenuItem
             // 
+            this.displayForcesToolStripMenuItem.Enabled = false;
             this.displayForcesToolStripMenuItem.Name = "displayForcesToolStripMenuItem";
             this.displayForcesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
             this.displayForcesToolStripMenuItem.Text = "Display forces";
             // 
             // displayVelocitiesToolStripMenuItem
             // 
+            this.displayVelocitiesToolStripMenuItem.Enabled = false;
             this.displayVelocitiesToolStripMenuItem.Name = "displayVelocitiesToolStripMenuItem";
             this.displayVelocitiesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
             this.displayVelocitiesToolStripMenuItem.Text = "Display velocities";
@@ -638,6 +666,7 @@ namespace Awose
             this.doNotToolStripMenuItem,
             this.nonfadingLineToolStripMenuItem,
             this.fadingLineToolStripMenuItem});
+            this.displayTrajectoriesToolStripMenuItem.Enabled = false;
             this.displayTrajectoriesToolStripMenuItem.Name = "displayTrajectoriesToolStripMenuItem";
             this.displayTrajectoriesToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
             this.displayTrajectoriesToolStripMenuItem.Text = "Display trajectories";
@@ -666,6 +695,7 @@ namespace Awose
             this.doNotToolStripMenuItem1,
             this.DispGrid_Editing_CMItem,
             this.displayToolStripMenuItem1});
+            this.displayGridToolStripMenuItem.Enabled = false;
             this.displayGridToolStripMenuItem.Name = "displayGridToolStripMenuItem";
             this.displayGridToolStripMenuItem.Size = new System.Drawing.Size(205, 24);
             this.displayGridToolStripMenuItem.Text = "Display grid";
@@ -755,6 +785,7 @@ namespace Awose
             this.toolStripSeparator1,
             this.copyVelocityToolStripMenuItem,
             this.applyVelocityToolStripMenuItem});
+            this.SetVelocity_CMItem.Enabled = false;
             this.SetVelocity_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SetVelocity_CMItem.Name = "SetVelocity_CMItem";
             this.SetVelocity_CMItem.Size = new System.Drawing.Size(197, 24);
@@ -846,6 +877,7 @@ namespace Awose
             this.presetsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.spaceToolStripMenuItem,
             this.chargesToolStripMenuItem});
+            this.presetsToolStripMenuItem.Enabled = false;
             this.presetsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.presetsToolStripMenuItem.Name = "presetsToolStripMenuItem";
             this.presetsToolStripMenuItem.Size = new System.Drawing.Size(197, 24);
@@ -1292,8 +1324,10 @@ namespace Awose
             this.Load += new System.EventHandler(this.Awose_Load);
             this.ControlAgents_Panel.ResumeLayout(false);
             this.ControlAgents_Panel.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.ObjectBeauty_Panel.ResumeLayout(false);
+            this.ObjectBeauty_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Color_PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_White_PB)).EndInit();
             this.ObjectSpace_Panel.ResumeLayout(false);
             this.ObjectSpace_Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).EndInit();
@@ -1423,9 +1457,11 @@ namespace Awose
         private System.Windows.Forms.Button CreateNewLayer_Button;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button Pinned_CB;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel ObjectBeauty_Panel;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.PictureBox ObjectSprite_White_PB;
+        private System.Windows.Forms.PictureBox ObjectSprite_Color_PB;
     }
 }
 

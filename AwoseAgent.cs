@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Awose
 {
     enum FirstSpaceObject { None, Satellite, Planet, Star }
+    public enum SpriteType { White, Color, Sign, Charge, Mass, Velocity }
     public class AwoseAgent
     {
         //User information
@@ -74,11 +75,12 @@ namespace Awose
 
         public int MistakeType;
         public string MDescription;
-        public SolidBrush Dye { get; set; }
+        public Color Dye { get; set; }
         public SolidBrush DyeDim { get; set; }
 
         public Queue<Point> Trajectory = new();
         public readonly Queue<Point> Spray = new();
+        public SpriteType Sprite { get; set; }
 
         //backups
         private double Backup_X;
@@ -102,16 +104,18 @@ namespace Awose
             MDescription = "";
             //IsFirstSpace = false;
             IsSelected = false;
-            Dye = new SolidBrush(Color.White);
+            Dye = Color.White;
             DyeDim = new SolidBrush(Color.Gray);
             Satellites = new List<string>();
             Star = "";
+            Sprite = SpriteType.White;
         }
 
         public AwoseAgent(string name, float x, float y)
         {
             Name = name;
             Location = new PointParticle(x, y);
+            Sprite = SpriteType.White;
         }
 
         public void Backup()

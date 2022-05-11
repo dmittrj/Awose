@@ -943,6 +943,7 @@ namespace Awose
             if (e.KeyCode == Keys.Enter && NewValue_TB.Visible)
             {
                 float newValue;
+                NewValue_TB.Text = NewValue_TB.Text.Replace('.', ',');
                 switch (editingValue)
                 {
                     case EditingValue.None:

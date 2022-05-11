@@ -184,6 +184,7 @@ namespace Awose
             this.ObjectBeauty_Panel.Name = "ObjectBeauty_Panel";
             this.ObjectBeauty_Panel.Size = new System.Drawing.Size(248, 129);
             this.ObjectBeauty_Panel.TabIndex = 6;
+            this.ObjectBeauty_Panel.Visible = false;
             // 
             // ObjectSprite_Color_PB
             // 

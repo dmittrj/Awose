@@ -172,6 +172,7 @@ namespace Awose
             this.ControlAgents_Panel.Name = "ControlAgents_Panel";
             this.ControlAgents_Panel.Size = new System.Drawing.Size(248, 686);
             this.ControlAgents_Panel.TabIndex = 1;
+            this.ControlAgents_Panel.Click += new System.EventHandler(this.ControlAgents_Panel_Click);
             // 
             // ObjectBeauty_Panel
             // 
@@ -345,6 +346,7 @@ namespace Awose
             this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 144);
             this.ObjectSettings_Panel.TabIndex = 2;
             this.ObjectSettings_Panel.Visible = false;
+            this.ObjectSettings_Panel.Click += new System.EventHandler(this.ObjectSettings_Panel_Click);
             // 
             // Pinned_CB
             // 

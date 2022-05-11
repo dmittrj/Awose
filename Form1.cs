@@ -1168,6 +1168,7 @@ namespace Awose
 
         private void ModelBoard_PB_MouseDown(object sender, MouseEventArgs e)
         {
+            if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
             //aw_cursor.X = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
             //aw_cursor.Y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
             aw_cursor = GetCursorPosition();
@@ -1613,6 +1614,21 @@ namespace Awose
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].IsPinned =
                 !Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].IsPinned;
             Aw_DrawControl();
+        }
+
+        private void ModelBoard_PB_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ControlAgents_Panel_Click(object sender, EventArgs e)
+        {
+            if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
+        }
+
+        private void ObjectSettings_Panel_Click(object sender, EventArgs e)
+        {
+            if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
         }
     }
 }

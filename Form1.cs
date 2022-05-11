@@ -1517,6 +1517,7 @@ namespace Awose
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].IsPinned =
                 !Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].IsPinned;
             Aw_CheckMistakes();
+            Aw_DrawControl();
         }
 
         private void SetVelocity_CMItem_Click(object sender, EventArgs e)

@@ -1498,7 +1498,11 @@ namespace Awose
 
         private void ChangeSign_CMItem_Click(object sender, EventArgs e)
         {
-            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge = -Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge;
+            if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge != 0)
+            {
+                Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge = -Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge;
+
+            }
             Aw_DrawControl();
         }
 

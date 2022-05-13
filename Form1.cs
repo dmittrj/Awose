@@ -391,30 +391,33 @@ namespace Awose
             ModelBoard_PB.BackgroundImage = board;
         }
 
-        private void Aw_Step(int time)
+        private static void Aw_Step(int time)
         {
-            foreach (AwoseAgent item in agents)
+            foreach (AwoseLayer layer in Layers)
             {
-                item.ForceGX = item.ForceGY = item.ForceEX = item.ForceEY = 0;
-            }
-            for (int i = 0; i < agents.Count; i++)
-            {
-                for (int j = 0; j < agents.Count; j++)
+                foreach (AwoseAgent agent in layer.Agents)
                 {
-                    if (i != j) agents[i].ForceCalc(agents[j]);
+                    agent.ForceGX = agent.ForceGY = agent.ForceEX = agent.ForceEY = 0;
                 }
-            }
-            foreach (AwoseAgent item in agents)
-            {
-                if (item.IsPinned) continue;
-                item.VelocityX += (item.ForceGX + item.ForceEX) * timeStep / item.Weight / 1000;
-                item.VelocityY += (item.ForceGY + item.ForceEY) * timeStep / item.Weight / 1000;
-                item.X += item.VelocityX * timeStep / 1000;
-                item.Y += item.VelocityY * timeStep / 1000;
+                for (int i = 0; i < layer.Agents.Count; i++)
+                {
+                    for (int j = 0; j < layer.Agents.Count; j++)
+                    {
+                        if (i != j) layer.Agents[i].ForceCalc(layer.Agents[j]);
+                    }
+                }
+                foreach (AwoseAgent agent in layer.Agents)
+                {
+                    if (agent.IsPinned) continue;
+                    agent.Velocity.Tail.X += (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                    agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                    agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                    agent.Location.Y += (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                }
             }
             try
             {
-                Invoke((Action)Aw_DrawControlLite);
+                //Invoke((Action)Aw_DrawControlLite);
             }
             catch { }
             //Aw_DrawControlLite();
@@ -448,7 +451,7 @@ namespace Awose
             //Thread.Sleep(5000);
             while (true)
             {
-                foreach (AwoseAgent item in agents)
+                foreach (AwoseAgent item in Layers[CurrentLayer].Agents)
                 {
                     item.AgentSprayUpdate();
                 }
@@ -1456,9 +1459,12 @@ namespace Awose
 
         private void LaunchSimulation_MSItem_Click(object sender, EventArgs e)
         {
-            foreach (AwoseAgent item in agents)
+            foreach (AwoseLayer layer in Layers)
             {
-                item.Backup();
+                foreach (AwoseAgent agent in layer.Agents)
+                {
+                    agent.Backup();
+                }
             }
             isLaunched = true;
             LaunchSimulation_MSItem.Enabled = false;

@@ -31,14 +31,14 @@ namespace Awose
         {
             //double distance = Math.Pow(agent1.X - agent2.X, 2) + Math.Pow(agent1.Y - agent2.Y, 2);
             double force = -agent1.Weight * agent2.Weight * Awose.ConstG / distance;
-            forceX = force * (agent1.X - agent2.X) / Math.Sqrt(distance);
-            forceY = force * (agent1.Y - agent2.Y) / Math.Sqrt(distance);
+            forceX = force * (agent1.Location.X - agent2.Location.X) / Math.Sqrt(distance);
+            forceY = force * (agent1.Location.Y - agent2.Location.Y) / Math.Sqrt(distance);
         }
         public static void Electrical(AwoseAgent agent1, AwoseAgent agent2, ref double forceX, ref double forceY, double distance)
         {
             double force = agent1.Charge * agent2.Charge * Awose.ConstE / distance;
-            forceX = force * (agent1.X - agent2.X) / Math.Sqrt(distance);
-            forceY = force * (agent1.Y - agent2.Y) / Math.Sqrt(distance);
+            forceX = force * (agent1.Location.X - agent2.Location.X) / Math.Sqrt(distance);
+            forceY = force * (agent1.Location.Y - agent2.Location.Y) / Math.Sqrt(distance);
         }
 
         public static int BruteRound(float number, float divider)

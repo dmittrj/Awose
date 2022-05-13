@@ -139,7 +139,7 @@ namespace Awose
             //gravity
             double tmpForceGX = 0, tmpForceGY = 0;
             double tmpForceEX = 0, tmpForceEY = 0;
-            double distance = Math.Pow(X - opposite.X, 2) + Math.Pow(Y - opposite.Y, 2);
+            double distance = Math.Pow(Location.X - opposite.Location.X, 2) + Math.Pow(Location.Y - opposite.Location.Y, 2);
             Calculations.Gravity(this, opposite, ref tmpForceGX, ref tmpForceGY, distance);
             ForceGX += tmpForceGX;
             ForceGY += tmpForceGY;

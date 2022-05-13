@@ -988,6 +988,10 @@ namespace Awose
                         break;
                     case EditingValue.Name:
                         //aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected], ChangeType.ChangingName, agents[aw_selected].Name, NewValue_TB.Text));
+                        foreach (AwoseAgent item in Layers[CurrentLayer].Agents)
+                        {
+                            if (item.Name == NewValue_TB.Text) { NewValue_TB.Visible = false; return; }
+                        }
                         Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Name = NewValue_TB.Text;
                         NewValue_TB.Visible = false;
                         break;

@@ -45,6 +45,9 @@ namespace Awose
             this.MistakeIcon_PB = new System.Windows.Forms.PictureBox();
             this.NewValue_TB = new System.Windows.Forms.TextBox();
             this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.ObjectVelocityCircle_PB = new System.Windows.Forms.PictureBox();
             this.ObjectForce_Label = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.ObjectForceCircle_PB = new System.Windows.Forms.PictureBox();
@@ -140,6 +143,7 @@ namespace Awose
             this.label26 = new System.Windows.Forms.Label();
             this.LayersBar_Panel = new System.Windows.Forms.Panel();
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Color_PB)).BeginInit();
@@ -147,6 +151,7 @@ namespace Awose
             this.ObjectSpace_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
             this.ObjectSettings_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectVelocityCircle_PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectForceCircle_PB)).BeginInit();
             this.Main_MStr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
@@ -334,6 +339,9 @@ namespace Awose
             // ObjectSettings_Panel
             // 
             this.ObjectSettings_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectSettings_Panel.Controls.Add(this.label21);
+            this.ObjectSettings_Panel.Controls.Add(this.label24);
+            this.ObjectSettings_Panel.Controls.Add(this.ObjectVelocityCircle_PB);
             this.ObjectSettings_Panel.Controls.Add(this.ObjectForce_Label);
             this.ObjectSettings_Panel.Controls.Add(this.label20);
             this.ObjectSettings_Panel.Controls.Add(this.ObjectForceCircle_PB);
@@ -354,6 +362,39 @@ namespace Awose
             this.ObjectSettings_Panel.TabIndex = 2;
             this.ObjectSettings_Panel.Visible = false;
             this.ObjectSettings_Panel.Click += new System.EventHandler(this.ObjectSettings_Panel_Click);
+            // 
+            // label21
+            // 
+            this.label21.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label21.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label21.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.label21.Location = new System.Drawing.Point(82, 214);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(64, 19);
+            this.label21.TabIndex = 17;
+            this.label21.Text = "0 px/s";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label24
+            // 
+            this.label24.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label24.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label24.ForeColor = System.Drawing.Color.White;
+            this.label24.Location = new System.Drawing.Point(82, 196);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(64, 19);
+            this.label24.TabIndex = 16;
+            this.label24.Text = "Velocity";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // ObjectVelocityCircle_PB
+            // 
+            this.ObjectVelocityCircle_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ObjectVelocityCircle_PB.Location = new System.Drawing.Point(91, 149);
+            this.ObjectVelocityCircle_PB.Name = "ObjectVelocityCircle_PB";
+            this.ObjectVelocityCircle_PB.Size = new System.Drawing.Size(45, 45);
+            this.ObjectVelocityCircle_PB.TabIndex = 15;
+            this.ObjectVelocityCircle_PB.TabStop = false;
             // 
             // ObjectForce_Label
             // 
@@ -557,6 +598,7 @@ namespace Awose
             // 
             this.Simulation_MSItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LaunchSimulation_MSItem,
+            this.toolStripMenuItem4,
             this.PauseSimulation_MSItem,
             this.StopSimulation_MSItem,
             this.ResetSimulation_MSItem,
@@ -1341,6 +1383,13 @@ namespace Awose
             this.CreateNewLayer_Button.UseVisualStyleBackColor = true;
             this.CreateNewLayer_Button.Click += new System.EventHandler(this.CreateNewLayer_Button_Click);
             // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Enabled = false;
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(246, 24);
+            this.toolStripMenuItem4.Text = "Compute...";
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1376,6 +1425,7 @@ namespace Awose
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).EndInit();
             this.ObjectSettings_Panel.ResumeLayout(false);
             this.ObjectSettings_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectVelocityCircle_PB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectForceCircle_PB)).EndInit();
             this.Main_MStr.ResumeLayout(false);
             this.Main_MStr.PerformLayout();
@@ -1509,6 +1559,10 @@ namespace Awose
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.PictureBox ObjectForceCircle_PB;
         private System.Windows.Forms.Label ObjectForce_Label;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.PictureBox ObjectVelocityCircle_PB;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
     }
 }
 

@@ -391,7 +391,7 @@ namespace Awose
             ModelBoard_PB.BackgroundImage = board;
         }
 
-        private static void Aw_Step(int time)
+        private void Aw_Step(int time)
         {
             foreach (AwoseLayer layer in Layers)
             {
@@ -417,7 +417,7 @@ namespace Awose
             }
             try
             {
-                //Invoke((Action)Aw_DrawControlLite);
+                Invoke((Action)Aw_DrawControlLite);
             }
             catch { }
             //Aw_DrawControlLite();
@@ -647,19 +647,36 @@ namespace Awose
 
         private void Aw_DrawControlLite()
         {
-            if (aw_selected != -1)
+            if (Layers[CurrentLayer].IsThereSelections())
             {
-                ObjectPositionX_Label.Text = ((int)agents[aw_selected].X).ToString();
-                ObjectPositionY_Label.Text = ((int)agents[aw_selected].Y).ToString();
+                AwoseAgent agent = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected];
+                CurrentObjectName_Label.Text = agent.Name;
+                CurrentObjectName_Label.ForeColor = Color.LightSkyBlue;
+                CurrentObjectName_Label.Cursor = Cursors.IBeam;
+                ObjectMass_Label.Text = Math.Round(agent.Weight, 5).ToString() + " kg";
+                ObjectCharge_Label.Text = Math.Round(agent.Charge, 5).ToString() + " C";
+                ObjectPositionX_Label.Text = agent.Location.X.ToString();
+                ObjectPositionY_Label.Text = agent.Location.Y.ToString();
                 ObjectSettings_Panel.Visible = true;
+                if (agent.IsPinned)
+                {
+                    Pinned_CB.BackgroundImage = DrawingValues.DrawTick();
+                }
+                else
+                {
+                    Pinned_CB.BackgroundImage = null;
+                }
+                ObjectSprite_White_PB.Image = DrawingValues.DrawCircle(ObjectSprite_White_PB.Width,
+                    ObjectSprite_White_PB.Height, Color.White, agent.Sprite == SpriteType.White);
+                ObjectSprite_Color_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Color_PB.Width,
+                    ObjectSprite_Color_PB.Height, agent.Dye, agent.Sprite == SpriteType.Color);
             }
             else
             {
-                CurrentObjectName_Label.Text = "No object selected";
-                CurrentObjectName_Label.ForeColor = Color.DarkGray;
-                //CurrentObjectName_Label.Cursor = Cursors.Default;
-                ObjectSettings_Panel.Visible = false;
+                ControlLayer_Panel.Visible = true;
+                ControlAgents_Panel.Visible = false;
             }
+            return;
         }
 
         private void SaveModel_MSItem_Click(object sender, EventArgs e)

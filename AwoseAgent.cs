@@ -66,6 +66,7 @@ namespace Awose
         public string Star { get; set; }
         //public bool IsFirstSpace { get; set; }
         public bool ChangeAfterFSV = false;
+        public Vector Force { get; set; }
         public double ForceGX;
         public double ForceGY;
         public double ForceEX;
@@ -109,6 +110,7 @@ namespace Awose
             Satellites = new List<string>();
             Star = "";
             Sprite = SpriteType.White;
+            Force = new Vector(new PointParticle(0, 0));
         }
 
         public AwoseAgent(string name, float x, float y)

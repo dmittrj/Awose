@@ -409,6 +409,7 @@ namespace Awose
                 foreach (AwoseAgent agent in layer.Agents)
                 {
                     if (agent.IsPinned) continue;
+                    agent.Force = new Vector(new PointParticle((float)(agent.ForceGX + agent.ForceEX), (float)(agent.ForceGY + agent.ForceEY)));
                     agent.Velocity.Tail.X += (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
                     agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
                     agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
@@ -670,6 +671,8 @@ namespace Awose
                     ObjectSprite_White_PB.Height, Color.White, agent.Sprite == SpriteType.White);
                 ObjectSprite_Color_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Color_PB.Width,
                     ObjectSprite_Color_PB.Height, agent.Dye, agent.Sprite == SpriteType.Color);
+                ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
+                    ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
             }
             else
             {

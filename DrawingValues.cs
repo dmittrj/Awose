@@ -43,5 +43,21 @@ namespace Awose
             }
             return picturebox_img;
         }
+
+        public static Bitmap DrawCircleWithArrow(int width, int height, Color color, float x, float y)
+        {
+            Bitmap picturebox_img = new(width, height);
+            using Graphics pb_grfx = Graphics.FromImage(picturebox_img);
+            //cb_grfx.Clear(Color.FromArgb(15, 15, 15));
+            float length = MathF.Sqrt(x * x + y * y);
+            float radius = width / 2;
+            float x_circle = radius * x / length;
+            float y_circle = radius * y / length;
+
+            pb_grfx.FillEllipse(new SolidBrush(color), width / 2 - 2, height / 2 - 2, 4, 4);
+            pb_grfx.DrawLine(new Pen(color, 2), width / 2, height / 2, width / 2 + x_circle, height / 2 + y_circle);
+            pb_grfx.DrawEllipse(new Pen(Color.White, 2), 0, 0, width-1, height-1);
+            return picturebox_img;
+        }
     }
 }

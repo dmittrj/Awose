@@ -45,6 +45,9 @@ namespace Awose
             this.MistakeIcon_PB = new System.Windows.Forms.PictureBox();
             this.NewValue_TB = new System.Windows.Forms.TextBox();
             this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
+            this.ObjectForce_Label = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.ObjectForceCircle_PB = new System.Windows.Forms.PictureBox();
             this.Pinned_CB = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.ObjectPositionY_Label = new System.Windows.Forms.Label();
@@ -144,6 +147,7 @@ namespace Awose
             this.ObjectSpace_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
             this.ObjectSettings_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectForceCircle_PB)).BeginInit();
             this.Main_MStr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.Space_CMStr.SuspendLayout();
@@ -181,7 +185,7 @@ namespace Awose
             this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_White_PB);
             this.ObjectBeauty_Panel.Controls.Add(this.label22);
             this.ObjectBeauty_Panel.Controls.Add(this.label23);
-            this.ObjectBeauty_Panel.Location = new System.Drawing.Point(-1, 178);
+            this.ObjectBeauty_Panel.Location = new System.Drawing.Point(34, 318);
             this.ObjectBeauty_Panel.Name = "ObjectBeauty_Panel";
             this.ObjectBeauty_Panel.Size = new System.Drawing.Size(248, 129);
             this.ObjectBeauty_Panel.TabIndex = 6;
@@ -234,7 +238,7 @@ namespace Awose
             this.ObjectSpace_Panel.Controls.Add(this.label12);
             this.ObjectSpace_Panel.Controls.Add(this.label13);
             this.ObjectSpace_Panel.Controls.Add(this.label14);
-            this.ObjectSpace_Panel.Location = new System.Drawing.Point(34, 317);
+            this.ObjectSpace_Panel.Location = new System.Drawing.Point(51, 453);
             this.ObjectSpace_Panel.Name = "ObjectSpace_Panel";
             this.ObjectSpace_Panel.Size = new System.Drawing.Size(248, 129);
             this.ObjectSpace_Panel.TabIndex = 5;
@@ -330,6 +334,9 @@ namespace Awose
             // ObjectSettings_Panel
             // 
             this.ObjectSettings_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectSettings_Panel.Controls.Add(this.ObjectForce_Label);
+            this.ObjectSettings_Panel.Controls.Add(this.label20);
+            this.ObjectSettings_Panel.Controls.Add(this.ObjectForceCircle_PB);
             this.ObjectSettings_Panel.Controls.Add(this.Pinned_CB);
             this.ObjectSettings_Panel.Controls.Add(this.label19);
             this.ObjectSettings_Panel.Controls.Add(this.ObjectPositionY_Label);
@@ -343,10 +350,43 @@ namespace Awose
             this.ObjectSettings_Panel.Controls.Add(this.label1);
             this.ObjectSettings_Panel.Location = new System.Drawing.Point(-1, 35);
             this.ObjectSettings_Panel.Name = "ObjectSettings_Panel";
-            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 144);
+            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 254);
             this.ObjectSettings_Panel.TabIndex = 2;
             this.ObjectSettings_Panel.Visible = false;
             this.ObjectSettings_Panel.Click += new System.EventHandler(this.ObjectSettings_Panel_Click);
+            // 
+            // ObjectForce_Label
+            // 
+            this.ObjectForce_Label.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ObjectForce_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ObjectForce_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.ObjectForce_Label.Location = new System.Drawing.Point(8, 214);
+            this.ObjectForce_Label.Name = "ObjectForce_Label";
+            this.ObjectForce_Label.Size = new System.Drawing.Size(64, 19);
+            this.ObjectForce_Label.TabIndex = 14;
+            this.ObjectForce_Label.Text = "0 N";
+            this.ObjectForce_Label.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label20
+            // 
+            this.label20.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label20.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label20.ForeColor = System.Drawing.Color.White;
+            this.label20.Location = new System.Drawing.Point(8, 196);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(64, 19);
+            this.label20.TabIndex = 13;
+            this.label20.Text = "Force";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // ObjectForceCircle_PB
+            // 
+            this.ObjectForceCircle_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ObjectForceCircle_PB.Location = new System.Drawing.Point(17, 149);
+            this.ObjectForceCircle_PB.Name = "ObjectForceCircle_PB";
+            this.ObjectForceCircle_PB.Size = new System.Drawing.Size(45, 45);
+            this.ObjectForceCircle_PB.TabIndex = 12;
+            this.ObjectForceCircle_PB.TabStop = false;
             // 
             // Pinned_CB
             // 
@@ -1336,6 +1376,7 @@ namespace Awose
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).EndInit();
             this.ObjectSettings_Panel.ResumeLayout(false);
             this.ObjectSettings_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectForceCircle_PB)).EndInit();
             this.Main_MStr.ResumeLayout(false);
             this.Main_MStr.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();
@@ -1465,6 +1506,9 @@ namespace Awose
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.PictureBox ObjectSprite_White_PB;
         private System.Windows.Forms.PictureBox ObjectSprite_Color_PB;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.PictureBox ObjectForceCircle_PB;
+        private System.Windows.Forms.Label ObjectForce_Label;
     }
 }
 

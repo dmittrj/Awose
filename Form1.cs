@@ -1218,7 +1218,7 @@ namespace Awose
                                 {
                                     aw_remember = GetCursorPosition();
                                     Phantom = new AwoseAgent("Phantom", ScreenToReal(aw_remember).X, ScreenToReal(aw_remember).Y);
-                                    movingEntity = MovingEntity.Agent;
+                                    if (!isLaunched) movingEntity = MovingEntity.Agent;
                                 }
                             }
                             hoverAgent = true;

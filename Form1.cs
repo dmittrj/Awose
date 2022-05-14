@@ -1401,26 +1401,34 @@ namespace Awose
             {
                 float delta_x = pointCursor.X - agent.Location.X;
                 float delta_y = pointCursor.Y - agent.Location.Y;
+                float delta = MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                float coeff_x = delta_x / MathF.Sqrt(delta);
+                float coeff_y = delta_y / MathF.Sqrt(delta);
                 Text = delta_x.ToString() + " " + delta_y.ToString();
                 if (delta_x > 0)
                 {
-                    force_gx += agent.Weight * ConstG / MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                    force_gx += agent.Weight * ConstG / delta * coeff_x;
+                    force_ex += agent.Charge * ConstE / delta * coeff_x;
                 } 
                 else if (delta_x < 0)
                 {
-                    force_gx -= agent.Weight * ConstG / MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                    force_gx -= agent.Weight * ConstG / delta * coeff_x;
+                    force_ex -= agent.Charge * ConstE / delta * coeff_x;
                 }
 
                 if (delta_y > 0)
                 {
-                    force_gy += agent.Weight * ConstG / MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                    force_gy += agent.Weight * ConstG / delta * coeff_y;
+                    force_ex += agent.Charge * ConstE / delta * coeff_y;
                 }
                 else if (delta_y < 0)
                 {
-                    force_gy -= agent.Weight * ConstG / MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                    force_gy -= agent.Weight * ConstG / delta * coeff_y;
+                    force_ey -= agent.Charge * ConstE / delta * coeff_y;
                 }
             }
             RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
+            RT_E_Label.Text = Math.Round(Math.Sqrt(force_ex * force_ex + force_ey * force_ey), 1).ToString();
 
             bool hoverAgent = false;
             switch (movingEntity)

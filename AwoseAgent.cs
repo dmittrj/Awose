@@ -148,6 +148,20 @@ namespace Awose
             ForceEY += tmpForceEY;
         }
 
+        public void ForceCalcG(AwoseAgent opposite)
+        {
+            //gravity
+            double tmpForceGX = 0, tmpForceGY = 0;
+            //double tmpForceEX = 0, tmpForceEY = 0;
+            double distance = Math.Pow(Location.X - opposite.Location.X, 2) + Math.Pow(Location.Y - opposite.Location.Y, 2);
+            Calculations.Gravity(this, opposite, ref tmpForceGX, ref tmpForceGY, distance);
+            ForceGX += tmpForceGX;
+            ForceGY += tmpForceGY;
+            //Calculations.Electrical(this, opposite, ref tmpForceEX, ref tmpForceEY, distance);
+            //ForceEX += tmpForceEX;
+            //ForceEY += tmpForceEY;
+        }
+
         public void ForceCalc(AwoseAgent opposite, float tmpX, float tmpY, double tmpVX, double tmpVY)
         {
             //gravity

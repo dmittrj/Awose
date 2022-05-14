@@ -1392,6 +1392,36 @@ namespace Awose
             PointParticle pointCursor = ScreenToReal(aw_cursor);
             RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
             RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
+
+            double force_gx = 0;
+            double force_gy = 0;
+            double force_ex = 0;
+            double force_ey = 0;
+            foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+            {
+                float delta_x = pointCursor.X - agent.Location.X;
+                float delta_y = pointCursor.Y - agent.Location.Y;
+                Text = delta_x.ToString() + " " + delta_y.ToString();
+                if (delta_x > 0)
+                {
+                    force_gx += agent.Weight * ConstG / MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                } 
+                else if (delta_x < 0)
+                {
+                    force_gx -= agent.Weight * ConstG / MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                }
+
+                if (delta_y > 0)
+                {
+                    force_gy += agent.Weight * ConstG / MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                }
+                else if (delta_y < 0)
+                {
+                    force_gy -= agent.Weight * ConstG / MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                }
+            }
+            RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
+
             bool hoverAgent = false;
             switch (movingEntity)
             {

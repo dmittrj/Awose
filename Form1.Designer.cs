@@ -71,7 +71,7 @@ namespace Awose
             this.StopSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.openModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenModel_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveModel_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.Undo_MSItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -144,6 +144,7 @@ namespace Awose
             this.label26 = new System.Windows.Forms.Label();
             this.LayersBar_Panel = new System.Windows.Forms.Panel();
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
+            this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Color_PB)).BeginInit();
@@ -603,7 +604,7 @@ namespace Awose
             this.StopSimulation_MSItem,
             this.ResetSimulation_MSItem,
             this.toolStripMenuItem1,
-            this.openModelToolStripMenuItem,
+            this.OpenModel_MSItem,
             this.SaveModel_MSItem,
             this.toolStripMenuItem2,
             this.Undo_MSItem,
@@ -671,15 +672,15 @@ namespace Awose
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(243, 6);
             // 
-            // openModelToolStripMenuItem
+            // OpenModel_MSItem
             // 
-            this.openModelToolStripMenuItem.Name = "openModelToolStripMenuItem";
-            this.openModelToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
-            this.openModelToolStripMenuItem.Text = "Open modeling...";
+            this.OpenModel_MSItem.Name = "OpenModel_MSItem";
+            this.OpenModel_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.OpenModel_MSItem.Text = "Open modeling...";
+            this.OpenModel_MSItem.Click += new System.EventHandler(this.OpenModel_MSItem_Click);
             // 
             // SaveModel_MSItem
             // 
-            this.SaveModel_MSItem.Enabled = false;
             this.SaveModel_MSItem.Name = "SaveModel_MSItem";
             this.SaveModel_MSItem.Size = new System.Drawing.Size(246, 24);
             this.SaveModel_MSItem.Text = "Save modeling...";
@@ -1390,6 +1391,13 @@ namespace Awose
             this.CreateNewLayer_Button.UseVisualStyleBackColor = true;
             this.CreateNewLayer_Button.Click += new System.EventHandler(this.CreateNewLayer_Button_Click);
             // 
+            // OpenModel_OFD
+            // 
+            this.OpenModel_OFD.DefaultExt = "awose";
+            this.OpenModel_OFD.FileName = "MyModel";
+            this.OpenModel_OFD.Filter = "Awose File|*.awose";
+            this.OpenModel_OFD.Title = "Open modeling";
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1457,7 +1465,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem StopSimulation_MSItem;
         private System.Windows.Forms.ToolStripMenuItem ResetSimulation_MSItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem openModelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenModel_MSItem;
         private System.Windows.Forms.ToolStripMenuItem SaveModel_MSItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem Undo_MSItem;
@@ -1563,6 +1571,7 @@ namespace Awose
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.PictureBox ObjectVelocityCircle_PB;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.OpenFileDialog OpenModel_OFD;
     }
 }
 

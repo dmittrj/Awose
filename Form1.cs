@@ -1698,5 +1698,19 @@ namespace Awose
         {
             if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
         }
+
+        private void OpenModel_MSItem_Click(object sender, EventArgs e)
+        {
+            if (OpenModel_OFD.ShowDialog() == DialogResult.OK)
+            {
+                FileInfo fileInfo = new(OpenModel_OFD.FileName);
+                FileStream file = fileInfo.OpenRead();
+                StreamReader reader = new(file);
+                string serializedobject = reader.ReadToEnd();
+                Layers = JsonConvert.DeserializeObject<List<AwoseLayer>>(serializedobject);
+                reader.Close();
+                file.Close();
+            }
+        }
     }
 }

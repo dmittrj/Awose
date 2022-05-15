@@ -25,5 +25,9 @@ namespace Awose
             Head = new(0, 0);
             Tail = tail;
         }
+
+        public Vector()
+        {
+        }
     }
 }

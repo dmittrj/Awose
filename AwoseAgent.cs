@@ -120,6 +120,10 @@ namespace Awose
             Sprite = SpriteType.White;
         }
 
+        public AwoseAgent()
+        {
+        }
+
         public void Backup()
         {
             Backup_X = Location.X;

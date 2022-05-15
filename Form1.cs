@@ -960,6 +960,7 @@ namespace Awose
 
         private void ObjectMass_Label_Click(object sender, EventArgs e)
         {
+            if (isLaunched) return;
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectMass_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectMass_Label.Location.Y - 26);
             NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Weight.ToString();
@@ -1491,6 +1492,7 @@ namespace Awose
 
         private void ObjectCharge_Label_Click(object sender, EventArgs e)
         {
+            if (isLaunched) return;
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectCharge_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectCharge_Label.Location.Y - 26);
             NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge.ToString();
@@ -1520,6 +1522,11 @@ namespace Awose
             PauseSimulation_MSItem.Enabled = true;
             StopSimulation_MSItem.Enabled = true;
             ResetSimulation_MSItem.Enabled = true;
+            ObjectMass_Label.Cursor = Cursors.Default;
+            ObjectCharge_Label.Cursor = Cursors.Default;
+            ObjectPositionX_Label.Cursor = Cursors.Default;
+            ObjectPositionY_Label.Cursor = Cursors.Default;
+            Pinned_CB.Enabled = false;
             Aw_CheckMistakes();
         }
 
@@ -1530,10 +1537,16 @@ namespace Awose
             PauseSimulation_MSItem.Enabled = false;
             StopSimulation_MSItem.Enabled = false;
             ResetSimulation_MSItem.Enabled = true;
+            ObjectMass_Label.Cursor = Cursors.IBeam;
+            ObjectCharge_Label.Cursor = Cursors.IBeam;
+            ObjectPositionX_Label.Cursor = Cursors.IBeam;
+            ObjectPositionY_Label.Cursor = Cursors.IBeam;
+            Pinned_CB.Enabled = true;
             Aw_CheckMistakes();
         }
         private void ObjectPositionX_Label_Click(object sender, EventArgs e)
         {
+            if (isLaunched) return;
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionX_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionX_Label.Location.Y - 26);
             NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.X.ToString();
@@ -1546,6 +1559,7 @@ namespace Awose
 
         private void ObjectPositionY_Label_Click(object sender, EventArgs e)
         {
+            if (isLaunched) return;
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionY_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionY_Label.Location.Y - 26);
             NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.Y.ToString();

@@ -145,6 +145,7 @@ namespace Awose
             this.LayersBar_Panel = new System.Windows.Forms.Panel();
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
+            this.DegreeHint_Label = new System.Windows.Forms.Label();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Color_PB)).BeginInit();
@@ -340,6 +341,7 @@ namespace Awose
             // ObjectSettings_Panel
             // 
             this.ObjectSettings_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectSettings_Panel.Controls.Add(this.DegreeHint_Label);
             this.ObjectSettings_Panel.Controls.Add(this.ObjectVelocity_Label);
             this.ObjectSettings_Panel.Controls.Add(this.label24);
             this.ObjectSettings_Panel.Controls.Add(this.ObjectVelocityCircle_PB);
@@ -396,6 +398,8 @@ namespace Awose
             this.ObjectVelocityCircle_PB.Size = new System.Drawing.Size(45, 45);
             this.ObjectVelocityCircle_PB.TabIndex = 15;
             this.ObjectVelocityCircle_PB.TabStop = false;
+            this.ObjectVelocityCircle_PB.MouseLeave += new System.EventHandler(this.ObjectVelocityCircle_PB_MouseLeave);
+            this.ObjectVelocityCircle_PB.MouseHover += new System.EventHandler(this.ObjectVelocityCircle_PB_MouseHover);
             // 
             // ObjectForce_Label
             // 
@@ -1398,6 +1402,21 @@ namespace Awose
             this.OpenModel_OFD.Filter = "Awose File|*.awose";
             this.OpenModel_OFD.Title = "Open modeling";
             // 
+            // DegreeHint_Label
+            // 
+            this.DegreeHint_Label.AutoSize = true;
+            this.DegreeHint_Label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.DegreeHint_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DegreeHint_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.DegreeHint_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.DegreeHint_Label.ForeColor = System.Drawing.Color.White;
+            this.DegreeHint_Label.Location = new System.Drawing.Point(209, 128);
+            this.DegreeHint_Label.Name = "DegreeHint_Label";
+            this.DegreeHint_Label.Size = new System.Drawing.Size(19, 21);
+            this.DegreeHint_Label.TabIndex = 18;
+            this.DegreeHint_Label.Text = "0";
+            this.DegreeHint_Label.Visible = false;
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1572,6 +1591,7 @@ namespace Awose
         private System.Windows.Forms.PictureBox ObjectVelocityCircle_PB;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.OpenFileDialog OpenModel_OFD;
+        private System.Windows.Forms.Label DegreeHint_Label;
     }
 }
 

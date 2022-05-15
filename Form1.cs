@@ -1726,5 +1726,18 @@ namespace Awose
                 file.Close();
             }
         }
+
+        private void ObjectVelocityCircle_PB_MouseHover(object sender, EventArgs e)
+        {
+            DegreeHint_Label.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Angel.ToString() + "°";
+            DegreeHint_Label.Location = new(ObjectVelocityCircle_PB.Location.X + (int)(ObjectVelocityCircle_PB.Width * 0.8),
+                ObjectVelocityCircle_PB.Location.Y + (int)(ObjectVelocityCircle_PB.Height * 0.8));
+            DegreeHint_Label.Visible = true;
+        }
+
+        private void ObjectVelocityCircle_PB_MouseLeave(object sender, EventArgs e)
+        {
+            DegreeHint_Label.Visible = false;
+        }
     }
 }

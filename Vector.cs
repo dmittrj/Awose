@@ -10,6 +10,11 @@ namespace Awose
     {
         public PointParticle Head { get; set; }
         public PointParticle Tail { get; set; }
+        public float Length { get
+            {
+                return MathF.Sqrt(MathF.Pow(Head.X - Tail.X, 2) + MathF.Pow(Head.Y - Tail.Y, 2));
+            } 
+        }
         public Vector(PointParticle head, PointParticle tail)
         {
             Head = head;

@@ -122,18 +122,18 @@ namespace Awose
 
         public void Backup()
         {
-            Backup_X = X;
-            Backup_Y = Y;
-            Backup_VelocityX = VelocityX;
-            Backup_VelocityY = VelocityY;
+            Backup_X = Location.X;
+            Backup_Y = Location.Y;
+            Backup_VelocityX = Velocity.Tail.X;
+            Backup_VelocityY = Velocity.Tail.Y;
         }
 
         public void Restore()
         {
-            X = Backup_X;
-            Y = Backup_Y;
-            VelocityX = Backup_VelocityX;
-            VelocityY = Backup_VelocityY;
+            Location.Y = (float)Backup_Y;
+            Location.X = (float)Backup_X;
+            Velocity.Tail.X = (float)Backup_VelocityX;
+            Velocity.Tail.Y = (float)Backup_VelocityY;
         }
 
         public void ForceCalc(AwoseAgent opposite)

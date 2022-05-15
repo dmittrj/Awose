@@ -572,7 +572,12 @@ namespace Awose
                     ObjectSprite_White_PB.Height, Color.White, agent.Sprite == SpriteType.White);
                 ObjectSprite_Color_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Color_PB.Width,
                     ObjectSprite_Color_PB.Height, agent.Dye, agent.Sprite == SpriteType.Color);
-            } else
+                ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
+                    ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
+                ObjectVelocityCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectVelocityCircle_PB.Width,
+                    ObjectVelocityCircle_PB.Height, Color.IndianRed, agent.Velocity.Tail.X - agent.Velocity.Head.X, agent.Velocity.Tail.Y - agent.Velocity.Head.Y);
+            }
+            else
             {
                 ControlLayer_Panel.Visible = true;
                 ControlAgents_Panel.Visible = false;
@@ -675,6 +680,8 @@ namespace Awose
                     ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
                 ObjectVelocityCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectVelocityCircle_PB.Width,
                     ObjectVelocityCircle_PB.Height, Color.IndianRed, agent.Velocity.Tail.X - agent.Velocity.Head.X, agent.Velocity.Tail.Y - agent.Velocity.Head.Y);
+                ObjectForce_Label.Text = Math.Round(agent.Force.Length, 2).ToString() + " N";
+                ObjectVelocity_Label.Text = Math.Round(agent.Velocity.Length, 2).ToString() + " px/s";
             }
             else
             {
@@ -1409,7 +1416,6 @@ namespace Awose
                 float delta = MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
                 float coeff_x = delta_x / MathF.Sqrt(delta);
                 float coeff_y = delta_y / MathF.Sqrt(delta);
-                Text = delta_x.ToString() + " " + delta_y.ToString();
                 force_gx += agent.Weight * ConstG / delta * coeff_x;
                 force_ex += agent.Charge * ConstE / delta * coeff_x;
                 force_gy += agent.Weight * ConstG / delta * coeff_y;
@@ -1628,9 +1634,12 @@ namespace Awose
 
         private void ResetSimulation_MSItem_Click(object sender, EventArgs e)
         {
-            foreach (AwoseAgent item in agents)
+            foreach (AwoseLayer layer in Layers)
             {
-                item.Restore();
+                foreach (AwoseAgent agent in layer.Agents)
+                {
+                    agent.Restore();
+                }
             }
             Aw_CheckMistakes();
         }

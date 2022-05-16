@@ -156,27 +156,30 @@ namespace Awose
             {
                 foreach (AwoseLayer layer in Layers)
                 {
-                    foreach (AwoseAgent agent in layer.Agents)
+                    lock (layer.Agents)
                     {
-                        Point point = RealToScreen(agent.Location.X, agent.Location.Y);
-                        RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
-                        grfx.FillEllipse(new SolidBrush(agent.Dye), circle);
-                        if (agent.IsSelected)
+                        foreach (AwoseAgent agent in layer.Agents)
                         {
-                            RectangleF ring = new((float)(point.X - diameter), (float)(point.Y - diameter), diameter * 2, diameter * 2);
-                            RectangleF circle_left = new((float)(point.X - (diameter * 1.25)), (float)(point.Y - (diameter / 4)), diameter / 2, diameter / 2);
-                            RectangleF circle_right = new((float)(point.X + (diameter * 0.75)), (float)(point.Y - (diameter / 4)), diameter / 2, diameter / 2);
-                            RectangleF circle_up = new((float)(point.X - (diameter / 4)), (float)(point.Y - (diameter * 1.25)), diameter / 2, diameter / 2);
-                            RectangleF circle_down = new((float)(point.X - (diameter / 4)), (float)(point.Y + (diameter * 0.75)), diameter / 2, diameter / 2);
-                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), ring);
-                            grfx.FillEllipse(Brushes.Black, circle_left);
-                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_left);
-                            grfx.FillEllipse(Brushes.Black, circle_right);
-                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_right);
-                            grfx.FillEllipse(Brushes.Black, circle_up);
-                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_up);
-                            grfx.FillEllipse(Brushes.Black, circle_down);
-                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_down);
+                            Point point = RealToScreen(agent.Location.X, agent.Location.Y);
+                            RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
+                            grfx.FillEllipse(new SolidBrush(agent.Dye), circle);
+                            if (agent.IsSelected)
+                            {
+                                RectangleF ring = new((float)(point.X - diameter), (float)(point.Y - diameter), diameter * 2, diameter * 2);
+                                RectangleF circle_left = new((float)(point.X - (diameter * 1.25)), (float)(point.Y - (diameter / 4)), diameter / 2, diameter / 2);
+                                RectangleF circle_right = new((float)(point.X + (diameter * 0.75)), (float)(point.Y - (diameter / 4)), diameter / 2, diameter / 2);
+                                RectangleF circle_up = new((float)(point.X - (diameter / 4)), (float)(point.Y - (diameter * 1.25)), diameter / 2, diameter / 2);
+                                RectangleF circle_down = new((float)(point.X - (diameter / 4)), (float)(point.Y + (diameter * 0.75)), diameter / 2, diameter / 2);
+                                grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), ring);
+                                grfx.FillEllipse(Brushes.Black, circle_left);
+                                grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_left);
+                                grfx.FillEllipse(Brushes.Black, circle_right);
+                                grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_right);
+                                grfx.FillEllipse(Brushes.Black, circle_up);
+                                grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_up);
+                                grfx.FillEllipse(Brushes.Black, circle_down);
+                                grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_down);
+                            }
                         }
                     }
                 }

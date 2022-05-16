@@ -964,6 +964,7 @@ namespace Awose
         private void ObjectMass_Label_Click(object sender, EventArgs e)
         {
             if (isLaunched) return;
+            if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectMass_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectMass_Label.Location.Y - 26);
             NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Weight.ToString();
@@ -976,6 +977,38 @@ namespace Awose
 
         private void NewValue_TB_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
+            if (e.KeyCode == Keys.Down)
+            {
+                NewValue_TB_PreviewKeyDown(sender, new(Keys.Enter));
+                NewValue_TB.Visible = false;
+                switch (editingValue)
+                {
+                    case EditingValue.None:
+                        break;
+                    case EditingValue.Mass:
+                        ObjectCharge_Label_Click(sender, e);
+                        NewValue_TB.Focus();
+                        NewValue_TB.SelectAll();
+                        return;
+                    case EditingValue.Charge:
+                        ObjectPositionX_Label_Click(sender, e);
+                        NewValue_TB.Focus();
+                        NewValue_TB.SelectAll();
+                        return;
+                    case EditingValue.Name:
+                        break;
+                    case EditingValue.X:
+                        ObjectPositionY_Label_Click(sender, e);
+                        NewValue_TB.Focus();
+                        NewValue_TB.SelectAll();
+                        return;
+                    case EditingValue.Y:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             if (e.KeyCode == Keys.Enter && NewValue_TB.Visible)
             {
                 float newValue;
@@ -1496,6 +1529,7 @@ namespace Awose
         private void ObjectCharge_Label_Click(object sender, EventArgs e)
         {
             if (isLaunched) return;
+            if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectCharge_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectCharge_Label.Location.Y - 26);
             NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge.ToString();
@@ -1550,6 +1584,7 @@ namespace Awose
         private void ObjectPositionX_Label_Click(object sender, EventArgs e)
         {
             if (isLaunched) return;
+            if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionX_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionX_Label.Location.Y - 26);
             NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.X.ToString();
@@ -1563,6 +1598,7 @@ namespace Awose
         private void ObjectPositionY_Label_Click(object sender, EventArgs e)
         {
             if (isLaunched) return;
+            if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionY_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionY_Label.Location.Y - 26);
             NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.Y.ToString();

@@ -45,6 +45,7 @@ namespace Awose
             this.MistakeIcon_PB = new System.Windows.Forms.PictureBox();
             this.NewValue_TB = new System.Windows.Forms.TextBox();
             this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
+            this.DegreeHint_Label = new System.Windows.Forms.Label();
             this.ObjectVelocity_Label = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.ObjectVelocityCircle_PB = new System.Windows.Forms.PictureBox();
@@ -145,7 +146,6 @@ namespace Awose
             this.LayersBar_Panel = new System.Windows.Forms.Panel();
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
-            this.DegreeHint_Label = new System.Windows.Forms.Label();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Color_PB)).BeginInit();
@@ -366,9 +366,24 @@ namespace Awose
             this.ObjectSettings_Panel.Visible = false;
             this.ObjectSettings_Panel.Click += new System.EventHandler(this.ObjectSettings_Panel_Click);
             // 
+            // DegreeHint_Label
+            // 
+            this.DegreeHint_Label.AutoSize = true;
+            this.DegreeHint_Label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.DegreeHint_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DegreeHint_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.DegreeHint_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.DegreeHint_Label.ForeColor = System.Drawing.Color.White;
+            this.DegreeHint_Label.Location = new System.Drawing.Point(209, 128);
+            this.DegreeHint_Label.Name = "DegreeHint_Label";
+            this.DegreeHint_Label.Size = new System.Drawing.Size(19, 21);
+            this.DegreeHint_Label.TabIndex = 18;
+            this.DegreeHint_Label.Text = "0";
+            this.DegreeHint_Label.Visible = false;
+            // 
             // ObjectVelocity_Label
             // 
-            this.ObjectVelocity_Label.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ObjectVelocity_Label.Cursor = System.Windows.Forms.Cursors.Default;
             this.ObjectVelocity_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ObjectVelocity_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
             this.ObjectVelocity_Label.Location = new System.Drawing.Point(122, 214);
@@ -403,7 +418,7 @@ namespace Awose
             // 
             // ObjectForce_Label
             // 
-            this.ObjectForce_Label.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ObjectForce_Label.Cursor = System.Windows.Forms.Cursors.Default;
             this.ObjectForce_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ObjectForce_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
             this.ObjectForce_Label.Location = new System.Drawing.Point(9, 214);
@@ -1401,21 +1416,6 @@ namespace Awose
             this.OpenModel_OFD.FileName = "MyModel";
             this.OpenModel_OFD.Filter = "Awose File|*.awose";
             this.OpenModel_OFD.Title = "Open modeling";
-            // 
-            // DegreeHint_Label
-            // 
-            this.DegreeHint_Label.AutoSize = true;
-            this.DegreeHint_Label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.DegreeHint_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.DegreeHint_Label.Cursor = System.Windows.Forms.Cursors.Default;
-            this.DegreeHint_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.DegreeHint_Label.ForeColor = System.Drawing.Color.White;
-            this.DegreeHint_Label.Location = new System.Drawing.Point(209, 128);
-            this.DegreeHint_Label.Name = "DegreeHint_Label";
-            this.DegreeHint_Label.Size = new System.Drawing.Size(19, 21);
-            this.DegreeHint_Label.TabIndex = 18;
-            this.DegreeHint_Label.Text = "0";
-            this.DegreeHint_Label.Visible = false;
             // 
             // Awose
             // 

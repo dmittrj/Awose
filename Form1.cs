@@ -1304,6 +1304,15 @@ namespace Awose
             switch (e.Button)
             {
                 case MouseButtons.Left:
+                    if (specialCondition == SpecialCondition.SetVelocity)
+                    {
+                        PointParticle cursor = GetCursorPosition();
+                        PointParticle objCenter = RealToScreen(Phantom.Location);
+                        Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new(-ScreenToReal(objCenter) + ScreenToReal(cursor));
+                        specialCondition = SpecialCondition.None;
+                        return;
+                    }
+
                     foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
                     {
                         if (Calculations.IsInRadius(pointCursor.X, pointCursor.Y, agent, aw_agentsize * aw_scale) && !hoverAgent)

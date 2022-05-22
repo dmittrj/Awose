@@ -1068,6 +1068,7 @@ namespace Awose
                         try
                         {
                             newValue = float.Parse(NewValue_TB.Text);
+                            if (float.IsNaN(newValue) || float.IsInfinity(newValue)) throw new Exception("Invalid coordinate");
                             //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingX, agents[aw_selected].X, newValue));
                             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.X = newValue;
                             //if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Star != "")
@@ -1095,6 +1096,7 @@ namespace Awose
                         try
                         {
                             newValue = float.Parse(NewValue_TB.Text);
+                            if (float.IsNaN(newValue) || float.IsInfinity(newValue)) throw new Exception("Invalid coordinate");
                             //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingY, agents[aw_selected].Y, newValue));
                             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.Y = newValue;
                             //if (agents[aw_selected].Star != "")

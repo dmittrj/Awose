@@ -1454,13 +1454,29 @@ namespace Awose
                 float coeff_x = delta_x / MathF.Sqrt(delta);
                 float coeff_y = delta_y / MathF.Sqrt(delta);
                 force_gx += agent.Weight * ConstG / delta * coeff_x;
-                force_ex += agent.Charge * ConstE / delta * coeff_x;
                 force_gy += agent.Weight * ConstG / delta * coeff_y;
-                force_ey += agent.Charge * ConstE / delta * coeff_y;
+                if (agent.Charge != 0)
+                {
+                    force_ex += agent.Charge * ConstE / delta * coeff_x;
+                    force_ey += agent.Charge * ConstE / delta * coeff_y;
+                }
             }
-            RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
-            RT_E_Label.Text = Math.Round(Math.Sqrt(force_ex * force_ex + force_ey * force_ey), 1).ToString();
-
+            if (double.IsNaN(force_ex))
+            {
+                RT_E_Label.Text = double.PositiveInfinity.ToString();
+            }
+            else 
+            {
+                RT_E_Label.Text = Math.Round(Math.Sqrt(force_ex * force_ex + force_ey * force_ey), 1).ToString();
+            }
+            if (double.IsNaN(force_gx))
+            {
+                RT_g_Label.Text = double.PositiveInfinity.ToString();
+            }
+            else
+            {
+                RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
+            }
             bool hoverAgent = false;
             switch (movingEntity)
             {

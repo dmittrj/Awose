@@ -75,11 +75,19 @@ namespace Awose
                 screenPoint.Y / aw_scale - lu_corner.Y);
         }
 
+        [Obsolete]
         private Point RealToScreen(double realX, double realY)
         {
             return new(
                 (int)((realX + lu_corner.X) * aw_scale),
                 (int)((realY + lu_corner.Y) * aw_scale));
+        }
+
+        private PointParticle RealToScreen(PointParticle realPoint)
+        {
+            return new(
+                (int)((realPoint.X + lu_corner.X) * aw_scale),
+                (int)((realPoint.Y + lu_corner.Y) * aw_scale));
         }
 
         private PointParticle GetCursorPosition()
@@ -151,6 +159,55 @@ namespace Awose
                 }
             }
 
+            //Drawing arrows, lines, ...
+            switch (specialCondition)
+            {
+                case SpecialCondition.None:
+                    break;
+                case SpecialCondition.SetVelocity:
+                    PointParticle cursor = GetCursorPosition();
+                    PointParticle objCenter = RealToScreen(Phantom.Location);
+                    AwoseAgent tempAgentVelocity = new("TempVelocityObject",
+                        Phantom.Location.X, Phantom.Location.Y, Phantom.Weight, Phantom.Charge,
+                        0, 0, Phantom.IsPinned);
+                    tempAgentVelocity.ForceEX = 0;
+                    tempAgentVelocity.ForceGX = 0;
+                    tempAgentVelocity.ForceEY = 0;
+                    tempAgentVelocity.ForceGY = 0;
+                    tempAgentVelocity.Velocity = new(-ScreenToReal(objCenter) + ScreenToReal(cursor));
+                    List<Point> tempTrajectory = new();
+                    for (int i = 0; i < 1500; i++)
+                    {
+                        tempAgentVelocity.ForceEX = 0;
+                        tempAgentVelocity.ForceGX = 0;
+                        tempAgentVelocity.ForceEY = 0;
+                        tempAgentVelocity.ForceGY = 0;
+                        foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+                        {
+                            if (!agent.IsSelected)
+                            {
+                                tempAgentVelocity.ForceCalc(agent);
+                            }
+                        }
+                        if (tempAgentVelocity.IsPinned) continue;
+                        tempAgentVelocity.Force = new Vector(new PointParticle((float)(tempAgentVelocity.ForceGX + tempAgentVelocity.ForceEX), (float)(tempAgentVelocity.ForceGY + tempAgentVelocity.ForceEY)));
+                        tempAgentVelocity.Velocity.Tail.X += (float)((tempAgentVelocity.ForceGX + tempAgentVelocity.ForceEX) * timeStep / tempAgentVelocity.Weight / 1000);
+                        tempAgentVelocity.Velocity.Tail.Y += (float)((tempAgentVelocity.ForceGY + tempAgentVelocity.ForceEY) * timeStep / tempAgentVelocity.Weight / 1000);
+                        tempAgentVelocity.Location.X += (float)(tempAgentVelocity.Velocity.Tail.X * timeStep / 1000);
+                        tempAgentVelocity.Location.Y += (float)(tempAgentVelocity.Velocity.Tail.Y * timeStep / 1000);
+                        tempTrajectory.Add(RealToScreen(tempAgentVelocity.Location).ToPoint());
+                    }
+                    grfx.DrawLines(new Pen(Brushes.White, 1), tempTrajectory.ToArray());
+                    grfx.DrawLine(new Pen(Brushes.Tomato, 2),
+                        new PointF(objCenter.X, objCenter.Y),
+                        new PointF(cursor.X, cursor.Y));
+                    Vector arrow = new(cursor, objCenter);
+                    grfx.FillPolygon(Brushes.Tomato, arrow.CreateTriangle(17, 15));
+                    break;
+                default:
+                    break;
+            }
+
             //Drawing agents
             lock (Layers)
             {
@@ -199,19 +256,7 @@ namespace Awose
             }
 
             //Drawing arrows, lines etc
-            switch (specialCondition)
-            {
-                case SpecialCondition.None:
-                    break;
-                case SpecialCondition.SetVelocity:
-                    PointParticle cursor = GetCursorPosition();
-                    grfx.DrawLine(new Pen(Brushes.Tomato, 2),
-                    new PointF(aw_remember.X, aw_remember.Y),
-                    new PointF(cursor.X, cursor.Y));
-                    break;
-                default:
-                    break;
-            }
+            
 
             if (SettingVelocity != -1)
             {
@@ -1653,11 +1698,11 @@ namespace Awose
 
         private void SetVelocity_CMItem_Click(object sender, EventArgs e)
         {
-            Space_CMStr.Close();
-            //SettingVelocity = aw_selected;
-            aw_remember = GetCursorPosition();
-            specialCondition = SpecialCondition.SetVelocity;
-            //aw_remember = new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y);
+            //Space_CMStr.Close();
+            ////SettingVelocity = aw_selected;
+            //aw_remember = GetCursorPosition();
+            //specialCondition = SpecialCondition.SetVelocity;
+            ////aw_remember = new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y);
         }
 
         private void ResetVelocity_CMItem_Click(object sender, EventArgs e)
@@ -1795,6 +1840,16 @@ namespace Awose
         private void ObjectVelocityCircle_PB_MouseLeave(object sender, EventArgs e)
         {
             DegreeHint_Label.Visible = false;
+        }
+
+        private void SetCustomVelocity_CMItem_Click(object sender, EventArgs e)
+        {
+            Space_CMStr.Close();
+            //SettingVelocity = aw_selected;
+            aw_remember = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location;
+            Phantom = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected];
+            specialCondition = SpecialCondition.SetVelocity;
+            //aw_remember = new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y);
         }
     }
 }

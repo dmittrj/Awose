@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,29 @@ namespace Awose
 
         public Vector()
         {
+        }
+
+        private float Sinus()
+        {
+            return ((Head.Y - Tail.Y) / Length);
+        }
+
+        private float Cosine()
+        {
+            return ((Head.X - Tail.X) / Length);
+        }
+
+        public Point[] CreateTriangle(float length, float width)
+        {
+            Point[] triangle = new Point[3];
+            triangle[0] = new Point((int)Head.X, (int)Head.Y);
+            triangle[1] = new Point(
+                (int)(Head.X - length * Cosine() + width * Sinus() / 2),
+                (int)(Head.Y - length * Sinus() - width * Cosine() / 2));
+            triangle[2] = new Point(
+                (int)(Head.X - length * Cosine() - width * Sinus() / 2),
+                (int)(Head.Y - length * Sinus() + width * Cosine() / 2));
+            return triangle;
         }
     }
 }

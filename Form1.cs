@@ -156,27 +156,30 @@ namespace Awose
             {
                 foreach (AwoseLayer layer in Layers)
                 {
-                    foreach (AwoseAgent agent in layer.Agents)
+                    lock (layer.Agents)
                     {
-                        Point point = RealToScreen(agent.Location.X, agent.Location.Y);
-                        RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
-                        grfx.FillEllipse(new SolidBrush(agent.Dye), circle);
-                        if (agent.IsSelected)
+                        foreach (AwoseAgent agent in layer.Agents)
                         {
-                            RectangleF ring = new((float)(point.X - diameter), (float)(point.Y - diameter), diameter * 2, diameter * 2);
-                            RectangleF circle_left = new((float)(point.X - (diameter * 1.25)), (float)(point.Y - (diameter / 4)), diameter / 2, diameter / 2);
-                            RectangleF circle_right = new((float)(point.X + (diameter * 0.75)), (float)(point.Y - (diameter / 4)), diameter / 2, diameter / 2);
-                            RectangleF circle_up = new((float)(point.X - (diameter / 4)), (float)(point.Y - (diameter * 1.25)), diameter / 2, diameter / 2);
-                            RectangleF circle_down = new((float)(point.X - (diameter / 4)), (float)(point.Y + (diameter * 0.75)), diameter / 2, diameter / 2);
-                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), ring);
-                            grfx.FillEllipse(Brushes.Black, circle_left);
-                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_left);
-                            grfx.FillEllipse(Brushes.Black, circle_right);
-                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_right);
-                            grfx.FillEllipse(Brushes.Black, circle_up);
-                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_up);
-                            grfx.FillEllipse(Brushes.Black, circle_down);
-                            grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_down);
+                            Point point = RealToScreen(agent.Location.X, agent.Location.Y);
+                            RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
+                            grfx.FillEllipse(new SolidBrush(agent.Dye), circle);
+                            if (agent.IsSelected)
+                            {
+                                RectangleF ring = new((float)(point.X - diameter), (float)(point.Y - diameter), diameter * 2, diameter * 2);
+                                RectangleF circle_left = new((float)(point.X - (diameter * 1.25)), (float)(point.Y - (diameter / 4)), diameter / 2, diameter / 2);
+                                RectangleF circle_right = new((float)(point.X + (diameter * 0.75)), (float)(point.Y - (diameter / 4)), diameter / 2, diameter / 2);
+                                RectangleF circle_up = new((float)(point.X - (diameter / 4)), (float)(point.Y - (diameter * 1.25)), diameter / 2, diameter / 2);
+                                RectangleF circle_down = new((float)(point.X - (diameter / 4)), (float)(point.Y + (diameter * 0.75)), diameter / 2, diameter / 2);
+                                grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), ring);
+                                grfx.FillEllipse(Brushes.Black, circle_left);
+                                grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_left);
+                                grfx.FillEllipse(Brushes.Black, circle_right);
+                                grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_right);
+                                grfx.FillEllipse(Brushes.Black, circle_up);
+                                grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_up);
+                                grfx.FillEllipse(Brushes.Black, circle_down);
+                                grfx.DrawEllipse(new Pen(Brushes.DimGray, 2), circle_down);
+                            }
                         }
                     }
                 }
@@ -393,24 +396,28 @@ namespace Awose
 
         private void Aw_Step(int time)
         {
-            foreach (AwoseAgent item in agents)
+            foreach (AwoseLayer layer in Layers)
             {
-                item.ForceGX = item.ForceGY = item.ForceEX = item.ForceEY = 0;
-            }
-            for (int i = 0; i < agents.Count; i++)
-            {
-                for (int j = 0; j < agents.Count; j++)
+                foreach (AwoseAgent agent in layer.Agents)
                 {
-                    if (i != j) agents[i].ForceCalc(agents[j]);
+                    agent.ForceGX = agent.ForceGY = agent.ForceEX = agent.ForceEY = 0;
                 }
-            }
-            foreach (AwoseAgent item in agents)
-            {
-                if (item.IsPinned) continue;
-                item.VelocityX += (item.ForceGX + item.ForceEX) * timeStep / item.Weight / 1000;
-                item.VelocityY += (item.ForceGY + item.ForceEY) * timeStep / item.Weight / 1000;
-                item.X += item.VelocityX * timeStep / 1000;
-                item.Y += item.VelocityY * timeStep / 1000;
+                for (int i = 0; i < layer.Agents.Count; i++)
+                {
+                    for (int j = 0; j < layer.Agents.Count; j++)
+                    {
+                        if (i != j) layer.Agents[i].ForceCalc(layer.Agents[j]);
+                    }
+                }
+                foreach (AwoseAgent agent in layer.Agents)
+                {
+                    if (agent.IsPinned) continue;
+                    agent.Force = new Vector(new PointParticle((float)(agent.ForceGX + agent.ForceEX), (float)(agent.ForceGY + agent.ForceEY)));
+                    agent.Velocity.Tail.X += (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                    agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                    agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                    agent.Location.Y += (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                }
             }
             try
             {
@@ -448,7 +455,7 @@ namespace Awose
             //Thread.Sleep(5000);
             while (true)
             {
-                foreach (AwoseAgent item in agents)
+                foreach (AwoseAgent item in Layers[CurrentLayer].Agents)
                 {
                     item.AgentSprayUpdate();
                 }
@@ -568,7 +575,12 @@ namespace Awose
                     ObjectSprite_White_PB.Height, Color.White, agent.Sprite == SpriteType.White);
                 ObjectSprite_Color_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Color_PB.Width,
                     ObjectSprite_Color_PB.Height, agent.Dye, agent.Sprite == SpriteType.Color);
-            } else
+                ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
+                    ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
+                ObjectVelocityCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectVelocityCircle_PB.Width,
+                    ObjectVelocityCircle_PB.Height, Color.IndianRed, agent.Velocity.Tail.X - agent.Velocity.Head.X, agent.Velocity.Tail.Y - agent.Velocity.Head.Y);
+            }
+            else
             {
                 ControlLayer_Panel.Visible = true;
                 ControlAgents_Panel.Visible = false;
@@ -644,19 +656,42 @@ namespace Awose
 
         private void Aw_DrawControlLite()
         {
-            if (aw_selected != -1)
+            if (Layers[CurrentLayer].IsThereSelections())
             {
-                ObjectPositionX_Label.Text = ((int)agents[aw_selected].X).ToString();
-                ObjectPositionY_Label.Text = ((int)agents[aw_selected].Y).ToString();
+                AwoseAgent agent = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected];
+                CurrentObjectName_Label.Text = agent.Name;
+                CurrentObjectName_Label.ForeColor = Color.LightSkyBlue;
+                CurrentObjectName_Label.Cursor = Cursors.IBeam;
+                ObjectMass_Label.Text = Math.Round(agent.Weight, 5).ToString() + " kg";
+                ObjectCharge_Label.Text = Math.Round(agent.Charge, 5).ToString() + " C";
+                ObjectPositionX_Label.Text = agent.Location.X.ToString();
+                ObjectPositionY_Label.Text = agent.Location.Y.ToString();
                 ObjectSettings_Panel.Visible = true;
+                if (agent.IsPinned)
+                {
+                    Pinned_CB.BackgroundImage = DrawingValues.DrawTick();
+                }
+                else
+                {
+                    Pinned_CB.BackgroundImage = null;
+                }
+                ObjectSprite_White_PB.Image = DrawingValues.DrawCircle(ObjectSprite_White_PB.Width,
+                    ObjectSprite_White_PB.Height, Color.White, agent.Sprite == SpriteType.White);
+                ObjectSprite_Color_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Color_PB.Width,
+                    ObjectSprite_Color_PB.Height, agent.Dye, agent.Sprite == SpriteType.Color);
+                ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
+                    ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
+                ObjectVelocityCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectVelocityCircle_PB.Width,
+                    ObjectVelocityCircle_PB.Height, Color.IndianRed, agent.Velocity.Tail.X - agent.Velocity.Head.X, agent.Velocity.Tail.Y - agent.Velocity.Head.Y);
+                ObjectForce_Label.Text = Math.Round(agent.Force.Length, 2).ToString() + " N";
+                ObjectVelocity_Label.Text = Math.Round(agent.Velocity.Length, 2).ToString() + " px/s";
             }
             else
             {
-                CurrentObjectName_Label.Text = "No object selected";
-                CurrentObjectName_Label.ForeColor = Color.DarkGray;
-                //CurrentObjectName_Label.Cursor = Cursors.Default;
-                ObjectSettings_Panel.Visible = false;
+                ControlLayer_Panel.Visible = true;
+                ControlAgents_Panel.Visible = false;
             }
+            return;
         }
 
         private void SaveModel_MSItem_Click(object sender, EventArgs e)
@@ -928,6 +963,8 @@ namespace Awose
 
         private void ObjectMass_Label_Click(object sender, EventArgs e)
         {
+            if (isLaunched) return;
+            if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectMass_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectMass_Label.Location.Y - 26);
             NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Weight.ToString();
@@ -940,6 +977,38 @@ namespace Awose
 
         private void NewValue_TB_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
+            if (e.KeyCode == Keys.Down)
+            {
+                NewValue_TB_PreviewKeyDown(sender, new(Keys.Enter));
+                NewValue_TB.Visible = false;
+                switch (editingValue)
+                {
+                    case EditingValue.None:
+                        break;
+                    case EditingValue.Mass:
+                        ObjectCharge_Label_Click(sender, e);
+                        NewValue_TB.Focus();
+                        NewValue_TB.SelectAll();
+                        return;
+                    case EditingValue.Charge:
+                        ObjectPositionX_Label_Click(sender, e);
+                        NewValue_TB.Focus();
+                        NewValue_TB.SelectAll();
+                        return;
+                    case EditingValue.Name:
+                        break;
+                    case EditingValue.X:
+                        ObjectPositionY_Label_Click(sender, e);
+                        NewValue_TB.Focus();
+                        NewValue_TB.SelectAll();
+                        return;
+                    case EditingValue.Y:
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             if (e.KeyCode == Keys.Enter && NewValue_TB.Visible)
             {
                 float newValue;
@@ -999,6 +1068,7 @@ namespace Awose
                         try
                         {
                             newValue = float.Parse(NewValue_TB.Text);
+                            if (float.IsNaN(newValue) || float.IsInfinity(newValue)) throw new Exception("Invalid coordinate");
                             //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingX, agents[aw_selected].X, newValue));
                             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.X = newValue;
                             //if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Star != "")
@@ -1026,6 +1096,7 @@ namespace Awose
                         try
                         {
                             newValue = float.Parse(NewValue_TB.Text);
+                            if (float.IsNaN(newValue) || float.IsInfinity(newValue)) throw new Exception("Invalid coordinate");
                             //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingY, agents[aw_selected].Y, newValue));
                             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.Y = newValue;
                             //if (agents[aw_selected].Star != "")
@@ -1198,7 +1269,7 @@ namespace Awose
                                 {
                                     aw_remember = GetCursorPosition();
                                     Phantom = new AwoseAgent("Phantom", ScreenToReal(aw_remember).X, ScreenToReal(aw_remember).Y);
-                                    movingEntity = MovingEntity.Agent;
+                                    if (!isLaunched) movingEntity = MovingEntity.Agent;
                                 }
                             }
                             hoverAgent = true;
@@ -1372,6 +1443,42 @@ namespace Awose
             PointParticle pointCursor = ScreenToReal(aw_cursor);
             RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
             RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
+
+            double force_gx = 0;
+            double force_gy = 0;
+            double force_ex = 0;
+            double force_ey = 0;
+            foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+            {
+                float delta_x = pointCursor.X - agent.Location.X;
+                float delta_y = pointCursor.Y - agent.Location.Y;
+                float delta = MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                float coeff_x = delta_x / MathF.Sqrt(delta);
+                float coeff_y = delta_y / MathF.Sqrt(delta);
+                force_gx += agent.Weight * ConstG / delta * coeff_x;
+                force_gy += agent.Weight * ConstG / delta * coeff_y;
+                if (agent.Charge != 0)
+                {
+                    force_ex += agent.Charge * ConstE / delta * coeff_x;
+                    force_ey += agent.Charge * ConstE / delta * coeff_y;
+                }
+            }
+            if (double.IsNaN(force_ex))
+            {
+                RT_E_Label.Text = double.PositiveInfinity.ToString();
+            }
+            else 
+            {
+                RT_E_Label.Text = Math.Round(Math.Sqrt(force_ex * force_ex + force_ey * force_ey), 1).ToString();
+            }
+            if (double.IsNaN(force_gx))
+            {
+                RT_g_Label.Text = double.PositiveInfinity.ToString();
+            }
+            else
+            {
+                RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
+            }
             bool hoverAgent = false;
             switch (movingEntity)
             {
@@ -1439,6 +1546,8 @@ namespace Awose
 
         private void ObjectCharge_Label_Click(object sender, EventArgs e)
         {
+            if (isLaunched) return;
+            if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectCharge_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectCharge_Label.Location.Y - 26);
             NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge.ToString();
@@ -1456,15 +1565,23 @@ namespace Awose
 
         private void LaunchSimulation_MSItem_Click(object sender, EventArgs e)
         {
-            foreach (AwoseAgent item in agents)
+            foreach (AwoseLayer layer in Layers)
             {
-                item.Backup();
+                foreach (AwoseAgent agent in layer.Agents)
+                {
+                    agent.Backup();
+                }
             }
             isLaunched = true;
             LaunchSimulation_MSItem.Enabled = false;
             PauseSimulation_MSItem.Enabled = true;
             StopSimulation_MSItem.Enabled = true;
             ResetSimulation_MSItem.Enabled = true;
+            ObjectMass_Label.Cursor = Cursors.Default;
+            ObjectCharge_Label.Cursor = Cursors.Default;
+            ObjectPositionX_Label.Cursor = Cursors.Default;
+            ObjectPositionY_Label.Cursor = Cursors.Default;
+            Pinned_CB.Enabled = false;
             Aw_CheckMistakes();
         }
 
@@ -1475,10 +1592,17 @@ namespace Awose
             PauseSimulation_MSItem.Enabled = false;
             StopSimulation_MSItem.Enabled = false;
             ResetSimulation_MSItem.Enabled = true;
+            ObjectMass_Label.Cursor = Cursors.IBeam;
+            ObjectCharge_Label.Cursor = Cursors.IBeam;
+            ObjectPositionX_Label.Cursor = Cursors.IBeam;
+            ObjectPositionY_Label.Cursor = Cursors.IBeam;
+            Pinned_CB.Enabled = true;
             Aw_CheckMistakes();
         }
         private void ObjectPositionX_Label_Click(object sender, EventArgs e)
         {
+            if (isLaunched) return;
+            if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionX_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionX_Label.Location.Y - 26);
             NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.X.ToString();
@@ -1491,6 +1615,8 @@ namespace Awose
 
         private void ObjectPositionY_Label_Click(object sender, EventArgs e)
         {
+            if (isLaunched) return;
+            if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectPositionY_Label.Location.X + 1,
                 ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectPositionY_Label.Location.Y - 26);
             NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location.Y.ToString();
@@ -1579,9 +1705,12 @@ namespace Awose
 
         private void ResetSimulation_MSItem_Click(object sender, EventArgs e)
         {
-            foreach (AwoseAgent item in agents)
+            foreach (AwoseLayer layer in Layers)
             {
-                item.Restore();
+                foreach (AwoseAgent agent in layer.Agents)
+                {
+                    agent.Restore();
+                }
             }
             Aw_CheckMistakes();
         }
@@ -1639,6 +1768,33 @@ namespace Awose
         private void ObjectSettings_Panel_Click(object sender, EventArgs e)
         {
             if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
+        }
+
+        private void OpenModel_MSItem_Click(object sender, EventArgs e)
+        {
+            if (OpenModel_OFD.ShowDialog() == DialogResult.OK)
+            {
+                FileInfo fileInfo = new(OpenModel_OFD.FileName);
+                FileStream file = fileInfo.OpenRead();
+                StreamReader reader = new(file);
+                string serializedobject = reader.ReadToEnd();
+                Layers = JsonConvert.DeserializeObject<List<AwoseLayer>>(serializedobject);
+                reader.Close();
+                file.Close();
+            }
+        }
+
+        private void ObjectVelocityCircle_PB_MouseHover(object sender, EventArgs e)
+        {
+            DegreeHint_Label.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Angel.ToString() + "°";
+            DegreeHint_Label.Location = new(ObjectVelocityCircle_PB.Location.X + (int)(ObjectVelocityCircle_PB.Width * 0.8),
+                ObjectVelocityCircle_PB.Location.Y + (int)(ObjectVelocityCircle_PB.Height * 0.8));
+            DegreeHint_Label.Visible = true;
+        }
+
+        private void ObjectVelocityCircle_PB_MouseLeave(object sender, EventArgs e)
+        {
+            DegreeHint_Label.Visible = false;
         }
     }
 }

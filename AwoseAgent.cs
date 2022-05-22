@@ -66,6 +66,7 @@ namespace Awose
         public string Star { get; set; }
         //public bool IsFirstSpace { get; set; }
         public bool ChangeAfterFSV = false;
+        public Vector Force { get; set; }
         public double ForceGX;
         public double ForceGY;
         public double ForceEX;
@@ -109,6 +110,7 @@ namespace Awose
             Satellites = new List<string>();
             Star = "";
             Sprite = SpriteType.White;
+            Force = new Vector(new PointParticle(0, 0));
         }
 
         public AwoseAgent(string name, float x, float y)
@@ -118,20 +120,24 @@ namespace Awose
             Sprite = SpriteType.White;
         }
 
+        public AwoseAgent()
+        {
+        }
+
         public void Backup()
         {
-            Backup_X = X;
-            Backup_Y = Y;
-            Backup_VelocityX = VelocityX;
-            Backup_VelocityY = VelocityY;
+            Backup_X = Location.X;
+            Backup_Y = Location.Y;
+            Backup_VelocityX = Velocity.Tail.X;
+            Backup_VelocityY = Velocity.Tail.Y;
         }
 
         public void Restore()
         {
-            X = Backup_X;
-            Y = Backup_Y;
-            VelocityX = Backup_VelocityX;
-            VelocityY = Backup_VelocityY;
+            Location.Y = (float)Backup_Y;
+            Location.X = (float)Backup_X;
+            Velocity.Tail.X = (float)Backup_VelocityX;
+            Velocity.Tail.Y = (float)Backup_VelocityY;
         }
 
         public void ForceCalc(AwoseAgent opposite)
@@ -139,13 +145,27 @@ namespace Awose
             //gravity
             double tmpForceGX = 0, tmpForceGY = 0;
             double tmpForceEX = 0, tmpForceEY = 0;
-            double distance = Math.Pow(X - opposite.X, 2) + Math.Pow(Y - opposite.Y, 2);
+            double distance = Math.Pow(Location.X - opposite.Location.X, 2) + Math.Pow(Location.Y - opposite.Location.Y, 2);
             Calculations.Gravity(this, opposite, ref tmpForceGX, ref tmpForceGY, distance);
             ForceGX += tmpForceGX;
             ForceGY += tmpForceGY;
             Calculations.Electrical(this, opposite, ref tmpForceEX, ref tmpForceEY, distance);
             ForceEX += tmpForceEX;
             ForceEY += tmpForceEY;
+        }
+
+        public void ForceCalcG(AwoseAgent opposite)
+        {
+            //gravity
+            double tmpForceGX = 0, tmpForceGY = 0;
+            //double tmpForceEX = 0, tmpForceEY = 0;
+            double distance = Math.Pow(Location.X - opposite.Location.X, 2) + Math.Pow(Location.Y - opposite.Location.Y, 2);
+            Calculations.Gravity(this, opposite, ref tmpForceGX, ref tmpForceGY, distance);
+            ForceGX += tmpForceGX;
+            ForceGY += tmpForceGY;
+            //Calculations.Electrical(this, opposite, ref tmpForceEX, ref tmpForceEY, distance);
+            //ForceEX += tmpForceEX;
+            //ForceEY += tmpForceEY;
         }
 
         public void ForceCalc(AwoseAgent opposite, float tmpX, float tmpY, double tmpVX, double tmpVY)

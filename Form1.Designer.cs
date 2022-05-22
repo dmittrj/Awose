@@ -45,6 +45,13 @@ namespace Awose
             this.MistakeIcon_PB = new System.Windows.Forms.PictureBox();
             this.NewValue_TB = new System.Windows.Forms.TextBox();
             this.ObjectSettings_Panel = new System.Windows.Forms.Panel();
+            this.DegreeHint_Label = new System.Windows.Forms.Label();
+            this.ObjectVelocity_Label = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.ObjectVelocityCircle_PB = new System.Windows.Forms.PictureBox();
+            this.ObjectForce_Label = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.ObjectForceCircle_PB = new System.Windows.Forms.PictureBox();
             this.Pinned_CB = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.ObjectPositionY_Label = new System.Windows.Forms.Label();
@@ -60,11 +67,12 @@ namespace Awose
             this.Main_MStr = new System.Windows.Forms.MenuStrip();
             this.Simulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LaunchSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.PauseSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StopSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.openModelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenModel_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveModel_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.Undo_MSItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -137,6 +145,7 @@ namespace Awose
             this.label26 = new System.Windows.Forms.Label();
             this.LayersBar_Panel = new System.Windows.Forms.Panel();
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
+            this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Color_PB)).BeginInit();
@@ -144,6 +153,8 @@ namespace Awose
             this.ObjectSpace_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
             this.ObjectSettings_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectVelocityCircle_PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectForceCircle_PB)).BeginInit();
             this.Main_MStr.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).BeginInit();
             this.Space_CMStr.SuspendLayout();
@@ -181,7 +192,7 @@ namespace Awose
             this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_White_PB);
             this.ObjectBeauty_Panel.Controls.Add(this.label22);
             this.ObjectBeauty_Panel.Controls.Add(this.label23);
-            this.ObjectBeauty_Panel.Location = new System.Drawing.Point(-1, 178);
+            this.ObjectBeauty_Panel.Location = new System.Drawing.Point(34, 318);
             this.ObjectBeauty_Panel.Name = "ObjectBeauty_Panel";
             this.ObjectBeauty_Panel.Size = new System.Drawing.Size(248, 129);
             this.ObjectBeauty_Panel.TabIndex = 6;
@@ -234,7 +245,7 @@ namespace Awose
             this.ObjectSpace_Panel.Controls.Add(this.label12);
             this.ObjectSpace_Panel.Controls.Add(this.label13);
             this.ObjectSpace_Panel.Controls.Add(this.label14);
-            this.ObjectSpace_Panel.Location = new System.Drawing.Point(34, 317);
+            this.ObjectSpace_Panel.Location = new System.Drawing.Point(51, 453);
             this.ObjectSpace_Panel.Name = "ObjectSpace_Panel";
             this.ObjectSpace_Panel.Size = new System.Drawing.Size(248, 129);
             this.ObjectSpace_Panel.TabIndex = 5;
@@ -330,6 +341,13 @@ namespace Awose
             // ObjectSettings_Panel
             // 
             this.ObjectSettings_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectSettings_Panel.Controls.Add(this.DegreeHint_Label);
+            this.ObjectSettings_Panel.Controls.Add(this.ObjectVelocity_Label);
+            this.ObjectSettings_Panel.Controls.Add(this.label24);
+            this.ObjectSettings_Panel.Controls.Add(this.ObjectVelocityCircle_PB);
+            this.ObjectSettings_Panel.Controls.Add(this.ObjectForce_Label);
+            this.ObjectSettings_Panel.Controls.Add(this.label20);
+            this.ObjectSettings_Panel.Controls.Add(this.ObjectForceCircle_PB);
             this.ObjectSettings_Panel.Controls.Add(this.Pinned_CB);
             this.ObjectSettings_Panel.Controls.Add(this.label19);
             this.ObjectSettings_Panel.Controls.Add(this.ObjectPositionY_Label);
@@ -343,10 +361,93 @@ namespace Awose
             this.ObjectSettings_Panel.Controls.Add(this.label1);
             this.ObjectSettings_Panel.Location = new System.Drawing.Point(-1, 35);
             this.ObjectSettings_Panel.Name = "ObjectSettings_Panel";
-            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 144);
+            this.ObjectSettings_Panel.Size = new System.Drawing.Size(248, 254);
             this.ObjectSettings_Panel.TabIndex = 2;
             this.ObjectSettings_Panel.Visible = false;
             this.ObjectSettings_Panel.Click += new System.EventHandler(this.ObjectSettings_Panel_Click);
+            // 
+            // DegreeHint_Label
+            // 
+            this.DegreeHint_Label.AutoSize = true;
+            this.DegreeHint_Label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.DegreeHint_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.DegreeHint_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.DegreeHint_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.DegreeHint_Label.ForeColor = System.Drawing.Color.White;
+            this.DegreeHint_Label.Location = new System.Drawing.Point(209, 128);
+            this.DegreeHint_Label.Name = "DegreeHint_Label";
+            this.DegreeHint_Label.Size = new System.Drawing.Size(19, 21);
+            this.DegreeHint_Label.TabIndex = 18;
+            this.DegreeHint_Label.Text = "0";
+            this.DegreeHint_Label.Visible = false;
+            // 
+            // ObjectVelocity_Label
+            // 
+            this.ObjectVelocity_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ObjectVelocity_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ObjectVelocity_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.ObjectVelocity_Label.Location = new System.Drawing.Point(122, 214);
+            this.ObjectVelocity_Label.Name = "ObjectVelocity_Label";
+            this.ObjectVelocity_Label.Size = new System.Drawing.Size(113, 19);
+            this.ObjectVelocity_Label.TabIndex = 17;
+            this.ObjectVelocity_Label.Text = "0 px/s";
+            this.ObjectVelocity_Label.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label24
+            // 
+            this.label24.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label24.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label24.ForeColor = System.Drawing.Color.White;
+            this.label24.Location = new System.Drawing.Point(146, 196);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(64, 19);
+            this.label24.TabIndex = 16;
+            this.label24.Text = "Velocity";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // ObjectVelocityCircle_PB
+            // 
+            this.ObjectVelocityCircle_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ObjectVelocityCircle_PB.Location = new System.Drawing.Point(155, 149);
+            this.ObjectVelocityCircle_PB.Name = "ObjectVelocityCircle_PB";
+            this.ObjectVelocityCircle_PB.Size = new System.Drawing.Size(45, 45);
+            this.ObjectVelocityCircle_PB.TabIndex = 15;
+            this.ObjectVelocityCircle_PB.TabStop = false;
+            this.ObjectVelocityCircle_PB.MouseLeave += new System.EventHandler(this.ObjectVelocityCircle_PB_MouseLeave);
+            this.ObjectVelocityCircle_PB.MouseHover += new System.EventHandler(this.ObjectVelocityCircle_PB_MouseHover);
+            // 
+            // ObjectForce_Label
+            // 
+            this.ObjectForce_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ObjectForce_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.ObjectForce_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
+            this.ObjectForce_Label.Location = new System.Drawing.Point(9, 214);
+            this.ObjectForce_Label.Name = "ObjectForce_Label";
+            this.ObjectForce_Label.Size = new System.Drawing.Size(107, 19);
+            this.ObjectForce_Label.TabIndex = 14;
+            this.ObjectForce_Label.Text = "0 N";
+            this.ObjectForce_Label.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label20
+            // 
+            this.label20.Cursor = System.Windows.Forms.Cursors.Default;
+            this.label20.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label20.ForeColor = System.Drawing.Color.White;
+            this.label20.Location = new System.Drawing.Point(30, 196);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(64, 19);
+            this.label20.TabIndex = 13;
+            this.label20.Text = "Force";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // ObjectForceCircle_PB
+            // 
+            this.ObjectForceCircle_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ObjectForceCircle_PB.Location = new System.Drawing.Point(39, 149);
+            this.ObjectForceCircle_PB.Name = "ObjectForceCircle_PB";
+            this.ObjectForceCircle_PB.Size = new System.Drawing.Size(45, 45);
+            this.ObjectForceCircle_PB.TabIndex = 12;
+            this.ObjectForceCircle_PB.TabStop = false;
             // 
             // Pinned_CB
             // 
@@ -517,11 +618,12 @@ namespace Awose
             // 
             this.Simulation_MSItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LaunchSimulation_MSItem,
+            this.toolStripMenuItem4,
             this.PauseSimulation_MSItem,
             this.StopSimulation_MSItem,
             this.ResetSimulation_MSItem,
             this.toolStripMenuItem1,
-            this.openModelToolStripMenuItem,
+            this.OpenModel_MSItem,
             this.SaveModel_MSItem,
             this.toolStripMenuItem2,
             this.Undo_MSItem,
@@ -546,6 +648,13 @@ namespace Awose
             this.LaunchSimulation_MSItem.Text = "Launch simulation";
             this.LaunchSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.LaunchSimulation_MSItem.Click += new System.EventHandler(this.LaunchSimulation_MSItem_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Enabled = false;
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(246, 24);
+            this.toolStripMenuItem4.Text = "Compute...";
             // 
             // PauseSimulation_MSItem
             // 
@@ -582,15 +691,15 @@ namespace Awose
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(243, 6);
             // 
-            // openModelToolStripMenuItem
+            // OpenModel_MSItem
             // 
-            this.openModelToolStripMenuItem.Name = "openModelToolStripMenuItem";
-            this.openModelToolStripMenuItem.Size = new System.Drawing.Size(246, 24);
-            this.openModelToolStripMenuItem.Text = "Open modeling...";
+            this.OpenModel_MSItem.Name = "OpenModel_MSItem";
+            this.OpenModel_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.OpenModel_MSItem.Text = "Open modeling...";
+            this.OpenModel_MSItem.Click += new System.EventHandler(this.OpenModel_MSItem_Click);
             // 
             // SaveModel_MSItem
             // 
-            this.SaveModel_MSItem.Enabled = false;
             this.SaveModel_MSItem.Name = "SaveModel_MSItem";
             this.SaveModel_MSItem.Size = new System.Drawing.Size(246, 24);
             this.SaveModel_MSItem.Text = "Save modeling...";
@@ -1301,6 +1410,13 @@ namespace Awose
             this.CreateNewLayer_Button.UseVisualStyleBackColor = true;
             this.CreateNewLayer_Button.Click += new System.EventHandler(this.CreateNewLayer_Button_Click);
             // 
+            // OpenModel_OFD
+            // 
+            this.OpenModel_OFD.DefaultExt = "awose";
+            this.OpenModel_OFD.FileName = "MyModel";
+            this.OpenModel_OFD.Filter = "Awose File|*.awose";
+            this.OpenModel_OFD.Title = "Open modeling";
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1336,6 +1452,8 @@ namespace Awose
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).EndInit();
             this.ObjectSettings_Panel.ResumeLayout(false);
             this.ObjectSettings_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectVelocityCircle_PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectForceCircle_PB)).EndInit();
             this.Main_MStr.ResumeLayout(false);
             this.Main_MStr.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ModelBoard_PB)).EndInit();
@@ -1366,7 +1484,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem StopSimulation_MSItem;
         private System.Windows.Forms.ToolStripMenuItem ResetSimulation_MSItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem openModelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenModel_MSItem;
         private System.Windows.Forms.ToolStripMenuItem SaveModel_MSItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem Undo_MSItem;
@@ -1465,6 +1583,15 @@ namespace Awose
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.PictureBox ObjectSprite_White_PB;
         private System.Windows.Forms.PictureBox ObjectSprite_Color_PB;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.PictureBox ObjectForceCircle_PB;
+        private System.Windows.Forms.Label ObjectForce_Label;
+        private System.Windows.Forms.Label ObjectVelocity_Label;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.PictureBox ObjectVelocityCircle_PB;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.OpenFileDialog OpenModel_OFD;
+        private System.Windows.Forms.Label DegreeHint_Label;
     }
 }
 

@@ -163,6 +163,19 @@ namespace Awose
             switch (specialCondition)
             {
                 case SpecialCondition.None:
+                    if (Layers[CurrentLayer].IsThereSelections())
+                    {
+                        if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Length > 0)
+                        {
+                            PointParticle vel_arrow1 = RealToScreen(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location + Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail);
+                            PointParticle vel_arrow2 = RealToScreen(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location);
+                            grfx.DrawLine(new Pen(Brushes.Tomato, 2),
+                                new PointF(vel_arrow2.X, vel_arrow2.Y),
+                                new PointF(vel_arrow1.X, vel_arrow1.Y));
+                            Vector arrow1 = new(vel_arrow1, vel_arrow2);
+                            grfx.FillPolygon(Brushes.Tomato, arrow1.CreateTriangle(17, 15));
+                        }
+                    }
                     break;
                 case SpecialCondition.SetVelocity:
                     PointParticle cursor = GetCursorPosition();
@@ -243,7 +256,7 @@ namespace Awose
             }
             if (Phantom != null)
             {
-                Point point = RealToScreen(Phantom.Location.X, Phantom.Location.Y);
+                Point point = RealToScreen(Phantom.Location).ToPoint();
                 RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
                 for (int i = AnimationCounter; i < 360 + AnimationCounter; i+= 60)
                 {
@@ -624,6 +637,7 @@ namespace Awose
                     ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
                 ObjectVelocityCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectVelocityCircle_PB.Width,
                     ObjectVelocityCircle_PB.Height, Color.IndianRed, agent.Velocity.Tail.X - agent.Velocity.Head.X, agent.Velocity.Tail.Y - agent.Velocity.Head.Y);
+                ObjectVelocity_Label.Text = Math.Round(agent.Velocity.Length, 2).ToString() + " px/s";
             }
             else
             {

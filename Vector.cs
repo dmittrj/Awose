@@ -38,6 +38,8 @@ namespace Awose
 
         public Vector()
         {
+            Head = new(0, 0);
+            Tail = new(0, 0);
         }
 
         private float Sinus()

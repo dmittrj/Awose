@@ -38,6 +38,7 @@ namespace Awose
         private PointParticle aw_remember = new(0, 0);
         //represents remembered up-left corner in real coordinates
         private PointParticle lu_remember = new(0, 0);
+        private Vector CopiedVelocity = null;
         private Point objBeforeMoving = new(0, 0);
         private Point boardBeforeMoving = new(0, 0);
         private float aw_scale = 1;
@@ -169,11 +170,11 @@ namespace Awose
                         {
                             PointParticle vel_arrow1 = RealToScreen(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location + Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail);
                             PointParticle vel_arrow2 = RealToScreen(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location);
-                            grfx.DrawLine(new Pen(Brushes.Tomato, 2),
+                            grfx.DrawLine(new Pen(Brushes.Tomato, 1.5f),
                                 new PointF(vel_arrow2.X, vel_arrow2.Y),
                                 new PointF(vel_arrow1.X, vel_arrow1.Y));
                             Vector arrow1 = new(vel_arrow1, vel_arrow2);
-                            grfx.FillPolygon(Brushes.Tomato, arrow1.CreateTriangle(17, 15));
+                            grfx.FillPolygon(Brushes.Tomato, arrow1.CreateTriangle(12, 10));
                         }
                     }
                     break;
@@ -803,6 +804,13 @@ namespace Awose
                 PinUp_CMItem.Visible = true;
                 PinUp_CMItem.Checked = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].IsPinned;
                 ControlAgents_Panel.Visible = true;
+                if (CopiedVelocity == null)
+                {
+                    ApplyVelocity_CMItem.Enabled = false;
+                } else
+                {
+                    ApplyVelocity_CMItem.Enabled = true;
+                }
                 ControlLayer_Panel.Visible = false;
             }
             else
@@ -1730,8 +1738,9 @@ namespace Awose
 
         private void ResetVelocity_CMItem_Click(object sender, EventArgs e)
         {
-            agents[aw_selected].VelocityX = 0;
-            agents[aw_selected].VelocityY = 0;
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new();
+            //agents[aw_selected].VelocityX = 0;
+            //agents[aw_selected].VelocityY = 0;
         }
 
         private void SetFirstSpace_CMItem_Click(object sender, EventArgs e)
@@ -1873,6 +1882,18 @@ namespace Awose
             Phantom = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected];
             specialCondition = SpecialCondition.SetVelocity;
             //aw_remember = new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y);
+        }
+
+        private void CopyVelocity_CMItem_Click(object sender, EventArgs e)
+        {
+            CopiedVelocity = new(
+                Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail
+            );
+        }
+
+        private void ApplyVelocity_CMItem_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new(CopiedVelocity.Tail);
         }
     }
 }

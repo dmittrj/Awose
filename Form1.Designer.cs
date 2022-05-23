@@ -96,12 +96,13 @@ namespace Awose
             this.Mistake_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SepMistake_CMSepar = new System.Windows.Forms.ToolStripSeparator();
             this.SetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SetCustomVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SetFirstSpace_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.copyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.applyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CopyVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ApplyVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeSign_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PinUp_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -146,7 +147,6 @@ namespace Awose
             this.LayersBar_Panel = new System.Windows.Forms.Panel();
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
-            this.SetCustomVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Color_PB)).BeginInit();
@@ -871,7 +871,7 @@ namespace Awose
             this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(198, 206);
+            this.Space_CMStr.Size = new System.Drawing.Size(198, 184);
             this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
             // 
             // Mistake_CMItem
@@ -897,14 +897,21 @@ namespace Awose
             this.SetFirstSpace_CMItem,
             this.toolStripMenuItem3,
             this.toolStripSeparator1,
-            this.copyVelocityToolStripMenuItem,
-            this.applyVelocityToolStripMenuItem});
+            this.CopyVelocity_CMItem,
+            this.ApplyVelocity_CMItem});
             this.SetVelocity_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SetVelocity_CMItem.Name = "SetVelocity_CMItem";
             this.SetVelocity_CMItem.Size = new System.Drawing.Size(197, 24);
             this.SetVelocity_CMItem.Text = "Velocity";
             this.SetVelocity_CMItem.Visible = false;
             this.SetVelocity_CMItem.Click += new System.EventHandler(this.SetVelocity_CMItem_Click);
+            // 
+            // SetCustomVelocity_CMItem
+            // 
+            this.SetCustomVelocity_CMItem.Name = "SetCustomVelocity_CMItem";
+            this.SetCustomVelocity_CMItem.Size = new System.Drawing.Size(212, 24);
+            this.SetCustomVelocity_CMItem.Text = "Set custom velocity";
+            this.SetCustomVelocity_CMItem.Click += new System.EventHandler(this.SetCustomVelocity_CMItem_Click);
             // 
             // ResetVelocity_CMItem
             // 
@@ -915,6 +922,7 @@ namespace Awose
             // 
             // SetFirstSpace_CMItem
             // 
+            this.SetFirstSpace_CMItem.Enabled = false;
             this.SetFirstSpace_CMItem.Name = "SetFirstSpace_CMItem";
             this.SetFirstSpace_CMItem.Size = new System.Drawing.Size(212, 24);
             this.SetFirstSpace_CMItem.Text = "Set first space velocity";
@@ -922,6 +930,7 @@ namespace Awose
             // 
             // toolStripMenuItem3
             // 
+            this.toolStripMenuItem3.Enabled = false;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(212, 24);
             this.toolStripMenuItem3.Text = "Update satellites";
@@ -931,17 +940,20 @@ namespace Awose
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(209, 6);
             // 
-            // copyVelocityToolStripMenuItem
+            // CopyVelocity_CMItem
             // 
-            this.copyVelocityToolStripMenuItem.Name = "copyVelocityToolStripMenuItem";
-            this.copyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
-            this.copyVelocityToolStripMenuItem.Text = "Copy velocity";
+            this.CopyVelocity_CMItem.Name = "CopyVelocity_CMItem";
+            this.CopyVelocity_CMItem.Size = new System.Drawing.Size(212, 24);
+            this.CopyVelocity_CMItem.Text = "Copy velocity";
+            this.CopyVelocity_CMItem.Click += new System.EventHandler(this.CopyVelocity_CMItem_Click);
             // 
-            // applyVelocityToolStripMenuItem
+            // ApplyVelocity_CMItem
             // 
-            this.applyVelocityToolStripMenuItem.Name = "applyVelocityToolStripMenuItem";
-            this.applyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
-            this.applyVelocityToolStripMenuItem.Text = "Apply velocity";
+            this.ApplyVelocity_CMItem.Enabled = false;
+            this.ApplyVelocity_CMItem.Name = "ApplyVelocity_CMItem";
+            this.ApplyVelocity_CMItem.Size = new System.Drawing.Size(212, 24);
+            this.ApplyVelocity_CMItem.Text = "Apply velocity";
+            this.ApplyVelocity_CMItem.Click += new System.EventHandler(this.ApplyVelocity_CMItem_Click);
             // 
             // ChangeSign_CMItem
             // 
@@ -1418,13 +1430,6 @@ namespace Awose
             this.OpenModel_OFD.Filter = "Awose File|*.awose";
             this.OpenModel_OFD.Title = "Open modeling";
             // 
-            // SetCustomVelocity_CMItem
-            // 
-            this.SetCustomVelocity_CMItem.Name = "SetCustomVelocity_CMItem";
-            this.SetCustomVelocity_CMItem.Size = new System.Drawing.Size(212, 24);
-            this.SetCustomVelocity_CMItem.Text = "Set custom velocity";
-            this.SetCustomVelocity_CMItem.Click += new System.EventHandler(this.SetCustomVelocity_CMItem_Click);
-            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1561,8 +1566,8 @@ namespace Awose
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label RT_Scale_Label;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem copyVelocityToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem applyVelocityToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CopyVelocity_CMItem;
+        private System.Windows.Forms.ToolStripMenuItem ApplyVelocity_CMItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
         private System.Windows.Forms.Panel ControlLayer_Panel;
         private System.Windows.Forms.Panel panel3;

@@ -52,7 +52,6 @@ namespace Awose
         private bool isObjectMoving = false;
         private bool isLaunched = false;
         private bool isFirstSpaceSetting = false;
-        private int SettingVelocity = -1;
         private AwoseAgent Phantom = null;
         private int AnimationCounter = 0;
         //int c = -1;
@@ -231,7 +230,7 @@ namespace Awose
                     {
                         foreach (AwoseAgent agent in layer.Agents)
                         {
-                            Point point = RealToScreen(agent.Location.X, agent.Location.Y);
+                            Point point = RealToScreen(agent.Location).ToPoint();
                             RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
                             grfx.FillEllipse(new SolidBrush(agent.Dye), circle);
                             if (agent.IsSelected)
@@ -271,60 +270,6 @@ namespace Awose
 
             //Drawing arrows, lines etc
             
-
-            if (SettingVelocity != -1)
-            {
-                int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
-                int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-                //float dx = aw_cursor.X - (Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7);
-                //float dy = aw_cursor.Y - (Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29);
-                float dx = agents[aw_selected].X_screen;
-                float dy = agents[aw_selected].Y_screen;
-                float l = (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
-                float ax = 15 * dx / l;
-                float ay = 15 * dy / l;
-                float bx = 7 * dy / l;
-                float by = 7 * dx / l;
-                agents[aw_selected].ForceEX = 0;
-                agents[aw_selected].ForceEY = 0;
-                agents[aw_selected].ForceGX = 0; 
-                agents[aw_selected].ForceGY = 0;
-                List<PointF> tmpTraj = new();
-                double tmpVelocityX = x - dx;
-                double tmpVelocityY = y - dy;
-                float tmpX = agents[aw_selected].Location.X;
-                float tmpY = agents[aw_selected].Location.Y;
-                for (int i = 0; i < 200; i++)
-                {
-                    foreach (AwoseAgent item in agents)
-                    {
-                        if (agents[aw_selected].Name != item.Name)
-                            agents[aw_selected].ForceCalc(item, tmpX, tmpY, tmpVelocityX, tmpVelocityY);
-                    }
-                    tmpVelocityX += (agents[aw_selected].ForceGX + agents[aw_selected].ForceEX) * timeStep / agents[aw_selected].Weight / 1000;
-                    tmpVelocityY += (agents[aw_selected].ForceGY + agents[aw_selected].ForceEY) * timeStep / agents[aw_selected].Weight / 1000;
-                    //tmpX += tmpVelocityX * timeStep / 1000;
-                    //tmpY += tmpVelocityY * timeStep / 1000;
-                    tmpTraj.Add(new PointF((float)(lu_corner.X + tmpX * aw_scale), (float)(lu_corner.Y + tmpY * aw_scale)));
-                }
-                for (int i = 0; i < 199; i++)
-                {
-                   grfx.DrawLine(new Pen(Brushes.White, 1),
-                   new Point((int)tmpTraj[i].X, (int)tmpTraj[i].Y),
-                   new Point((int)tmpTraj[i+1].X, (int)tmpTraj[i+1].Y));
-                }
-                Point[] arrow =
-                {
-                    new Point(x, y),
-                    new Point(x + (int)ax - (int)bx, y + (int)ay + (int)by),
-                    new Point(x + (int)ax + (int)bx, y + (int)ay - (int)by)
-                };
-                grfx.DrawLine(new Pen(Brushes.Tomato, 2),
-                    new Point((int)dx, (int)dy),
-                    new Point(x,
-                    y));
-                grfx.FillPolygon(Brushes.Tomato, arrow);
-            }
             if (isFirstSpaceSetting)
             {
                 int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
@@ -866,11 +811,6 @@ namespace Awose
                 lu_corner.Y = (int)((beforeScaling.Y / aw_scale) - (beforeScaling.Y / (aw_scale + .5f)) + lu_corner.Y);
 
             }
-            foreach (AwoseAgent item in agents)
-            {
-                item.X_screen = (int)(lu_corner.X + item.X * aw_scale);
-                item.Y_screen = (int)(lu_corner.Y + item.Y * aw_scale);
-            }
             float tmpScale = aw_scale;
             while (Math.Round(tmpScale) != tmpScale)
             {
@@ -1367,16 +1307,6 @@ namespace Awose
                         ControlLayer_Panel.Visible = true;
                     }
                     
-                    if (SettingVelocity != -1)
-                    {
-                        int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
-                        int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-                        SettingVelocity = -1;
-                        //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.SettingVelocity, new Point((int)agents[aw_selected].VelocityX, (int)agents[aw_selected].VelocityY), new Point(x - aw_cursor.X, y - aw_cursor.Y)));
-                        agents[aw_selected].VelocityX = aw_cursor.X - aw_remember.X;
-                        agents[aw_selected].VelocityY = aw_cursor.Y - aw_remember.Y;
-                        return;
-                    }
                     if (isFirstSpaceSetting)
                     {
                         int rel = 0;

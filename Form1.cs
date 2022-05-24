@@ -1321,6 +1321,23 @@ namespace Awose
                     }
                     if (specialCondition == SpecialCondition.SetFirstSpaceVelocity)
                     {
+                        specialCondition = SpecialCondition.None;
+                        foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+                        {
+                            if (Calculations.IsInRadius(pointCursor.X, pointCursor.Y, agent, aw_agentsize * aw_scale))
+                            {
+                                PointParticle point1 = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location;
+                                float dx = point1.X - agent.Location.X;
+                                float dy = point1.Y - agent.Location.Y;
+                                double distance = Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
+                                double fsvelocity = Math.Sqrt(ConstG * agent.Weight / distance);
+                                Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new(
+
+                                    new((float)(dy * fsvelocity / distance), (float)(dx * fsvelocity / distance)));
+                                return;
+                            }
+                        }
+
                         PointParticle cursor = GetCursorPosition();
                         PointParticle objCenter = RealToScreen(Phantom.Location);
                         Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new(-ScreenToReal(objCenter) + ScreenToReal(cursor));
@@ -1516,6 +1533,11 @@ namespace Awose
             switch (movingEntity)
             {
                 case MovingEntity.None:
+                    if (specialCondition == SpecialCondition.SetVelocity)
+                    {
+                        ModelBoard_PB.Cursor = Cursors.Cross;
+                        break;
+                    }
                     foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
                     {
                         if (Calculations.IsInRadius(pointCursor.X, pointCursor.Y, agent, aw_agentsize * aw_scale))
@@ -1549,17 +1571,7 @@ namespace Awose
                     break;
             }
             
-            
-            if (isBoardMoving)
-            {
-                //lu_corner = new Point(lu_remember.X - (aw_cursor.X - Cursor.Position.X),
-                //lu_remember.Y - (aw_cursor.Y - Cursor.Position.Y));
-            }
-            if (isObjectMoving && !isLaunched)
-            {
-                agents[aw_selected].X = lu_remember.X - (aw_cursor.X - Cursor.Position.X) / aw_scale;
-                agents[aw_selected].Y = lu_remember.Y - (aw_cursor.Y - Cursor.Position.Y) / aw_scale;
-            }
+          
         }
 
         private void MistakeIcon_PB_MouseHover(object sender, EventArgs e)

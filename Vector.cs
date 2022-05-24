@@ -17,7 +17,7 @@ namespace Awose
             } 
         }
 
-        public float Angel { get
+        public float Angle { get
             {
                 float delta_x = Tail.X - Head.X;
                 float delta_y = Tail.Y - Head.Y;

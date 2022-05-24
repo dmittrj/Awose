@@ -14,11 +14,11 @@ using System.Windows.Forms;
 
 namespace Awose
 {
-    enum EditingValue { None, Mass, Charge, Name, X, Y }
+    enum EditingValue { None, Mass, Charge, Name, X, Y, VelocityLength }
 
     enum MovingEntity { None, Board, Agent }
 
-    enum SpecialCondition { None, SetVelocity}
+    enum SpecialCondition { None, SetVelocity, SetFirstSpaceVelocity}
     public partial class Awose : Form
     {
         [Obsolete]
@@ -51,6 +51,7 @@ namespace Awose
         [Obsolete]
         private bool isObjectMoving = false;
         private bool isLaunched = false;
+        [Obsolete]
         private bool isFirstSpaceSetting = false;
         private AwoseAgent Phantom = null;
         private int AnimationCounter = 0;
@@ -160,6 +161,15 @@ namespace Awose
             }
 
             //Drawing arrows, lines, ...
+            Brush mainVelocityArrow;
+            if (editingValue == EditingValue.VelocityLength)
+            {
+                mainVelocityArrow = Brushes.PaleVioletRed;
+            } else
+            {
+                mainVelocityArrow = Brushes.Tomato;
+            }
+
             switch (specialCondition)
             {
                 case SpecialCondition.None:
@@ -211,15 +221,48 @@ namespace Awose
                         tempTrajectory.Add(RealToScreen(tempAgentVelocity.Location).ToPoint());
                     }
                     grfx.DrawLines(new Pen(Brushes.White, 1), tempTrajectory.ToArray());
-                    grfx.DrawLine(new Pen(Brushes.Tomato, 2),
+                    grfx.DrawLine(new Pen(mainVelocityArrow, 2),
                         new PointF(objCenter.X, objCenter.Y),
                         new PointF(cursor.X, cursor.Y));
                     Vector arrow = new(cursor, objCenter);
-                    grfx.FillPolygon(Brushes.Tomato, arrow.CreateTriangle(17, 15));
+                    grfx.FillPolygon(mainVelocityArrow, arrow.CreateTriangle(17, 15));
+                    break;
+                case SpecialCondition.SetFirstSpaceVelocity:
+                    PointParticle sfsv_cursor = GetCursorPosition();
+                    PointParticle pointCursor = ScreenToReal(sfsv_cursor);
+                    PointParticle sfsv_objCenter = RealToScreen(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location);
+                    float pip_x = sfsv_cursor.X;
+                    float pip_y = sfsv_cursor.Y;
+                    RectangleF sfsv_spearhead = new(sfsv_cursor.X - 4, sfsv_cursor.Y - 4, 8, 8);
+
+                    foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+                    {
+                        if (Calculations.IsInRadius(pointCursor.X, pointCursor.Y, agent, aw_agentsize * aw_scale))
+                        {
+                            pip_x = RealToScreen(agent.Location).X;
+                            pip_y = RealToScreen(agent.Location).Y;
+                            float sfsv_diam = aw_agentsize * aw_scale + 7 * aw_scale;
+                            sfsv_spearhead = new(RealToScreen(agent.Location).X - sfsv_diam / 2, RealToScreen(agent.Location).Y - sfsv_diam / 2, sfsv_diam, sfsv_diam);
+                            break;
+                        }
+                    }
+                    grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
+                        new PointF(sfsv_objCenter.X, sfsv_objCenter.Y),
+                        new PointF(pip_x, sfsv_objCenter.Y));
+                    grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
+                        new PointF(pip_x, sfsv_objCenter.Y),
+                        new PointF(pip_x, pip_y));
+                    grfx.DrawEllipse(new Pen(Brushes.DodgerBlue, 2), sfsv_spearhead);
                     break;
                 default:
                     break;
             }
+
+            if (editingValue == EditingValue.VelocityLength)
+            {
+
+            }
+
 
             //Drawing agents
             lock (Layers)
@@ -1587,6 +1630,7 @@ namespace Awose
             ObjectCharge_Label.Cursor = Cursors.Default;
             ObjectPositionX_Label.Cursor = Cursors.Default;
             ObjectPositionY_Label.Cursor = Cursors.Default;
+            ObjectVelocity_Label.Cursor = Cursors.Default;
             Pinned_CB.Enabled = false;
             Aw_CheckMistakes();
         }
@@ -1602,6 +1646,7 @@ namespace Awose
             ObjectCharge_Label.Cursor = Cursors.IBeam;
             ObjectPositionX_Label.Cursor = Cursors.IBeam;
             ObjectPositionY_Label.Cursor = Cursors.IBeam;
+            ObjectVelocity_Label.Cursor = Cursors.IBeam;
             Pinned_CB.Enabled = true;
             Aw_CheckMistakes();
         }
@@ -1675,7 +1720,8 @@ namespace Awose
 
         private void SetFirstSpace_CMItem_Click(object sender, EventArgs e)
         {
-            isFirstSpaceSetting = true;
+            //isFirstSpaceSetting = true;
+            specialCondition = SpecialCondition.SetFirstSpaceVelocity;
         }
 
         private void PossibleSelections_LB_SelectedIndexChanged(object sender, EventArgs e)
@@ -1793,7 +1839,7 @@ namespace Awose
 
         private void ObjectVelocityCircle_PB_MouseHover(object sender, EventArgs e)
         {
-            DegreeHint_Label.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Angel.ToString() + "°";
+            DegreeHint_Label.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Angle.ToString() + "°";
             DegreeHint_Label.Location = new(ObjectVelocityCircle_PB.Location.X + (int)(ObjectVelocityCircle_PB.Width * 0.8),
                 ObjectVelocityCircle_PB.Location.Y + (int)(ObjectVelocityCircle_PB.Height * 0.8));
             DegreeHint_Label.Visible = true;
@@ -1824,6 +1870,20 @@ namespace Awose
         private void ApplyVelocity_CMItem_Click(object sender, EventArgs e)
         {
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new(CopiedVelocity.Tail);
+        }
+
+        private void ObjectVelocity_Label_Click(object sender, EventArgs e)
+        {
+            if (isLaunched) return;
+            if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
+            NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectVelocity_Label.Location.X + 10,
+                ControlAgents_Panel.Location.Y + ObjectSettings_Panel.Location.Y + ObjectVelocity_Label.Location.Y - 26);
+            NewValue_TB.Text = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Length.ToString();
+            editingValue = EditingValue.VelocityLength;
+            NewValue_TB.SelectAll();
+            NewValue_TB.Visible = true;
+            NewValue_TB.BringToFront();
+            NewValue_TB.Focus();
         }
     }
 }

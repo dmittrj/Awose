@@ -384,7 +384,7 @@ namespace Awose
             // 
             // ObjectVelocity_Label
             // 
-            this.ObjectVelocity_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ObjectVelocity_Label.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.ObjectVelocity_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ObjectVelocity_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
             this.ObjectVelocity_Label.Location = new System.Drawing.Point(122, 214);
@@ -393,6 +393,7 @@ namespace Awose
             this.ObjectVelocity_Label.TabIndex = 17;
             this.ObjectVelocity_Label.Text = "0 px/s";
             this.ObjectVelocity_Label.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.ObjectVelocity_Label.Click += new System.EventHandler(this.ObjectVelocity_Label_Click);
             // 
             // label24
             // 
@@ -871,7 +872,7 @@ namespace Awose
             this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(198, 184);
+            this.Space_CMStr.Size = new System.Drawing.Size(198, 206);
             this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
             // 
             // Mistake_CMItem
@@ -922,7 +923,6 @@ namespace Awose
             // 
             // SetFirstSpace_CMItem
             // 
-            this.SetFirstSpace_CMItem.Enabled = false;
             this.SetFirstSpace_CMItem.Name = "SetFirstSpace_CMItem";
             this.SetFirstSpace_CMItem.Size = new System.Drawing.Size(212, 24);
             this.SetFirstSpace_CMItem.Text = "Set first space velocity";

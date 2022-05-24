@@ -99,7 +99,7 @@ namespace Awose
             this.SetCustomVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SetFirstSpace_CMItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReverseVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.CopyVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ApplyVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -896,7 +896,7 @@ namespace Awose
             this.SetCustomVelocity_CMItem,
             this.ResetVelocity_CMItem,
             this.SetFirstSpace_CMItem,
-            this.toolStripMenuItem3,
+            this.ReverseVelocity_CMItem,
             this.toolStripSeparator1,
             this.CopyVelocity_CMItem,
             this.ApplyVelocity_CMItem});
@@ -928,12 +928,12 @@ namespace Awose
             this.SetFirstSpace_CMItem.Text = "Set first space velocity";
             this.SetFirstSpace_CMItem.Click += new System.EventHandler(this.SetFirstSpace_CMItem_Click);
             // 
-            // toolStripMenuItem3
+            // ReverseVelocity_CMItem
             // 
-            this.toolStripMenuItem3.Enabled = false;
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(212, 24);
-            this.toolStripMenuItem3.Text = "Update satellites";
+            this.ReverseVelocity_CMItem.Name = "ReverseVelocity_CMItem";
+            this.ReverseVelocity_CMItem.Size = new System.Drawing.Size(212, 24);
+            this.ReverseVelocity_CMItem.Text = "Reverse";
+            this.ReverseVelocity_CMItem.Click += new System.EventHandler(this.ReverseVelocity_CMItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -1568,7 +1568,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem CopyVelocity_CMItem;
         private System.Windows.Forms.ToolStripMenuItem ApplyVelocity_CMItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem ReverseVelocity_CMItem;
         private System.Windows.Forms.Panel ControlLayer_Panel;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label15;

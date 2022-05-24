@@ -1881,5 +1881,11 @@ namespace Awose
             NewValue_TB.BringToFront();
             NewValue_TB.Focus();
         }
+
+        private void ReverseVelocity_CMItem_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail.X = -Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail.X;
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail.Y = -Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail.Y;
+        }
     }
 }

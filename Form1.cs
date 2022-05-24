@@ -242,7 +242,9 @@ namespace Awose
                             pip_x = RealToScreen(agent.Location).X;
                             pip_y = RealToScreen(agent.Location).Y;
                             float sfsv_diam = aw_agentsize * aw_scale + 7 * aw_scale;
+                            float sfsv_length = MathF.Sqrt(MathF.Pow(sfsv_objCenter.X - pip_x, 2) + MathF.Pow(sfsv_objCenter.Y - pip_y, 2));
                             sfsv_spearhead = new(RealToScreen(agent.Location).X - sfsv_diam / 2, RealToScreen(agent.Location).Y - sfsv_diam / 2, sfsv_diam, sfsv_diam);
+                            grfx.DrawEllipse(new Pen(Brushes.White, 1.5f), new Rectangle((int)agent.Location.X - (int)sfsv_length, (int)agent.Location.Y - (int)sfsv_length, (int)sfsv_length * 2, (int)sfsv_length * 2));
                             break;
                         }
                     }
@@ -1317,6 +1319,14 @@ namespace Awose
                         specialCondition = SpecialCondition.None;
                         return;
                     }
+                    if (specialCondition == SpecialCondition.SetFirstSpaceVelocity)
+                    {
+                        PointParticle cursor = GetCursorPosition();
+                        PointParticle objCenter = RealToScreen(Phantom.Location);
+                        Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new(-ScreenToReal(objCenter) + ScreenToReal(cursor));
+                        specialCondition = SpecialCondition.None;
+                        return;
+                    }
 
                     foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
                     {
@@ -1350,32 +1360,6 @@ namespace Awose
                         ControlLayer_Panel.Visible = true;
                     }
                     
-                    if (isFirstSpaceSetting)
-                    {
-                        int rel = 0;
-                        foreach (AwoseAgent item in agents)
-                        {
-                            if (Calculations.IsInRadius(aw_cursor.X, aw_cursor.Y, item, aw_agentsize * aw_scale))
-                                break;
-                            else rel++;
-                        }
-                        if (rel < agents.Count)
-                        {
-                            isFirstSpaceSetting = false;
-                            double distance = Math.Sqrt(Math.Pow(agents[rel].X - agents[aw_selected].X, 2) + Math.Pow(agents[rel].Y - agents[aw_selected].Y, 2));
-                            float tempFV = Calculations.FirstSpace(agents[rel], agents[aw_selected]);
-                            agents[aw_selected].VelocityY = (agents[rel].X - agents[aw_selected].X) * tempFV / distance;
-                            agents[aw_selected].VelocityX = (agents[aw_selected].Y - agents[rel].Y) * tempFV / distance;
-                            agents[aw_selected].ChangeAfterFSV = false;
-                            agents[rel].ChangeAfterFSV = false;
-                            agents[aw_selected].Star = agents[rel].Name;
-                            if (!agents[rel].Satellites.Contains(agents[aw_selected].Name))
-                                agents[rel].Satellites.Add(agents[aw_selected].Name);
-                        } else
-                        {
-                            isFirstSpaceSetting = false;
-                        }
-                    }
                     int possibleSelection = 0;
                     aw_selected = 0;
                     PointF point = ScreenToReal(aw_cursor.X, aw_cursor.Y);

@@ -44,11 +44,13 @@ namespace Awose
 
         private float Sinus()
         {
+            if (Length == 0) return 0;
             return ((Head.Y - Tail.Y) / Length);
         }
 
         private float Cosine()
         {
+            if (Length == 0) return 0;
             return ((Head.X - Tail.X) / Length);
         }
 

@@ -1338,9 +1338,9 @@ namespace Awose
                             }
                         }
 
-                        PointParticle cursor = GetCursorPosition();
-                        PointParticle objCenter = RealToScreen(Phantom.Location);
-                        Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new(-ScreenToReal(objCenter) + ScreenToReal(cursor));
+                        //PointParticle cursor = GetCursorPosition();
+                        //PointParticle objCenter = RealToScreen(Phantom.Location);
+                        //Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new(-ScreenToReal(objCenter) + ScreenToReal(cursor));
                         specialCondition = SpecialCondition.None;
                         return;
                     }

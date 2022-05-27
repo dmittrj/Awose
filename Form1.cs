@@ -1331,9 +1331,11 @@ namespace Awose
                                 float dy = point1.Y - agent.Location.Y;
                                 double distance = Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
                                 double fsvelocity = Math.Sqrt(ConstG * agent.Weight / distance);
+                                double fsv_y = Math.Sqrt(fsvelocity * fsvelocity / (dy * dy / (dx * dx) + 1));
+                                double fsv_x = -fsv_y * dy / dx;
                                 Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new(
 
-                                    new((float)(dy * fsvelocity / distance), (float)(dx * fsvelocity / distance)));
+                                    new((float)fsv_x, (float)fsv_y));
                                 return;
                             }
                         }

@@ -164,7 +164,7 @@ namespace Awose
             Brush mainVelocityArrow;
             if (editingValue == EditingValue.VelocityLength)
             {
-                mainVelocityArrow = Brushes.PaleVioletRed;
+                mainVelocityArrow = Brushes.RosyBrown;
             } else
             {
                 mainVelocityArrow = Brushes.Tomato;
@@ -179,11 +179,28 @@ namespace Awose
                         {
                             PointParticle vel_arrow1 = RealToScreen(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location + Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail);
                             PointParticle vel_arrow2 = RealToScreen(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location);
-                            grfx.DrawLine(new Pen(Brushes.Tomato, 1.5f),
+                            grfx.DrawLine(new Pen(mainVelocityArrow, 1.5f),
                                 new PointF(vel_arrow2.X, vel_arrow2.Y),
                                 new PointF(vel_arrow1.X, vel_arrow1.Y));
                             Vector arrow1 = new(vel_arrow1, vel_arrow2);
-                            grfx.FillPolygon(Brushes.Tomato, arrow1.CreateTriangle(12, 10));
+                            grfx.FillPolygon(mainVelocityArrow, arrow1.CreateTriangle(12, 10));
+                            if (editingValue == EditingValue.VelocityLength)
+                            {
+                                float dx = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail.X;
+                                float dy = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail.Y;
+                                double distance = Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
+                                double fsvelocity = double.Parse(NewValue_TB.Text);
+                                double fsv_y = Math.Sqrt(fsvelocity * fsvelocity / (dx * dx / (dy * dy) + 1));
+                                double fsv_x = fsv_y * dx / dy;
+                                PointParticle new_vel_arrow1 = RealToScreen(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location + new PointParticle((float)fsv_x, (float)fsv_y));
+                                PointParticle new_vel_arrow2 = RealToScreen(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location);
+
+                                grfx.DrawLine(new Pen(Brushes.Tomato, 1.5f),
+                                new PointF(new_vel_arrow2.X, new_vel_arrow2.Y),
+                                new PointF(new_vel_arrow1.X, new_vel_arrow1.Y));
+                                Vector arrow2 = new(new_vel_arrow1, new_vel_arrow2);
+                                grfx.FillPolygon(Brushes.Tomato, arrow2.CreateTriangle(12, 10));
+                            }
                         }
                     }
                     break;
@@ -1171,6 +1188,8 @@ namespace Awose
                             //lock (agents[aw_selected].Spray)
                             //    agents[aw_selected].Spray.Clear();
                         }
+                        break;
+                    case EditingValue.VelocityLength:
                         break;
                     default:
                         break;

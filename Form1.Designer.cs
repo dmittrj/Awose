@@ -193,7 +193,7 @@ namespace Awose
             this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_White_PB);
             this.ObjectBeauty_Panel.Controls.Add(this.label22);
             this.ObjectBeauty_Panel.Controls.Add(this.label23);
-            this.ObjectBeauty_Panel.Location = new System.Drawing.Point(34, 318);
+            this.ObjectBeauty_Panel.Location = new System.Drawing.Point(17, 417);
             this.ObjectBeauty_Panel.Name = "ObjectBeauty_Panel";
             this.ObjectBeauty_Panel.Size = new System.Drawing.Size(248, 129);
             this.ObjectBeauty_Panel.TabIndex = 6;
@@ -246,7 +246,7 @@ namespace Awose
             this.ObjectSpace_Panel.Controls.Add(this.label12);
             this.ObjectSpace_Panel.Controls.Add(this.label13);
             this.ObjectSpace_Panel.Controls.Add(this.label14);
-            this.ObjectSpace_Panel.Location = new System.Drawing.Point(51, 453);
+            this.ObjectSpace_Panel.Location = new System.Drawing.Point(34, 572);
             this.ObjectSpace_Panel.Name = "ObjectSpace_Panel";
             this.ObjectSpace_Panel.Size = new System.Drawing.Size(248, 129);
             this.ObjectSpace_Panel.TabIndex = 5;
@@ -872,7 +872,7 @@ namespace Awose
             this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(198, 206);
+            this.Space_CMStr.Size = new System.Drawing.Size(198, 184);
             this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
             // 
             // Mistake_CMItem

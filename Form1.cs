@@ -46,10 +46,10 @@ namespace Awose
         private EditingValue editingValue = EditingValue.None;
         private MovingEntity movingEntity = MovingEntity.None;
         private SpecialCondition specialCondition = SpecialCondition.None;
-        [Obsolete]
-        private bool isBoardMoving = false;
-        [Obsolete]
-        private bool isObjectMoving = false;
+        //[Obsolete]
+        //private bool isBoardMoving = false;
+        //[Obsolete]
+        //private bool isObjectMoving = false;
         private bool isLaunched = false;
         [Obsolete]
         private bool isFirstSpaceSetting = false;
@@ -1421,7 +1421,7 @@ namespace Awose
                             break;
                         case 1:
                             aw_selected = possibleSelection;
-                            isObjectMoving = true;
+                            //isObjectMoving = true;
                             //aw_cursor = Cursor.Position;
                             //lu_remember = new Point((int)agents[aw_selected].X,
                             //    (int)agents[aw_selected].Y);

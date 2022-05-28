@@ -1891,6 +1891,7 @@ namespace Awose
 
         private void ObjectVelocity_Label_Click(object sender, EventArgs e)
         {
+            return;
             if (isLaunched) return;
             if (NewValue_TB.Visible) NewValue_TB_PreviewKeyDown(sender, new PreviewKeyDownEventArgs(Keys.Enter));
             NewValue_TB.Location = new Point(ControlAgents_Panel.Location.X + ObjectSettings_Panel.Location.X + ObjectVelocity_Label.Location.X + 10,

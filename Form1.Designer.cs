@@ -645,8 +645,8 @@ namespace Awose
             this.LaunchSimulation_MSItem.ForeColor = System.Drawing.Color.Black;
             this.LaunchSimulation_MSItem.Name = "LaunchSimulation_MSItem";
             this.LaunchSimulation_MSItem.Padding = new System.Windows.Forms.Padding(0);
-            this.LaunchSimulation_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.LaunchSimulation_MSItem.Size = new System.Drawing.Size(246, 22);
+            this.LaunchSimulation_MSItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.LaunchSimulation_MSItem.Size = new System.Drawing.Size(229, 22);
             this.LaunchSimulation_MSItem.Text = "Launch simulation";
             this.LaunchSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.LaunchSimulation_MSItem.Click += new System.EventHandler(this.LaunchSimulation_MSItem_Click);
@@ -655,7 +655,7 @@ namespace Awose
             // 
             this.toolStripMenuItem4.Enabled = false;
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(246, 24);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(229, 24);
             this.toolStripMenuItem4.Text = "Compute...";
             // 
             // PauseSimulation_MSItem
@@ -666,7 +666,7 @@ namespace Awose
             this.PauseSimulation_MSItem.ForeColor = System.Drawing.Color.Black;
             this.PauseSimulation_MSItem.Name = "PauseSimulation_MSItem";
             this.PauseSimulation_MSItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
-            this.PauseSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.PauseSimulation_MSItem.Size = new System.Drawing.Size(229, 24);
             this.PauseSimulation_MSItem.Text = "Pause simulation";
             this.PauseSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             // 
@@ -675,7 +675,7 @@ namespace Awose
             this.StopSimulation_MSItem.Enabled = false;
             this.StopSimulation_MSItem.Name = "StopSimulation_MSItem";
             this.StopSimulation_MSItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.StopSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.StopSimulation_MSItem.Size = new System.Drawing.Size(229, 24);
             this.StopSimulation_MSItem.Text = "Stop simulation";
             this.StopSimulation_MSItem.Click += new System.EventHandler(this.StopSimulation_MSItem_Click);
             // 
@@ -684,40 +684,40 @@ namespace Awose
             this.ResetSimulation_MSItem.Enabled = false;
             this.ResetSimulation_MSItem.Name = "ResetSimulation_MSItem";
             this.ResetSimulation_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.ResetSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.ResetSimulation_MSItem.Size = new System.Drawing.Size(229, 24);
             this.ResetSimulation_MSItem.Text = "Reset";
             this.ResetSimulation_MSItem.Click += new System.EventHandler(this.ResetSimulation_MSItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(243, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(226, 6);
             // 
             // OpenModel_MSItem
             // 
             this.OpenModel_MSItem.Name = "OpenModel_MSItem";
-            this.OpenModel_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.OpenModel_MSItem.Size = new System.Drawing.Size(229, 24);
             this.OpenModel_MSItem.Text = "Open modeling...";
             this.OpenModel_MSItem.Click += new System.EventHandler(this.OpenModel_MSItem_Click);
             // 
             // SaveModel_MSItem
             // 
             this.SaveModel_MSItem.Name = "SaveModel_MSItem";
-            this.SaveModel_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.SaveModel_MSItem.Size = new System.Drawing.Size(229, 24);
             this.SaveModel_MSItem.Text = "Save modeling...";
             this.SaveModel_MSItem.Click += new System.EventHandler(this.SaveModel_MSItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(243, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(226, 6);
             // 
             // Undo_MSItem
             // 
             this.Undo_MSItem.Enabled = false;
             this.Undo_MSItem.Name = "Undo_MSItem";
             this.Undo_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.Undo_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.Undo_MSItem.Size = new System.Drawing.Size(229, 24);
             this.Undo_MSItem.Text = "Undo";
             this.Undo_MSItem.Click += new System.EventHandler(this.Undo_MSItem_Click);
             // 
@@ -727,7 +727,7 @@ namespace Awose
             this.Redo_MSItem.Name = "Redo_MSItem";
             this.Redo_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Z)));
-            this.Redo_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.Redo_MSItem.Size = new System.Drawing.Size(229, 24);
             this.Redo_MSItem.Text = "Redo";
             this.Redo_MSItem.Click += new System.EventHandler(this.Redo_MSItem_Click);
             // 

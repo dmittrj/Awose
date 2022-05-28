@@ -96,12 +96,13 @@ namespace Awose
             this.Mistake_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SepMistake_CMSepar = new System.Windows.Forms.ToolStripSeparator();
             this.SetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SetCustomVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SetFirstSpace_CMItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ReverseVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.copyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.applyVelocityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CopyVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ApplyVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeSign_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PinUp_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -192,7 +193,7 @@ namespace Awose
             this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_White_PB);
             this.ObjectBeauty_Panel.Controls.Add(this.label22);
             this.ObjectBeauty_Panel.Controls.Add(this.label23);
-            this.ObjectBeauty_Panel.Location = new System.Drawing.Point(34, 318);
+            this.ObjectBeauty_Panel.Location = new System.Drawing.Point(17, 417);
             this.ObjectBeauty_Panel.Name = "ObjectBeauty_Panel";
             this.ObjectBeauty_Panel.Size = new System.Drawing.Size(248, 129);
             this.ObjectBeauty_Panel.TabIndex = 6;
@@ -245,7 +246,7 @@ namespace Awose
             this.ObjectSpace_Panel.Controls.Add(this.label12);
             this.ObjectSpace_Panel.Controls.Add(this.label13);
             this.ObjectSpace_Panel.Controls.Add(this.label14);
-            this.ObjectSpace_Panel.Location = new System.Drawing.Point(51, 453);
+            this.ObjectSpace_Panel.Location = new System.Drawing.Point(34, 572);
             this.ObjectSpace_Panel.Name = "ObjectSpace_Panel";
             this.ObjectSpace_Panel.Size = new System.Drawing.Size(248, 129);
             this.ObjectSpace_Panel.TabIndex = 5;
@@ -383,7 +384,7 @@ namespace Awose
             // 
             // ObjectVelocity_Label
             // 
-            this.ObjectVelocity_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ObjectVelocity_Label.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.ObjectVelocity_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.ObjectVelocity_Label.ForeColor = System.Drawing.Color.LightSkyBlue;
             this.ObjectVelocity_Label.Location = new System.Drawing.Point(122, 214);
@@ -392,6 +393,7 @@ namespace Awose
             this.ObjectVelocity_Label.TabIndex = 17;
             this.ObjectVelocity_Label.Text = "0 px/s";
             this.ObjectVelocity_Label.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.ObjectVelocity_Label.Click += new System.EventHandler(this.ObjectVelocity_Label_Click);
             // 
             // label24
             // 
@@ -643,8 +645,8 @@ namespace Awose
             this.LaunchSimulation_MSItem.ForeColor = System.Drawing.Color.Black;
             this.LaunchSimulation_MSItem.Name = "LaunchSimulation_MSItem";
             this.LaunchSimulation_MSItem.Padding = new System.Windows.Forms.Padding(0);
-            this.LaunchSimulation_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.LaunchSimulation_MSItem.Size = new System.Drawing.Size(246, 22);
+            this.LaunchSimulation_MSItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.LaunchSimulation_MSItem.Size = new System.Drawing.Size(229, 22);
             this.LaunchSimulation_MSItem.Text = "Launch simulation";
             this.LaunchSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.LaunchSimulation_MSItem.Click += new System.EventHandler(this.LaunchSimulation_MSItem_Click);
@@ -653,7 +655,7 @@ namespace Awose
             // 
             this.toolStripMenuItem4.Enabled = false;
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(246, 24);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(229, 24);
             this.toolStripMenuItem4.Text = "Compute...";
             // 
             // PauseSimulation_MSItem
@@ -664,7 +666,7 @@ namespace Awose
             this.PauseSimulation_MSItem.ForeColor = System.Drawing.Color.Black;
             this.PauseSimulation_MSItem.Name = "PauseSimulation_MSItem";
             this.PauseSimulation_MSItem.ShortcutKeys = System.Windows.Forms.Keys.F11;
-            this.PauseSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.PauseSimulation_MSItem.Size = new System.Drawing.Size(229, 24);
             this.PauseSimulation_MSItem.Text = "Pause simulation";
             this.PauseSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             // 
@@ -673,7 +675,7 @@ namespace Awose
             this.StopSimulation_MSItem.Enabled = false;
             this.StopSimulation_MSItem.Name = "StopSimulation_MSItem";
             this.StopSimulation_MSItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
-            this.StopSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.StopSimulation_MSItem.Size = new System.Drawing.Size(229, 24);
             this.StopSimulation_MSItem.Text = "Stop simulation";
             this.StopSimulation_MSItem.Click += new System.EventHandler(this.StopSimulation_MSItem_Click);
             // 
@@ -682,40 +684,40 @@ namespace Awose
             this.ResetSimulation_MSItem.Enabled = false;
             this.ResetSimulation_MSItem.Name = "ResetSimulation_MSItem";
             this.ResetSimulation_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.ResetSimulation_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.ResetSimulation_MSItem.Size = new System.Drawing.Size(229, 24);
             this.ResetSimulation_MSItem.Text = "Reset";
             this.ResetSimulation_MSItem.Click += new System.EventHandler(this.ResetSimulation_MSItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(243, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(226, 6);
             // 
             // OpenModel_MSItem
             // 
             this.OpenModel_MSItem.Name = "OpenModel_MSItem";
-            this.OpenModel_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.OpenModel_MSItem.Size = new System.Drawing.Size(229, 24);
             this.OpenModel_MSItem.Text = "Open modeling...";
             this.OpenModel_MSItem.Click += new System.EventHandler(this.OpenModel_MSItem_Click);
             // 
             // SaveModel_MSItem
             // 
             this.SaveModel_MSItem.Name = "SaveModel_MSItem";
-            this.SaveModel_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.SaveModel_MSItem.Size = new System.Drawing.Size(229, 24);
             this.SaveModel_MSItem.Text = "Save modeling...";
             this.SaveModel_MSItem.Click += new System.EventHandler(this.SaveModel_MSItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(243, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(226, 6);
             // 
             // Undo_MSItem
             // 
             this.Undo_MSItem.Enabled = false;
             this.Undo_MSItem.Name = "Undo_MSItem";
             this.Undo_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.Undo_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.Undo_MSItem.Size = new System.Drawing.Size(229, 24);
             this.Undo_MSItem.Text = "Undo";
             this.Undo_MSItem.Click += new System.EventHandler(this.Undo_MSItem_Click);
             // 
@@ -725,7 +727,7 @@ namespace Awose
             this.Redo_MSItem.Name = "Redo_MSItem";
             this.Redo_MSItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Z)));
-            this.Redo_MSItem.Size = new System.Drawing.Size(246, 24);
+            this.Redo_MSItem.Size = new System.Drawing.Size(229, 24);
             this.Redo_MSItem.Text = "Redo";
             this.Redo_MSItem.Click += new System.EventHandler(this.Redo_MSItem_Click);
             // 
@@ -891,19 +893,26 @@ namespace Awose
             // SetVelocity_CMItem
             // 
             this.SetVelocity_CMItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.SetCustomVelocity_CMItem,
             this.ResetVelocity_CMItem,
             this.SetFirstSpace_CMItem,
-            this.toolStripMenuItem3,
+            this.ReverseVelocity_CMItem,
             this.toolStripSeparator1,
-            this.copyVelocityToolStripMenuItem,
-            this.applyVelocityToolStripMenuItem});
-            this.SetVelocity_CMItem.Enabled = false;
+            this.CopyVelocity_CMItem,
+            this.ApplyVelocity_CMItem});
             this.SetVelocity_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.SetVelocity_CMItem.Name = "SetVelocity_CMItem";
             this.SetVelocity_CMItem.Size = new System.Drawing.Size(197, 24);
-            this.SetVelocity_CMItem.Text = "Set velocity";
+            this.SetVelocity_CMItem.Text = "Velocity";
             this.SetVelocity_CMItem.Visible = false;
             this.SetVelocity_CMItem.Click += new System.EventHandler(this.SetVelocity_CMItem_Click);
+            // 
+            // SetCustomVelocity_CMItem
+            // 
+            this.SetCustomVelocity_CMItem.Name = "SetCustomVelocity_CMItem";
+            this.SetCustomVelocity_CMItem.Size = new System.Drawing.Size(212, 24);
+            this.SetCustomVelocity_CMItem.Text = "Set custom velocity";
+            this.SetCustomVelocity_CMItem.Click += new System.EventHandler(this.SetCustomVelocity_CMItem_Click);
             // 
             // ResetVelocity_CMItem
             // 
@@ -919,28 +928,32 @@ namespace Awose
             this.SetFirstSpace_CMItem.Text = "Set first space velocity";
             this.SetFirstSpace_CMItem.Click += new System.EventHandler(this.SetFirstSpace_CMItem_Click);
             // 
-            // toolStripMenuItem3
+            // ReverseVelocity_CMItem
             // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(212, 24);
-            this.toolStripMenuItem3.Text = "Update satellites";
+            this.ReverseVelocity_CMItem.Name = "ReverseVelocity_CMItem";
+            this.ReverseVelocity_CMItem.Size = new System.Drawing.Size(212, 24);
+            this.ReverseVelocity_CMItem.Text = "Reverse";
+            this.ReverseVelocity_CMItem.Click += new System.EventHandler(this.ReverseVelocity_CMItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(209, 6);
             // 
-            // copyVelocityToolStripMenuItem
+            // CopyVelocity_CMItem
             // 
-            this.copyVelocityToolStripMenuItem.Name = "copyVelocityToolStripMenuItem";
-            this.copyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
-            this.copyVelocityToolStripMenuItem.Text = "Copy velocity";
+            this.CopyVelocity_CMItem.Name = "CopyVelocity_CMItem";
+            this.CopyVelocity_CMItem.Size = new System.Drawing.Size(212, 24);
+            this.CopyVelocity_CMItem.Text = "Copy velocity";
+            this.CopyVelocity_CMItem.Click += new System.EventHandler(this.CopyVelocity_CMItem_Click);
             // 
-            // applyVelocityToolStripMenuItem
+            // ApplyVelocity_CMItem
             // 
-            this.applyVelocityToolStripMenuItem.Name = "applyVelocityToolStripMenuItem";
-            this.applyVelocityToolStripMenuItem.Size = new System.Drawing.Size(212, 24);
-            this.applyVelocityToolStripMenuItem.Text = "Apply velocity";
+            this.ApplyVelocity_CMItem.Enabled = false;
+            this.ApplyVelocity_CMItem.Name = "ApplyVelocity_CMItem";
+            this.ApplyVelocity_CMItem.Size = new System.Drawing.Size(212, 24);
+            this.ApplyVelocity_CMItem.Text = "Apply velocity";
+            this.ApplyVelocity_CMItem.Click += new System.EventHandler(this.ApplyVelocity_CMItem_Click);
             // 
             // ChangeSign_CMItem
             // 
@@ -1553,9 +1566,9 @@ namespace Awose
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label RT_Scale_Label;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem copyVelocityToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem applyVelocityToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem CopyVelocity_CMItem;
+        private System.Windows.Forms.ToolStripMenuItem ApplyVelocity_CMItem;
+        private System.Windows.Forms.ToolStripMenuItem ReverseVelocity_CMItem;
         private System.Windows.Forms.Panel ControlLayer_Panel;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label15;
@@ -1592,6 +1605,7 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.OpenFileDialog OpenModel_OFD;
         private System.Windows.Forms.Label DegreeHint_Label;
+        private System.Windows.Forms.ToolStripMenuItem SetCustomVelocity_CMItem;
     }
 }
 

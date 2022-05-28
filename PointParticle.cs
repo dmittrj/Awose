@@ -41,5 +41,10 @@ namespace Awose
         {
             return new PointParticle(point.X, point.Y);
         }
+
+        public Point ToPoint()
+        {
+            return new((int)X, (int)Y);
+        }
     }
 }

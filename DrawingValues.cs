@@ -11,11 +11,15 @@ namespace Awose
     {
         public int GridWidth { get; set; }
         public int GridHeight { get; set; }
+        public int PreviewPosition { get; set; }
+        public Color HoveredColor { get; set; }
+        public Color[] ObjectSprite_Last { get; set; }
         public DrawingValues()
         {
             GridWidth = 0;
             GridHeight = 0;
-            
+            PreviewPosition = 0;
+            HoveredColor = Color.White;
         }
 
         public static Bitmap DrawTick()
@@ -57,6 +61,18 @@ namespace Awose
             pb_grfx.FillEllipse(new SolidBrush(color), width / 2 - 2, height / 2 - 2, 4, 4);
             pb_grfx.DrawLine(new Pen(color, 2), width / 2, height / 2, width / 2 + x_circle, height / 2 + y_circle);
             pb_grfx.DrawEllipse(new Pen(Color.White, 2), 0, 0, width-1, height-1);
+            return picturebox_img;
+        }
+
+        public static Bitmap DrawObjectPreview(Color obj_color, int alpha)
+        {
+            if (alpha < 0) alpha = 0;
+            Bitmap picturebox_img = new(100, 100);
+            using Graphics pb_grfx = Graphics.FromImage(picturebox_img);
+            pb_grfx.Clear(Color.FromArgb(10, 10, 10));
+
+            pb_grfx.FillEllipse(new SolidBrush(obj_color), 15, 15, 70, 70);
+            pb_grfx.FillRectangle(new SolidBrush(Color.FromArgb(alpha, 10, 10, 10)), 0, 0, 100, 100);
             return picturebox_img;
         }
     }

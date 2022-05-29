@@ -19,6 +19,8 @@ namespace Awose
     enum MovingEntity { None, Board, Agent }
 
     enum SpecialCondition { None, SetVelocity, SetFirstSpaceVelocity}
+
+    enum BeautyPreviewMode { None, ObjectColor }
     public partial class Awose : Form
     {
         [Obsolete]
@@ -46,6 +48,7 @@ namespace Awose
         private EditingValue editingValue = EditingValue.None;
         private MovingEntity movingEntity = MovingEntity.None;
         private SpecialCondition specialCondition = SpecialCondition.None;
+        private BeautyPreviewMode beautyPreview = BeautyPreviewMode.None;
         //[Obsolete]
         //private bool isBoardMoving = false;
         //[Obsolete]
@@ -158,6 +161,21 @@ namespace Awose
                 {
                     drawingValues.GridHeight -= 60;
                 }
+            }
+
+            //Drawing preview
+            switch (beautyPreview)
+            {
+                case BeautyPreviewMode.None:
+                    break;
+                case BeautyPreviewMode.ObjectColor:
+                    BeautyPreview_PB.Location = new Point(306 - drawingValues.PreviewPosition, 334);
+                    BeautyPreview_PB.Image = DrawingValues.DrawObjectPreview(drawingValues.HoveredColor, (int)(255 - drawingValues.PreviewPosition * 5.1));
+                    if (drawingValues.PreviewPosition < 50)
+                        drawingValues.PreviewPosition += 4;
+                    break;
+                default:
+                    break;
             }
 
             //Drawing arrows, lines, ...
@@ -526,7 +544,7 @@ namespace Awose
                     item.AgentSprayUpdate();
                 }
                 if (isLaunched) Aw_Step(timeStep);
-                Aw_Refresh();
+                Invoke((Action)Aw_Refresh);
                 await Task.Delay(timeStep);
             }
         }
@@ -630,6 +648,7 @@ namespace Awose
                 ObjectPositionX_Label.Text = agent.Location.X.ToString();
                 ObjectPositionY_Label.Text = agent.Location.Y.ToString();
                 ObjectSettings_Panel.Visible = true;
+                ObjectBeauty_Panel.Visible = true;
                 if (agent.IsPinned)
                 {
                     Pinned_CB.BackgroundImage = DrawingValues.DrawTick();
@@ -639,8 +658,13 @@ namespace Awose
                 }
                 ObjectSprite_White_PB.Image = DrawingValues.DrawCircle(ObjectSprite_White_PB.Width,
                     ObjectSprite_White_PB.Height, Color.White, agent.Sprite == SpriteType.White);
-                ObjectSprite_Color_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Color_PB.Width,
-                    ObjectSprite_Color_PB.Height, agent.Dye, agent.Sprite == SpriteType.Color);
+                ObjectSprite_Yellow_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Yellow_PB.Width,
+                    ObjectSprite_Yellow_PB.Height, Color.Yellow, agent.Sprite == SpriteType.Yellow);
+                ObjectSprite_Green_PB.Image = DrawingValues.DrawCircle(ObjectSprite_White_PB.Width,
+                    ObjectSprite_White_PB.Height, Color.Green, agent.Sprite == SpriteType.Green);
+                ObjectSprite_Sky_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Yellow_PB.Width,
+                    ObjectSprite_Yellow_PB.Height, Color.SkyBlue, agent.Sprite == SpriteType.Sky);
+
                 ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
                     ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
                 ObjectVelocityCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectVelocityCircle_PB.Width,
@@ -651,6 +675,7 @@ namespace Awose
             {
                 ControlLayer_Panel.Visible = true;
                 ControlAgents_Panel.Visible = false;
+                ObjectBeauty_Panel.Visible = false;
             }
             return;
 
@@ -744,8 +769,13 @@ namespace Awose
                 }
                 ObjectSprite_White_PB.Image = DrawingValues.DrawCircle(ObjectSprite_White_PB.Width,
                     ObjectSprite_White_PB.Height, Color.White, agent.Sprite == SpriteType.White);
-                ObjectSprite_Color_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Color_PB.Width,
-                    ObjectSprite_Color_PB.Height, agent.Dye, agent.Sprite == SpriteType.Color);
+                ObjectSprite_Yellow_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Yellow_PB.Width,
+                    ObjectSprite_Yellow_PB.Height, Color.Yellow, agent.Sprite == SpriteType.Yellow);
+                ObjectSprite_Green_PB.Image = DrawingValues.DrawCircle(ObjectSprite_White_PB.Width,
+                    ObjectSprite_White_PB.Height, Color.Green, agent.Sprite == SpriteType.Green);
+                ObjectSprite_Sky_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Yellow_PB.Width,
+                    ObjectSprite_Yellow_PB.Height, Color.SkyBlue, agent.Sprite == SpriteType.Sky);
+
                 ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
                     ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
                 ObjectVelocityCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectVelocityCircle_PB.Width,
@@ -1707,7 +1737,7 @@ namespace Awose
 
         private void Awose_FormClosing(object sender, FormClosingEventArgs e)
         {
-            animation.Interrupt();
+            //animation.Join();
         }
 
         private void PinUp_CMItem_Click(object sender, EventArgs e)
@@ -1908,6 +1938,95 @@ namespace Awose
         {
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail.X = -Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail.X;
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail.Y = -Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity.Tail.Y;
+        }
+
+        private void ObjectSprite_White_PB_MouseHover(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Text = "White";
+            ObjectColorHint_Label.Location = new Point(
+                ObjectSprite_White_PB.Location.X + 4,
+                ObjectSprite_White_PB.Location.Y + ObjectSprite_White_PB.Height + 7
+                );
+            ObjectColorHint_Label.Visible = true;
+            //beautyPreview = BeautyPreviewMode.ObjectColor;
+        }
+
+        private void ObjectSprite_White_PB_MouseLeave(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Visible = false;
+        }
+
+        private void ObjectSprite_Yellow_PB_MouseHover(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Text = "Yellow";
+            ObjectColorHint_Label.Location = new Point(
+                ObjectSprite_Yellow_PB.Location.X + 4,
+                ObjectSprite_Yellow_PB.Location.Y + ObjectSprite_Yellow_PB.Height + 7
+                );
+            ObjectColorHint_Label.Visible = true;
+        }
+
+        private void ObjectSprite_Yellow_PB_MouseLeave(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Visible = false;
+        }
+
+        private void ObjectSprite_Green_PB_MouseHover(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Text = "Green";
+            ObjectColorHint_Label.Location = new Point(
+                ObjectSprite_Green_PB.Location.X + 4,
+                ObjectSprite_Green_PB.Location.Y + ObjectSprite_Green_PB.Height + 7
+                );
+            ObjectColorHint_Label.Visible = true;
+        }
+
+        private void ObjectSprite_Green_PB_MouseLeave(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Visible = false;
+        }
+
+        private void ObjectSprite_Sky_PB_MouseHover(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Text = "Sky";
+            ObjectColorHint_Label.Location = new Point(
+                ObjectSprite_Sky_PB.Location.X + 4,
+                ObjectSprite_Sky_PB.Location.Y + ObjectSprite_Sky_PB.Height + 7
+                );
+            ObjectColorHint_Label.Visible = true;
+        }
+
+        private void ObjectSprite_Sky_PB_MouseLeave(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Visible = false;
+        }
+
+        private void ObjectSprite_Yellow_PB_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Dye = Color.Yellow;
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Sprite = SpriteType.Yellow;
+            Aw_DrawControl();
+        }
+
+        private void ObjectSprite_White_PB_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Dye = Color.White;
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Sprite = SpriteType.White;
+            Aw_DrawControl();
+        }
+
+        private void ObjectSprite_Green_PB_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Dye = Color.Green;
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Sprite = SpriteType.Green;
+            Aw_DrawControl();
+        }
+
+        private void ObjectSprite_Sky_PB_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Dye = Color.SkyBlue;
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Sprite = SpriteType.Sky;
+            Aw_DrawControl();
         }
     }
 }

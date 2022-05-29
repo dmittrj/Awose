@@ -32,7 +32,10 @@ namespace Awose
             this.components = new System.ComponentModel.Container();
             this.ControlAgents_Panel = new System.Windows.Forms.Panel();
             this.ObjectBeauty_Panel = new System.Windows.Forms.Panel();
-            this.ObjectSprite_Color_PB = new System.Windows.Forms.PictureBox();
+            this.ObjectSprite_Sky_PB = new System.Windows.Forms.PictureBox();
+            this.ObjectSprite_Green_PB = new System.Windows.Forms.PictureBox();
+            this.ObjectColorHint_Label = new System.Windows.Forms.Label();
+            this.ObjectSprite_Yellow_PB = new System.Windows.Forms.PictureBox();
             this.ObjectSprite_White_PB = new System.Windows.Forms.PictureBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -147,9 +150,12 @@ namespace Awose
             this.LayersBar_Panel = new System.Windows.Forms.Panel();
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
+            this.BeautyPreview_PB = new System.Windows.Forms.PictureBox();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Color_PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Sky_PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Green_PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Yellow_PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_White_PB)).BeginInit();
             this.ObjectSpace_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MistakeIcon_PB)).BeginInit();
@@ -166,6 +172,7 @@ namespace Awose
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel4.SuspendLayout();
             this.LayersBar_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.BeautyPreview_PB)).BeginInit();
             this.SuspendLayout();
             // 
             // ControlAgents_Panel
@@ -189,23 +196,66 @@ namespace Awose
             // ObjectBeauty_Panel
             // 
             this.ObjectBeauty_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_Color_PB);
+            this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_Sky_PB);
+            this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_Green_PB);
+            this.ObjectBeauty_Panel.Controls.Add(this.ObjectColorHint_Label);
+            this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_Yellow_PB);
             this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_White_PB);
             this.ObjectBeauty_Panel.Controls.Add(this.label22);
             this.ObjectBeauty_Panel.Controls.Add(this.label23);
-            this.ObjectBeauty_Panel.Location = new System.Drawing.Point(17, 417);
+            this.ObjectBeauty_Panel.Location = new System.Drawing.Point(0, 289);
             this.ObjectBeauty_Panel.Name = "ObjectBeauty_Panel";
-            this.ObjectBeauty_Panel.Size = new System.Drawing.Size(248, 129);
+            this.ObjectBeauty_Panel.Size = new System.Drawing.Size(247, 129);
             this.ObjectBeauty_Panel.TabIndex = 6;
             this.ObjectBeauty_Panel.Visible = false;
             // 
-            // ObjectSprite_Color_PB
+            // ObjectSprite_Sky_PB
             // 
-            this.ObjectSprite_Color_PB.Location = new System.Drawing.Point(34, 61);
-            this.ObjectSprite_Color_PB.Name = "ObjectSprite_Color_PB";
-            this.ObjectSprite_Color_PB.Size = new System.Drawing.Size(18, 18);
-            this.ObjectSprite_Color_PB.TabIndex = 4;
-            this.ObjectSprite_Color_PB.TabStop = false;
+            this.ObjectSprite_Sky_PB.Location = new System.Drawing.Point(75, 61);
+            this.ObjectSprite_Sky_PB.Name = "ObjectSprite_Sky_PB";
+            this.ObjectSprite_Sky_PB.Size = new System.Drawing.Size(18, 18);
+            this.ObjectSprite_Sky_PB.TabIndex = 7;
+            this.ObjectSprite_Sky_PB.TabStop = false;
+            this.ObjectSprite_Sky_PB.Click += new System.EventHandler(this.ObjectSprite_Sky_PB_Click);
+            this.ObjectSprite_Sky_PB.MouseLeave += new System.EventHandler(this.ObjectSprite_Sky_PB_MouseLeave);
+            this.ObjectSprite_Sky_PB.MouseHover += new System.EventHandler(this.ObjectSprite_Sky_PB_MouseHover);
+            // 
+            // ObjectSprite_Green_PB
+            // 
+            this.ObjectSprite_Green_PB.Location = new System.Drawing.Point(55, 61);
+            this.ObjectSprite_Green_PB.Name = "ObjectSprite_Green_PB";
+            this.ObjectSprite_Green_PB.Size = new System.Drawing.Size(18, 18);
+            this.ObjectSprite_Green_PB.TabIndex = 6;
+            this.ObjectSprite_Green_PB.TabStop = false;
+            this.ObjectSprite_Green_PB.Click += new System.EventHandler(this.ObjectSprite_Green_PB_Click);
+            this.ObjectSprite_Green_PB.MouseLeave += new System.EventHandler(this.ObjectSprite_Green_PB_MouseLeave);
+            this.ObjectSprite_Green_PB.MouseHover += new System.EventHandler(this.ObjectSprite_Green_PB_MouseHover);
+            // 
+            // ObjectColorHint_Label
+            // 
+            this.ObjectColorHint_Label.AutoSize = true;
+            this.ObjectColorHint_Label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ObjectColorHint_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectColorHint_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ObjectColorHint_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ObjectColorHint_Label.ForeColor = System.Drawing.Color.White;
+            this.ObjectColorHint_Label.Location = new System.Drawing.Point(64, 7);
+            this.ObjectColorHint_Label.Name = "ObjectColorHint_Label";
+            this.ObjectColorHint_Label.Size = new System.Drawing.Size(44, 21);
+            this.ObjectColorHint_Label.TabIndex = 5;
+            this.ObjectColorHint_Label.Text = "Color";
+            this.ObjectColorHint_Label.Visible = false;
+            // 
+            // ObjectSprite_Yellow_PB
+            // 
+            this.ObjectSprite_Yellow_PB.Location = new System.Drawing.Point(34, 61);
+            this.ObjectSprite_Yellow_PB.Name = "ObjectSprite_Yellow_PB";
+            this.ObjectSprite_Yellow_PB.Size = new System.Drawing.Size(18, 18);
+            this.ObjectSprite_Yellow_PB.TabIndex = 4;
+            this.ObjectSprite_Yellow_PB.TabStop = false;
+            this.ObjectSprite_Yellow_PB.Click += new System.EventHandler(this.ObjectSprite_Yellow_PB_Click);
+            this.ObjectSprite_Yellow_PB.MouseLeave += new System.EventHandler(this.ObjectSprite_Yellow_PB_MouseLeave);
+            this.ObjectSprite_Yellow_PB.MouseHover += new System.EventHandler(this.ObjectSprite_Yellow_PB_MouseHover);
             // 
             // ObjectSprite_White_PB
             // 
@@ -214,6 +264,9 @@ namespace Awose
             this.ObjectSprite_White_PB.Size = new System.Drawing.Size(18, 18);
             this.ObjectSprite_White_PB.TabIndex = 3;
             this.ObjectSprite_White_PB.TabStop = false;
+            this.ObjectSprite_White_PB.Click += new System.EventHandler(this.ObjectSprite_White_PB_Click);
+            this.ObjectSprite_White_PB.MouseLeave += new System.EventHandler(this.ObjectSprite_White_PB_MouseLeave);
+            this.ObjectSprite_White_PB.MouseHover += new System.EventHandler(this.ObjectSprite_White_PB_MouseHover);
             // 
             // label22
             // 
@@ -1430,12 +1483,25 @@ namespace Awose
             this.OpenModel_OFD.Filter = "Awose File|*.awose";
             this.OpenModel_OFD.Title = "Open modeling";
             // 
+            // BeautyPreview_PB
+            // 
+            this.BeautyPreview_PB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+            this.BeautyPreview_PB.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BeautyPreview_PB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BeautyPreview_PB.Location = new System.Drawing.Point(256, 334);
+            this.BeautyPreview_PB.Name = "BeautyPreview_PB";
+            this.BeautyPreview_PB.Size = new System.Drawing.Size(100, 100);
+            this.BeautyPreview_PB.TabIndex = 16;
+            this.BeautyPreview_PB.TabStop = false;
+            this.BeautyPreview_PB.Visible = false;
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.BeautyPreview_PB);
             this.Controls.Add(this.LayersBar_Panel);
             this.Controls.Add(this.RT_Scale_Label);
             this.Controls.Add(this.panel1);
@@ -1458,7 +1524,9 @@ namespace Awose
             this.ControlAgents_Panel.PerformLayout();
             this.ObjectBeauty_Panel.ResumeLayout(false);
             this.ObjectBeauty_Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Color_PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Sky_PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Green_PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Yellow_PB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_White_PB)).EndInit();
             this.ObjectSpace_Panel.ResumeLayout(false);
             this.ObjectSpace_Panel.PerformLayout();
@@ -1482,6 +1550,7 @@ namespace Awose
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.LayersBar_Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.BeautyPreview_PB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1595,7 +1664,7 @@ namespace Awose
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.PictureBox ObjectSprite_White_PB;
-        private System.Windows.Forms.PictureBox ObjectSprite_Color_PB;
+        private System.Windows.Forms.PictureBox ObjectSprite_Yellow_PB;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.PictureBox ObjectForceCircle_PB;
         private System.Windows.Forms.Label ObjectForce_Label;
@@ -1606,6 +1675,10 @@ namespace Awose
         private System.Windows.Forms.OpenFileDialog OpenModel_OFD;
         private System.Windows.Forms.Label DegreeHint_Label;
         private System.Windows.Forms.ToolStripMenuItem SetCustomVelocity_CMItem;
+        private System.Windows.Forms.Label ObjectColorHint_Label;
+        private System.Windows.Forms.PictureBox BeautyPreview_PB;
+        private System.Windows.Forms.PictureBox ObjectSprite_Sky_PB;
+        private System.Windows.Forms.PictureBox ObjectSprite_Green_PB;
     }
 }
 

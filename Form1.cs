@@ -2028,5 +2028,12 @@ namespace Awose
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Sprite = SpriteType.Sky;
             Aw_DrawControl();
         }
+
+        private void DeleteAllObjects_CMI_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents.Clear();
+
+            Aw_DrawControl();
+        }
     }
 }

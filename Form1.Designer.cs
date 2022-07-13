@@ -151,6 +151,7 @@ namespace Awose
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
             this.BeautyPreview_PB = new System.Windows.Forms.PictureBox();
+            this.DeleteAllObjects_CMI = new System.Windows.Forms.ToolStripMenuItem();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Sky_PB)).BeginInit();
@@ -786,6 +787,8 @@ namespace Awose
             // 
             // hToolStripMenuItem
             // 
+            this.hToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.DeleteAllObjects_CMI});
             this.hToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.hToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.hToolStripMenuItem.Name = "hToolStripMenuItem";
@@ -1495,6 +1498,13 @@ namespace Awose
             this.BeautyPreview_PB.TabStop = false;
             this.BeautyPreview_PB.Visible = false;
             // 
+            // DeleteAllObjects_CMI
+            // 
+            this.DeleteAllObjects_CMI.Name = "DeleteAllObjects_CMI";
+            this.DeleteAllObjects_CMI.Size = new System.Drawing.Size(247, 24);
+            this.DeleteAllObjects_CMI.Text = "Delete all objects at layer";
+            this.DeleteAllObjects_CMI.Click += new System.EventHandler(this.DeleteAllObjects_CMI_Click);
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1679,6 +1689,7 @@ namespace Awose
         private System.Windows.Forms.PictureBox BeautyPreview_PB;
         private System.Windows.Forms.PictureBox ObjectSprite_Sky_PB;
         private System.Windows.Forms.PictureBox ObjectSprite_Green_PB;
+        private System.Windows.Forms.ToolStripMenuItem DeleteAllObjects_CMI;
     }
 }
 

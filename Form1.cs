@@ -1376,6 +1376,10 @@ namespace Awose
                         specialCondition = SpecialCondition.None;
                         foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
                         {
+                            if (agent == Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected])
+                            {
+                                return;
+                            }
                             if (Calculations.IsInRadius(pointCursor.X, pointCursor.Y, agent, aw_agentsize * aw_scale))
                             {
                                 PointParticle point1 = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location;

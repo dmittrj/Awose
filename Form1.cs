@@ -64,6 +64,8 @@ namespace Awose
         public static float ConstG = 100000;
         public static float ConstE = 100000;
 
+        public static bool IsActive = true;
+
         [Obsolete]
         private PointF ScreenToReal(float screenX, float screenY)
         {
@@ -537,7 +539,7 @@ namespace Awose
         public async void AnimationEditor()
         {
             //Thread.Sleep(5000);
-            while (true)
+            while (IsActive)
             {
                 foreach (AwoseAgent item in Layers[CurrentLayer].Agents)
                 {
@@ -546,6 +548,7 @@ namespace Awose
                 if (isLaunched) Aw_Step(timeStep);
                 Invoke((Action)Aw_Refresh);
                 await Task.Delay(timeStep);
+                //Thread.Sleep(timeStep);
             }
         }
 
@@ -1737,6 +1740,14 @@ namespace Awose
 
         private void Awose_FormClosing(object sender, FormClosingEventArgs e)
         {
+            IsActive = false;
+            if (MessageBox.Show("Do you really want to close Awose?", "Closing app", MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                e.Cancel = true;
+                IsActive = true;
+                animation = new(AnimationEditor);
+                animation.Start();
+            }
             //animation.Join();
         }
 

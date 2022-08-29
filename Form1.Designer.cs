@@ -32,6 +32,9 @@ namespace Awose
             this.components = new System.ComponentModel.Container();
             this.ControlAgents_Panel = new System.Windows.Forms.Panel();
             this.ObjectBeauty_Panel = new System.Windows.Forms.Panel();
+            this.TrajFade_Button = new System.Windows.Forms.Button();
+            this.TrajNo_Button = new System.Windows.Forms.Button();
+            this.label21 = new System.Windows.Forms.Label();
             this.ObjectSprite_Sky_PB = new System.Windows.Forms.PictureBox();
             this.ObjectSprite_Green_PB = new System.Windows.Forms.PictureBox();
             this.ObjectColorHint_Label = new System.Windows.Forms.Label();
@@ -152,6 +155,7 @@ namespace Awose
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
             this.BeautyPreview_PB = new System.Windows.Forms.PictureBox();
+            this.TrajNonfade_Button = new System.Windows.Forms.Button();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Sky_PB)).BeginInit();
@@ -197,6 +201,10 @@ namespace Awose
             // ObjectBeauty_Panel
             // 
             this.ObjectBeauty_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectBeauty_Panel.Controls.Add(this.TrajNonfade_Button);
+            this.ObjectBeauty_Panel.Controls.Add(this.TrajFade_Button);
+            this.ObjectBeauty_Panel.Controls.Add(this.TrajNo_Button);
+            this.ObjectBeauty_Panel.Controls.Add(this.label21);
             this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_Sky_PB);
             this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_Green_PB);
             this.ObjectBeauty_Panel.Controls.Add(this.ObjectColorHint_Label);
@@ -206,9 +214,53 @@ namespace Awose
             this.ObjectBeauty_Panel.Controls.Add(this.label23);
             this.ObjectBeauty_Panel.Location = new System.Drawing.Point(0, 289);
             this.ObjectBeauty_Panel.Name = "ObjectBeauty_Panel";
-            this.ObjectBeauty_Panel.Size = new System.Drawing.Size(247, 129);
+            this.ObjectBeauty_Panel.Size = new System.Drawing.Size(247, 168);
             this.ObjectBeauty_Panel.TabIndex = 6;
             this.ObjectBeauty_Panel.Visible = false;
+            // 
+            // TrajFade_Button
+            // 
+            this.TrajFade_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.TrajFade_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.TrajFade_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TrajFade_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.TrajFade_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
+            this.TrajFade_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.TrajFade_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TrajFade_Button.ForeColor = System.Drawing.Color.White;
+            this.TrajFade_Button.Location = new System.Drawing.Point(60, 122);
+            this.TrajFade_Button.Name = "TrajFade_Button";
+            this.TrajFade_Button.Size = new System.Drawing.Size(59, 24);
+            this.TrajFade_Button.TabIndex = 13;
+            this.TrajFade_Button.Text = "Fade";
+            this.TrajFade_Button.UseVisualStyleBackColor = false;
+            // 
+            // TrajNo_Button
+            // 
+            this.TrajNo_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.TrajNo_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TrajNo_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.TrajNo_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.TrajNo_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.TrajNo_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TrajNo_Button.ForeColor = System.Drawing.Color.White;
+            this.TrajNo_Button.Location = new System.Drawing.Point(14, 122);
+            this.TrajNo_Button.Name = "TrajNo_Button";
+            this.TrajNo_Button.Size = new System.Drawing.Size(47, 24);
+            this.TrajNo_Button.TabIndex = 12;
+            this.TrajNo_Button.Text = "No";
+            this.TrajNo_Button.UseVisualStyleBackColor = true;
+            // 
+            // label21
+            // 
+            this.label21.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.label21.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label21.ForeColor = System.Drawing.Color.White;
+            this.label21.Location = new System.Drawing.Point(10, 96);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(137, 19);
+            this.label21.TabIndex = 8;
+            this.label21.Text = "Trajectory";
             // 
             // ObjectSprite_Sky_PB
             // 
@@ -271,7 +323,7 @@ namespace Awose
             // 
             // label22
             // 
-            this.label22.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label22.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.label22.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label22.ForeColor = System.Drawing.Color.White;
             this.label22.Location = new System.Drawing.Point(10, 35);
@@ -1506,6 +1558,23 @@ namespace Awose
             this.BeautyPreview_PB.TabStop = false;
             this.BeautyPreview_PB.Visible = false;
             // 
+            // TrajNonfade_Button
+            // 
+            this.TrajNonfade_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.TrajNonfade_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.TrajNonfade_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TrajNonfade_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.TrajNonfade_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
+            this.TrajNonfade_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.TrajNonfade_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.TrajNonfade_Button.ForeColor = System.Drawing.Color.White;
+            this.TrajNonfade_Button.Location = new System.Drawing.Point(118, 122);
+            this.TrajNonfade_Button.Name = "TrajNonfade_Button";
+            this.TrajNonfade_Button.Size = new System.Drawing.Size(81, 24);
+            this.TrajNonfade_Button.TabIndex = 14;
+            this.TrajNonfade_Button.Text = "Non-fade";
+            this.TrajNonfade_Button.UseVisualStyleBackColor = false;
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1691,6 +1760,10 @@ namespace Awose
         private System.Windows.Forms.PictureBox ObjectSprite_Sky_PB;
         private System.Windows.Forms.PictureBox ObjectSprite_Green_PB;
         private System.Windows.Forms.ToolStripMenuItem DeleteAllObjects_CMI;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Button TrajNo_Button;
+        private System.Windows.Forms.Button TrajFade_Button;
+        private System.Windows.Forms.Button TrajNonfade_Button;
     }
 }
 

@@ -180,6 +180,38 @@ namespace Awose
                     break;
             }
 
+            //Drawing trajectories
+            lock (Layers)
+            {
+                foreach (AwoseLayer layer in Layers)
+                {
+                    lock (layer.Agents)
+                    {
+                        foreach (AwoseAgent agent in layer.Agents)
+                        {
+                            lock (agent.Trajectory)
+                            {
+                                if (agent.TrajectoryLine == TrajectoryType.None) continue;
+                                if (agent.Trajectory.Count < 3) continue;
+                                PointParticle point1 = agent.Trajectory.Dequeue();
+                                agent.Trajectory.Enqueue(point1);
+                                for (int i = 1; i < agent.Trajectory.Count; i++)
+                                {
+                                    PointParticle point2 = agent.Trajectory.Dequeue();
+                                    agent.Trajectory.Enqueue(point2);
+                                    grfx.DrawLine(new Pen(agent.Dye, 2), RealToScreen(point1).ToPoint(), RealToScreen(point2).ToPoint());
+                                    point1 = point2;
+                                }
+                                if (agent.TrajectoryLine == TrajectoryType.Fade && agent.Trajectory.Count > 100)
+                                {
+                                    agent.Trajectory.Dequeue();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             //Drawing arrows, lines, ...
             Brush mainVelocityArrow;
             if (editingValue == EditingValue.VelocityLength)
@@ -503,6 +535,7 @@ namespace Awose
                     agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
                     agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
                     agent.Location.Y += (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
                 }
             }
             try
@@ -673,6 +706,26 @@ namespace Awose
                 ObjectVelocityCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectVelocityCircle_PB.Width,
                     ObjectVelocityCircle_PB.Height, Color.IndianRed, agent.Velocity.Tail.X - agent.Velocity.Head.X, agent.Velocity.Tail.Y - agent.Velocity.Head.Y);
                 ObjectVelocity_Label.Text = Math.Round(agent.Velocity.Length, 2).ToString() + " px/s";
+                switch (agent.TrajectoryLine)
+                {
+                    case TrajectoryType.None:
+                        TrajNo_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        TrajFade_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        TrajNonfade_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        break;
+                    case TrajectoryType.Fade:
+                        TrajNo_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        TrajFade_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        TrajNonfade_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        break;
+                    case TrajectoryType.Nonfade:
+                        TrajNo_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        TrajFade_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        TrajNonfade_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        break;
+                    default:
+                        break;
+                }
             }
             else
             {
@@ -2064,6 +2117,27 @@ namespace Awose
             {
                 NewValue_TB.SelectAll();
             }
+        }
+
+        private void TrajNonfade_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].TrajectoryLine = TrajectoryType.Nonfade;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void TrajFade_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].TrajectoryLine = TrajectoryType.Fade;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void TrajNo_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].TrajectoryLine = TrajectoryType.None;
+            Aw_DrawControl();
+            Aw_Refresh();
         }
     }
 }

@@ -32,13 +32,13 @@ namespace Awose
             this.components = new System.ComponentModel.Container();
             this.ControlAgents_Panel = new System.Windows.Forms.Panel();
             this.ObjectBeauty_Panel = new System.Windows.Forms.Panel();
+            this.ObjectColorHint_Label = new System.Windows.Forms.Label();
             this.TrajNonfade_Button = new System.Windows.Forms.Button();
             this.TrajFade_Button = new System.Windows.Forms.Button();
             this.TrajNo_Button = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
             this.ObjectSprite_Sky_PB = new System.Windows.Forms.PictureBox();
             this.ObjectSprite_Green_PB = new System.Windows.Forms.PictureBox();
-            this.ObjectColorHint_Label = new System.Windows.Forms.Label();
             this.ObjectSprite_Yellow_PB = new System.Windows.Forms.PictureBox();
             this.ObjectSprite_White_PB = new System.Windows.Forms.PictureBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -218,14 +218,29 @@ namespace Awose
             this.ObjectBeauty_Panel.TabIndex = 6;
             this.ObjectBeauty_Panel.Visible = false;
             // 
+            // ObjectColorHint_Label
+            // 
+            this.ObjectColorHint_Label.AutoSize = true;
+            this.ObjectColorHint_Label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ObjectColorHint_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectColorHint_Label.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ObjectColorHint_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ObjectColorHint_Label.ForeColor = System.Drawing.Color.White;
+            this.ObjectColorHint_Label.Location = new System.Drawing.Point(64, 7);
+            this.ObjectColorHint_Label.Name = "ObjectColorHint_Label";
+            this.ObjectColorHint_Label.Size = new System.Drawing.Size(44, 21);
+            this.ObjectColorHint_Label.TabIndex = 5;
+            this.ObjectColorHint_Label.Text = "Color";
+            this.ObjectColorHint_Label.Visible = false;
+            // 
             // TrajNonfade_Button
             // 
             this.TrajNonfade_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.TrajNonfade_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.TrajNonfade_Button.Cursor = System.Windows.Forms.Cursors.Default;
             this.TrajNonfade_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.TrajNonfade_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
-            this.TrajNonfade_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.TrajNonfade_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.TrajNonfade_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.TrajNonfade_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TrajNonfade_Button.ForeColor = System.Drawing.Color.White;
             this.TrajNonfade_Button.Location = new System.Drawing.Point(118, 122);
@@ -234,6 +249,7 @@ namespace Awose
             this.TrajNonfade_Button.TabIndex = 14;
             this.TrajNonfade_Button.Text = "Non-fade";
             this.TrajNonfade_Button.UseVisualStyleBackColor = false;
+            this.TrajNonfade_Button.Click += new System.EventHandler(this.TrajNonfade_Button_Click);
             // 
             // TrajFade_Button
             // 
@@ -241,8 +257,8 @@ namespace Awose
             this.TrajFade_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.TrajFade_Button.Cursor = System.Windows.Forms.Cursors.Default;
             this.TrajFade_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.TrajFade_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
-            this.TrajFade_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.TrajFade_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.TrajFade_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.TrajFade_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TrajFade_Button.ForeColor = System.Drawing.Color.White;
             this.TrajFade_Button.Location = new System.Drawing.Point(60, 122);
@@ -251,6 +267,7 @@ namespace Awose
             this.TrajFade_Button.TabIndex = 13;
             this.TrajFade_Button.Text = "Fade";
             this.TrajFade_Button.UseVisualStyleBackColor = false;
+            this.TrajFade_Button.Click += new System.EventHandler(this.TrajFade_Button_Click);
             // 
             // TrajNo_Button
             // 
@@ -267,6 +284,7 @@ namespace Awose
             this.TrajNo_Button.TabIndex = 12;
             this.TrajNo_Button.Text = "No";
             this.TrajNo_Button.UseVisualStyleBackColor = true;
+            this.TrajNo_Button.Click += new System.EventHandler(this.TrajNo_Button_Click);
             // 
             // label21
             // 
@@ -300,21 +318,6 @@ namespace Awose
             this.ObjectSprite_Green_PB.Click += new System.EventHandler(this.ObjectSprite_Green_PB_Click);
             this.ObjectSprite_Green_PB.MouseLeave += new System.EventHandler(this.ObjectSprite_Green_PB_MouseLeave);
             this.ObjectSprite_Green_PB.MouseHover += new System.EventHandler(this.ObjectSprite_Green_PB_MouseHover);
-            // 
-            // ObjectColorHint_Label
-            // 
-            this.ObjectColorHint_Label.AutoSize = true;
-            this.ObjectColorHint_Label.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ObjectColorHint_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ObjectColorHint_Label.Cursor = System.Windows.Forms.Cursors.Default;
-            this.ObjectColorHint_Label.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ObjectColorHint_Label.ForeColor = System.Drawing.Color.White;
-            this.ObjectColorHint_Label.Location = new System.Drawing.Point(64, 7);
-            this.ObjectColorHint_Label.Name = "ObjectColorHint_Label";
-            this.ObjectColorHint_Label.Size = new System.Drawing.Size(44, 21);
-            this.ObjectColorHint_Label.TabIndex = 5;
-            this.ObjectColorHint_Label.Text = "Color";
-            this.ObjectColorHint_Label.Visible = false;
             // 
             // ObjectSprite_Yellow_PB
             // 

@@ -702,6 +702,26 @@ namespace Awose
                 ObjectVelocityCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectVelocityCircle_PB.Width,
                     ObjectVelocityCircle_PB.Height, Color.IndianRed, agent.Velocity.Tail.X - agent.Velocity.Head.X, agent.Velocity.Tail.Y - agent.Velocity.Head.Y);
                 ObjectVelocity_Label.Text = Math.Round(agent.Velocity.Length, 2).ToString() + " px/s";
+                switch (agent.TrajectoryLine)
+                {
+                    case TrajectoryType.None:
+                        TrajNo_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        TrajFade_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        TrajNonfade_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        break;
+                    case TrajectoryType.Fade:
+                        TrajNo_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        TrajFade_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        TrajNonfade_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        break;
+                    case TrajectoryType.Nonfade:
+                        TrajNo_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        TrajFade_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        TrajNonfade_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        break;
+                    default:
+                        break;
+                }
             }
             else
             {
@@ -2093,6 +2113,27 @@ namespace Awose
             {
                 NewValue_TB.SelectAll();
             }
+        }
+
+        private void TrajNonfade_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].TrajectoryLine = TrajectoryType.Nonfade;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void TrajFade_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].TrajectoryLine = TrajectoryType.Fade;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void TrajNo_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].TrajectoryLine = TrajectoryType.None;
+            Aw_DrawControl();
+            Aw_Refresh();
         }
     }
 }

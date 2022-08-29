@@ -95,7 +95,7 @@ namespace Awose
                 (int)((realPoint.X + lu_corner.X) * aw_scale),
                 (int)((realPoint.Y + lu_corner.Y) * aw_scale));
         }
-
+        
         private PointParticle GetCursorPosition()
         {
             return new PointParticle(
@@ -1120,6 +1120,11 @@ namespace Awose
                         try
                         {
                             newValue = float.Parse(NewValue_TB.Text);
+                            if (newValue > 99999800)
+                            {
+                                NewValue_TB.Visible = false;
+                                break;
+                            }
                             //aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected], ChangeType.ChangingMass, Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Weight, newValue));
                             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Weight = newValue;
                             if (Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Star != "")
@@ -1145,6 +1150,11 @@ namespace Awose
                         try
                         {
                             newValue = float.Parse(NewValue_TB.Text);
+                            if (newValue > 99999800)
+                            {
+                                NewValue_TB.Visible = false;
+                                break;
+                            }
                             //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingCharge, agents[aw_selected].Charge, newValue));
                             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Charge = newValue;
                         }

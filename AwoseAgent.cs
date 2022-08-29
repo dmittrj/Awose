@@ -9,6 +9,7 @@ namespace Awose
 {
     enum FirstSpaceObject { None, Satellite, Planet, Star }
     public enum SpriteType { White, Yellow, Green, Sky, Sign, Charge, Mass, Velocity }
+    public enum TrajectoryType { None, Fade, Nonfade}
     public class AwoseAgent
     {
         //User information
@@ -79,9 +80,10 @@ namespace Awose
         public Color Dye { get; set; }
         public SolidBrush DyeDim { get; set; }
 
-        public Queue<Point> Trajectory = new();
+        public Queue<PointParticle> Trajectory = new();
         public readonly Queue<Point> Spray = new();
         public SpriteType Sprite { get; set; }
+        public TrajectoryType TrajectoryLine { get; set; }
 
         //backups
         private double Backup_X;
@@ -111,6 +113,7 @@ namespace Awose
             Star = "";
             Sprite = SpriteType.White;
             Force = new Vector(new PointParticle(0, 0));
+            TrajectoryLine = TrajectoryType.None;
         }
 
         public AwoseAgent(string name, float x, float y)

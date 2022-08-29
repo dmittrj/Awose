@@ -180,6 +180,34 @@ namespace Awose
                     break;
             }
 
+            //Drawing trajectories
+            lock (Layers)
+            {
+                foreach (AwoseLayer layer in Layers)
+                {
+                    lock (layer.Agents)
+                    {
+                        foreach (AwoseAgent agent in layer.Agents)
+                        {
+                            lock (agent.Trajectory)
+                            {
+                                if (agent.TrajectoryLine == TrajectoryType.None) break;
+                                if (agent.Trajectory.Count < 3) break;
+                                PointParticle point1 = agent.Trajectory.Dequeue();
+                                agent.Trajectory.Enqueue(point1);
+                                for (int i = 1; i < agent.Trajectory.Count; i++)
+                                {
+                                    PointParticle point2 = agent.Trajectory.Dequeue();
+                                    agent.Trajectory.Enqueue(point2);
+                                    grfx.DrawLine(new Pen(agent.Dye, 2), RealToScreen(point1).ToPoint(), RealToScreen(point2).ToPoint());
+                                    point1 = point2;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             //Drawing arrows, lines, ...
             Brush mainVelocityArrow;
             if (editingValue == EditingValue.VelocityLength)
@@ -503,6 +531,7 @@ namespace Awose
                     agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
                     agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
                     agent.Location.Y += (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
                 }
             }
             try

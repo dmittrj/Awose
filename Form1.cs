@@ -191,8 +191,8 @@ namespace Awose
                         {
                             lock (agent.Trajectory)
                             {
-                                if (agent.TrajectoryLine == TrajectoryType.None) break;
-                                if (agent.Trajectory.Count < 3) break;
+                                if (agent.TrajectoryLine == TrajectoryType.None) continue;
+                                if (agent.Trajectory.Count < 3) continue;
                                 PointParticle point1 = agent.Trajectory.Dequeue();
                                 agent.Trajectory.Enqueue(point1);
                                 for (int i = 1; i < agent.Trajectory.Count; i++)
@@ -201,6 +201,10 @@ namespace Awose
                                     agent.Trajectory.Enqueue(point2);
                                     grfx.DrawLine(new Pen(agent.Dye, 2), RealToScreen(point1).ToPoint(), RealToScreen(point2).ToPoint());
                                     point1 = point2;
+                                }
+                                if (agent.TrajectoryLine == TrajectoryType.Fade && agent.Trajectory.Count > 100)
+                                {
+                                    agent.Trajectory.Dequeue();
                                 }
                             }
                         }

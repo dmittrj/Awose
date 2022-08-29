@@ -99,8 +99,8 @@ namespace Awose
         private PointParticle GetCursorPosition()
         {
             return new PointParticle(
-                Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7,
-                Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29);
+                Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 8,
+                Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 30);
         }
 
         private void Aw_Refresh()

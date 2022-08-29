@@ -81,6 +81,7 @@ namespace Awose
             this.Undo_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Redo_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DeleteAllObjects_CMI = new System.Windows.Forms.ToolStripMenuItem();
             this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.objectColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayForcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -151,7 +152,6 @@ namespace Awose
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
             this.BeautyPreview_PB = new System.Windows.Forms.PictureBox();
-            this.DeleteAllObjects_CMI = new System.Windows.Forms.ToolStripMenuItem();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Sky_PB)).BeginInit();
@@ -391,6 +391,7 @@ namespace Awose
             this.NewValue_TB.TabIndex = 3;
             this.NewValue_TB.Visible = false;
             this.NewValue_TB.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NewValue_TB_KeyDown);
+            this.NewValue_TB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.NewValue_TB_KeyUp);
             this.NewValue_TB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.NewValue_TB_PreviewKeyDown);
             // 
             // ObjectSettings_Panel
@@ -794,6 +795,13 @@ namespace Awose
             this.hToolStripMenuItem.Name = "hToolStripMenuItem";
             this.hToolStripMenuItem.Size = new System.Drawing.Size(71, 24);
             this.hToolStripMenuItem.Text = "Objects";
+            // 
+            // DeleteAllObjects_CMI
+            // 
+            this.DeleteAllObjects_CMI.Name = "DeleteAllObjects_CMI";
+            this.DeleteAllObjects_CMI.Size = new System.Drawing.Size(247, 24);
+            this.DeleteAllObjects_CMI.Text = "Delete all objects at layer";
+            this.DeleteAllObjects_CMI.Click += new System.EventHandler(this.DeleteAllObjects_CMI_Click);
             // 
             // displayToolStripMenuItem
             // 
@@ -1497,13 +1505,6 @@ namespace Awose
             this.BeautyPreview_PB.TabIndex = 16;
             this.BeautyPreview_PB.TabStop = false;
             this.BeautyPreview_PB.Visible = false;
-            // 
-            // DeleteAllObjects_CMI
-            // 
-            this.DeleteAllObjects_CMI.Name = "DeleteAllObjects_CMI";
-            this.DeleteAllObjects_CMI.Size = new System.Drawing.Size(247, 24);
-            this.DeleteAllObjects_CMI.Text = "Delete all objects at layer";
-            this.DeleteAllObjects_CMI.Click += new System.EventHandler(this.DeleteAllObjects_CMI_Click);
             // 
             // Awose
             // 

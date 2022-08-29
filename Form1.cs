@@ -1090,19 +1090,16 @@ namespace Awose
                     case EditingValue.Mass:
                         ObjectCharge_Label_Click(sender, e);
                         NewValue_TB.Focus();
-                        NewValue_TB.SelectAll();
                         return;
                     case EditingValue.Charge:
                         ObjectPositionX_Label_Click(sender, e);
                         NewValue_TB.Focus();
-                        NewValue_TB.SelectAll();
                         return;
                     case EditingValue.Name:
                         break;
                     case EditingValue.X:
                         ObjectPositionY_Label_Click(sender, e);
                         NewValue_TB.Focus();
-                        NewValue_TB.SelectAll();
                         return;
                     case EditingValue.Y:
                         break;
@@ -2049,6 +2046,14 @@ namespace Awose
             Layers[CurrentLayer].Agents.Clear();
 
             Aw_DrawControl();
+        }
+
+        private void NewValue_TB_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Down)
+            {
+                NewValue_TB.SelectAll();
+            }
         }
     }
 }

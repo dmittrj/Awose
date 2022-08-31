@@ -77,7 +77,7 @@ namespace Awose
             this.Main_MStr = new System.Windows.Forms.MenuStrip();
             this.Simulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LaunchSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.Compute_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PauseSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.StopSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetSimulation_MSItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -167,6 +167,14 @@ namespace Awose
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
             this.BeautyPreview_PB = new System.Windows.Forms.PictureBox();
+            this.ComputePanel = new System.Windows.Forms.Panel();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.Compute_Button = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.Computing_PBar = new System.Windows.Forms.ProgressBar();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Force_PB)).BeginInit();
@@ -194,6 +202,7 @@ namespace Awose
             this.panel4.SuspendLayout();
             this.LayersBar_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BeautyPreview_PB)).BeginInit();
+            this.ComputePanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // ControlAgents_Panel
@@ -796,7 +805,7 @@ namespace Awose
             // 
             this.Simulation_MSItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LaunchSimulation_MSItem,
-            this.toolStripMenuItem4,
+            this.Compute_MSItem,
             this.PauseSimulation_MSItem,
             this.StopSimulation_MSItem,
             this.ResetSimulation_MSItem,
@@ -827,12 +836,13 @@ namespace Awose
             this.LaunchSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.LaunchSimulation_MSItem.Click += new System.EventHandler(this.LaunchSimulation_MSItem_Click);
             // 
-            // toolStripMenuItem4
+            // Compute_MSItem
             // 
-            this.toolStripMenuItem4.Enabled = false;
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(229, 24);
-            this.toolStripMenuItem4.Text = "Compute...";
+            this.Compute_MSItem.Enabled = false;
+            this.Compute_MSItem.Name = "Compute_MSItem";
+            this.Compute_MSItem.Size = new System.Drawing.Size(229, 24);
+            this.Compute_MSItem.Text = "Compute...";
+            this.Compute_MSItem.Click += new System.EventHandler(this.Compute_MSItem_Click);
             // 
             // PauseSimulation_MSItem
             // 
@@ -845,6 +855,7 @@ namespace Awose
             this.PauseSimulation_MSItem.Size = new System.Drawing.Size(229, 24);
             this.PauseSimulation_MSItem.Text = "Pause simulation";
             this.PauseSimulation_MSItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
+            this.PauseSimulation_MSItem.Click += new System.EventHandler(this.PauseSimulation_MSItem_Click);
             // 
             // StopSimulation_MSItem
             // 
@@ -1744,12 +1755,120 @@ namespace Awose
             this.BeautyPreview_PB.TabStop = false;
             this.BeautyPreview_PB.Visible = false;
             // 
+            // ComputePanel
+            // 
+            this.ComputePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComputePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ComputePanel.Controls.Add(this.Computing_PBar);
+            this.ComputePanel.Controls.Add(this.button2);
+            this.ComputePanel.Controls.Add(this.Compute_Button);
+            this.ComputePanel.Controls.Add(this.label32);
+            this.ComputePanel.Controls.Add(this.textBox2);
+            this.ComputePanel.Controls.Add(this.label30);
+            this.ComputePanel.Controls.Add(this.label31);
+            this.ComputePanel.Location = new System.Drawing.Point(981, 604);
+            this.ComputePanel.Name = "ComputePanel";
+            this.ComputePanel.Size = new System.Drawing.Size(248, 105);
+            this.ComputePanel.TabIndex = 17;
+            // 
+            // label30
+            // 
+            this.label30.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label30.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label30.ForeColor = System.Drawing.Color.White;
+            this.label30.Location = new System.Drawing.Point(3, 40);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(63, 19);
+            this.label30.TabIndex = 2;
+            this.label30.Text = "Time:";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label31.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label31.ForeColor = System.Drawing.Color.White;
+            this.label31.Location = new System.Drawing.Point(3, 7);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(83, 19);
+            this.label31.TabIndex = 1;
+            this.label31.Text = "Computing";
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.textBox2.ForeColor = System.Drawing.Color.White;
+            this.textBox2.Location = new System.Drawing.Point(45, 41);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(55, 19);
+            this.textBox2.TabIndex = 18;
+            this.textBox2.Text = "0";
+            this.textBox2.Visible = false;
+            // 
+            // label32
+            // 
+            this.label32.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label32.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label32.ForeColor = System.Drawing.Color.White;
+            this.label32.Location = new System.Drawing.Point(103, 40);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(63, 19);
+            this.label32.TabIndex = 19;
+            this.label32.Text = "s";
+            // 
+            // Compute_Button
+            // 
+            this.Compute_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.Compute_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Compute_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Compute_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.Compute_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.Compute_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.Compute_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Compute_Button.ForeColor = System.Drawing.Color.White;
+            this.Compute_Button.Location = new System.Drawing.Point(106, 72);
+            this.Compute_Button.Name = "Compute_Button";
+            this.Compute_Button.Size = new System.Drawing.Size(70, 24);
+            this.Compute_Button.TabIndex = 20;
+            this.Compute_Button.Text = "Compute";
+            this.Compute_Button.UseVisualStyleBackColor = false;
+            this.Compute_Button.Click += new System.EventHandler(this.Compute_Button_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(180, 72);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(59, 24);
+            this.button2.TabIndex = 21;
+            this.button2.Text = "Cancel";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // Computing_PBar
+            // 
+            this.Computing_PBar.Location = new System.Drawing.Point(7, 41);
+            this.Computing_PBar.Name = "Computing_PBar";
+            this.Computing_PBar.Size = new System.Drawing.Size(232, 20);
+            this.Computing_PBar.TabIndex = 22;
+            this.Computing_PBar.Value = 20;
+            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.ComputePanel);
             this.Controls.Add(this.BeautyPreview_PB);
             this.Controls.Add(this.LayersBar_Panel);
             this.Controls.Add(this.RT_Scale_Label);
@@ -1806,6 +1925,8 @@ namespace Awose
             this.panel4.PerformLayout();
             this.LayersBar_Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.BeautyPreview_PB)).EndInit();
+            this.ComputePanel.ResumeLayout(false);
+            this.ComputePanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1926,7 +2047,7 @@ namespace Awose
         private System.Windows.Forms.Label ObjectVelocity_Label;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.PictureBox ObjectVelocityCircle_PB;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem Compute_MSItem;
         private System.Windows.Forms.OpenFileDialog OpenModel_OFD;
         private System.Windows.Forms.Label DegreeHint_Label;
         private System.Windows.Forms.ToolStripMenuItem SetCustomVelocity_CMItem;
@@ -1950,6 +2071,14 @@ namespace Awose
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.TrackBar StreamFrequency_TB;
+        private System.Windows.Forms.Panel ComputePanel;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button Compute_Button;
+        private System.Windows.Forms.ProgressBar Computing_PBar;
     }
 }
 

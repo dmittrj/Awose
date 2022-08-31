@@ -21,6 +21,8 @@ namespace Awose
     enum SpecialCondition { None, SetVelocity, SetFirstSpaceVelocity}
 
     enum BeautyPreviewMode { None, ObjectColor }
+
+    enum SimulationStatus { Stopped, Launched, Paused, Computing}
     public partial class Awose : Form
     {
         [Obsolete]
@@ -55,6 +57,7 @@ namespace Awose
         //[Obsolete]
         //private bool isObjectMoving = false;
         private bool isLaunched = false;
+        private SimulationStatus Status = SimulationStatus.Stopped;
         [Obsolete]
         private bool isFirstSpaceSetting = false;
         private AwoseAgent Phantom = null;
@@ -1903,6 +1906,7 @@ namespace Awose
             //Layers[CurrentLayer].Sources.Add(new AwoseParticle(ScreenToReal(new PointParticle(0, 0))));
             isLaunched = true;
             LaunchSimulation_MSItem.Enabled = false;
+            Compute_MSItem.Enabled = false;
             PauseSimulation_MSItem.Enabled = true;
             StopSimulation_MSItem.Enabled = true;
             ResetSimulation_MSItem.Enabled = true;
@@ -1920,6 +1924,7 @@ namespace Awose
             isLaunched = false;
             LaunchSimulation_MSItem.Enabled = true;
             PauseSimulation_MSItem.Enabled = false;
+            Compute_MSItem.Enabled = true;
             StopSimulation_MSItem.Enabled = false;
             ResetSimulation_MSItem.Enabled = true;
             ObjectMass_Label.Cursor = Cursors.IBeam;
@@ -2415,6 +2420,40 @@ namespace Awose
                     }
                 }
             }
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Compute_MSItem_Click(object sender, EventArgs e)
+        {
+            Computing_PBar.Value = 0;
+            Computing_PBar.Visible = false;
+            ComputePanel.Visible = true;
+        }
+
+        private void PauseSimulation_MSItem_Click(object sender, EventArgs e)
+        {
+            isLaunched = false;
+            LaunchSimulation_MSItem.Enabled = true;
+            PauseSimulation_MSItem.Enabled = false;
+            Compute_MSItem.Enabled = true;
+            StopSimulation_MSItem.Enabled = false;
+            ResetSimulation_MSItem.Enabled = true;
+            ObjectMass_Label.Cursor = Cursors.IBeam;
+            ObjectCharge_Label.Cursor = Cursors.IBeam;
+            ObjectPositionX_Label.Cursor = Cursors.IBeam;
+            ObjectPositionY_Label.Cursor = Cursors.IBeam;
+            ObjectVelocity_Label.Cursor = Cursors.IBeam;
+            Pinned_CB.Enabled = true;
+            Aw_CheckMistakes();
+        }
+
+        private void Compute_Button_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

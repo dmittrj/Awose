@@ -336,30 +336,40 @@ namespace Awose
             }
 
             //Drawing flow
-            foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+            if (Layers[CurrentLayer].StrMode != StreamMode.None)
             {
-                lock (particle.Trajectory)
+                lock (Layers[CurrentLayer].Sources)
                 {
-                    if (particle.Trajectory.Count < 3) {
-                        particle.Reborning = false;
-                        particle.Lifetime = new Random().Next(100);
-                        continue; 
-                    }
-                    PointParticle point1 = particle.Trajectory.Dequeue();
-                    particle.Trajectory.Enqueue(point1);
-                    for (int i = 1; i < particle.Trajectory.Count; i++)
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
                     {
-                        PointParticle point2 = particle.Trajectory.Dequeue();
-                        grfx.DrawLine(new Pen(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, i * 3), Calculations.Normilize(0, 255, i * 2), Calculations.Normilize(0, 255, i * 2))), 1), RealToScreen(point1).ToPoint(), RealToScreen(point2).ToPoint());
-                        particle.Trajectory.Enqueue(point2);
-                        point1 = point2;
-                    }
-                    //if (particle.Trajectory.Count > 255) { particle.Trajectory.Dequeue(); }
-                    if (particle.Lifetime > 100) { 
-                        particle.Reborn(); 
+                        lock (particle.Trajectory)
+                        {
+                            if (particle.Trajectory.Count < 3)
+                            {
+                                particle.Reborning = false;
+                                particle.Lifetime = new Random().Next(100);
+                                continue;
+                            }
+                            PointParticle point1 = particle.Trajectory.Dequeue();
+                            particle.Trajectory.Enqueue(point1);
+                            for (int i = 1; i < particle.Trajectory.Count; i++)
+                            {
+                                PointParticle point2 = particle.Trajectory.Dequeue();
+                                grfx.DrawLine(new Pen(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, i * 3), Calculations.Normilize(0, 255, i * 2), Calculations.Normilize(0, 255, i * 2))), 1), RealToScreen(point1).ToPoint(), RealToScreen(point2).ToPoint());
+                                particle.Trajectory.Enqueue(point2);
+                                point1 = point2;
+                            }
+                            //if (particle.Trajectory.Count > 255) { particle.Trajectory.Dequeue(); }
+                            if (particle.Lifetime > 100)
+                            {
+                                particle.Reborn();
+                            }
+                        }
                     }
                 }
             }
+            
+            
 
 
             //Drawing agents
@@ -561,10 +571,14 @@ namespace Awose
 
         private void Aw_Step(int time)
         {
-            foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+            lock (Layers[CurrentLayer].Sources)
             {
-                particle.ForceGX = particle.ForceGY = particle.ForceEX = particle.ForceEY = 0;
+                foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                {
+                    particle.ForceGX = particle.ForceGY = particle.ForceEX = particle.ForceEY = 0;
+                }
             }
+            
             foreach (AwoseLayer layer in Layers)
             {
                 foreach (AwoseAgent agent in layer.Agents)
@@ -591,33 +605,43 @@ namespace Awose
             }
             for (int i = 0; i < Layers[CurrentLayer].Agents.Count; i++)
             {
-                foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                lock (Layers[CurrentLayer].Sources)
                 {
-                    if (Calculations.IsInRadius(particle.Location.X, particle.Location.Y, Layers[CurrentLayer].Agents[i], 9) || particle.Velocity.Length > 900)
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
                     {
-                        particle.Reborn();
-                    } else
-                    {
-                        particle.ForceCalc(Layers[CurrentLayer].Agents[i]);
+                        if (Calculations.IsInRadius(particle.Location.X, particle.Location.Y, Layers[CurrentLayer].Agents[i], 9) || particle.Velocity.Length > 900)
+                        {
+                            particle.Reborn();
+                        }
+                        else
+                        {
+                            particle.ForceCalc(Layers[CurrentLayer].Agents[i], Layers[CurrentLayer].StrMode);
+                        }
                     }
                 }
+                    
             }
-            foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+            lock (Layers[CurrentLayer].Sources)
             {
-                particle.Force = new Vector(new PointParticle((float)(particle.ForceGX + particle.ForceEX), (float)(particle.ForceGY + particle.ForceEY)));
-                particle.Velocity.Tail.X += (float)((particle.ForceGX + particle.ForceEX) * timeStep / 1 / 1000);
-                particle.Velocity.Tail.Y += (float)((particle.ForceGY + particle.ForceEY) * timeStep / 1 / 1000);
-                particle.Location.X += (float)(particle.Velocity.Tail.X * timeStep / 1000);
-                particle.Location.Y += (float)(particle.Velocity.Tail.Y * timeStep / 1000);
-                if (particle.Reborning && particle.Trajectory.Count > 1)
+                foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
                 {
-                    particle.Trajectory.Dequeue();
-                } else
-                {
-                    particle.Trajectory.Enqueue(new PointParticle(particle.Location.X, (int)particle.Location.Y));
-                }  
-                particle.Lifetime++;
+                    particle.Force = new Vector(new PointParticle((float)(particle.ForceGX + particle.ForceEX), (float)(particle.ForceGY + particle.ForceEY)));
+                    particle.Velocity.Tail.X += (float)((particle.ForceGX + particle.ForceEX) * timeStep / 1 / 1000);
+                    particle.Velocity.Tail.Y += (float)((particle.ForceGY + particle.ForceEY) * timeStep / 1 / 1000);
+                    particle.Location.X += (float)(particle.Velocity.Tail.X * timeStep / 1000);
+                    particle.Location.Y += (float)(particle.Velocity.Tail.Y * timeStep / 1000);
+                    if (particle.Reborning && particle.Trajectory.Count > 1)
+                    {
+                        particle.Trajectory.Dequeue();
+                    }
+                    else
+                    {
+                        particle.Trajectory.Enqueue(new PointParticle(particle.Location.X, (int)particle.Location.Y));
+                    }
+                    particle.Lifetime++;
+                }
             }
+            
             try
             {
                 Invoke((Action)Aw_DrawControlLite);
@@ -2019,6 +2043,10 @@ namespace Awose
                     agent.Trajectory.Clear();
                     agent.Restore();
                 }
+            }
+            foreach (AwoseParticle item in Layers[CurrentLayer].Sources)
+            {
+                item.Trajectory.Clear();
             }
             Aw_CheckMistakes();
         }

@@ -34,7 +34,7 @@ namespace Awose
             ELaw = -2;
             GLaw = -2;
             StrMode = StreamMode.None;
-            StreamFreq = 300;
+            StreamFreq = 200;
             switch ((layerNumber - 1) % 2)
             {
                 case 0:

@@ -1456,12 +1456,12 @@ namespace Awose
             this.StreamFrequency_TB.Cursor = System.Windows.Forms.Cursors.Default;
             this.StreamFrequency_TB.Location = new System.Drawing.Point(13, 121);
             this.StreamFrequency_TB.Maximum = 1000;
-            this.StreamFrequency_TB.Minimum = 1;
+            this.StreamFrequency_TB.Minimum = 500;
             this.StreamFrequency_TB.Name = "StreamFrequency_TB";
             this.StreamFrequency_TB.Size = new System.Drawing.Size(222, 26);
             this.StreamFrequency_TB.TabIndex = 20;
             this.StreamFrequency_TB.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.StreamFrequency_TB.Value = 1;
+            this.StreamFrequency_TB.Value = 750;
             this.StreamFrequency_TB.Scroll += new System.EventHandler(this.StreamFrequency_TB_Scroll);
             // 
             // label29

@@ -30,18 +30,27 @@ namespace Awose
         public double ForceEX;
         public double ForceEY;
 
-        public void ForceCalc(AwoseAgent opposite)
+        public void ForceCalc(AwoseAgent opposite, StreamMode streamMode)
         {
             //gravity
             double tmpForceGX = 0, tmpForceGY = 0;
             double tmpForceEX = 0, tmpForceEY = 0;
             double distance = Math.Pow(Location.X - opposite.Location.X, 2) + Math.Pow(Location.Y - opposite.Location.Y, 2);
-            Calculations.Gravity(new AwoseAgent("", Location.X, Location.Y, 1, 0, 0, 0, false), opposite, ref tmpForceGX, ref tmpForceGY, distance);
-            ForceGX += tmpForceGX;
-            ForceGY += tmpForceGY;
-            Calculations.Electrical(new AwoseAgent("", Location.X, Location.Y, 0, 1, 0, 0, false), opposite, ref tmpForceEX, ref tmpForceEY, distance);
-            ForceEX += tmpForceEX;
-            ForceEY += tmpForceEY;
+            switch (streamMode)
+            {
+                case StreamMode.Gravity:
+                    Calculations.Gravity(new AwoseAgent("", Location.X, Location.Y, 1, 0, 0, 0, false), opposite, ref tmpForceGX, ref tmpForceGY, distance);
+                    ForceGX += tmpForceGX;
+                    ForceGY += tmpForceGY;
+                    break;
+                case StreamMode.Electric:
+                    Calculations.Electrical(new AwoseAgent("", Location.X, Location.Y, 0, 1, 0, 0, false), opposite, ref tmpForceEX, ref tmpForceEY, distance);
+                    ForceEX += tmpForceEX;
+                    ForceEY += tmpForceEY;
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void Reborn()

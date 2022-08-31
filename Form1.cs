@@ -700,6 +700,8 @@ namespace Awose
                     ObjectSprite_White_PB.Height, Color.Green, agent.Sprite == SpriteType.Green);
                 ObjectSprite_Sky_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Yellow_PB.Width,
                     ObjectSprite_Yellow_PB.Height, Color.SkyBlue, agent.Sprite == SpriteType.Sky);
+                ObjectSprite_Red_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Red_PB.Width,
+                    ObjectSprite_Red_PB.Height, Color.PaleVioletRed, agent.Sprite == SpriteType.Red);
 
                 ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
                     ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
@@ -831,6 +833,8 @@ namespace Awose
                     ObjectSprite_White_PB.Height, Color.Green, agent.Sprite == SpriteType.Green);
                 ObjectSprite_Sky_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Yellow_PB.Width,
                     ObjectSprite_Yellow_PB.Height, Color.SkyBlue, agent.Sprite == SpriteType.Sky);
+                ObjectSprite_Red_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Red_PB.Width,
+                    ObjectSprite_Red_PB.Height, Color.PaleVioletRed, agent.Sprite == SpriteType.Red);
 
                 ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
                     ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
@@ -2155,6 +2159,28 @@ namespace Awose
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].TrajectoryLine = TrajectoryType.None;
             Aw_DrawControl();
             Aw_Refresh();
+        }
+
+        private void ObjectSprite_Red_PB_MouseHover(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Text = "Pink";
+            ObjectColorHint_Label.Location = new Point(
+                ObjectSprite_Red_PB.Location.X + 4,
+                ObjectSprite_Red_PB.Location.Y + ObjectSprite_Red_PB.Height + 7
+                );
+            ObjectColorHint_Label.Visible = true;
+        }
+
+        private void ObjectSprite_Red_PB_MouseLeave(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Visible = false;
+        }
+
+        private void ObjectSprite_Red_PB_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Dye = Color.PaleVioletRed;
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Sprite = SpriteType.Red;
+            Aw_DrawControl();
         }
     }
 }

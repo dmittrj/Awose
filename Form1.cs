@@ -49,6 +49,7 @@ namespace Awose
         private MovingEntity movingEntity = MovingEntity.None;
         private SpecialCondition specialCondition = SpecialCondition.None;
         private BeautyPreviewMode beautyPreview = BeautyPreviewMode.None;
+        private float MaxVelocity = 0;
         //[Obsolete]
         //private bool isBoardMoving = false;
         //[Obsolete]
@@ -334,8 +335,45 @@ namespace Awose
 
             }
 
+            //Drawing flow
+            if (Layers[CurrentLayer].StrMode != StreamMode.None)
+            {
+                lock (Layers[CurrentLayer].Sources)
+                {
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                    {
+                        lock (particle.Trajectory)
+                        {
+                            if (particle.Trajectory.Count < 3)
+                            {
+                                particle.Reborning = false;
+                                particle.Lifetime = new Random().Next(100);
+                                continue;
+                            }
+                            PointParticle point1 = particle.Trajectory.Dequeue();
+                            particle.Trajectory.Enqueue(point1);
+                            for (int i = 1; i < particle.Trajectory.Count; i++)
+                            {
+                                PointParticle point2 = particle.Trajectory.Dequeue();
+                                grfx.DrawLine(new Pen(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, i * 3), Calculations.Normilize(0, 255, i * 2), Calculations.Normilize(0, 255, i * 2))), 1), RealToScreen(point1).ToPoint(), RealToScreen(point2).ToPoint());
+                                particle.Trajectory.Enqueue(point2);
+                                point1 = point2;
+                            }
+                            //if (particle.Trajectory.Count > 255) { particle.Trajectory.Dequeue(); }
+                            if (particle.Lifetime > 100)
+                            {
+                                particle.Reborn();
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
+
 
             //Drawing agents
+            float MaxVelocityTmp = 0.00001f;
             lock (Layers)
             {
                 foreach (AwoseLayer layer in Layers)
@@ -344,6 +382,24 @@ namespace Awose
                     {
                         foreach (AwoseAgent agent in layer.Agents)
                         {
+                            if (agent.Velocity.Length > MaxVelocityTmp)
+                            {
+                                MaxVelocityTmp = agent.Velocity.Length;
+                            }
+                            switch (agent.Sprite)
+                            {
+                                case SpriteType.Sign:
+                                    break;
+                                case SpriteType.Charge:
+                                    break;
+                                case SpriteType.Mass:
+                                    break;
+                                case SpriteType.Velocity:
+                                    agent.Dye = Color.FromArgb(0, Calculations.Normilize(40, 200, (int)(200 * agent.Velocity.Length / MaxVelocity)), Calculations.Normilize(40, 255, (int)(255 * agent.Velocity.Length / MaxVelocity)));
+                                    break;
+                                default:
+                                    break;
+                            }
                             Point point = RealToScreen(agent.Location).ToPoint();
                             RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
                             grfx.FillEllipse(new SolidBrush(agent.Dye), circle);
@@ -368,6 +424,7 @@ namespace Awose
                     }
                 }
             }
+            MaxVelocity = MaxVelocityTmp;
             if (Phantom != null)
             {
                 Point point = RealToScreen(Phantom.Location).ToPoint();
@@ -384,136 +441,144 @@ namespace Awose
 
             //Drawing arrows, lines etc
             
-            if (isFirstSpaceSetting)
-            {
-                int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
-                int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-                grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
-                    new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y),
-                    new Point(x, (int)agents[aw_selected].Y));
-                grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
-                    new Point(x, (int)agents[aw_selected].Y),
-                    new Point(x, y));
-            }
-            lock (agents) {
-                foreach (AwoseAgent item in agents)
-                {
-                    int dotNumber = 0;
-                    lock (item.Spray)
-                    {
-                        foreach (Point dot in item.Spray)
-                        {
-                            RectangleF spraydot = new(lu_corner.X + dot.X * aw_scale, lu_corner.Y + dot.Y * aw_scale, aw_scale, aw_scale);
-                            if (item.MistakeType == 0)
-                                grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
-                            if (item.MistakeType == 1)
-                                grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
-                            if (item.MistakeType == 2)
-                                grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
-                        }
-                    }
+        //    if (isFirstSpaceSetting)
+        //    {
+        //        int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+        //        int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+        //        grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
+        //            new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y),
+        //            new Point(x, (int)agents[aw_selected].Y));
+        //        grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
+        //            new Point(x, (int)agents[aw_selected].Y),
+        //            new Point(x, y));
+        //    }
+        //    lock (agents) {
+        //        foreach (AwoseAgent item in agents)
+        //        {
+        //            int dotNumber = 0;
+        //            lock (item.Spray)
+        //            {
+        //                foreach (Point dot in item.Spray)
+        //                {
+        //                    RectangleF spraydot = new(lu_corner.X + dot.X * aw_scale, lu_corner.Y + dot.Y * aw_scale, aw_scale, aw_scale);
+        //                    if (item.MistakeType == 0)
+        //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
+        //                    if (item.MistakeType == 1)
+        //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+        //                    if (item.MistakeType == 2)
+        //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+        //                }
+        //            }
 
-                    Point point = RealToScreen(item.X, item.Y);
-                    RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
-                    if (circle.X + diameter < 0) {
-                        if (circle.Y + 0.5 * diameter < 15)
-                        {
-                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, 15, item.Name.Length * 7, 20));
-                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, 16));
-                        } 
-                        else if (circle.Y > ModelBoard_PB.Height)
-                        {
-                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
-                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, ModelBoard_PB.Height - 34));
-                        }
-                        else
-                        {
-                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, (int)circle.Y, item.Name.Length * 7, 20));
-                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, (int)circle.Y + 1));
-                        }
-                    } else if (circle.X > ModelBoard_PB.Width)
-                    {
-                        if (circle.Y + 0.5 * diameter < 15)
-                        {
-                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, 15, item.Name.Length * 7, 20));
-                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, 16));
-                        }
-                        else if (circle.Y > ModelBoard_PB.Height)
-                        {
-                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
-                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, ModelBoard_PB.Height - 34));
-                        }
-                        else
-                        {
-                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, (int)circle.Y, item.Name.Length * 7, 20));
-                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, (int)circle.Y + 1));
-                        }
-                    } else
-                    {
-                        if (circle.Y + 0.5 * diameter < 0)
-                        {
-                            Point[] triangle = {
-                                new Point((int)circle.X, 10),
-                                new Point((int)circle.X - 8, 20),
-                                new Point((int)circle.X + 8, 20)
-                            };
-                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, 20, item.Name.Length * 7, 20));
-                            grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
-                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 9, 21));
-                        }
-                        else if (circle.Y > ModelBoard_PB.Height)
-                        {
-                            Point[] triangle = {
-                                new Point((int)circle.X, ModelBoard_PB.Height - 10),
-                                new Point((int)circle.X - 8, ModelBoard_PB.Height - 20),
-                                new Point((int)circle.X + 8, ModelBoard_PB.Height - 20)
-                            };
-                            grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, ModelBoard_PB.Height - 40, item.Name.Length * 7, 20));
-                            grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
-                            grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 12, ModelBoard_PB.Height - 39));
-                        }
-                        else
-                        {
-                            if (!isLaunched)
-                                if (Math.Abs(item.VelocityX) + Math.Abs(item.VelocityY) > 10)
-                                {
-                                    int x = (int)item.X + (int)item.VelocityX;
-                                    int y = (int)item.Y + (int)item.VelocityY;
-                                    float dx = (float)item.VelocityX;
-                                    float dy = (float)item.VelocityY;
-                                    float l = (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
-                                    float ax = 15 * dx / l;
-                                    float ay = 15 * dy / l;
-                                    float bx = 7 * dy / l;
-                                    float by = 7 * dx / l;
-                                    Point[] arrow =
-                                    {
-                                        new Point(x, y),
-                                        new Point(x - (int)ax + (int)bx, y - (int)ay - (int)by),
-                                        new Point(x - (int)ax - (int)bx, y - (int)ay + (int)by)
-                                    };
-                                    grfx.DrawLine(new Pen(Brushes.DimGray, 2),
-                                        new Point((int)item.X, (int)item.Y),
-                                        new Point((int)item.X + (int)item.VelocityX,
-                                        (int)item.Y + (int)item.VelocityY));
-                                    grfx.FillPolygon(Brushes.DimGray, arrow);
-                                }
-                            grfx.FillEllipse(new SolidBrush(item.Dye), circle);
-                            if (item.IsSelected)
-                            {
-                                RectangleF bigcircle = new((float)(lu_corner.X + item.X * aw_scale - (diameter * 1.7) / 2), (float)(lu_corner.Y + item.Y * aw_scale - (diameter * 1.7) / 2), (int)(diameter * 1.7), (int)(diameter * 1.7));
-                                grfx.DrawEllipse(new Pen(Brushes.White, (int)(1.5 * aw_scale)), bigcircle);
-                            }
-                        }
-                    }
+        //            Point point = RealToScreen(item.X, item.Y);
+        //            RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
+        //            if (circle.X + diameter < 0) {
+        //                if (circle.Y + 0.5 * diameter < 15)
+        //                {
+        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, 15, item.Name.Length * 7, 20));
+        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, 16));
+        //                } 
+        //                else if (circle.Y > ModelBoard_PB.Height)
+        //                {
+        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
+        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, ModelBoard_PB.Height - 34));
+        //                }
+        //                else
+        //                {
+        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, (int)circle.Y, item.Name.Length * 7, 20));
+        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, (int)circle.Y + 1));
+        //                }
+        //            } else if (circle.X > ModelBoard_PB.Width)
+        //            {
+        //                if (circle.Y + 0.5 * diameter < 15)
+        //                {
+        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, 15, item.Name.Length * 7, 20));
+        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, 16));
+        //                }
+        //                else if (circle.Y > ModelBoard_PB.Height)
+        //                {
+        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
+        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, ModelBoard_PB.Height - 34));
+        //                }
+        //                else
+        //                {
+        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, (int)circle.Y, item.Name.Length * 7, 20));
+        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, (int)circle.Y + 1));
+        //                }
+        //            } else
+        //            {
+        //                if (circle.Y + 0.5 * diameter < 0)
+        //                {
+        //                    Point[] triangle = {
+        //                        new Point((int)circle.X, 10),
+        //                        new Point((int)circle.X - 8, 20),
+        //                        new Point((int)circle.X + 8, 20)
+        //                    };
+        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, 20, item.Name.Length * 7, 20));
+        //                    grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
+        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 9, 21));
+        //                }
+        //                else if (circle.Y > ModelBoard_PB.Height)
+        //                {
+        //                    Point[] triangle = {
+        //                        new Point((int)circle.X, ModelBoard_PB.Height - 10),
+        //                        new Point((int)circle.X - 8, ModelBoard_PB.Height - 20),
+        //                        new Point((int)circle.X + 8, ModelBoard_PB.Height - 20)
+        //                    };
+        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, ModelBoard_PB.Height - 40, item.Name.Length * 7, 20));
+        //                    grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
+        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 12, ModelBoard_PB.Height - 39));
+        //                }
+        //                else
+        //                {
+        //                    if (!isLaunched)
+        //                        if (Math.Abs(item.VelocityX) + Math.Abs(item.VelocityY) > 10)
+        //                        {
+        //                            int x = (int)item.X + (int)item.VelocityX;
+        //                            int y = (int)item.Y + (int)item.VelocityY;
+        //                            float dx = (float)item.VelocityX;
+        //                            float dy = (float)item.VelocityY;
+        //                            float l = (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
+        //                            float ax = 15 * dx / l;
+        //                            float ay = 15 * dy / l;
+        //                            float bx = 7 * dy / l;
+        //                            float by = 7 * dx / l;
+        //                            Point[] arrow =
+        //                            {
+        //                                new Point(x, y),
+        //                                new Point(x - (int)ax + (int)bx, y - (int)ay - (int)by),
+        //                                new Point(x - (int)ax - (int)bx, y - (int)ay + (int)by)
+        //                            };
+        //                            grfx.DrawLine(new Pen(Brushes.DimGray, 2),
+        //                                new Point((int)item.X, (int)item.Y),
+        //                                new Point((int)item.X + (int)item.VelocityX,
+        //                                (int)item.Y + (int)item.VelocityY));
+        //                            grfx.FillPolygon(Brushes.DimGray, arrow);
+        //                        }
+        //                    grfx.FillEllipse(new SolidBrush(item.Dye), circle);
+        //                    if (item.IsSelected)
+        //                    {
+        //                        RectangleF bigcircle = new((float)(lu_corner.X + item.X * aw_scale - (diameter * 1.7) / 2), (float)(lu_corner.Y + item.Y * aw_scale - (diameter * 1.7) / 2), (int)(diameter * 1.7), (int)(diameter * 1.7));
+        //                        grfx.DrawEllipse(new Pen(Brushes.White, (int)(1.5 * aw_scale)), bigcircle);
+        //                    }
+        //                }
+        //            }
                     
-                }
-        }
+        //        }
+        //}
             ModelBoard_PB.BackgroundImage = board;
         }
 
         private void Aw_Step(int time)
         {
+            lock (Layers[CurrentLayer].Sources)
+            {
+                foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                {
+                    particle.ForceGX = particle.ForceGY = particle.ForceEX = particle.ForceEY = 0;
+                }
+            }
+            
             foreach (AwoseLayer layer in Layers)
             {
                 foreach (AwoseAgent agent in layer.Agents)
@@ -538,6 +603,55 @@ namespace Awose
                     agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
                 }
             }
+            for (int i = 0; i < Layers[CurrentLayer].Agents.Count; i++)
+            {
+                lock (Layers[CurrentLayer].Sources)
+                {
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                    {
+                        if (Calculations.IsInRadius(particle.Location.X, particle.Location.Y, Layers[CurrentLayer].Agents[i], 9) || particle.Velocity.Length > 900)
+                        {
+                            particle.Reborn();
+                        }
+                        else
+                        {
+                            particle.ForceCalc(Layers[CurrentLayer].Agents[i], Layers[CurrentLayer].StrMode);
+                        }
+                    }
+                }
+                    
+            }
+            lock (Layers[CurrentLayer].Sources)
+            {
+                foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                {
+                    particle.Force = new Vector(new PointParticle((float)(particle.ForceGX + particle.ForceEX), (float)(particle.ForceGY + particle.ForceEY)));
+
+                    //particle.Velocity.Tail.X *= 0.1f;
+                    //particle.Velocity.Tail.Y *= 0.1f;
+
+                    particle.Velocity.Tail.X = (float)((particle.ForceGX + particle.ForceEX) * timeStep / 1 / 1000);
+                    particle.Velocity.Tail.Y = (float)((particle.ForceGY + particle.ForceEY) * timeStep / 1 / 1000);
+                    particle.Location.X += (float)(particle.Velocity.Tail.X * timeStep / 1000);
+                    particle.Location.Y += (float)(particle.Velocity.Tail.Y * timeStep / 1000);
+                    if (particle.Velocity.Length < 2 && particle.Lifetime > 30)
+                    {
+                        particle.Reborn();
+                    }
+                    if (particle.Reborning && particle.Trajectory.Count > 3)
+                    {
+                        particle.Trajectory.Dequeue();
+                        particle.Trajectory.Dequeue();
+                        particle.Trajectory.Dequeue();
+                    }
+                    else
+                    {
+                        particle.Trajectory.Enqueue(new PointParticle(particle.Location.X, (int)particle.Location.Y));
+                    }
+                    particle.Lifetime++;
+                }
+            }
+            
             try
             {
                 Invoke((Action)Aw_DrawControlLite);
@@ -703,6 +817,9 @@ namespace Awose
                 ObjectSprite_Red_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Red_PB.Width,
                     ObjectSprite_Red_PB.Height, Color.PaleVioletRed, agent.Sprite == SpriteType.Red);
 
+                ObjectSprite_Velocity_PB.Image = DrawingValues.DrawCircleVelocity(ObjectSprite_Red_PB.Width,
+                    ObjectSprite_Velocity_PB.Height, agent.Sprite == SpriteType.Velocity);
+
                 ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
                     ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
                 ObjectVelocityCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectVelocityCircle_PB.Width,
@@ -728,12 +845,36 @@ namespace Awose
                     default:
                         break;
                 }
+
+                
             }
             else
             {
                 ControlLayer_Panel.Visible = true;
                 ControlAgents_Panel.Visible = false;
                 ObjectBeauty_Panel.Visible = false;
+
+                switch (Layers[CurrentLayer].StrMode)
+                {
+                    case StreamMode.None:
+                        StreamNo_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        StreamGravity_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        StreamElectric_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        break;
+                    case StreamMode.Gravity:
+                        StreamNo_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        StreamGravity_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        StreamElectric_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        break;
+                    case StreamMode.Electric:
+                        StreamNo_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        StreamGravity_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        StreamElectric_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        break;
+                    default:
+                        break;
+                }
+                StreamFrequency_TB.Value = 1000 - Layers[CurrentLayer].StreamFreq;
             }
             return;
 
@@ -835,6 +976,9 @@ namespace Awose
                     ObjectSprite_Yellow_PB.Height, Color.SkyBlue, agent.Sprite == SpriteType.Sky);
                 ObjectSprite_Red_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Red_PB.Width,
                     ObjectSprite_Red_PB.Height, Color.PaleVioletRed, agent.Sprite == SpriteType.Red);
+
+                ObjectSprite_Velocity_PB.Image = DrawingValues.DrawCircleVelocity(ObjectSprite_Red_PB.Width,
+                    ObjectSprite_Velocity_PB.Height, agent.Sprite == SpriteType.Velocity);
 
                 ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
                     ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
@@ -1755,6 +1899,8 @@ namespace Awose
                     agent.Backup();
                 }
             }
+            FlowStreamUp();
+            //Layers[CurrentLayer].Sources.Add(new AwoseParticle(ScreenToReal(new PointParticle(0, 0))));
             isLaunched = true;
             LaunchSimulation_MSItem.Enabled = false;
             PauseSimulation_MSItem.Enabled = true;
@@ -1907,6 +2053,10 @@ namespace Awose
                     agent.Trajectory.Clear();
                     agent.Restore();
                 }
+            }
+            foreach (AwoseParticle item in Layers[CurrentLayer].Sources)
+            {
+                item.Trajectory.Clear();
             }
             Aw_CheckMistakes();
         }
@@ -2181,6 +2331,90 @@ namespace Awose
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Dye = Color.PaleVioletRed;
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Sprite = SpriteType.Red;
             Aw_DrawControl();
+        }
+
+        private void ObjectSprite_Velocity_PB_MouseHover(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Text = "Velocity";
+            ObjectColorHint_Label.Location = new Point(
+                ObjectSprite_Velocity_PB.Location.X + 4,
+                ObjectSprite_Velocity_PB.Location.Y + ObjectSprite_Velocity_PB.Height + 7
+                );
+            ObjectColorHint_Label.Visible = true;
+        }
+
+        private void ObjectSprite_Velocity_PB_MouseLeave(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Visible = false;
+        }
+
+        private void ObjectSprite_Velocity_PB_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Dye = Color.White;
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Sprite = SpriteType.Velocity;
+            Aw_DrawControl();
+        }
+
+        private void StreamNo_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].StrMode = StreamMode.None;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void StreamGravity_Button_Click(object sender, EventArgs e)
+        {
+            if (Layers[CurrentLayer].StrMode == StreamMode.Electric)
+            {
+                lock (Layers[CurrentLayer].Sources)
+                {
+                    foreach (AwoseParticle item in Layers[CurrentLayer].Sources)
+                    {
+                        item.Reborn();
+                    }
+                }
+            }
+            Layers[CurrentLayer].StrMode = StreamMode.Gravity;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void StreamElectric_Button_Click(object sender, EventArgs e)
+        {
+            if (Layers[CurrentLayer].StrMode == StreamMode.Gravity)
+            {
+                lock (Layers[CurrentLayer].Sources)
+                {
+                    foreach (AwoseParticle item in Layers[CurrentLayer].Sources)
+                    {
+                        item.Reborn();
+                    }
+                }
+            }
+            Layers[CurrentLayer].StrMode = StreamMode.Electric;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void StreamFrequency_TB_Scroll(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].StreamFreq = 1000 - StreamFrequency_TB.Value;
+            FlowStreamUp();
+        }
+
+        private void FlowStreamUp()
+        {
+            lock (Layers[CurrentLayer].Sources)
+            {
+                Layers[CurrentLayer].Sources.Clear();
+                for (int i = -100; i < ModelBoard_PB.Width + 100; i += Layers[CurrentLayer].StreamFreq)
+                {
+                    for (int j = -100; j < ModelBoard_PB.Height + 100; j += Layers[CurrentLayer].StreamFreq)
+                    {
+                        Layers[CurrentLayer].Sources.Add(new AwoseParticle(ScreenToReal(new PointParticle(i, j))));
+                    }
+                }
+            }
         }
     }
 }

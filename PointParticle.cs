@@ -46,5 +46,10 @@ namespace Awose
         {
             return new((int)X, (int)Y);
         }
+
+        public object Clone()
+        {
+            return new PointParticle(X, Y);
+        }
     }
 }

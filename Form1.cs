@@ -340,18 +340,24 @@ namespace Awose
             {
                 lock (particle.Trajectory)
                 {
-                    if (particle.Trajectory.Count < 3) continue;
+                    if (particle.Trajectory.Count < 3) {
+                        particle.Reborning = false;
+                        particle.Lifetime = new Random().Next(100);
+                        continue; 
+                    }
                     PointParticle point1 = particle.Trajectory.Dequeue();
                     particle.Trajectory.Enqueue(point1);
                     for (int i = 1; i < particle.Trajectory.Count; i++)
                     {
                         PointParticle point2 = particle.Trajectory.Dequeue();
-                        grfx.DrawLine(new Pen(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, i * 2), Calculations.Normilize(0, 255, i), Calculations.Normilize(0, 255, i))), 2), RealToScreen(point1).ToPoint(), RealToScreen(point2).ToPoint());
+                        grfx.DrawLine(new Pen(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, i * 3), Calculations.Normilize(0, 255, i * 2), Calculations.Normilize(0, 255, i * 2))), 1), RealToScreen(point1).ToPoint(), RealToScreen(point2).ToPoint());
                         particle.Trajectory.Enqueue(point2);
                         point1 = point2;
                     }
                     //if (particle.Trajectory.Count > 255) { particle.Trajectory.Dequeue(); }
-                    if (particle.Lifetime > 255) { particle.Reborn(); }
+                    if (particle.Lifetime > 100) { 
+                        particle.Reborn(); 
+                    }
                 }
             }
 
@@ -587,11 +593,13 @@ namespace Awose
             {
                 foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
                 {
-                    if (Calculations.IsInRadius(particle.Location.X, particle.Location.Y, Layers[CurrentLayer].Agents[i], 7))
+                    if (Calculations.IsInRadius(particle.Location.X, particle.Location.Y, Layers[CurrentLayer].Agents[i], 14))
                     {
                         particle.Reborn();
+                    } else
+                    {
+                        particle.ForceCalc(Layers[CurrentLayer].Agents[i]);
                     }
-                    particle.ForceCalc(Layers[CurrentLayer].Agents[i]);
                 }
             }
             foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
@@ -601,7 +609,13 @@ namespace Awose
                 particle.Velocity.Tail.Y += (float)((particle.ForceGY + particle.ForceEY) * timeStep / 1 / 1000);
                 particle.Location.X += (float)(particle.Velocity.Tail.X * timeStep / 1000);
                 particle.Location.Y += (float)(particle.Velocity.Tail.Y * timeStep / 1000);
-                particle.Trajectory.Enqueue(new PointParticle(particle.Location.X, (int)particle.Location.Y));
+                if (particle.Reborning && particle.Trajectory.Count > 1)
+                {
+                    particle.Trajectory.Dequeue();
+                } else
+                {
+                    particle.Trajectory.Enqueue(new PointParticle(particle.Location.X, (int)particle.Location.Y));
+                }  
                 particle.Lifetime++;
             }
             try
@@ -1828,13 +1842,14 @@ namespace Awose
                 }
             }
             Layers[CurrentLayer].Sources.Clear();
-            for (int i = 0; i < ModelBoard_PB.Width; i += 100)
+            for (int i = -100; i < ModelBoard_PB.Width + 100; i += 50)
             {
-                for (int j = 0; j < ModelBoard_PB.Height; j += 100)
+                for (int j = -100; j < ModelBoard_PB.Height + 100; j += 50)
                 {
-                    Layers[CurrentLayer].Sources.Add(new AwoseParticle(new PointParticle(i, j)));
+                    Layers[CurrentLayer].Sources.Add(new AwoseParticle(ScreenToReal(new PointParticle(i, j))));
                 }
             }
+            //Layers[CurrentLayer].Sources.Add(new AwoseParticle(ScreenToReal(new PointParticle(0, 0))));
             isLaunched = true;
             LaunchSimulation_MSItem.Enabled = false;
             PauseSimulation_MSItem.Enabled = true;

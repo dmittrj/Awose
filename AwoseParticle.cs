@@ -14,14 +14,16 @@ namespace Awose
         public Queue<PointParticle> Trajectory { get; set; }
         public Vector Velocity { get; set; }
         public Vector Force { get; set; }
+        public bool Reborning { get; set; }
         public AwoseParticle(PointParticle location)
         {
             Location = location;
-            LocationBackup = location;
+            LocationBackup = (PointParticle)Location.Clone();
             Lifetime = new Random().Next(100);
             Trajectory = new();
             Velocity = new Vector(new PointParticle(0, 0));
             Force = new Vector(new PointParticle(0, 0));
+            Reborning = false;
         }
         public double ForceGX;
         public double ForceGY;
@@ -44,9 +46,10 @@ namespace Awose
 
         public void Reborn()
         {
-            Lifetime = new Random().Next(100);
-            Location = LocationBackup;
-            Trajectory.Clear();
+            //Lifetime = new Random().Next(100);
+            Location = (PointParticle)LocationBackup.Clone();
+            //Trajectory.Clear();
+            Reborning = true;
             Velocity = new Vector(new PointParticle(0, 0));
             Force = new Vector(new PointParticle(0, 0));
         }

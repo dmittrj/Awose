@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,70 @@ namespace Awose
             //cb_grfx.Clear(Color.FromArgb(15, 15, 15));
 
             pb_grfx.FillEllipse(new SolidBrush(color), 0, 0, width, height);
+            if (isSelected)
+            {
+                pb_grfx.DrawLine(new Pen(Brushes.Black, 2), width * 0.25f, height * 0.45f, width * 0.5f, height * 0.7f);
+                pb_grfx.DrawLine(new Pen(Brushes.Black, 2), width * 0.5f, height * 0.7f, width * 0.75f, height * 0.25f);
+            }
+            return picturebox_img;
+        }
+
+        public static Bitmap DrawCircleVelocity(int width, int height, bool isSelected)
+        {
+            Bitmap picturebox_img = new(width, height);
+            using Graphics pb_grfx = Graphics.FromImage(picturebox_img);
+            //cb_grfx.Clear(Color.FromArgb(15, 15, 15));
+
+            GraphicsPath path = new();
+            //path->AddEllipse(0, 0, 140, 70);
+            path.AddRectangle(new Rectangle(0, 0, width, height));
+            PathGradientBrush pthGrBrush = new PathGradientBrush(path);
+            PointF cur = new PointF(0, height);
+            pthGrBrush.CenterColor = Color.FromArgb(0, 205, 240);
+            pthGrBrush.CenterPoint = cur;
+            Color[] colors = {
+                Color.FromArgb(0, 0, 255)
+            };
+            pthGrBrush.SurroundColors = colors;
+
+            pb_grfx.FillEllipse(pthGrBrush, 0, 0, width, height);
+            if (isSelected)
+            {
+                pb_grfx.DrawLine(new Pen(Brushes.Black, 2), width * 0.25f, height * 0.45f, width * 0.5f, height * 0.7f);
+                pb_grfx.DrawLine(new Pen(Brushes.Black, 2), width * 0.5f, height * 0.7f, width * 0.75f, height * 0.25f);
+            } else
+            {
+                Point[] nav = {
+                    new Point(width / 5, height / 2),
+                    new Point(width * 4 / 5, height / 5),
+                    new Point(width / 2, height * 4 / 5),
+                    new Point(width / 2, height / 2)
+                };
+                pb_grfx.FillPolygon(Brushes.White, nav);
+            }
+            return picturebox_img;
+        }
+
+        public static Bitmap DrawCircleSign(int width, int height, bool isSelected)
+        {
+            Bitmap picturebox_img = new(width, height);
+            using Graphics pb_grfx = Graphics.FromImage(picturebox_img);
+            //cb_grfx.Clear(Color.FromArgb(15, 15, 15));
+
+            GraphicsPath path = new();
+            //path->AddEllipse(0, 0, 140, 70);
+            path.AddRectangle(new Rectangle(0, 0, width, height));
+            PathGradientBrush pthGrBrush = new PathGradientBrush(path);
+            PointF cur = new PointF(0, height);
+            pthGrBrush.CenterColor = Color.FromArgb(255, 255, 20, 30);
+            pthGrBrush.CenterPoint = cur;
+            Color[] colors = {
+                Color.FromArgb(255, 0, 100, 255)
+
+            };
+            pthGrBrush.SurroundColors = colors;
+
+            pb_grfx.FillEllipse(pthGrBrush, 0, 0, width, height);
             if (isSelected)
             {
                 pb_grfx.DrawLine(new Pen(Brushes.Black, 2), width * 0.25f, height * 0.45f, width * 0.5f, height * 0.7f);

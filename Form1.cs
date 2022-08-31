@@ -49,6 +49,7 @@ namespace Awose
         private MovingEntity movingEntity = MovingEntity.None;
         private SpecialCondition specialCondition = SpecialCondition.None;
         private BeautyPreviewMode beautyPreview = BeautyPreviewMode.None;
+        private float MaxVelocity = 0;
         //[Obsolete]
         //private bool isBoardMoving = false;
         //[Obsolete]
@@ -336,6 +337,7 @@ namespace Awose
 
 
             //Drawing agents
+            float MaxVelocityTmp = 0.00001f;
             lock (Layers)
             {
                 foreach (AwoseLayer layer in Layers)
@@ -344,6 +346,24 @@ namespace Awose
                     {
                         foreach (AwoseAgent agent in layer.Agents)
                         {
+                            if (agent.Velocity.Length > MaxVelocityTmp)
+                            {
+                                MaxVelocityTmp = agent.Velocity.Length;
+                            }
+                            switch (agent.Sprite)
+                            {
+                                case SpriteType.Sign:
+                                    break;
+                                case SpriteType.Charge:
+                                    break;
+                                case SpriteType.Mass:
+                                    break;
+                                case SpriteType.Velocity:
+                                    agent.Dye = Color.FromArgb(0, Calculations.Normilize(40, 200, (int)(200 * agent.Velocity.Length / MaxVelocity)), Calculations.Normilize(40, 255, (int)(255 * agent.Velocity.Length / MaxVelocity)));
+                                    break;
+                                default:
+                                    break;
+                            }
                             Point point = RealToScreen(agent.Location).ToPoint();
                             RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
                             grfx.FillEllipse(new SolidBrush(agent.Dye), circle);
@@ -368,6 +388,7 @@ namespace Awose
                     }
                 }
             }
+            MaxVelocity = MaxVelocityTmp;
             if (Phantom != null)
             {
                 Point point = RealToScreen(Phantom.Location).ToPoint();
@@ -703,6 +724,9 @@ namespace Awose
                 ObjectSprite_Red_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Red_PB.Width,
                     ObjectSprite_Red_PB.Height, Color.PaleVioletRed, agent.Sprite == SpriteType.Red);
 
+                ObjectSprite_Velocity_PB.Image = DrawingValues.DrawCircleVelocity(ObjectSprite_Red_PB.Width,
+                    ObjectSprite_Velocity_PB.Height, agent.Sprite == SpriteType.Velocity);
+
                 ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
                     ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
                 ObjectVelocityCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectVelocityCircle_PB.Width,
@@ -835,6 +859,9 @@ namespace Awose
                     ObjectSprite_Yellow_PB.Height, Color.SkyBlue, agent.Sprite == SpriteType.Sky);
                 ObjectSprite_Red_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Red_PB.Width,
                     ObjectSprite_Red_PB.Height, Color.PaleVioletRed, agent.Sprite == SpriteType.Red);
+
+                ObjectSprite_Velocity_PB.Image = DrawingValues.DrawCircleVelocity(ObjectSprite_Red_PB.Width,
+                    ObjectSprite_Velocity_PB.Height, agent.Sprite == SpriteType.Velocity);
 
                 ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
                     ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
@@ -2180,6 +2207,28 @@ namespace Awose
         {
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Dye = Color.PaleVioletRed;
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Sprite = SpriteType.Red;
+            Aw_DrawControl();
+        }
+
+        private void ObjectSprite_Velocity_PB_MouseHover(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Text = "Velocity";
+            ObjectColorHint_Label.Location = new Point(
+                ObjectSprite_Velocity_PB.Location.X + 4,
+                ObjectSprite_Velocity_PB.Location.Y + ObjectSprite_Velocity_PB.Height + 7
+                );
+            ObjectColorHint_Label.Visible = true;
+        }
+
+        private void ObjectSprite_Velocity_PB_MouseLeave(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Visible = false;
+        }
+
+        private void ObjectSprite_Velocity_PB_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Dye = Color.White;
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Sprite = SpriteType.Velocity;
             Aw_DrawControl();
         }
     }

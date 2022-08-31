@@ -22,7 +22,7 @@ namespace Awose
 
     enum BeautyPreviewMode { None, ObjectColor }
 
-    enum SimulationStatus { Stopped, Launched, Paused, Computing}
+    enum SimulationStatus { Stopped, Launched, Paused, Computing, Watching}
     public partial class Awose : Form
     {
         [Obsolete]
@@ -112,6 +112,19 @@ namespace Awose
 
         private void Aw_Refresh()
         {
+            if (Status == SimulationStatus.Watching)
+            {
+                if (File.Exists(Directory.GetCurrentDirectory() + "\\ComputedSimulation\\" + AlreadyComputed.ToString() + ".bmp"))
+                {
+                    ModelBoard_PB.BackgroundImage = Image.FromFile(Directory.GetCurrentDirectory() + "\\ComputedSimulation\\" + AlreadyComputed.ToString() + ".bmp");
+                    AlreadyComputed++;
+                    return;
+                } 
+                else
+                {
+                    Status = SimulationStatus.Stopped;
+                }
+            }
             AnimationCounter++;
             AnimationCounter %= 360;
             const int GRID_FREQUENCY = 100;
@@ -588,14 +601,65 @@ namespace Awose
 
         private void Aw_Step(int time)
         {
-            lock (Layers[CurrentLayer].Sources)
+            if (isLaunched || Status == SimulationStatus.Computing)
             {
-                foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                lock (Layers[CurrentLayer].Sources)
                 {
-                    particle.ForceGX = particle.ForceGY = particle.ForceEX = particle.ForceEY = 0;
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                    {
+                        particle.ForceGX = particle.ForceGY = particle.ForceEX = particle.ForceEY = 0;
+                    }
+                }
+                for (int i = 0; i < Layers[CurrentLayer].Agents.Count; i++)
+                {
+                    lock (Layers[CurrentLayer].Sources)
+                    {
+                        foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                        {
+                            if (Calculations.IsInRadius(particle.Location.X, particle.Location.Y, Layers[CurrentLayer].Agents[i], 9) || particle.Velocity.Length > 900)
+                            {
+                                particle.Reborn();
+                            }
+                            else
+                            {
+                                particle.ForceCalc(Layers[CurrentLayer].Agents[i], Layers[CurrentLayer].StrMode);
+                            }
+                        }
+                    }
+
+                }
+                lock (Layers[CurrentLayer].Sources)
+                {
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                    {
+                        particle.Force = new Vector(new PointParticle((float)(particle.ForceGX + particle.ForceEX), (float)(particle.ForceGY + particle.ForceEY)));
+
+                        //particle.Velocity.Tail.X *= 0.1f;
+                        //particle.Velocity.Tail.Y *= 0.1f;
+
+                        particle.Velocity.Tail.X = (float)((particle.ForceGX + particle.ForceEX) * timeStep / 1 / 1000);
+                        particle.Velocity.Tail.Y = (float)((particle.ForceGY + particle.ForceEY) * timeStep / 1 / 1000);
+                        particle.Location.X += (float)(particle.Velocity.Tail.X * timeStep / 1000);
+                        particle.Location.Y += (float)(particle.Velocity.Tail.Y * timeStep / 1000);
+                        if (particle.Velocity.Length < 2 && particle.Lifetime > 30)
+                        {
+                            particle.Reborn();
+                        }
+                        if (particle.Reborning && particle.Trajectory.Count > 3)
+                        {
+                            particle.Trajectory.Dequeue();
+                            particle.Trajectory.Dequeue();
+                            particle.Trajectory.Dequeue();
+                        }
+                        else
+                        {
+                            particle.Trajectory.Enqueue(new PointParticle(particle.Location.X, (int)particle.Location.Y));
+                        }
+                        particle.Lifetime++;
+                    }
                 }
             }
-            
+
             foreach (AwoseLayer layer in Layers)
             {
                 foreach (AwoseAgent agent in layer.Agents)
@@ -620,54 +684,7 @@ namespace Awose
                     agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
                 }
             }
-            for (int i = 0; i < Layers[CurrentLayer].Agents.Count; i++)
-            {
-                lock (Layers[CurrentLayer].Sources)
-                {
-                    foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
-                    {
-                        if (Calculations.IsInRadius(particle.Location.X, particle.Location.Y, Layers[CurrentLayer].Agents[i], 9) || particle.Velocity.Length > 900)
-                        {
-                            particle.Reborn();
-                        }
-                        else
-                        {
-                            particle.ForceCalc(Layers[CurrentLayer].Agents[i], Layers[CurrentLayer].StrMode);
-                        }
-                    }
-                }
-                    
-            }
-            lock (Layers[CurrentLayer].Sources)
-            {
-                foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
-                {
-                    particle.Force = new Vector(new PointParticle((float)(particle.ForceGX + particle.ForceEX), (float)(particle.ForceGY + particle.ForceEY)));
-
-                    //particle.Velocity.Tail.X *= 0.1f;
-                    //particle.Velocity.Tail.Y *= 0.1f;
-
-                    particle.Velocity.Tail.X = (float)((particle.ForceGX + particle.ForceEX) * timeStep / 1 / 1000);
-                    particle.Velocity.Tail.Y = (float)((particle.ForceGY + particle.ForceEY) * timeStep / 1 / 1000);
-                    particle.Location.X += (float)(particle.Velocity.Tail.X * timeStep / 1000);
-                    particle.Location.Y += (float)(particle.Velocity.Tail.Y * timeStep / 1000);
-                    if (particle.Velocity.Length < 2 && particle.Lifetime > 30)
-                    {
-                        particle.Reborn();
-                    }
-                    if (particle.Reborning && particle.Trajectory.Count > 3)
-                    {
-                        particle.Trajectory.Dequeue();
-                        particle.Trajectory.Dequeue();
-                        particle.Trajectory.Dequeue();
-                    }
-                    else
-                    {
-                        particle.Trajectory.Enqueue(new PointParticle(particle.Location.X, (int)particle.Location.Y));
-                    }
-                    particle.Lifetime++;
-                }
-            }
+            
             
             try
             {
@@ -731,17 +748,61 @@ namespace Awose
                 if (Status == SimulationStatus.Computing) Aw_Step(timeStep);
                 Invoke((Action)Aw_Refresh);
                 double percentage = i * timeStep / (10 * (int)time);
-                double timePassed = DateTime.Now.Subtract(ComputingStartTime).TotalMilliseconds;
-                double timeLeft = timePassed * (100 - percentage) / percentage;
+                double timePassed = DateTime.Now.Subtract(ComputingStartTime).TotalSeconds;
+                int timeLeft = (int)(timePassed * (100 - percentage) / percentage);
+                string timeLeft_str = "";
+                if (timeLeft / 86400 > 0)
+                {
+                    int days = timeLeft / 86400;
+                    int hours = (timeLeft - days * 86400) / 3600;
+                    timeLeft_str = days.ToString() + " d " + hours.ToString() + " h";
+                } 
+                else if (timeLeft / 3600 > 0)
+                {
+                    int hours = timeLeft / 3600;
+                    int minutes = (timeLeft - hours * 3600) / 60;
+                    timeLeft_str = hours.ToString() + " h " + minutes.ToString() + " m";
+                }
+                else if (timeLeft / 60 > 0)
+                {
+                    int minutes = timeLeft / 60;
+                    int seconds = (timeLeft - minutes * 60);
+                    timeLeft_str = minutes.ToString() + " m " + seconds.ToString() + " s";
+                } else
+                {
+                    timeLeft_str = (timeLeft).ToString() + " s";
+                }
                 Action action = () =>
                 {
                     Computing_PBar.Value = (int)percentage;
-                    ComputingTimeLeft_TB.Text = "Time left: " + timeLeft.ToString() + " s";
+                    ComputingTimeLeft_TB.Text = "Time left: " + timeLeft_str;
                 };
+
+                if (InvokeRequired)
+                {
+                    Invoke(action);
+                } else
+                {
+                    action();
+                }
                 //await Task.Delay(timeStep);
                 //Thread.Sleep(timeStep);
             }
-            Status = SimulationStatus.Stopped;
+            Status = SimulationStatus.Watching;
+            Action action1 = () =>
+            {
+                ComputePanel.Visible = false;
+            };
+
+            if (InvokeRequired)
+            {
+                Invoke(action1);
+            }
+            else
+            {
+                action1();
+            }
+            AlreadyComputed = 0;
             return;
         }
 
@@ -2129,6 +2190,8 @@ namespace Awose
 
         private void CreateNewLayer_Button_Click(object sender, EventArgs e)
         {
+            Status = SimulationStatus.Watching;
+            return;
             int layersNum = 1;
         alw_loopNames:
             foreach (AwoseAgent item in Layers[CurrentLayer].Agents)
@@ -2475,6 +2538,7 @@ namespace Awose
         {
             Computing_PBar.Value = 0;
             Computing_PBar.Visible = false;
+            Compute_Button.Visible = true;
             ComputePanel.Visible = true;
         }
 
@@ -2497,6 +2561,16 @@ namespace Awose
 
         private void Compute_Button_Click(object sender, EventArgs e)
         {
+            if (Directory.Exists(Directory.GetCurrentDirectory() + "\\ComputedSimulation"))
+            {
+                foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\ComputedSimulation"))
+                {
+                    File.Delete(file);
+                }
+                Directory.Delete(Directory.GetCurrentDirectory() + "\\ComputedSimulation");
+            }
+
+            Compute_Button.Visible = false;
             //ComputingLayers = Layers;
             Status = SimulationStatus.Computing;
             ComputingStartTime = DateTime.Now;
@@ -2508,6 +2582,16 @@ namespace Awose
         private void CancelComputing_Button_Click(object sender, EventArgs e)
         {
             Status = SimulationStatus.Stopped;
+            if (Directory.Exists(Directory.GetCurrentDirectory() + "\\ComputedSimulation"))
+            {
+                foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\ComputedSimulation"))
+                {
+                    File.Delete(file);
+                }
+                Directory.Delete(Directory.GetCurrentDirectory() + "\\ComputedSimulation");
+            }
+            ComputePanel.Visible = false;
+            Compute_Button.Visible = true;
         }
     }
 }

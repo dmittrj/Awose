@@ -168,14 +168,17 @@ namespace Awose
             this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
             this.BeautyPreview_PB = new System.Windows.Forms.PictureBox();
             this.ComputePanel = new System.Windows.Forms.Panel();
+            this.Computing_PBar = new System.Windows.Forms.ProgressBar();
+            this.ComputingTimeLeft_TB = new System.Windows.Forms.Label();
             this.CancelComputing_Button = new System.Windows.Forms.Button();
             this.Compute_Button = new System.Windows.Forms.Button();
             this.label32 = new System.Windows.Forms.Label();
             this.TimeToCompute_TB = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
-            this.Computing_PBar = new System.Windows.Forms.ProgressBar();
-            this.ComputingTimeLeft_TB = new System.Windows.Forms.Label();
+            this.Playback_Panel = new System.Windows.Forms.Panel();
+            this.PlayPause_Button = new System.Windows.Forms.Button();
+            this.SpeedUp_Button = new System.Windows.Forms.Button();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Force_PB)).BeginInit();
@@ -204,6 +207,7 @@ namespace Awose
             this.LayersBar_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BeautyPreview_PB)).BeginInit();
             this.ComputePanel.SuspendLayout();
+            this.Playback_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // ControlAgents_Panel
@@ -1467,13 +1471,13 @@ namespace Awose
             this.StreamFrequency_TB.AutoSize = false;
             this.StreamFrequency_TB.Cursor = System.Windows.Forms.Cursors.Default;
             this.StreamFrequency_TB.Location = new System.Drawing.Point(13, 121);
-            this.StreamFrequency_TB.Maximum = 1000;
-            this.StreamFrequency_TB.Minimum = 500;
+            this.StreamFrequency_TB.Maximum = 998;
+            this.StreamFrequency_TB.Minimum = 850;
             this.StreamFrequency_TB.Name = "StreamFrequency_TB";
             this.StreamFrequency_TB.Size = new System.Drawing.Size(222, 26);
             this.StreamFrequency_TB.TabIndex = 20;
             this.StreamFrequency_TB.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.StreamFrequency_TB.Value = 750;
+            this.StreamFrequency_TB.Value = 850;
             this.StreamFrequency_TB.Scroll += new System.EventHandler(this.StreamFrequency_TB_Scroll);
             // 
             // label29
@@ -1772,6 +1776,26 @@ namespace Awose
             this.ComputePanel.Name = "ComputePanel";
             this.ComputePanel.Size = new System.Drawing.Size(248, 120);
             this.ComputePanel.TabIndex = 17;
+            this.ComputePanel.Visible = false;
+            // 
+            // Computing_PBar
+            // 
+            this.Computing_PBar.Location = new System.Drawing.Point(7, 41);
+            this.Computing_PBar.Name = "Computing_PBar";
+            this.Computing_PBar.Size = new System.Drawing.Size(232, 20);
+            this.Computing_PBar.TabIndex = 22;
+            this.Computing_PBar.Value = 20;
+            // 
+            // ComputingTimeLeft_TB
+            // 
+            this.ComputingTimeLeft_TB.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ComputingTimeLeft_TB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ComputingTimeLeft_TB.ForeColor = System.Drawing.Color.White;
+            this.ComputingTimeLeft_TB.Location = new System.Drawing.Point(4, 63);
+            this.ComputingTimeLeft_TB.Name = "ComputingTimeLeft_TB";
+            this.ComputingTimeLeft_TB.Size = new System.Drawing.Size(206, 19);
+            this.ComputingTimeLeft_TB.TabIndex = 23;
+            this.ComputingTimeLeft_TB.Text = "Time left:";
             // 
             // CancelComputing_Button
             // 
@@ -1782,7 +1806,8 @@ namespace Awose
             this.CancelComputing_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.CancelComputing_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.CancelComputing_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CancelComputing_Button.ForeColor = System.Drawing.Color.White;
+            this.CancelComputing_Button.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.CancelComputing_Button.ForeColor = System.Drawing.Color.LightCoral;
             this.CancelComputing_Button.Location = new System.Drawing.Point(177, 88);
             this.CancelComputing_Button.Name = "CancelComputing_Button";
             this.CancelComputing_Button.Size = new System.Drawing.Size(59, 24);
@@ -1856,24 +1881,39 @@ namespace Awose
             this.label31.TabIndex = 1;
             this.label31.Text = "Computing";
             // 
-            // Computing_PBar
+            // Playback_Panel
             // 
-            this.Computing_PBar.Location = new System.Drawing.Point(7, 41);
-            this.Computing_PBar.Name = "Computing_PBar";
-            this.Computing_PBar.Size = new System.Drawing.Size(232, 20);
-            this.Computing_PBar.TabIndex = 22;
-            this.Computing_PBar.Value = 20;
+            this.Playback_Panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Playback_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.Playback_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Playback_Panel.Controls.Add(this.SpeedUp_Button);
+            this.Playback_Panel.Controls.Add(this.PlayPause_Button);
+            this.Playback_Panel.Location = new System.Drawing.Point(1196, 193);
+            this.Playback_Panel.Name = "Playback_Panel";
+            this.Playback_Panel.Size = new System.Drawing.Size(33, 215);
+            this.Playback_Panel.TabIndex = 18;
             // 
-            // ComputingTimeLeft_TB
+            // PlayPause_Button
             // 
-            this.ComputingTimeLeft_TB.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.ComputingTimeLeft_TB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ComputingTimeLeft_TB.ForeColor = System.Drawing.Color.White;
-            this.ComputingTimeLeft_TB.Location = new System.Drawing.Point(4, 63);
-            this.ComputingTimeLeft_TB.Name = "ComputingTimeLeft_TB";
-            this.ComputingTimeLeft_TB.Size = new System.Drawing.Size(206, 19);
-            this.ComputingTimeLeft_TB.TabIndex = 23;
-            this.ComputingTimeLeft_TB.Text = "Time left:";
+            this.PlayPause_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.PlayPause_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.PlayPause_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.PlayPause_Button.Location = new System.Drawing.Point(4, 5);
+            this.PlayPause_Button.Name = "PlayPause_Button";
+            this.PlayPause_Button.Size = new System.Drawing.Size(23, 23);
+            this.PlayPause_Button.TabIndex = 0;
+            this.PlayPause_Button.UseVisualStyleBackColor = true;
+            // 
+            // SpeedUp_Button
+            // 
+            this.SpeedUp_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.SpeedUp_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.SpeedUp_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SpeedUp_Button.Location = new System.Drawing.Point(4, 34);
+            this.SpeedUp_Button.Name = "SpeedUp_Button";
+            this.SpeedUp_Button.Size = new System.Drawing.Size(23, 23);
+            this.SpeedUp_Button.TabIndex = 1;
+            this.SpeedUp_Button.UseVisualStyleBackColor = true;
             // 
             // Awose
             // 
@@ -1881,6 +1921,7 @@ namespace Awose
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(1241, 711);
+            this.Controls.Add(this.Playback_Panel);
             this.Controls.Add(this.ComputePanel);
             this.Controls.Add(this.BeautyPreview_PB);
             this.Controls.Add(this.LayersBar_Panel);
@@ -1940,6 +1981,7 @@ namespace Awose
             ((System.ComponentModel.ISupportInitialize)(this.BeautyPreview_PB)).EndInit();
             this.ComputePanel.ResumeLayout(false);
             this.ComputePanel.PerformLayout();
+            this.Playback_Panel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2093,6 +2135,9 @@ namespace Awose
         private System.Windows.Forms.Button Compute_Button;
         private System.Windows.Forms.ProgressBar Computing_PBar;
         private System.Windows.Forms.Label ComputingTimeLeft_TB;
+        private System.Windows.Forms.Panel Playback_Panel;
+        private System.Windows.Forms.Button PlayPause_Button;
+        private System.Windows.Forms.Button SpeedUp_Button;
     }
 }
 

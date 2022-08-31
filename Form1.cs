@@ -593,7 +593,7 @@ namespace Awose
             {
                 foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
                 {
-                    if (Calculations.IsInRadius(particle.Location.X, particle.Location.Y, Layers[CurrentLayer].Agents[i], 14))
+                    if (Calculations.IsInRadius(particle.Location.X, particle.Location.Y, Layers[CurrentLayer].Agents[i], 9) || particle.Velocity.Length > 900)
                     {
                         particle.Reborn();
                     } else
@@ -2298,6 +2298,27 @@ namespace Awose
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Dye = Color.White;
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Sprite = SpriteType.Velocity;
             Aw_DrawControl();
+        }
+
+        private void StreamNo_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].StrMode = StreamMode.None;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void StreamGravity_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].StrMode = StreamMode.Gravity;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void StreamElectric_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].StrMode = StreamMode.Electric;
+            Aw_DrawControl();
+            Aw_Refresh();
         }
     }
 }

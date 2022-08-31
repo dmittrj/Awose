@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Awose
 {
     enum GridColors { Blue, Pink }
+    public enum StreamMode { None, Gravity, Electric}
     public class AwoseLayer
     {
         public string Name { get; set; }
@@ -20,6 +21,8 @@ namespace Awose
         public float GLaw { get; set; }
         public int Selected { get; set; }
 
+        public StreamMode StrMode { get; set; }
+
         public List<AwoseParticle> Sources = new();
 
         public AwoseLayer(string name, int layerNumber)
@@ -29,6 +32,7 @@ namespace Awose
             LayerNumber = layerNumber;
             ELaw = -2;
             GLaw = -2;
+            StrMode = StreamMode.None;
             switch ((layerNumber - 1) % 2)
             {
                 case 0:

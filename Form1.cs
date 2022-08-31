@@ -730,9 +730,13 @@ namespace Awose
                 }
                 if (Status == SimulationStatus.Computing) Aw_Step(timeStep);
                 Invoke((Action)Aw_Refresh);
+                double percentage = i * timeStep / (10 * (int)time);
+                double timePassed = DateTime.Now.Subtract(ComputingStartTime).TotalMilliseconds;
+                double timeLeft = timePassed * (100 - percentage) / percentage;
                 Action action = () =>
                 {
-                    Computing_PBar.Value = i * timeStep / (10 * (int)time);
+                    Computing_PBar.Value = (int)percentage;
+                    ComputingTimeLeft_TB.Text = "Time left: " + timeLeft.ToString() + " s";
                 };
                 //await Task.Delay(timeStep);
                 //Thread.Sleep(timeStep);

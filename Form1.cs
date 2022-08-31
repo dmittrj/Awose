@@ -313,7 +313,7 @@ namespace Awose
                             float sfsv_diam = aw_agentsize * aw_scale + 7 * aw_scale;
                             float sfsv_length = MathF.Sqrt(MathF.Pow(sfsv_objCenter.X - pip_x, 2) + MathF.Pow(sfsv_objCenter.Y - pip_y, 2));
                             sfsv_spearhead = new(RealToScreen(agent.Location).X - sfsv_diam / 2, RealToScreen(agent.Location).Y - sfsv_diam / 2, sfsv_diam, sfsv_diam);
-                            grfx.DrawEllipse(new Pen(Brushes.White, 1.5f), new Rectangle((int)agent.Location.X - (int)sfsv_length, (int)agent.Location.Y - (int)sfsv_length, (int)sfsv_length * 2, (int)sfsv_length * 2));
+                            grfx.DrawEllipse(new Pen(Brushes.White, 1.5f), new Rectangle((int)RealToScreen(agent.Location).X - (int)sfsv_length, (int)RealToScreen(agent.Location).Y - (int)sfsv_length, (int)sfsv_length * 2, (int)sfsv_length * 2));
                             break;
                         }
                     }
@@ -700,6 +700,8 @@ namespace Awose
                     ObjectSprite_White_PB.Height, Color.Green, agent.Sprite == SpriteType.Green);
                 ObjectSprite_Sky_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Yellow_PB.Width,
                     ObjectSprite_Yellow_PB.Height, Color.SkyBlue, agent.Sprite == SpriteType.Sky);
+                ObjectSprite_Red_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Red_PB.Width,
+                    ObjectSprite_Red_PB.Height, Color.PaleVioletRed, agent.Sprite == SpriteType.Red);
 
                 ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
                     ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
@@ -831,6 +833,8 @@ namespace Awose
                     ObjectSprite_White_PB.Height, Color.Green, agent.Sprite == SpriteType.Green);
                 ObjectSprite_Sky_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Yellow_PB.Width,
                     ObjectSprite_Yellow_PB.Height, Color.SkyBlue, agent.Sprite == SpriteType.Sky);
+                ObjectSprite_Red_PB.Image = DrawingValues.DrawCircle(ObjectSprite_Red_PB.Width,
+                    ObjectSprite_Red_PB.Height, Color.PaleVioletRed, agent.Sprite == SpriteType.Red);
 
                 ObjectForceCircle_PB.BackgroundImage = DrawingValues.DrawCircleWithArrow(ObjectForceCircle_PB.Width,
                     ObjectForceCircle_PB.Height, Color.CadetBlue, agent.Force.Tail.X - agent.Force.Head.X, agent.Force.Tail.Y - agent.Force.Head.Y);
@@ -1447,8 +1451,24 @@ namespace Awose
                                 float dy = point1.Y - agent.Location.Y;
                                 double distance = Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
                                 double fsvelocity = Math.Sqrt(ConstG * agent.Weight / distance);
-                                double fsv_y = Math.Sqrt(fsvelocity * fsvelocity / (dy * dy / (dx * dx) + 1));
-                                double fsv_x = -fsv_y * dy / dx;
+                                double fsv_y; 
+                                if (dx != 0)
+                                {
+                                    fsv_y = Math.Sqrt(fsvelocity * fsvelocity / (dy * dy / (dx * dx) + 1));
+                                }
+                                else
+                                {
+                                    fsv_y = 0;
+                                }
+                                double fsv_x;
+                                if (dx != 0)
+                                {
+                                    fsv_x = -fsv_y * dy / dx;
+                                }
+                                else
+                                {
+                                    fsv_x = fsvelocity;
+                                }
                                 Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new(
 
                                     new((float)fsv_x, (float)fsv_y));
@@ -1884,6 +1904,7 @@ namespace Awose
             {
                 foreach (AwoseAgent agent in layer.Agents)
                 {
+                    agent.Trajectory.Clear();
                     agent.Restore();
                 }
             }
@@ -2138,6 +2159,28 @@ namespace Awose
             Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].TrajectoryLine = TrajectoryType.None;
             Aw_DrawControl();
             Aw_Refresh();
+        }
+
+        private void ObjectSprite_Red_PB_MouseHover(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Text = "Pink";
+            ObjectColorHint_Label.Location = new Point(
+                ObjectSprite_Red_PB.Location.X + 4,
+                ObjectSprite_Red_PB.Location.Y + ObjectSprite_Red_PB.Height + 7
+                );
+            ObjectColorHint_Label.Visible = true;
+        }
+
+        private void ObjectSprite_Red_PB_MouseLeave(object sender, EventArgs e)
+        {
+            ObjectColorHint_Label.Visible = false;
+        }
+
+        private void ObjectSprite_Red_PB_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Dye = Color.PaleVioletRed;
+            Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Sprite = SpriteType.Red;
+            Aw_DrawControl();
         }
     }
 }

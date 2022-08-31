@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Awose
 {
     enum FirstSpaceObject { None, Satellite, Planet, Star }
-    public enum SpriteType { White, Yellow, Green, Sky, Sign, Charge, Mass, Velocity }
+    public enum SpriteType { White, Yellow, Green, Sky, Red, Sign, Charge, Mass, Velocity }
     public enum TrajectoryType { None, Fade, Nonfade}
     public class AwoseAgent
     {

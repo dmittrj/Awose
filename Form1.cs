@@ -29,6 +29,9 @@ namespace Awose
         readonly List<AwoseAgent> agents = new();
         public DrawingValues drawingValues = new();
         public static List<AwoseLayer> Layers { get; set; }
+        //public static List<AwoseLayer> ComputingLayers { get; set; }
+        public static int AlreadyComputed = 0;
+        private static DateTime ComputingStartTime { get; set; }
         private int CurrentLayer = 0;
         //private readonly int agentsNumeric = 1;
         readonly Stack<AwoseChange> aw_undo = new();
@@ -443,133 +446,144 @@ namespace Awose
             }
 
             //Drawing arrows, lines etc
-            
-        //    if (isFirstSpaceSetting)
-        //    {
-        //        int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
-        //        int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-        //        grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
-        //            new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y),
-        //            new Point(x, (int)agents[aw_selected].Y));
-        //        grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
-        //            new Point(x, (int)agents[aw_selected].Y),
-        //            new Point(x, y));
-        //    }
-        //    lock (agents) {
-        //        foreach (AwoseAgent item in agents)
-        //        {
-        //            int dotNumber = 0;
-        //            lock (item.Spray)
-        //            {
-        //                foreach (Point dot in item.Spray)
-        //                {
-        //                    RectangleF spraydot = new(lu_corner.X + dot.X * aw_scale, lu_corner.Y + dot.Y * aw_scale, aw_scale, aw_scale);
-        //                    if (item.MistakeType == 0)
-        //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
-        //                    if (item.MistakeType == 1)
-        //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
-        //                    if (item.MistakeType == 2)
-        //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
-        //                }
-        //            }
 
-        //            Point point = RealToScreen(item.X, item.Y);
-        //            RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
-        //            if (circle.X + diameter < 0) {
-        //                if (circle.Y + 0.5 * diameter < 15)
-        //                {
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, 15, item.Name.Length * 7, 20));
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, 16));
-        //                } 
-        //                else if (circle.Y > ModelBoard_PB.Height)
-        //                {
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, ModelBoard_PB.Height - 34));
-        //                }
-        //                else
-        //                {
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, (int)circle.Y, item.Name.Length * 7, 20));
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, (int)circle.Y + 1));
-        //                }
-        //            } else if (circle.X > ModelBoard_PB.Width)
-        //            {
-        //                if (circle.Y + 0.5 * diameter < 15)
-        //                {
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, 15, item.Name.Length * 7, 20));
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, 16));
-        //                }
-        //                else if (circle.Y > ModelBoard_PB.Height)
-        //                {
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, ModelBoard_PB.Height - 34));
-        //                }
-        //                else
-        //                {
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, (int)circle.Y, item.Name.Length * 7, 20));
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, (int)circle.Y + 1));
-        //                }
-        //            } else
-        //            {
-        //                if (circle.Y + 0.5 * diameter < 0)
-        //                {
-        //                    Point[] triangle = {
-        //                        new Point((int)circle.X, 10),
-        //                        new Point((int)circle.X - 8, 20),
-        //                        new Point((int)circle.X + 8, 20)
-        //                    };
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, 20, item.Name.Length * 7, 20));
-        //                    grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 9, 21));
-        //                }
-        //                else if (circle.Y > ModelBoard_PB.Height)
-        //                {
-        //                    Point[] triangle = {
-        //                        new Point((int)circle.X, ModelBoard_PB.Height - 10),
-        //                        new Point((int)circle.X - 8, ModelBoard_PB.Height - 20),
-        //                        new Point((int)circle.X + 8, ModelBoard_PB.Height - 20)
-        //                    };
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, ModelBoard_PB.Height - 40, item.Name.Length * 7, 20));
-        //                    grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 12, ModelBoard_PB.Height - 39));
-        //                }
-        //                else
-        //                {
-        //                    if (!isLaunched)
-        //                        if (Math.Abs(item.VelocityX) + Math.Abs(item.VelocityY) > 10)
-        //                        {
-        //                            int x = (int)item.X + (int)item.VelocityX;
-        //                            int y = (int)item.Y + (int)item.VelocityY;
-        //                            float dx = (float)item.VelocityX;
-        //                            float dy = (float)item.VelocityY;
-        //                            float l = (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
-        //                            float ax = 15 * dx / l;
-        //                            float ay = 15 * dy / l;
-        //                            float bx = 7 * dy / l;
-        //                            float by = 7 * dx / l;
-        //                            Point[] arrow =
-        //                            {
-        //                                new Point(x, y),
-        //                                new Point(x - (int)ax + (int)bx, y - (int)ay - (int)by),
-        //                                new Point(x - (int)ax - (int)bx, y - (int)ay + (int)by)
-        //                            };
-        //                            grfx.DrawLine(new Pen(Brushes.DimGray, 2),
-        //                                new Point((int)item.X, (int)item.Y),
-        //                                new Point((int)item.X + (int)item.VelocityX,
-        //                                (int)item.Y + (int)item.VelocityY));
-        //                            grfx.FillPolygon(Brushes.DimGray, arrow);
-        //                        }
-        //                    grfx.FillEllipse(new SolidBrush(item.Dye), circle);
-        //                    if (item.IsSelected)
-        //                    {
-        //                        RectangleF bigcircle = new((float)(lu_corner.X + item.X * aw_scale - (diameter * 1.7) / 2), (float)(lu_corner.Y + item.Y * aw_scale - (diameter * 1.7) / 2), (int)(diameter * 1.7), (int)(diameter * 1.7));
-        //                        grfx.DrawEllipse(new Pen(Brushes.White, (int)(1.5 * aw_scale)), bigcircle);
-        //                    }
-        //                }
-        //            }
-                    
-        //        }
-        //}
-            ModelBoard_PB.BackgroundImage = board;
+            //    if (isFirstSpaceSetting)
+            //    {
+            //        int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+            //        int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+            //        grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
+            //            new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y),
+            //            new Point(x, (int)agents[aw_selected].Y));
+            //        grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
+            //            new Point(x, (int)agents[aw_selected].Y),
+            //            new Point(x, y));
+            //    }
+            //    lock (agents) {
+            //        foreach (AwoseAgent item in agents)
+            //        {
+            //            int dotNumber = 0;
+            //            lock (item.Spray)
+            //            {
+            //                foreach (Point dot in item.Spray)
+            //                {
+            //                    RectangleF spraydot = new(lu_corner.X + dot.X * aw_scale, lu_corner.Y + dot.Y * aw_scale, aw_scale, aw_scale);
+            //                    if (item.MistakeType == 0)
+            //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
+            //                    if (item.MistakeType == 1)
+            //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+            //                    if (item.MistakeType == 2)
+            //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+            //                }
+            //            }
+
+            //            Point point = RealToScreen(item.X, item.Y);
+            //            RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
+            //            if (circle.X + diameter < 0) {
+            //                if (circle.Y + 0.5 * diameter < 15)
+            //                {
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, 15, item.Name.Length * 7, 20));
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, 16));
+            //                } 
+            //                else if (circle.Y > ModelBoard_PB.Height)
+            //                {
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, ModelBoard_PB.Height - 34));
+            //                }
+            //                else
+            //                {
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, (int)circle.Y, item.Name.Length * 7, 20));
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, (int)circle.Y + 1));
+            //                }
+            //            } else if (circle.X > ModelBoard_PB.Width)
+            //            {
+            //                if (circle.Y + 0.5 * diameter < 15)
+            //                {
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, 15, item.Name.Length * 7, 20));
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, 16));
+            //                }
+            //                else if (circle.Y > ModelBoard_PB.Height)
+            //                {
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, ModelBoard_PB.Height - 34));
+            //                }
+            //                else
+            //                {
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, (int)circle.Y, item.Name.Length * 7, 20));
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, (int)circle.Y + 1));
+            //                }
+            //            } else
+            //            {
+            //                if (circle.Y + 0.5 * diameter < 0)
+            //                {
+            //                    Point[] triangle = {
+            //                        new Point((int)circle.X, 10),
+            //                        new Point((int)circle.X - 8, 20),
+            //                        new Point((int)circle.X + 8, 20)
+            //                    };
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, 20, item.Name.Length * 7, 20));
+            //                    grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 9, 21));
+            //                }
+            //                else if (circle.Y > ModelBoard_PB.Height)
+            //                {
+            //                    Point[] triangle = {
+            //                        new Point((int)circle.X, ModelBoard_PB.Height - 10),
+            //                        new Point((int)circle.X - 8, ModelBoard_PB.Height - 20),
+            //                        new Point((int)circle.X + 8, ModelBoard_PB.Height - 20)
+            //                    };
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, ModelBoard_PB.Height - 40, item.Name.Length * 7, 20));
+            //                    grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 12, ModelBoard_PB.Height - 39));
+            //                }
+            //                else
+            //                {
+            //                    if (!isLaunched)
+            //                        if (Math.Abs(item.VelocityX) + Math.Abs(item.VelocityY) > 10)
+            //                        {
+            //                            int x = (int)item.X + (int)item.VelocityX;
+            //                            int y = (int)item.Y + (int)item.VelocityY;
+            //                            float dx = (float)item.VelocityX;
+            //                            float dy = (float)item.VelocityY;
+            //                            float l = (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
+            //                            float ax = 15 * dx / l;
+            //                            float ay = 15 * dy / l;
+            //                            float bx = 7 * dy / l;
+            //                            float by = 7 * dx / l;
+            //                            Point[] arrow =
+            //                            {
+            //                                new Point(x, y),
+            //                                new Point(x - (int)ax + (int)bx, y - (int)ay - (int)by),
+            //                                new Point(x - (int)ax - (int)bx, y - (int)ay + (int)by)
+            //                            };
+            //                            grfx.DrawLine(new Pen(Brushes.DimGray, 2),
+            //                                new Point((int)item.X, (int)item.Y),
+            //                                new Point((int)item.X + (int)item.VelocityX,
+            //                                (int)item.Y + (int)item.VelocityY));
+            //                            grfx.FillPolygon(Brushes.DimGray, arrow);
+            //                        }
+            //                    grfx.FillEllipse(new SolidBrush(item.Dye), circle);
+            //                    if (item.IsSelected)
+            //                    {
+            //                        RectangleF bigcircle = new((float)(lu_corner.X + item.X * aw_scale - (diameter * 1.7) / 2), (float)(lu_corner.Y + item.Y * aw_scale - (diameter * 1.7) / 2), (int)(diameter * 1.7), (int)(diameter * 1.7));
+            //                        grfx.DrawEllipse(new Pen(Brushes.White, (int)(1.5 * aw_scale)), bigcircle);
+            //                    }
+            //                }
+            //            }
+
+            //        }
+            //}
+            if (Status == SimulationStatus.Computing)
+            {
+                if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\ComputedSimulation"))
+                {
+                    Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\ComputedSimulation");
+                }
+                board.Save(Directory.GetCurrentDirectory() + "\\ComputedSimulation\\" + AlreadyComputed.ToString() + ".bmp");
+            }
+            else
+            {
+                ModelBoard_PB.BackgroundImage = board;
+            }
         }
 
         private void Aw_Step(int time)
@@ -668,6 +682,7 @@ namespace Awose
             InitializeComponent();
         }
         Thread animation;
+        Thread computed_animation;
         private void Awose_Load(object sender, EventArgs e)
         {
             Bitmap button_img = new(23, 23);
@@ -695,11 +710,35 @@ namespace Awose
                 {
                     item.AgentSprayUpdate();
                 }
-                if (isLaunched) Aw_Step(timeStep);
+                if (isLaunched || Status == SimulationStatus.Computing) Aw_Step(timeStep);
                 Invoke((Action)Aw_Refresh);
                 await Task.Delay(timeStep);
                 //Thread.Sleep(timeStep);
             }
+        }
+
+        public void ComputingEditor(object time)
+        {
+            //Thread.Sleep(5000);
+            for (int i = 0; i < 1000 * (int)time / timeStep; i++)
+            {
+                if (Status != SimulationStatus.Computing) break;
+                AlreadyComputed = i;
+                foreach (AwoseAgent item in Layers[CurrentLayer].Agents)
+                {
+                    item.AgentSprayUpdate();
+                }
+                if (Status == SimulationStatus.Computing) Aw_Step(timeStep);
+                Invoke((Action)Aw_Refresh);
+                Action action = () =>
+                {
+                    Computing_PBar.Value = i * timeStep / (10 * (int)time);
+                };
+                //await Task.Delay(timeStep);
+                //Thread.Sleep(timeStep);
+            }
+            Status = SimulationStatus.Stopped;
+            return;
         }
 
         private void Aw_CheckMistakes()
@@ -713,6 +752,7 @@ namespace Awose
             }
             if (isLaunched) return;
             LaunchSimulation_MSItem.Enabled = true;
+            Compute_MSItem.Enabled = true;
             //Useless object
             if (agents.Count == 1)
             {
@@ -2453,7 +2493,17 @@ namespace Awose
 
         private void Compute_Button_Click(object sender, EventArgs e)
         {
+            //ComputingLayers = Layers;
+            Status = SimulationStatus.Computing;
+            ComputingStartTime = DateTime.Now;
+            Computing_PBar.Visible = true;
+            computed_animation = new Thread(ComputingEditor);
+            computed_animation.Start(int.Parse(TimeToCompute_TB.Text));
+        }
 
+        private void CancelComputing_Button_Click(object sender, EventArgs e)
+        {
+            Status = SimulationStatus.Stopped;
         }
     }
 }

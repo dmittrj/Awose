@@ -168,13 +168,13 @@ namespace Awose
             this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
             this.BeautyPreview_PB = new System.Windows.Forms.PictureBox();
             this.ComputePanel = new System.Windows.Forms.Panel();
+            this.Computing_PBar = new System.Windows.Forms.ProgressBar();
+            this.CancelComputing_Button = new System.Windows.Forms.Button();
+            this.Compute_Button = new System.Windows.Forms.Button();
+            this.label32 = new System.Windows.Forms.Label();
+            this.TimeToCompute_TB = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.Compute_Button = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.Computing_PBar = new System.Windows.Forms.ProgressBar();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Force_PB)).BeginInit();
@@ -1759,17 +1759,85 @@ namespace Awose
             // 
             this.ComputePanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ComputePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ComputePanel.Controls.Add(this.Computing_PBar);
-            this.ComputePanel.Controls.Add(this.button2);
+            this.ComputePanel.Controls.Add(this.CancelComputing_Button);
             this.ComputePanel.Controls.Add(this.Compute_Button);
             this.ComputePanel.Controls.Add(this.label32);
-            this.ComputePanel.Controls.Add(this.textBox2);
+            this.ComputePanel.Controls.Add(this.TimeToCompute_TB);
             this.ComputePanel.Controls.Add(this.label30);
             this.ComputePanel.Controls.Add(this.label31);
+            this.ComputePanel.Controls.Add(this.Computing_PBar);
             this.ComputePanel.Location = new System.Drawing.Point(981, 604);
             this.ComputePanel.Name = "ComputePanel";
             this.ComputePanel.Size = new System.Drawing.Size(248, 105);
             this.ComputePanel.TabIndex = 17;
+            // 
+            // Computing_PBar
+            // 
+            this.Computing_PBar.Location = new System.Drawing.Point(7, 41);
+            this.Computing_PBar.Name = "Computing_PBar";
+            this.Computing_PBar.Size = new System.Drawing.Size(232, 20);
+            this.Computing_PBar.TabIndex = 22;
+            this.Computing_PBar.Value = 20;
+            // 
+            // CancelComputing_Button
+            // 
+            this.CancelComputing_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.CancelComputing_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.CancelComputing_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.CancelComputing_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.CancelComputing_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.CancelComputing_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.CancelComputing_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CancelComputing_Button.ForeColor = System.Drawing.Color.White;
+            this.CancelComputing_Button.Location = new System.Drawing.Point(180, 72);
+            this.CancelComputing_Button.Name = "CancelComputing_Button";
+            this.CancelComputing_Button.Size = new System.Drawing.Size(59, 24);
+            this.CancelComputing_Button.TabIndex = 21;
+            this.CancelComputing_Button.Text = "Cancel";
+            this.CancelComputing_Button.UseVisualStyleBackColor = false;
+            this.CancelComputing_Button.Click += new System.EventHandler(this.CancelComputing_Button_Click);
+            // 
+            // Compute_Button
+            // 
+            this.Compute_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.Compute_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Compute_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.Compute_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.Compute_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.Compute_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.Compute_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Compute_Button.ForeColor = System.Drawing.Color.White;
+            this.Compute_Button.Location = new System.Drawing.Point(106, 72);
+            this.Compute_Button.Name = "Compute_Button";
+            this.Compute_Button.Size = new System.Drawing.Size(70, 24);
+            this.Compute_Button.TabIndex = 20;
+            this.Compute_Button.Text = "Compute";
+            this.Compute_Button.UseVisualStyleBackColor = false;
+            this.Compute_Button.Click += new System.EventHandler(this.Compute_Button_Click);
+            // 
+            // label32
+            // 
+            this.label32.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label32.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label32.ForeColor = System.Drawing.Color.White;
+            this.label32.Location = new System.Drawing.Point(103, 40);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(63, 19);
+            this.label32.TabIndex = 19;
+            this.label32.Text = "s";
+            // 
+            // TimeToCompute_TB
+            // 
+            this.TimeToCompute_TB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.TimeToCompute_TB.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TimeToCompute_TB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.TimeToCompute_TB.ForeColor = System.Drawing.Color.White;
+            this.TimeToCompute_TB.Location = new System.Drawing.Point(45, 41);
+            this.TimeToCompute_TB.Multiline = true;
+            this.TimeToCompute_TB.Name = "TimeToCompute_TB";
+            this.TimeToCompute_TB.Size = new System.Drawing.Size(55, 19);
+            this.TimeToCompute_TB.TabIndex = 18;
+            this.TimeToCompute_TB.Text = "0";
             // 
             // label30
             // 
@@ -1793,74 +1861,6 @@ namespace Awose
             this.label31.Size = new System.Drawing.Size(83, 19);
             this.label31.TabIndex = 1;
             this.label31.Text = "Computing";
-            // 
-            // textBox2
-            // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.textBox2.ForeColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(45, 41);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(55, 19);
-            this.textBox2.TabIndex = 18;
-            this.textBox2.Text = "0";
-            this.textBox2.Visible = false;
-            // 
-            // label32
-            // 
-            this.label32.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label32.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label32.ForeColor = System.Drawing.Color.White;
-            this.label32.Location = new System.Drawing.Point(103, 40);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(63, 19);
-            this.label32.TabIndex = 19;
-            this.label32.Text = "s";
-            // 
-            // Compute_Button
-            // 
-            this.Compute_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.Compute_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.Compute_Button.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Compute_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.Compute_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.Compute_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.Compute_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Compute_Button.ForeColor = System.Drawing.Color.White;
-            this.Compute_Button.Location = new System.Drawing.Point(106, 72);
-            this.Compute_Button.Name = "Compute_Button";
-            this.Compute_Button.Size = new System.Drawing.Size(70, 24);
-            this.Compute_Button.TabIndex = 20;
-            this.Compute_Button.Text = "Compute";
-            this.Compute_Button.UseVisualStyleBackColor = false;
-            this.Compute_Button.Click += new System.EventHandler(this.Compute_Button_Click);
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(180, 72);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(59, 24);
-            this.button2.TabIndex = 21;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // Computing_PBar
-            // 
-            this.Computing_PBar.Location = new System.Drawing.Point(7, 41);
-            this.Computing_PBar.Name = "Computing_PBar";
-            this.Computing_PBar.Size = new System.Drawing.Size(232, 20);
-            this.Computing_PBar.TabIndex = 22;
-            this.Computing_PBar.Value = 20;
             // 
             // Awose
             // 
@@ -2074,9 +2074,9 @@ namespace Awose
         private System.Windows.Forms.Panel ComputePanel;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox TimeToCompute_TB;
         private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button CancelComputing_Button;
         private System.Windows.Forms.Button Compute_Button;
         private System.Windows.Forms.ProgressBar Computing_PBar;
     }

@@ -1447,8 +1447,24 @@ namespace Awose
                                 float dy = point1.Y - agent.Location.Y;
                                 double distance = Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
                                 double fsvelocity = Math.Sqrt(ConstG * agent.Weight / distance);
-                                double fsv_y = Math.Sqrt(fsvelocity * fsvelocity / (dy * dy / (dx * dx) + 1));
-                                double fsv_x = -fsv_y * dy / dx;
+                                double fsv_y; 
+                                if (dx != 0)
+                                {
+                                    fsv_y = Math.Sqrt(fsvelocity * fsvelocity / (dy * dy / (dx * dx) + 1));
+                                }
+                                else
+                                {
+                                    fsv_y = 0;
+                                }
+                                double fsv_x;
+                                if (dx != 0)
+                                {
+                                    fsv_x = -fsv_y * dy / dx;
+                                }
+                                else
+                                {
+                                    fsv_x = fsvelocity;
+                                }
                                 Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new(
 
                                     new((float)fsv_x, (float)fsv_y));
@@ -1884,6 +1900,7 @@ namespace Awose
             {
                 foreach (AwoseAgent agent in layer.Agents)
                 {
+                    agent.Trajectory.Clear();
                     agent.Restore();
                 }
             }

@@ -313,7 +313,7 @@ namespace Awose
                             float sfsv_diam = aw_agentsize * aw_scale + 7 * aw_scale;
                             float sfsv_length = MathF.Sqrt(MathF.Pow(sfsv_objCenter.X - pip_x, 2) + MathF.Pow(sfsv_objCenter.Y - pip_y, 2));
                             sfsv_spearhead = new(RealToScreen(agent.Location).X - sfsv_diam / 2, RealToScreen(agent.Location).Y - sfsv_diam / 2, sfsv_diam, sfsv_diam);
-                            grfx.DrawEllipse(new Pen(Brushes.White, 1.5f), new Rectangle((int)agent.Location.X - (int)sfsv_length, (int)agent.Location.Y - (int)sfsv_length, (int)sfsv_length * 2, (int)sfsv_length * 2));
+                            grfx.DrawEllipse(new Pen(Brushes.White, 1.5f), new Rectangle((int)RealToScreen(agent.Location).X - (int)sfsv_length, (int)RealToScreen(agent.Location).Y - (int)sfsv_length, (int)sfsv_length * 2, (int)sfsv_length * 2));
                             break;
                         }
                     }

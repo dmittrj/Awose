@@ -811,12 +811,36 @@ namespace Awose
                     default:
                         break;
                 }
+
+                
             }
             else
             {
                 ControlLayer_Panel.Visible = true;
                 ControlAgents_Panel.Visible = false;
                 ObjectBeauty_Panel.Visible = false;
+
+                switch (Layers[CurrentLayer].StrMode)
+                {
+                    case StreamMode.None:
+                        StreamNo_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        StreamGravity_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        StreamElectric_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        break;
+                    case StreamMode.Gravity:
+                        StreamNo_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        StreamGravity_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        StreamElectric_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        break;
+                    case StreamMode.Electric:
+                        StreamNo_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        StreamGravity_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        StreamElectric_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        break;
+                    default:
+                        break;
+                }
+                StreamFrequency_TB.Value = 1000 - Layers[CurrentLayer].StreamFreq;
             }
             return;
 
@@ -1841,14 +1865,7 @@ namespace Awose
                     agent.Backup();
                 }
             }
-            Layers[CurrentLayer].Sources.Clear();
-            for (int i = -100; i < ModelBoard_PB.Width + 100; i += 50)
-            {
-                for (int j = -100; j < ModelBoard_PB.Height + 100; j += 50)
-                {
-                    Layers[CurrentLayer].Sources.Add(new AwoseParticle(ScreenToReal(new PointParticle(i, j))));
-                }
-            }
+            FlowStreamUp();
             //Layers[CurrentLayer].Sources.Add(new AwoseParticle(ScreenToReal(new PointParticle(0, 0))));
             isLaunched = true;
             LaunchSimulation_MSItem.Enabled = false;
@@ -2319,6 +2336,27 @@ namespace Awose
             Layers[CurrentLayer].StrMode = StreamMode.Electric;
             Aw_DrawControl();
             Aw_Refresh();
+        }
+
+        private void StreamFrequency_TB_Scroll(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].StreamFreq = 1000 - StreamFrequency_TB.Value;
+            FlowStreamUp();
+        }
+
+        private void FlowStreamUp()
+        {
+            lock (Layers[CurrentLayer].Sources)
+            {
+                Layers[CurrentLayer].Sources.Clear();
+                for (int i = -100; i < ModelBoard_PB.Width + 100; i += Layers[CurrentLayer].StreamFreq)
+                {
+                    for (int j = -100; j < ModelBoard_PB.Height + 100; j += Layers[CurrentLayer].StreamFreq)
+                    {
+                        Layers[CurrentLayer].Sources.Add(new AwoseParticle(ScreenToReal(new PointParticle(i, j))));
+                    }
+                }
+            }
         }
     }
 }

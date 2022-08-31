@@ -24,6 +24,7 @@ namespace Awose
         public StreamMode StrMode { get; set; }
 
         public List<AwoseParticle> Sources = new();
+        public int StreamFreq { get; set; }
 
         public AwoseLayer(string name, int layerNumber)
         {
@@ -33,6 +34,7 @@ namespace Awose
             ELaw = -2;
             GLaw = -2;
             StrMode = StreamMode.None;
+            StreamFreq = 300;
             switch ((layerNumber - 1) % 2)
             {
                 case 0:

@@ -142,6 +142,14 @@ namespace Awose
             this.label6 = new System.Windows.Forms.Label();
             this.RT_Scale_Label = new System.Windows.Forms.Label();
             this.ControlLayer_Panel = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.StreamFrequency_TB = new System.Windows.Forms.TrackBar();
+            this.label29 = new System.Windows.Forms.Label();
+            this.StreamGravity_Button = new System.Windows.Forms.Button();
+            this.StreamElectric_Button = new System.Windows.Forms.Button();
+            this.StreamNo_Button = new System.Windows.Forms.Button();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.GridColor_Blue_PB = new System.Windows.Forms.PictureBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -159,14 +167,6 @@ namespace Awose
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
             this.BeautyPreview_PB = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label28 = new System.Windows.Forms.Label();
-            this.StreamElectric_Button = new System.Windows.Forms.Button();
-            this.StreamGravity_Button = new System.Windows.Forms.Button();
-            this.StreamNo_Button = new System.Windows.Forms.Button();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.StreamFrequency_TB = new System.Windows.Forms.TrackBar();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Force_PB)).BeginInit();
@@ -186,14 +186,14 @@ namespace Awose
             this.Space_CMStr.SuspendLayout();
             this.panel1.SuspendLayout();
             this.ControlLayer_Panel.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.StreamFrequency_TB)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridColor_Blue_PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel4.SuspendLayout();
             this.LayersBar_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BeautyPreview_PB)).BeginInit();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.StreamFrequency_TB)).BeginInit();
             this.SuspendLayout();
             // 
             // ControlAgents_Panel
@@ -1435,6 +1435,122 @@ namespace Awose
             this.ControlLayer_Panel.Size = new System.Drawing.Size(248, 686);
             this.ControlLayer_Panel.TabIndex = 9;
             // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.StreamFrequency_TB);
+            this.panel2.Controls.Add(this.label29);
+            this.panel2.Controls.Add(this.StreamGravity_Button);
+            this.panel2.Controls.Add(this.StreamElectric_Button);
+            this.panel2.Controls.Add(this.StreamNo_Button);
+            this.panel2.Controls.Add(this.label27);
+            this.panel2.Controls.Add(this.label28);
+            this.panel2.Location = new System.Drawing.Point(-1, 268);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(248, 167);
+            this.panel2.TabIndex = 6;
+            // 
+            // StreamFrequency_TB
+            // 
+            this.StreamFrequency_TB.AutoSize = false;
+            this.StreamFrequency_TB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.StreamFrequency_TB.Location = new System.Drawing.Point(13, 121);
+            this.StreamFrequency_TB.Maximum = 1000;
+            this.StreamFrequency_TB.Minimum = 1;
+            this.StreamFrequency_TB.Name = "StreamFrequency_TB";
+            this.StreamFrequency_TB.Size = new System.Drawing.Size(222, 26);
+            this.StreamFrequency_TB.TabIndex = 20;
+            this.StreamFrequency_TB.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.StreamFrequency_TB.Value = 1;
+            this.StreamFrequency_TB.Scroll += new System.EventHandler(this.StreamFrequency_TB_Scroll);
+            // 
+            // label29
+            // 
+            this.label29.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.label29.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label29.ForeColor = System.Drawing.Color.White;
+            this.label29.Location = new System.Drawing.Point(10, 97);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(99, 19);
+            this.label29.TabIndex = 19;
+            this.label29.Text = "Frequency:";
+            // 
+            // StreamGravity_Button
+            // 
+            this.StreamGravity_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.StreamGravity_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.StreamGravity_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.StreamGravity_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.StreamGravity_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.StreamGravity_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.StreamGravity_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.StreamGravity_Button.ForeColor = System.Drawing.Color.White;
+            this.StreamGravity_Button.Location = new System.Drawing.Point(60, 63);
+            this.StreamGravity_Button.Name = "StreamGravity_Button";
+            this.StreamGravity_Button.Size = new System.Drawing.Size(70, 24);
+            this.StreamGravity_Button.TabIndex = 17;
+            this.StreamGravity_Button.Text = "Gravity";
+            this.StreamGravity_Button.UseVisualStyleBackColor = false;
+            this.StreamGravity_Button.Click += new System.EventHandler(this.StreamGravity_Button_Click);
+            // 
+            // StreamElectric_Button
+            // 
+            this.StreamElectric_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.StreamElectric_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.StreamElectric_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.StreamElectric_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.StreamElectric_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.StreamElectric_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.StreamElectric_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.StreamElectric_Button.ForeColor = System.Drawing.Color.White;
+            this.StreamElectric_Button.Location = new System.Drawing.Point(129, 63);
+            this.StreamElectric_Button.Name = "StreamElectric_Button";
+            this.StreamElectric_Button.Size = new System.Drawing.Size(77, 24);
+            this.StreamElectric_Button.TabIndex = 18;
+            this.StreamElectric_Button.Text = "Electric";
+            this.StreamElectric_Button.UseVisualStyleBackColor = false;
+            this.StreamElectric_Button.Click += new System.EventHandler(this.StreamElectric_Button_Click);
+            // 
+            // StreamNo_Button
+            // 
+            this.StreamNo_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.StreamNo_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.StreamNo_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.StreamNo_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.StreamNo_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.StreamNo_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.StreamNo_Button.ForeColor = System.Drawing.Color.White;
+            this.StreamNo_Button.Location = new System.Drawing.Point(14, 63);
+            this.StreamNo_Button.Name = "StreamNo_Button";
+            this.StreamNo_Button.Size = new System.Drawing.Size(47, 24);
+            this.StreamNo_Button.TabIndex = 16;
+            this.StreamNo_Button.Text = "No";
+            this.StreamNo_Button.UseVisualStyleBackColor = true;
+            this.StreamNo_Button.Click += new System.EventHandler(this.StreamNo_Button_Click);
+            // 
+            // label27
+            // 
+            this.label27.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.label27.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label27.ForeColor = System.Drawing.Color.White;
+            this.label27.Location = new System.Drawing.Point(10, 37);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(137, 19);
+            this.label27.TabIndex = 15;
+            this.label27.Text = "Field";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label28.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label28.ForeColor = System.Drawing.Color.White;
+            this.label28.Location = new System.Drawing.Point(9, 7);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(57, 19);
+            this.label28.TabIndex = 1;
+            this.label28.Text = "Stream";
+            // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -1628,121 +1744,6 @@ namespace Awose
             this.BeautyPreview_PB.TabStop = false;
             this.BeautyPreview_PB.Visible = false;
             // 
-            // panel2
-            // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.StreamFrequency_TB);
-            this.panel2.Controls.Add(this.label29);
-            this.panel2.Controls.Add(this.StreamGravity_Button);
-            this.panel2.Controls.Add(this.StreamElectric_Button);
-            this.panel2.Controls.Add(this.StreamNo_Button);
-            this.panel2.Controls.Add(this.label27);
-            this.panel2.Controls.Add(this.label28);
-            this.panel2.Location = new System.Drawing.Point(-1, 268);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(248, 167);
-            this.panel2.TabIndex = 6;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label28.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label28.ForeColor = System.Drawing.Color.White;
-            this.label28.Location = new System.Drawing.Point(9, 7);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(57, 19);
-            this.label28.TabIndex = 1;
-            this.label28.Text = "Stream";
-            // 
-            // StreamElectric_Button
-            // 
-            this.StreamElectric_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.StreamElectric_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.StreamElectric_Button.Cursor = System.Windows.Forms.Cursors.Default;
-            this.StreamElectric_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.StreamElectric_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.StreamElectric_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.StreamElectric_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StreamElectric_Button.ForeColor = System.Drawing.Color.White;
-            this.StreamElectric_Button.Location = new System.Drawing.Point(129, 63);
-            this.StreamElectric_Button.Name = "StreamElectric_Button";
-            this.StreamElectric_Button.Size = new System.Drawing.Size(77, 24);
-            this.StreamElectric_Button.TabIndex = 18;
-            this.StreamElectric_Button.Text = "Electric";
-            this.StreamElectric_Button.UseVisualStyleBackColor = false;
-            this.StreamElectric_Button.Click += new System.EventHandler(this.StreamElectric_Button_Click);
-            // 
-            // StreamGravity_Button
-            // 
-            this.StreamGravity_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.StreamGravity_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.StreamGravity_Button.Cursor = System.Windows.Forms.Cursors.Default;
-            this.StreamGravity_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.StreamGravity_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.StreamGravity_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.StreamGravity_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StreamGravity_Button.ForeColor = System.Drawing.Color.White;
-            this.StreamGravity_Button.Location = new System.Drawing.Point(60, 63);
-            this.StreamGravity_Button.Name = "StreamGravity_Button";
-            this.StreamGravity_Button.Size = new System.Drawing.Size(70, 24);
-            this.StreamGravity_Button.TabIndex = 17;
-            this.StreamGravity_Button.Text = "Gravity";
-            this.StreamGravity_Button.UseVisualStyleBackColor = false;
-            this.StreamGravity_Button.Click += new System.EventHandler(this.StreamGravity_Button_Click);
-            // 
-            // StreamNo_Button
-            // 
-            this.StreamNo_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.StreamNo_Button.Cursor = System.Windows.Forms.Cursors.Default;
-            this.StreamNo_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.StreamNo_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.StreamNo_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.StreamNo_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StreamNo_Button.ForeColor = System.Drawing.Color.White;
-            this.StreamNo_Button.Location = new System.Drawing.Point(14, 63);
-            this.StreamNo_Button.Name = "StreamNo_Button";
-            this.StreamNo_Button.Size = new System.Drawing.Size(47, 24);
-            this.StreamNo_Button.TabIndex = 16;
-            this.StreamNo_Button.Text = "No";
-            this.StreamNo_Button.UseVisualStyleBackColor = true;
-            this.StreamNo_Button.Click += new System.EventHandler(this.StreamNo_Button_Click);
-            // 
-            // label27
-            // 
-            this.label27.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.label27.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label27.ForeColor = System.Drawing.Color.White;
-            this.label27.Location = new System.Drawing.Point(10, 37);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(137, 19);
-            this.label27.TabIndex = 15;
-            this.label27.Text = "Field";
-            // 
-            // label29
-            // 
-            this.label29.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.label29.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label29.ForeColor = System.Drawing.Color.White;
-            this.label29.Location = new System.Drawing.Point(10, 97);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(99, 19);
-            this.label29.TabIndex = 19;
-            this.label29.Text = "Frequency:";
-            // 
-            // StreamFrequency_TB
-            // 
-            this.StreamFrequency_TB.AutoSize = false;
-            this.StreamFrequency_TB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.StreamFrequency_TB.Location = new System.Drawing.Point(13, 121);
-            this.StreamFrequency_TB.Maximum = 1000;
-            this.StreamFrequency_TB.Minimum = 1;
-            this.StreamFrequency_TB.Name = "StreamFrequency_TB";
-            this.StreamFrequency_TB.Size = new System.Drawing.Size(222, 26);
-            this.StreamFrequency_TB.TabIndex = 20;
-            this.StreamFrequency_TB.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.StreamFrequency_TB.Value = 1;
-            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1794,6 +1795,9 @@ namespace Awose
             this.panel1.PerformLayout();
             this.ControlLayer_Panel.ResumeLayout(false);
             this.ControlLayer_Panel.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.StreamFrequency_TB)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridColor_Blue_PB)).EndInit();
@@ -1802,9 +1806,6 @@ namespace Awose
             this.panel4.PerformLayout();
             this.LayersBar_Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.BeautyPreview_PB)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.StreamFrequency_TB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

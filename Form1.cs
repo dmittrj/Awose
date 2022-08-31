@@ -626,12 +626,22 @@ namespace Awose
                 foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
                 {
                     particle.Force = new Vector(new PointParticle((float)(particle.ForceGX + particle.ForceEX), (float)(particle.ForceGY + particle.ForceEY)));
-                    particle.Velocity.Tail.X += (float)((particle.ForceGX + particle.ForceEX) * timeStep / 1 / 1000);
-                    particle.Velocity.Tail.Y += (float)((particle.ForceGY + particle.ForceEY) * timeStep / 1 / 1000);
+
+                    //particle.Velocity.Tail.X *= 0.1f;
+                    //particle.Velocity.Tail.Y *= 0.1f;
+
+                    particle.Velocity.Tail.X = (float)((particle.ForceGX + particle.ForceEX) * timeStep / 1 / 1000);
+                    particle.Velocity.Tail.Y = (float)((particle.ForceGY + particle.ForceEY) * timeStep / 1 / 1000);
                     particle.Location.X += (float)(particle.Velocity.Tail.X * timeStep / 1000);
                     particle.Location.Y += (float)(particle.Velocity.Tail.Y * timeStep / 1000);
-                    if (particle.Reborning && particle.Trajectory.Count > 1)
+                    if (particle.Velocity.Length < 2 && particle.Lifetime > 30)
                     {
+                        particle.Reborn();
+                    }
+                    if (particle.Reborning && particle.Trajectory.Count > 3)
+                    {
+                        particle.Trajectory.Dequeue();
+                        particle.Trajectory.Dequeue();
                         particle.Trajectory.Dequeue();
                     }
                     else
@@ -2354,6 +2364,16 @@ namespace Awose
 
         private void StreamGravity_Button_Click(object sender, EventArgs e)
         {
+            if (Layers[CurrentLayer].StrMode == StreamMode.Electric)
+            {
+                lock (Layers[CurrentLayer].Sources)
+                {
+                    foreach (AwoseParticle item in Layers[CurrentLayer].Sources)
+                    {
+                        item.Reborn();
+                    }
+                }
+            }
             Layers[CurrentLayer].StrMode = StreamMode.Gravity;
             Aw_DrawControl();
             Aw_Refresh();
@@ -2361,6 +2381,16 @@ namespace Awose
 
         private void StreamElectric_Button_Click(object sender, EventArgs e)
         {
+            if (Layers[CurrentLayer].StrMode == StreamMode.Gravity)
+            {
+                lock (Layers[CurrentLayer].Sources)
+                {
+                    foreach (AwoseParticle item in Layers[CurrentLayer].Sources)
+                    {
+                        item.Reborn();
+                    }
+                }
+            }
             Layers[CurrentLayer].StrMode = StreamMode.Electric;
             Aw_DrawControl();
             Aw_Refresh();

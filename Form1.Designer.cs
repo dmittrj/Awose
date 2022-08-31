@@ -32,6 +32,7 @@ namespace Awose
             this.components = new System.ComponentModel.Container();
             this.ControlAgents_Panel = new System.Windows.Forms.Panel();
             this.ObjectBeauty_Panel = new System.Windows.Forms.Panel();
+            this.ObjectSprite_Velocity_PB = new System.Windows.Forms.PictureBox();
             this.ObjectSprite_Red_PB = new System.Windows.Forms.PictureBox();
             this.ObjectColorHint_Label = new System.Windows.Forms.Label();
             this.TrajNonfade_Button = new System.Windows.Forms.Button();
@@ -157,9 +158,10 @@ namespace Awose
             this.CreateNewLayer_Button = new System.Windows.Forms.Button();
             this.OpenModel_OFD = new System.Windows.Forms.OpenFileDialog();
             this.BeautyPreview_PB = new System.Windows.Forms.PictureBox();
-            this.ObjectSprite_Velocity_PB = new System.Windows.Forms.PictureBox();
+            this.ObjectSprite_Force_PB = new System.Windows.Forms.PictureBox();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Velocity_PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Red_PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Sky_PB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Green_PB)).BeginInit();
@@ -181,7 +183,7 @@ namespace Awose
             this.panel4.SuspendLayout();
             this.LayersBar_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BeautyPreview_PB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Velocity_PB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Force_PB)).BeginInit();
             this.SuspendLayout();
             // 
             // ControlAgents_Panel
@@ -205,6 +207,7 @@ namespace Awose
             // ObjectBeauty_Panel
             // 
             this.ObjectBeauty_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_Force_PB);
             this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_Velocity_PB);
             this.ObjectBeauty_Panel.Controls.Add(this.ObjectSprite_Red_PB);
             this.ObjectBeauty_Panel.Controls.Add(this.ObjectColorHint_Label);
@@ -223,6 +226,17 @@ namespace Awose
             this.ObjectBeauty_Panel.Size = new System.Drawing.Size(247, 179);
             this.ObjectBeauty_Panel.TabIndex = 6;
             this.ObjectBeauty_Panel.Visible = false;
+            // 
+            // ObjectSprite_Velocity_PB
+            // 
+            this.ObjectSprite_Velocity_PB.Location = new System.Drawing.Point(119, 61);
+            this.ObjectSprite_Velocity_PB.Name = "ObjectSprite_Velocity_PB";
+            this.ObjectSprite_Velocity_PB.Size = new System.Drawing.Size(18, 18);
+            this.ObjectSprite_Velocity_PB.TabIndex = 16;
+            this.ObjectSprite_Velocity_PB.TabStop = false;
+            this.ObjectSprite_Velocity_PB.Click += new System.EventHandler(this.ObjectSprite_Velocity_PB_Click);
+            this.ObjectSprite_Velocity_PB.MouseLeave += new System.EventHandler(this.ObjectSprite_Velocity_PB_MouseLeave);
+            this.ObjectSprite_Velocity_PB.MouseHover += new System.EventHandler(this.ObjectSprite_Velocity_PB_MouseHover);
             // 
             // ObjectSprite_Red_PB
             // 
@@ -1595,16 +1609,13 @@ namespace Awose
             this.BeautyPreview_PB.TabStop = false;
             this.BeautyPreview_PB.Visible = false;
             // 
-            // ObjectSprite_Velocity_PB
+            // ObjectSprite_Force_PB
             // 
-            this.ObjectSprite_Velocity_PB.Location = new System.Drawing.Point(119, 61);
-            this.ObjectSprite_Velocity_PB.Name = "ObjectSprite_Velocity_PB";
-            this.ObjectSprite_Velocity_PB.Size = new System.Drawing.Size(18, 18);
-            this.ObjectSprite_Velocity_PB.TabIndex = 16;
-            this.ObjectSprite_Velocity_PB.TabStop = false;
-            this.ObjectSprite_Velocity_PB.Click += new System.EventHandler(this.ObjectSprite_Velocity_PB_Click);
-            this.ObjectSprite_Velocity_PB.MouseLeave += new System.EventHandler(this.ObjectSprite_Velocity_PB_MouseLeave);
-            this.ObjectSprite_Velocity_PB.MouseHover += new System.EventHandler(this.ObjectSprite_Velocity_PB_MouseHover);
+            this.ObjectSprite_Force_PB.Location = new System.Drawing.Point(139, 61);
+            this.ObjectSprite_Force_PB.Name = "ObjectSprite_Force_PB";
+            this.ObjectSprite_Force_PB.Size = new System.Drawing.Size(18, 18);
+            this.ObjectSprite_Force_PB.TabIndex = 17;
+            this.ObjectSprite_Force_PB.TabStop = false;
             // 
             // Awose
             // 
@@ -1635,6 +1646,7 @@ namespace Awose
             this.ControlAgents_Panel.PerformLayout();
             this.ObjectBeauty_Panel.ResumeLayout(false);
             this.ObjectBeauty_Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Velocity_PB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Red_PB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Sky_PB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Green_PB)).EndInit();
@@ -1663,7 +1675,7 @@ namespace Awose
             this.panel4.PerformLayout();
             this.LayersBar_Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.BeautyPreview_PB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Velocity_PB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Force_PB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1799,6 +1811,7 @@ namespace Awose
         private System.Windows.Forms.Button TrajNonfade_Button;
         private System.Windows.Forms.PictureBox ObjectSprite_Red_PB;
         private System.Windows.Forms.PictureBox ObjectSprite_Velocity_PB;
+        private System.Windows.Forms.PictureBox ObjectSprite_Force_PB;
     }
 }
 

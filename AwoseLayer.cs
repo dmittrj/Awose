@@ -20,6 +20,8 @@ namespace Awose
         public float GLaw { get; set; }
         public int Selected { get; set; }
 
+        public List<AwoseParticle> Sources = new();
+
         public AwoseLayer(string name, int layerNumber)
         {
             Name = name;

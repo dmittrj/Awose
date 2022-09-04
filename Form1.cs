@@ -357,6 +357,26 @@ namespace Awose
 
             }
 
+            //Drawing arrow-field
+            if (Layers[CurrentLayer].StrMode != StreamMode.None)
+            {
+                lock (Layers[CurrentLayer].Arrows)
+                {
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Arrows)
+                    {
+                        Brush brush = new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)particle.Force.Length), Calculations.Normilize(0, 255, (int)particle.Force.Length), Calculations.Normilize(0, 255, (int)particle.Force.Length)));
+                        PointParticle vel_arrow2 = RealToScreen(particle.Location);
+                        PointParticle vel_arrow1 = RealToScreen(particle.Location + particle.Force.ToUnitLength().Tail);
+                        grfx.DrawLine(new Pen(brush, 1.5f),
+                            new PointF(vel_arrow2.X, vel_arrow2.Y),
+                            new PointF(vel_arrow1.X, vel_arrow1.Y));
+                        Vector arrow1 = new(vel_arrow1, vel_arrow2);
+                        grfx.FillPolygon(brush, arrow1.CreateTriangle(12, 10));
+                    }
+                }
+            }
+
+
             //Drawing flow
             if (Layers[CurrentLayer].StrMode != StreamMode.None)
             {
@@ -613,6 +633,13 @@ namespace Awose
                         particle.ForceGX = particle.ForceGY = particle.ForceEX = particle.ForceEY = 0;
                     }
                 }
+                lock (Layers[CurrentLayer].Arrows)
+                {
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Arrows)
+                    {
+                        particle.ForceGX = particle.ForceGY = particle.ForceEX = particle.ForceEY = 0;
+                    }
+                }
                 for (int i = 0; i < Layers[CurrentLayer].Agents.Count; i++)
                 {
                     lock (Layers[CurrentLayer].Sources)
@@ -627,6 +654,18 @@ namespace Awose
                             {
                                 particle.ForceCalc(Layers[CurrentLayer].Agents[i], Layers[CurrentLayer].StrMode);
                             }
+                        }
+                    }
+
+                }
+                for (int i = 0; i < Layers[CurrentLayer].Agents.Count; i++)
+                {
+                    lock (Layers[CurrentLayer].Arrows)
+                    {
+                        foreach (AwoseParticle particle in Layers[CurrentLayer].Arrows)
+                        {
+                            particle.ForceCalc(Layers[CurrentLayer].Agents[i], Layers[CurrentLayer].StrMode);
+                            //particle.Force /= 1000;
                         }
                     }
 
@@ -659,6 +698,13 @@ namespace Awose
                             particle.Trajectory.Enqueue(new PointParticle(particle.Location.X, (int)particle.Location.Y));
                         }
                         particle.Lifetime++;
+                    }
+                }
+                lock (Layers[CurrentLayer].Arrows)
+                {
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Arrows)
+                    {
+                        particle.Force = new Vector(new PointParticle((float)(particle.ForceGX + particle.ForceEX), (float)(particle.ForceGY + particle.ForceEY)));
                     }
                 }
             }
@@ -2130,6 +2176,7 @@ namespace Awose
                 }
             }
             FlowStreamUp();
+            ArrowsUp();
             //Layers[CurrentLayer].Sources.Add(new AwoseParticle(ScreenToReal(new PointParticle(0, 0))));
             isLaunched = true;
             LaunchSimulation_MSItem.Enabled = false;
@@ -2634,6 +2681,7 @@ namespace Awose
         {
             Layers[CurrentLayer].StreamFreq = 1000 - StreamFrequency_TB.Value;
             FlowStreamUp();
+            ArrowsUp();
         }
 
         private void FlowStreamUp()
@@ -2646,6 +2694,21 @@ namespace Awose
                     for (int j = -100; j < ModelBoard_PB.Height + 100; j += Layers[CurrentLayer].StreamFreq)
                     {
                         Layers[CurrentLayer].Sources.Add(new AwoseParticle(ScreenToReal(new PointParticle(i, j))));
+                    }
+                }
+            }
+        }
+
+        private void ArrowsUp()
+        {
+            lock (Layers[CurrentLayer].Arrows)
+            {
+                Layers[CurrentLayer].Arrows.Clear();
+                for (int i = 0; i < ModelBoard_PB.Width; i += Layers[CurrentLayer].StreamFreq)
+                {
+                    for (int j = 0; j < ModelBoard_PB.Height; j += Layers[CurrentLayer].StreamFreq)
+                    {
+                        Layers[CurrentLayer].Arrows.Add(new AwoseParticle(ScreenToReal(new PointParticle(i, j))));
                     }
                 }
             }

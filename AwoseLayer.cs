@@ -24,6 +24,7 @@ namespace Awose
         public StreamMode StrMode { get; set; }
 
         public List<AwoseParticle> Sources = new();
+        public List<AwoseParticle> Arrows = new();
         public int StreamFreq { get; set; }
 
         public AwoseLayer(string name, int layerNumber)

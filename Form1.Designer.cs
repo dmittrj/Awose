@@ -102,6 +102,10 @@ namespace Awose
             this.DistantObjectsHigh_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DistantObjectsMedium_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DistantObjectsLow_MSItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.FieldDataHigh_MSItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FieldDataMedium_MSItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FieldDataLow_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.OptimizationAllHigh_MSItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OptimizationAllMedium_MSItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -184,10 +188,14 @@ namespace Awose
             this.Playback_Panel = new System.Windows.Forms.Panel();
             this.SpeedUp_Button = new System.Windows.Forms.Button();
             this.PlayPause_Button = new System.Windows.Forms.Button();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.FieldDataHigh_MSItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.FieldDataMedium_MSItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.FieldDataLow_MSItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.label33 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Force_PB)).BeginInit();
@@ -217,6 +225,8 @@ namespace Awose
             ((System.ComponentModel.ISupportInitialize)(this.BeautyPreview_PB)).BeginInit();
             this.ComputePanel.SuspendLayout();
             this.Playback_Panel.SuspendLayout();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // ControlAgents_Panel
@@ -1039,13 +1049,13 @@ namespace Awose
             this.DistantObjectsMedium_MSItem,
             this.DistantObjectsLow_MSItem});
             this.distantObjectsToolStripMenuItem.Name = "distantObjectsToolStripMenuItem";
-            this.distantObjectsToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.distantObjectsToolStripMenuItem.Size = new System.Drawing.Size(177, 24);
             this.distantObjectsToolStripMenuItem.Text = "Distant objects";
             // 
             // DistantObjectsHigh_MSItem
             // 
             this.DistantObjectsHigh_MSItem.Name = "DistantObjectsHigh_MSItem";
-            this.DistantObjectsHigh_MSItem.Size = new System.Drawing.Size(180, 24);
+            this.DistantObjectsHigh_MSItem.Size = new System.Drawing.Size(133, 24);
             this.DistantObjectsHigh_MSItem.Text = "High";
             this.DistantObjectsHigh_MSItem.Click += new System.EventHandler(this.DistantObjectsHigh_MSItem_Click);
             // 
@@ -1054,40 +1064,73 @@ namespace Awose
             this.DistantObjectsMedium_MSItem.Checked = true;
             this.DistantObjectsMedium_MSItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.DistantObjectsMedium_MSItem.Name = "DistantObjectsMedium_MSItem";
-            this.DistantObjectsMedium_MSItem.Size = new System.Drawing.Size(180, 24);
+            this.DistantObjectsMedium_MSItem.Size = new System.Drawing.Size(133, 24);
             this.DistantObjectsMedium_MSItem.Text = "Medium";
             this.DistantObjectsMedium_MSItem.Click += new System.EventHandler(this.DistantObjectsMedium_MSItem_Click);
             // 
             // DistantObjectsLow_MSItem
             // 
             this.DistantObjectsLow_MSItem.Name = "DistantObjectsLow_MSItem";
-            this.DistantObjectsLow_MSItem.Size = new System.Drawing.Size(180, 24);
+            this.DistantObjectsLow_MSItem.Size = new System.Drawing.Size(133, 24);
             this.DistantObjectsLow_MSItem.Text = "Low";
             this.DistantObjectsLow_MSItem.Click += new System.EventHandler(this.DistantObjectsLow_MSItem_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FieldDataHigh_MSItem,
+            this.FieldDataMedium_MSItem,
+            this.FieldDataLow_MSItem});
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(177, 24);
+            this.toolStripMenuItem4.Text = "Field data";
+            // 
+            // FieldDataHigh_MSItem
+            // 
+            this.FieldDataHigh_MSItem.Name = "FieldDataHigh_MSItem";
+            this.FieldDataHigh_MSItem.Size = new System.Drawing.Size(133, 24);
+            this.FieldDataHigh_MSItem.Text = "High";
+            this.FieldDataHigh_MSItem.Click += new System.EventHandler(this.FieldDataHigh_MSItem_Click);
+            // 
+            // FieldDataMedium_MSItem
+            // 
+            this.FieldDataMedium_MSItem.Checked = true;
+            this.FieldDataMedium_MSItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.FieldDataMedium_MSItem.Name = "FieldDataMedium_MSItem";
+            this.FieldDataMedium_MSItem.Size = new System.Drawing.Size(133, 24);
+            this.FieldDataMedium_MSItem.Text = "Medium";
+            this.FieldDataMedium_MSItem.Click += new System.EventHandler(this.FieldDataMedium_MSItem_Click);
+            // 
+            // FieldDataLow_MSItem
+            // 
+            this.FieldDataLow_MSItem.Name = "FieldDataLow_MSItem";
+            this.FieldDataLow_MSItem.Size = new System.Drawing.Size(133, 24);
+            this.FieldDataLow_MSItem.Text = "Low";
+            this.FieldDataLow_MSItem.Click += new System.EventHandler(this.FieldDataLow_MSItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(174, 6);
             // 
             // OptimizationAllHigh_MSItem
             // 
             this.OptimizationAllHigh_MSItem.Name = "OptimizationAllHigh_MSItem";
-            this.OptimizationAllHigh_MSItem.Size = new System.Drawing.Size(180, 24);
+            this.OptimizationAllHigh_MSItem.Size = new System.Drawing.Size(177, 24);
             this.OptimizationAllHigh_MSItem.Text = "All high";
             this.OptimizationAllHigh_MSItem.Click += new System.EventHandler(this.OptimizationAllHigh_MSItem_Click);
             // 
             // OptimizationAllMedium_MSItem
             // 
             this.OptimizationAllMedium_MSItem.Name = "OptimizationAllMedium_MSItem";
-            this.OptimizationAllMedium_MSItem.Size = new System.Drawing.Size(180, 24);
+            this.OptimizationAllMedium_MSItem.Size = new System.Drawing.Size(177, 24);
             this.OptimizationAllMedium_MSItem.Text = "All medium";
             this.OptimizationAllMedium_MSItem.Click += new System.EventHandler(this.OptimizationAllMedium_MSItem_Click);
             // 
             // OptimizationAllLow_MSItem
             // 
             this.OptimizationAllLow_MSItem.Name = "OptimizationAllLow_MSItem";
-            this.OptimizationAllLow_MSItem.Size = new System.Drawing.Size(180, 24);
+            this.OptimizationAllLow_MSItem.Size = new System.Drawing.Size(177, 24);
             this.OptimizationAllLow_MSItem.Text = "All low";
             this.OptimizationAllLow_MSItem.Click += new System.EventHandler(this.OptimizationAllLow_MSItem_Click);
             // 
@@ -1495,6 +1538,7 @@ namespace Awose
             | System.Windows.Forms.AnchorStyles.Left)));
             this.ControlLayer_Panel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.ControlLayer_Panel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ControlLayer_Panel.Controls.Add(this.panel5);
             this.ControlLayer_Panel.Controls.Add(this.panel2);
             this.ControlLayer_Panel.Controls.Add(this.panel3);
             this.ControlLayer_Panel.Controls.Add(this.pictureBox1);
@@ -1972,38 +2016,117 @@ namespace Awose
             this.PlayPause_Button.TabIndex = 0;
             this.PlayPause_Button.UseVisualStyleBackColor = true;
             // 
-            // toolStripMenuItem4
+            // panel5
             // 
-            this.toolStripMenuItem4.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.FieldDataHigh_MSItem,
-            this.FieldDataMedium_MSItem,
-            this.FieldDataLow_MSItem});
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 24);
-            this.toolStripMenuItem4.Text = "Field data";
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.trackBar1);
+            this.panel5.Controls.Add(this.label33);
+            this.panel5.Controls.Add(this.button1);
+            this.panel5.Controls.Add(this.button2);
+            this.panel5.Controls.Add(this.button3);
+            this.panel5.Controls.Add(this.label34);
+            this.panel5.Controls.Add(this.label35);
+            this.panel5.Location = new System.Drawing.Point(4, 440);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(248, 167);
+            this.panel5.TabIndex = 7;
             // 
-            // FieldDataHigh_MSItem
+            // trackBar1
             // 
-            this.FieldDataHigh_MSItem.Name = "FieldDataHigh_MSItem";
-            this.FieldDataHigh_MSItem.Size = new System.Drawing.Size(180, 24);
-            this.FieldDataHigh_MSItem.Text = "High";
-            this.FieldDataHigh_MSItem.Click += new System.EventHandler(this.FieldDataHigh_MSItem_Click);
+            this.trackBar1.AutoSize = false;
+            this.trackBar1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.trackBar1.Location = new System.Drawing.Point(13, 121);
+            this.trackBar1.Maximum = 998;
+            this.trackBar1.Minimum = 850;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(222, 26);
+            this.trackBar1.TabIndex = 20;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar1.Value = 850;
             // 
-            // FieldDataMedium_MSItem
+            // label33
             // 
-            this.FieldDataMedium_MSItem.Checked = true;
-            this.FieldDataMedium_MSItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.FieldDataMedium_MSItem.Name = "FieldDataMedium_MSItem";
-            this.FieldDataMedium_MSItem.Size = new System.Drawing.Size(180, 24);
-            this.FieldDataMedium_MSItem.Text = "Medium";
-            this.FieldDataMedium_MSItem.Click += new System.EventHandler(this.FieldDataMedium_MSItem_Click);
+            this.label33.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.label33.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label33.ForeColor = System.Drawing.Color.White;
+            this.label33.Location = new System.Drawing.Point(10, 97);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(99, 19);
+            this.label33.TabIndex = 19;
+            this.label33.Text = "Frequency:";
             // 
-            // FieldDataLow_MSItem
+            // button1
             // 
-            this.FieldDataLow_MSItem.Name = "FieldDataLow_MSItem";
-            this.FieldDataLow_MSItem.Size = new System.Drawing.Size(180, 24);
-            this.FieldDataLow_MSItem.Text = "Low";
-            this.FieldDataLow_MSItem.Click += new System.EventHandler(this.FieldDataLow_MSItem_Click);
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(60, 63);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(70, 24);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Gravity";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(129, 63);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(77, 24);
+            this.button2.TabIndex = 18;
+            this.button2.Text = "Electric";
+            this.button2.UseVisualStyleBackColor = false;
+            // 
+            // button3
+            // 
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.ForeColor = System.Drawing.Color.White;
+            this.button3.Location = new System.Drawing.Point(14, 63);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(47, 24);
+            this.button3.TabIndex = 16;
+            this.button3.Text = "No";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // label34
+            // 
+            this.label34.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.label34.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label34.ForeColor = System.Drawing.Color.White;
+            this.label34.Location = new System.Drawing.Point(10, 37);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(137, 19);
+            this.label34.TabIndex = 15;
+            this.label34.Text = "Field";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label35.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label35.ForeColor = System.Drawing.Color.White;
+            this.label35.Location = new System.Drawing.Point(9, 7);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(57, 19);
+            this.label35.TabIndex = 1;
+            this.label35.Text = "Stream";
             // 
             // Awose
             // 
@@ -2072,6 +2195,9 @@ namespace Awose
             this.ComputePanel.ResumeLayout(false);
             this.ComputePanel.PerformLayout();
             this.Playback_Panel.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2237,6 +2363,14 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem FieldDataHigh_MSItem;
         private System.Windows.Forms.ToolStripMenuItem FieldDataMedium_MSItem;
         private System.Windows.Forms.ToolStripMenuItem FieldDataLow_MSItem;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label35;
     }
 }
 

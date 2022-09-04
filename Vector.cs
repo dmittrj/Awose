@@ -76,7 +76,7 @@ namespace Awose
         {
             if (Length > 0)
             {
-                return new(new(Tail.X / Length * 15, Tail.Y / Length * 15));
+                return new(new(Tail.X / Length * 20, Tail.Y / Length * 20));
             } 
             else
             {

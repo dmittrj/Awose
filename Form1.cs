@@ -364,7 +364,7 @@ namespace Awose
                 {
                     foreach (AwoseParticle particle in Layers[CurrentLayer].Arrows)
                     {
-                        Brush brush = new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)particle.Force.Length), Calculations.Normilize(0, 255, (int)particle.Force.Length), Calculations.Normilize(0, 255, (int)particle.Force.Length)));
+                        Brush brush = new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 150, (int)particle.Force.Length), Calculations.Normilize(0, 160, (int)particle.Force.Length), Calculations.Normilize(0, 150, (int)particle.Force.Length)));
                         PointParticle vel_arrow2 = RealToScreen(particle.Location);
                         PointParticle vel_arrow1 = RealToScreen(particle.Location + particle.Force.ToUnitLength().Tail);
                         grfx.DrawLine(new Pen(brush, 1.5f),

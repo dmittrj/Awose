@@ -84,6 +84,7 @@ namespace Awose
         public readonly Queue<Point> Spray = new();
         public SpriteType Sprite { get; set; }
         public TrajectoryType TrajectoryLine { get; set; }
+        public int Ban { get; set; }
 
         //backups
         private double Backup_X;
@@ -114,6 +115,7 @@ namespace Awose
             Sprite = SpriteType.White;
             Force = new Vector(new PointParticle(0, 0));
             TrajectoryLine = TrajectoryType.None;
+            Ban = 0;
         }
 
         public AwoseAgent(string name, float x, float y)

@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Awose
 {
@@ -139,6 +140,23 @@ namespace Awose
             pb_grfx.FillEllipse(new SolidBrush(obj_color), 15, 15, 70, 70);
             pb_grfx.FillRectangle(new SolidBrush(Color.FromArgb(alpha, 10, 10, 10)), 0, 0, 100, 100);
             return picturebox_img;
+        }
+
+        public static async void Unfold(Panel obj, int y_start, int y_finish, int h_start, int h_finish, int speed)
+        {
+            int y_speed = (y_finish - y_start) / speed;
+            int h_speed = (h_finish - h_start) / speed;
+            obj.Visible = false;
+            obj.Height = h_start;
+            obj.Location = new Point(obj.Location.X, y_start);
+            obj.Visible = true;
+            for (int ani_y = y_start, ani_h = h_start; (ani_y < y_finish || ani_h < h_finish); ani_y += y_speed, ani_h += h_speed, await Task.Delay(10))
+            {
+                obj.Height = ani_h;
+                obj.Location = new Point(obj.Location.X, ani_y);
+            }
+            obj.Height = h_finish;
+            obj.Location = new Point(obj.Location.X, y_finish);
         }
     }
 }

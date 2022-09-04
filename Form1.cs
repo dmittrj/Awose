@@ -23,6 +23,7 @@ namespace Awose
     enum BeautyPreviewMode { None, ObjectColor }
 
     enum SimulationStatus { Stopped, Launched, Paused, Computing, Watching}
+    enum Optimization { High, Medium, Low}
     public partial class Awose : Form
     {
         [Obsolete]
@@ -61,8 +62,10 @@ namespace Awose
         //private bool isObjectMoving = false;
         private bool isLaunched = false;
         private SimulationStatus Status = SimulationStatus.Stopped;
-        [Obsolete]
-        private bool isFirstSpaceSetting = false;
+        //[Obsolete]
+        //private bool isFirstSpaceSetting = false;
+        private Optimization DistantObjects { get; set; }
+        private Optimization FieldData { get; set; }
         private AwoseAgent Phantom = null;
         private int AnimationCounter = 0;
         //int c = -1;
@@ -676,12 +679,82 @@ namespace Awose
                 foreach (AwoseAgent agent in layer.Agents)
                 {
                     if (agent.IsPinned) continue;
-                    agent.Force = new Vector(new PointParticle((float)(agent.ForceGX + agent.ForceEX), (float)(agent.ForceGY + agent.ForceEY)));
-                    agent.Velocity.Tail.X += (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
-                    agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
-                    agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
-                    agent.Location.Y += (float)(agent.Velocity.Tail.Y * timeStep / 1000);
-                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                    switch (DistantObjects)
+                    {
+                        case Optimization.High:
+                            agent.Force = new Vector(new PointParticle((float)(agent.ForceGX + agent.ForceEX), (float)(agent.ForceGY + agent.ForceEY)));
+                            agent.Velocity.Tail.X += (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                            agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                            agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                            agent.Location.Y += (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                            agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                            break;
+                        case Optimization.Medium:
+                            if (agent.Ban == 0)
+                            {
+                                agent.Force = new Vector(new PointParticle((float)(agent.ForceGX + agent.ForceEX), (float)(agent.ForceGY + agent.ForceEY)));
+                                agent.Velocity.Tail.X += (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                                agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                                if (agent.Velocity.Length < 2)
+                                {
+                                    agent.Ban = 10;
+                                    agent.Velocity.Tail.X += 9 * (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                                    agent.Velocity.Tail.Y += 9 * (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                                    agent.Location.X += 10 * (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                                    agent.Location.Y += 10 * (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                                } 
+                                else
+                                {
+                                    agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                                    agent.Location.Y += (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                                }
+                                
+                            } else
+                            {
+                                agent.Ban--;
+                            }
+                            break;
+                        case Optimization.Low:
+                            if (agent.Ban == 0)
+                            {
+                                agent.Force = new Vector(new PointParticle((float)(agent.ForceGX + agent.ForceEX), (float)(agent.ForceGY + agent.ForceEY)));
+                                agent.Velocity.Tail.X += (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                                agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                                float _length = agent.Velocity.Length * timeStep / 1000;
+                                if (_length > 0.15 && _length < 0.25)
+                                {
+                                    agent.Ban = 10;
+                                    agent.Velocity.Tail.X += 9 * (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                                    agent.Velocity.Tail.Y += 9 * (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                                    agent.Location.X += 10 * (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                                    agent.Location.Y += 10 * (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                                }
+                                else if (_length <= 0.15)
+                                {
+                                    agent.Ban = 20;
+                                    agent.Velocity.Tail.X += 19 * (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                                    agent.Velocity.Tail.Y += 19 * (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                                    agent.Location.X += 20 * (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                                    agent.Location.Y += 20 * (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                                }
+                                else
+                                {
+                                    agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                                    agent.Location.Y += (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                                }
+
+                            }
+                            else
+                            {
+                                agent.Ban--;
+                            }
+                            break;
+                    }
                 }
             }
             
@@ -709,7 +782,9 @@ namespace Awose
             grfx.FillRectangle(Brushes.White, 6, 11, 11, 2);
             CreateNewLayer_Button.BackgroundImage = button_img;
 
-            
+            DistantObjects = Optimization.Medium;
+            FieldData = Optimization.Medium;
+
 
 
             Layers = new List<AwoseLayer>();
@@ -768,9 +843,12 @@ namespace Awose
                     int minutes = timeLeft / 60;
                     int seconds = (timeLeft - minutes * 60);
                     timeLeft_str = minutes.ToString() + " m " + seconds.ToString() + " s";
-                } else
+                } else if (timeLeft > 0)
                 {
                     timeLeft_str = (timeLeft).ToString() + " s";
+                } else
+                {
+                    timeLeft_str = "unknown";
                 }
                 Action action = () =>
                 {
@@ -1881,43 +1959,89 @@ namespace Awose
         {
             aw_cursor = GetCursorPosition();
             PointParticle pointCursor = ScreenToReal(aw_cursor);
-            RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
-            RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
-
             double force_gx = 0;
             double force_gy = 0;
             double force_ex = 0;
             double force_ey = 0;
-            foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+
+            switch (FieldData)
             {
-                float delta_x = pointCursor.X - agent.Location.X;
-                float delta_y = pointCursor.Y - agent.Location.Y;
-                float delta = MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
-                float coeff_x = delta_x / MathF.Sqrt(delta);
-                float coeff_y = delta_y / MathF.Sqrt(delta);
-                force_gx += agent.Weight * ConstG / delta * coeff_x;
-                force_gy += agent.Weight * ConstG / delta * coeff_y;
-                if (agent.Charge != 0)
-                {
-                    force_ex += agent.Charge * ConstE / delta * coeff_x;
-                    force_ey += agent.Charge * ConstE / delta * coeff_y;
-                }
-            }
-            if (double.IsNaN(force_ex))
-            {
-                RT_E_Label.Text = double.PositiveInfinity.ToString();
-            }
-            else 
-            {
-                RT_E_Label.Text = Math.Round(Math.Sqrt(force_ex * force_ex + force_ey * force_ey), 1).ToString();
-            }
-            if (double.IsNaN(force_gx))
-            {
-                RT_g_Label.Text = double.PositiveInfinity.ToString();
-            }
-            else
-            {
-                RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
+                case Optimization.High:
+                    RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
+                    RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
+
+                    foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+                    {
+                        float delta_x = pointCursor.X - agent.Location.X;
+                        float delta_y = pointCursor.Y - agent.Location.Y;
+                        float delta = MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                        float coeff_x = delta_x / MathF.Sqrt(delta);
+                        float coeff_y = delta_y / MathF.Sqrt(delta);
+                        force_gx += agent.Weight * ConstG / delta * coeff_x;
+                        force_gy += agent.Weight * ConstG / delta * coeff_y;
+                        if (agent.Charge != 0)
+                        {
+                            force_ex += agent.Charge * ConstE / delta * coeff_x;
+                            force_ey += agent.Charge * ConstE / delta * coeff_y;
+                        }
+                    }
+                    if (double.IsNaN(force_ex))
+                    {
+                        RT_E_Label.Text = double.PositiveInfinity.ToString();
+                    }
+                    else
+                    {
+                        RT_E_Label.Text = Math.Round(Math.Sqrt(force_ex * force_ex + force_ey * force_ey), 1).ToString();
+                    }
+                    if (double.IsNaN(force_gx))
+                    {
+                        RT_g_Label.Text = double.PositiveInfinity.ToString();
+                    }
+                    else
+                    {
+                        RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
+                    }
+                    break;
+                case Optimization.Medium:
+                    RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
+                    RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
+
+                    foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+                    {
+                        int delta_x = (int)(pointCursor.X - agent.Location.X);
+                        int delta_y = (int)(pointCursor.Y - agent.Location.Y);
+                        int delta = (int)MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                        float coeff_x = (delta_x / MathF.Sqrt(delta));
+                        float coeff_y = (delta_y / MathF.Sqrt(delta));
+                        force_gx += agent.Weight * ConstG / delta * coeff_x;
+                        force_gy += agent.Weight * ConstG / delta * coeff_y;
+                        if (agent.Charge != 0)
+                        {
+                            force_ex += agent.Charge * ConstE / delta * coeff_x;
+                            force_ey += agent.Charge * ConstE / delta * coeff_y;
+                        }
+                    }
+                    if (double.IsNaN(force_ex))
+                    {
+                        RT_E_Label.Text = double.PositiveInfinity.ToString();
+                    }
+                    else
+                    {
+                        RT_E_Label.Text = Math.Round(Math.Sqrt(force_ex * force_ex + force_ey * force_ey), 1).ToString();
+                    }
+                    if (double.IsNaN(force_gx))
+                    {
+                        RT_g_Label.Text = double.PositiveInfinity.ToString();
+                    }
+                    else
+                    {
+                        RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
+                    }
+                    break;
+                case Optimization.Low:
+                    break;
+                default:
+                    break;
             }
             bool hoverAgent = false;
             switch (movingEntity)
@@ -1960,8 +2084,6 @@ namespace Awose
                 default:
                     break;
             }
-            
-          
         }
 
         private void MistakeIcon_PB_MouseHover(object sender, EventArgs e)
@@ -2529,17 +2651,14 @@ namespace Awose
             }
         }
 
-        private void toolStripMenuItem4_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Compute_MSItem_Click(object sender, EventArgs e)
         {
             Computing_PBar.Value = 0;
             Computing_PBar.Visible = false;
             Compute_Button.Visible = true;
-            ComputePanel.Visible = true;
+            ComputingTimeLeft_TB.Visible = false;
+            DrawingValues.Unfold(ComputePanel, Height, Height - 150, 0, 100, 10);
+            //ComputePanel.Visible = true;
         }
 
         private void PauseSimulation_MSItem_Click(object sender, EventArgs e)
@@ -2569,8 +2688,9 @@ namespace Awose
                 }
                 Directory.Delete(Directory.GetCurrentDirectory() + "\\ComputedSimulation");
             }
-
+            DrawingValues.Unfold(ComputePanel, ComputePanel.Location.Y, ComputePanel.Location.Y - 20, ComputePanel.Height, ComputePanel.Height + 20, 5);
             Compute_Button.Visible = false;
+            ComputingTimeLeft_TB.Visible = true;
             //ComputingLayers = Layers;
             Status = SimulationStatus.Computing;
             ComputingStartTime = DateTime.Now;
@@ -2592,6 +2712,120 @@ namespace Awose
             }
             ComputePanel.Visible = false;
             Compute_Button.Visible = true;
+        }
+
+        private void DistantObjectsHigh_MSItem_Click(object sender, EventArgs e)
+        {
+            DistantObjectsHigh_MSItem.Checked = true;
+            DistantObjectsMedium_MSItem.Checked = false;
+            DistantObjectsLow_MSItem.Checked = false;
+            DistantObjects = Optimization.High;
+        }
+
+        private void DistantObjectsMedium_MSItem_Click(object sender, EventArgs e)
+        {
+            DistantObjectsHigh_MSItem.Checked = false;
+            DistantObjectsMedium_MSItem.Checked = true;
+            DistantObjectsLow_MSItem.Checked = false;
+            DistantObjects = Optimization.Medium;
+        }
+
+        private void DistantObjectsLow_MSItem_Click(object sender, EventArgs e)
+        {
+            DistantObjectsHigh_MSItem.Checked = false;
+            DistantObjectsMedium_MSItem.Checked = false;
+            DistantObjectsLow_MSItem.Checked = true;
+            DistantObjects = Optimization.Low;
+        }
+
+        private void OptimizationAllHigh_MSItem_Click(object sender, EventArgs e)
+        {
+            DistantObjectsHigh_MSItem_Click(sender, e);
+            FieldDataHigh_MSItem_Click(sender, e);
+        }
+
+        private void OptimizationAllMedium_MSItem_Click(object sender, EventArgs e)
+        {
+            DistantObjectsMedium_MSItem_Click(sender, e);
+            FieldDataMedium_MSItem_Click(sender, e);
+        }
+
+        private void OptimizationAllLow_MSItem_Click(object sender, EventArgs e)
+        {
+            DistantObjectsLow_MSItem_Click(sender, e);
+            FieldDataLow_MSItem_Click(sender, e);
+        }
+
+        private void FieldDataHigh_MSItem_Click(object sender, EventArgs e)
+        {
+            FieldDataHigh_MSItem.Checked = true;
+            FieldDataMedium_MSItem.Checked = false;
+            FieldDataLow_MSItem.Checked = false;
+            FieldData = Optimization.High;
+        }
+
+        private void FieldDataMedium_MSItem_Click(object sender, EventArgs e)
+        {
+            FieldDataHigh_MSItem.Checked = false;
+            FieldDataMedium_MSItem.Checked = true;
+            FieldDataLow_MSItem.Checked = false;
+            FieldData = Optimization.Medium;
+        }
+
+        private void FieldDataLow_MSItem_Click(object sender, EventArgs e)
+        {
+            FieldDataHigh_MSItem.Checked = false;
+            FieldDataMedium_MSItem.Checked = false;
+            FieldDataLow_MSItem.Checked = true;
+            FieldData = Optimization.Low;
+        }
+
+        private void ModelBoard_PB_MouseHover(object sender, EventArgs e)
+        {
+            if (FieldData == Optimization.Medium)
+            {
+                aw_cursor = GetCursorPosition();
+                PointParticle pointCursor = ScreenToReal(aw_cursor);
+
+                RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
+                RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
+
+                double force_gx = 0;
+                double force_gy = 0;
+                double force_ex = 0;
+                double force_ey = 0;
+                foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+                {
+                    float delta_x = pointCursor.X - agent.Location.X;
+                    float delta_y = pointCursor.Y - agent.Location.Y;
+                    float delta = MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                    float coeff_x = delta_x / MathF.Sqrt(delta);
+                    float coeff_y = delta_y / MathF.Sqrt(delta);
+                    force_gx += agent.Weight * ConstG / delta * coeff_x;
+                    force_gy += agent.Weight * ConstG / delta * coeff_y;
+                    if (agent.Charge != 0)
+                    {
+                        force_ex += agent.Charge * ConstE / delta * coeff_x;
+                        force_ey += agent.Charge * ConstE / delta * coeff_y;
+                    }
+                }
+                if (double.IsNaN(force_ex))
+                {
+                    RT_E_Label.Text = double.PositiveInfinity.ToString();
+                }
+                else
+                {
+                    RT_E_Label.Text = Math.Round(Math.Sqrt(force_ex * force_ex + force_ey * force_ey), 1).ToString();
+                }
+                if (double.IsNaN(force_gx))
+                {
+                    RT_g_Label.Text = double.PositiveInfinity.ToString();
+                }
+                else
+                {
+                    RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
+                }
+            }
         }
     }
 }

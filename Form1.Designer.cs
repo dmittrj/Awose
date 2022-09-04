@@ -189,11 +189,11 @@ namespace Awose
             this.SpeedUp_Button = new System.Windows.Forms.Button();
             this.PlayPause_Button = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.ArrowsFieldFrequency_TB = new System.Windows.Forms.TrackBar();
             this.label33 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.ArrowsFieldGravity_Button = new System.Windows.Forms.Button();
+            this.ArrowsFieldElectric_Button = new System.Windows.Forms.Button();
+            this.ArrowsFieldNo_Button = new System.Windows.Forms.Button();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.ControlAgents_Panel.SuspendLayout();
@@ -226,7 +226,7 @@ namespace Awose
             this.ComputePanel.SuspendLayout();
             this.Playback_Panel.SuspendLayout();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ArrowsFieldFrequency_TB)).BeginInit();
             this.SuspendLayout();
             // 
             // ControlAgents_Panel
@@ -2018,31 +2018,33 @@ namespace Awose
             // 
             // panel5
             // 
+            this.panel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.trackBar1);
+            this.panel5.Controls.Add(this.ArrowsFieldFrequency_TB);
             this.panel5.Controls.Add(this.label33);
-            this.panel5.Controls.Add(this.button1);
-            this.panel5.Controls.Add(this.button2);
-            this.panel5.Controls.Add(this.button3);
+            this.panel5.Controls.Add(this.ArrowsFieldGravity_Button);
+            this.panel5.Controls.Add(this.ArrowsFieldElectric_Button);
+            this.panel5.Controls.Add(this.ArrowsFieldNo_Button);
             this.panel5.Controls.Add(this.label34);
             this.panel5.Controls.Add(this.label35);
-            this.panel5.Location = new System.Drawing.Point(4, 440);
+            this.panel5.Location = new System.Drawing.Point(-1, 434);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(248, 167);
             this.panel5.TabIndex = 7;
             // 
-            // trackBar1
+            // ArrowsFieldFrequency_TB
             // 
-            this.trackBar1.AutoSize = false;
-            this.trackBar1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.trackBar1.Location = new System.Drawing.Point(13, 121);
-            this.trackBar1.Maximum = 998;
-            this.trackBar1.Minimum = 850;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(222, 26);
-            this.trackBar1.TabIndex = 20;
-            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackBar1.Value = 850;
+            this.ArrowsFieldFrequency_TB.AutoSize = false;
+            this.ArrowsFieldFrequency_TB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ArrowsFieldFrequency_TB.Location = new System.Drawing.Point(13, 121);
+            this.ArrowsFieldFrequency_TB.Maximum = 998;
+            this.ArrowsFieldFrequency_TB.Minimum = 850;
+            this.ArrowsFieldFrequency_TB.Name = "ArrowsFieldFrequency_TB";
+            this.ArrowsFieldFrequency_TB.Size = new System.Drawing.Size(222, 26);
+            this.ArrowsFieldFrequency_TB.TabIndex = 20;
+            this.ArrowsFieldFrequency_TB.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.ArrowsFieldFrequency_TB.Value = 850;
+            this.ArrowsFieldFrequency_TB.Scroll += new System.EventHandler(this.ArrowsFieldFrequency_TB_Scroll);
             // 
             // label33
             // 
@@ -2055,55 +2057,58 @@ namespace Awose
             this.label33.TabIndex = 19;
             this.label33.Text = "Frequency:";
             // 
-            // button1
+            // ArrowsFieldGravity_Button
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(60, 63);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(70, 24);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Gravity";
-            this.button1.UseVisualStyleBackColor = false;
+            this.ArrowsFieldGravity_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ArrowsFieldGravity_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ArrowsFieldGravity_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ArrowsFieldGravity_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.ArrowsFieldGravity_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ArrowsFieldGravity_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ArrowsFieldGravity_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ArrowsFieldGravity_Button.ForeColor = System.Drawing.Color.White;
+            this.ArrowsFieldGravity_Button.Location = new System.Drawing.Point(60, 63);
+            this.ArrowsFieldGravity_Button.Name = "ArrowsFieldGravity_Button";
+            this.ArrowsFieldGravity_Button.Size = new System.Drawing.Size(70, 24);
+            this.ArrowsFieldGravity_Button.TabIndex = 17;
+            this.ArrowsFieldGravity_Button.Text = "Gravity";
+            this.ArrowsFieldGravity_Button.UseVisualStyleBackColor = false;
+            this.ArrowsFieldGravity_Button.Click += new System.EventHandler(this.ArrowsFieldGravity_Button_Click);
             // 
-            // button2
+            // ArrowsFieldElectric_Button
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(129, 63);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(77, 24);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "Electric";
-            this.button2.UseVisualStyleBackColor = false;
+            this.ArrowsFieldElectric_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ArrowsFieldElectric_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ArrowsFieldElectric_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ArrowsFieldElectric_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.ArrowsFieldElectric_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ArrowsFieldElectric_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ArrowsFieldElectric_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ArrowsFieldElectric_Button.ForeColor = System.Drawing.Color.White;
+            this.ArrowsFieldElectric_Button.Location = new System.Drawing.Point(129, 63);
+            this.ArrowsFieldElectric_Button.Name = "ArrowsFieldElectric_Button";
+            this.ArrowsFieldElectric_Button.Size = new System.Drawing.Size(77, 24);
+            this.ArrowsFieldElectric_Button.TabIndex = 18;
+            this.ArrowsFieldElectric_Button.Text = "Electric";
+            this.ArrowsFieldElectric_Button.UseVisualStyleBackColor = false;
+            this.ArrowsFieldElectric_Button.Click += new System.EventHandler(this.ArrowsFieldElectric_Button_Click);
             // 
-            // button3
+            // ArrowsFieldNo_Button
             // 
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(14, 63);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(47, 24);
-            this.button3.TabIndex = 16;
-            this.button3.Text = "No";
-            this.button3.UseVisualStyleBackColor = true;
+            this.ArrowsFieldNo_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ArrowsFieldNo_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ArrowsFieldNo_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.ArrowsFieldNo_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ArrowsFieldNo_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ArrowsFieldNo_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ArrowsFieldNo_Button.ForeColor = System.Drawing.Color.White;
+            this.ArrowsFieldNo_Button.Location = new System.Drawing.Point(14, 63);
+            this.ArrowsFieldNo_Button.Name = "ArrowsFieldNo_Button";
+            this.ArrowsFieldNo_Button.Size = new System.Drawing.Size(47, 24);
+            this.ArrowsFieldNo_Button.TabIndex = 16;
+            this.ArrowsFieldNo_Button.Text = "No";
+            this.ArrowsFieldNo_Button.UseVisualStyleBackColor = true;
+            this.ArrowsFieldNo_Button.Click += new System.EventHandler(this.ArrowsFieldNo_Button_Click);
             // 
             // label34
             // 
@@ -2124,9 +2129,9 @@ namespace Awose
             this.label35.ForeColor = System.Drawing.Color.White;
             this.label35.Location = new System.Drawing.Point(9, 7);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(57, 19);
+            this.label35.Size = new System.Drawing.Size(87, 19);
             this.label35.TabIndex = 1;
-            this.label35.Text = "Stream";
+            this.label35.Text = "Arrow Field";
             // 
             // Awose
             // 
@@ -2197,7 +2202,7 @@ namespace Awose
             this.Playback_Panel.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ArrowsFieldFrequency_TB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2364,11 +2369,11 @@ namespace Awose
         private System.Windows.Forms.ToolStripMenuItem FieldDataMedium_MSItem;
         private System.Windows.Forms.ToolStripMenuItem FieldDataLow_MSItem;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar ArrowsFieldFrequency_TB;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button ArrowsFieldGravity_Button;
+        private System.Windows.Forms.Button ArrowsFieldElectric_Button;
+        private System.Windows.Forms.Button ArrowsFieldNo_Button;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
     }

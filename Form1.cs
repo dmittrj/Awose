@@ -83,7 +83,7 @@ namespace Awose
                 screenX / aw_scale - lu_corner.X,
                 screenY / aw_scale - lu_corner.Y);
         }
-
+         
         private PointParticle ScreenToReal(PointParticle screenPoint)
         {
             return new(
@@ -358,20 +358,20 @@ namespace Awose
             }
 
             //Drawing arrow-field
-            if (Layers[CurrentLayer].StrMode != StreamMode.None)
+            if (Layers[CurrentLayer].ArrMode != StreamMode.None)
             {
                 lock (Layers[CurrentLayer].Arrows)
                 {
                     foreach (AwoseParticle particle in Layers[CurrentLayer].Arrows)
                     {
-                        Brush brush = new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 150, (int)particle.Force.Length), Calculations.Normilize(0, 160, (int)particle.Force.Length), Calculations.Normilize(0, 150, (int)particle.Force.Length)));
+                        Brush brush = new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 130, (int)particle.Force.Length), Calculations.Normilize(0, 135, (int)particle.Force.Length), Calculations.Normilize(0, 130, (int)particle.Force.Length)));
                         PointParticle vel_arrow2 = RealToScreen(particle.Location);
                         PointParticle vel_arrow1 = RealToScreen(particle.Location + particle.Force.ToUnitLength().Tail);
                         grfx.DrawLine(new Pen(brush, 1.5f),
                             new PointF(vel_arrow2.X, vel_arrow2.Y),
                             new PointF(vel_arrow1.X, vel_arrow1.Y));
                         Vector arrow1 = new(vel_arrow1, vel_arrow2);
-                        grfx.FillPolygon(brush, arrow1.CreateTriangle(12, 10));
+                        grfx.FillPolygon(brush, arrow1.CreateTriangle(9, 9));
                     }
                 }
             }
@@ -664,7 +664,7 @@ namespace Awose
                     {
                         foreach (AwoseParticle particle in Layers[CurrentLayer].Arrows)
                         {
-                            particle.ForceCalc(Layers[CurrentLayer].Agents[i], Layers[CurrentLayer].StrMode);
+                            particle.ForceCalc(Layers[CurrentLayer].Agents[i], Layers[CurrentLayer].ArrMode);
                             //particle.Force /= 1000;
                         }
                     }
@@ -1085,6 +1085,7 @@ namespace Awose
                 ControlLayer_Panel.Visible = true;
                 ControlAgents_Panel.Visible = false;
                 ObjectBeauty_Panel.Visible = false;
+                 
 
                 switch (Layers[CurrentLayer].StrMode)
                 {
@@ -1106,75 +1107,30 @@ namespace Awose
                     default:
                         break;
                 }
+                switch (Layers[CurrentLayer].ArrMode)
+                {
+                    case StreamMode.None:
+                        ArrowsFieldNo_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        ArrowsFieldGravity_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        ArrowsFieldElectric_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        break;
+                    case StreamMode.Gravity:
+                        ArrowsFieldNo_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        ArrowsFieldGravity_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        ArrowsFieldElectric_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        break;
+                    case StreamMode.Electric:
+                        ArrowsFieldNo_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        ArrowsFieldGravity_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        ArrowsFieldElectric_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        break;
+                    default:
+                        break;
+                }
                 StreamFrequency_TB.Value = 1000 - Layers[CurrentLayer].StreamFreq;
+                ArrowsFieldFrequency_TB.Value = 1000 - Layers[CurrentLayer].ArrowsFieldFreq;
             }
             return;
-
-
-
-            if (aw_selected != - 1)
-            {
-                
-                Bitmap btm_icon = new(34, 29);
-                using Graphics grfx = Graphics.FromImage(btm_icon);
-                grfx.Clear(Color.FromArgb(15, 15, 15));
-                if (agents[aw_selected].MistakeType == 1)
-                {
-                    Point[] triangle =
-                    {
-                        new Point(17, 3),
-                        new Point(4, 26),
-                        new Point(30, 26)
-                    };
-                    grfx.FillPolygon(Brushes.Khaki, triangle);
-                    grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), 16, 9, 3, 10);
-                    grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), 16, 21, 3, 3);
-                } else if (agents[aw_selected].MistakeType == 2)
-                {
-                    Point[] hexagon =
-                    {
-                        new Point(10, 3),
-                        new Point(24, 3),
-                        new Point(30, 14),
-                        new Point(24, 25),
-                        new Point(10, 25),
-                        new Point(5, 14)
-                    };
-                    grfx.FillPolygon(Brushes.IndianRed, hexagon);
-                    grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), 10, 13, 15, 3);
-                }
-                if (agents[aw_selected].MistakeType == 0)
-                    MistakeIcon_PB.Visible = false;
-                else MistakeIcon_PB.Visible = true;
-                MistakeIcon_PB.Image = btm_icon;
-                MistakeHint_Label.Text = agents[aw_selected].MDescription;
-                if (agents[aw_selected].Star != "" || agents[aw_selected].Satellites.Count > 0)
-                {
-                    if (agents[aw_selected].Star == "")
-                    {
-                        Space_Star_Label.Text = "None";
-                    } else
-                    {
-                        Space_Star_Label.Text = agents[aw_selected].Star;
-                    }
-                    Space_Satellites_LB.Items.Clear();
-                    foreach (string item in agents[aw_selected].Satellites)
-                    {
-                        Space_Satellites_LB.Items.Add(item);
-                    }
-                    ObjectSpace_Panel.Visible = true;
-                } else
-                {
-                    ObjectSpace_Panel.Visible = false;
-                }
-            }
-            else
-            {
-                CurrentObjectName_Label.Text = "No object selected";
-                CurrentObjectName_Label.ForeColor = Color.DarkGray;
-                CurrentObjectName_Label.Cursor = Cursors.Default;
-                ObjectSettings_Panel.Visible = false;
-            }
         }
 
         private void Aw_DrawControlLite()
@@ -2681,7 +2637,6 @@ namespace Awose
         {
             Layers[CurrentLayer].StreamFreq = 1000 - StreamFrequency_TB.Value;
             FlowStreamUp();
-            ArrowsUp();
         }
 
         private void FlowStreamUp()
@@ -2704,9 +2659,9 @@ namespace Awose
             lock (Layers[CurrentLayer].Arrows)
             {
                 Layers[CurrentLayer].Arrows.Clear();
-                for (int i = 0; i < ModelBoard_PB.Width; i += Layers[CurrentLayer].StreamFreq)
+                for (int i = 0; i < ModelBoard_PB.Width; i += Layers[CurrentLayer].ArrowsFieldFreq)
                 {
-                    for (int j = 0; j < ModelBoard_PB.Height; j += Layers[CurrentLayer].StreamFreq)
+                    for (int j = 0; j < ModelBoard_PB.Height; j += Layers[CurrentLayer].ArrowsFieldFreq)
                     {
                         Layers[CurrentLayer].Arrows.Add(new AwoseParticle(ScreenToReal(new PointParticle(i, j))));
                     }
@@ -2889,6 +2844,33 @@ namespace Awose
                     RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
                 }
             }
+        }
+
+        private void ArrowsFieldNo_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].ArrMode = StreamMode.None;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void ArrowsFieldGravity_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].ArrMode = StreamMode.Gravity;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void ArrowsFieldElectric_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].ArrMode = StreamMode.Electric;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void ArrowsFieldFrequency_TB_Scroll(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].ArrowsFieldFreq = 1000 - ArrowsFieldFrequency_TB.Value;
+            ArrowsUp();
         }
     }
 }

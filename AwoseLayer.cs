@@ -22,10 +22,12 @@ namespace Awose
         public int Selected { get; set; }
 
         public StreamMode StrMode { get; set; }
+        public StreamMode ArrMode { get; set; }
 
         public List<AwoseParticle> Sources = new();
         public List<AwoseParticle> Arrows = new();
         public int StreamFreq { get; set; }
+        public int ArrowsFieldFreq { get; set; }
 
         public AwoseLayer(string name, int layerNumber)
         {
@@ -36,6 +38,8 @@ namespace Awose
             GLaw = -2;
             StrMode = StreamMode.None;
             StreamFreq = 100;
+            ArrMode = StreamMode.None;
+            ArrowsFieldFreq = 100;
             switch ((layerNumber - 1) % 2)
             {
                 case 0:

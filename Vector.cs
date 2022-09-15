@@ -66,5 +66,23 @@ namespace Awose
                 (int)(Head.Y - length * Sinus() + width * Cosine() / 2));
             return triangle;
         }
+
+        public static Vector operator/(Vector left, float right)
+        {
+            return new(new(left.Tail.X / right, left.Tail.Y / right));
+        }
+
+        public Vector ToUnitLength()
+        {
+            if (Length > 0)
+            {
+                return new(new(Tail.X / Length * 20, Tail.Y / Length * 20));
+            } 
+            else
+            {
+                return new(new());
+            }
+            
+        }
     }
 }

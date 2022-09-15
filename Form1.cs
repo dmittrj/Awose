@@ -21,12 +21,18 @@ namespace Awose
     enum SpecialCondition { None, SetVelocity, SetFirstSpaceVelocity}
 
     enum BeautyPreviewMode { None, ObjectColor }
+
+    enum SimulationStatus { Stopped, Launched, Paused, Computing, Watching}
+    enum Optimization { High, Medium, Low}
     public partial class Awose : Form
     {
         [Obsolete]
         readonly List<AwoseAgent> agents = new();
         public DrawingValues drawingValues = new();
         public static List<AwoseLayer> Layers { get; set; }
+        //public static List<AwoseLayer> ComputingLayers { get; set; }
+        public static int AlreadyComputed = 0;
+        private static DateTime ComputingStartTime { get; set; }
         private int CurrentLayer = 0;
         //private readonly int agentsNumeric = 1;
         readonly Stack<AwoseChange> aw_undo = new();
@@ -55,8 +61,11 @@ namespace Awose
         //[Obsolete]
         //private bool isObjectMoving = false;
         private bool isLaunched = false;
-        [Obsolete]
-        private bool isFirstSpaceSetting = false;
+        private SimulationStatus Status = SimulationStatus.Stopped;
+        //[Obsolete]
+        //private bool isFirstSpaceSetting = false;
+        private Optimization DistantObjects { get; set; }
+        private Optimization FieldData { get; set; }
         private AwoseAgent Phantom = null;
         private int AnimationCounter = 0;
         //int c = -1;
@@ -74,7 +83,7 @@ namespace Awose
                 screenX / aw_scale - lu_corner.X,
                 screenY / aw_scale - lu_corner.Y);
         }
-
+         
         private PointParticle ScreenToReal(PointParticle screenPoint)
         {
             return new(
@@ -106,6 +115,19 @@ namespace Awose
 
         private void Aw_Refresh()
         {
+            if (Status == SimulationStatus.Watching)
+            {
+                if (File.Exists(Directory.GetCurrentDirectory() + "\\ComputedSimulation\\" + AlreadyComputed.ToString() + ".bmp"))
+                {
+                    ModelBoard_PB.BackgroundImage = Image.FromFile(Directory.GetCurrentDirectory() + "\\ComputedSimulation\\" + AlreadyComputed.ToString() + ".bmp");
+                    AlreadyComputed++;
+                    return;
+                } 
+                else
+                {
+                    Status = SimulationStatus.Stopped;
+                }
+            }
             AnimationCounter++;
             AnimationCounter %= 360;
             const int GRID_FREQUENCY = 100;
@@ -335,6 +357,26 @@ namespace Awose
 
             }
 
+            //Drawing arrow-field
+            if (Layers[CurrentLayer].ArrMode != StreamMode.None)
+            {
+                lock (Layers[CurrentLayer].Arrows)
+                {
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Arrows)
+                    {
+                        Brush brush = new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 130, (int)particle.Force.Length), Calculations.Normilize(0, 135, (int)particle.Force.Length), Calculations.Normilize(0, 130, (int)particle.Force.Length)));
+                        PointParticle vel_arrow2 = RealToScreen(particle.Location);
+                        PointParticle vel_arrow1 = RealToScreen(particle.Location + particle.Force.ToUnitLength().Tail);
+                        grfx.DrawLine(new Pen(brush, 1.5f),
+                            new PointF(vel_arrow2.X, vel_arrow2.Y),
+                            new PointF(vel_arrow1.X, vel_arrow1.Y));
+                        Vector arrow1 = new(vel_arrow1, vel_arrow2);
+                        grfx.FillPolygon(brush, arrow1.CreateTriangle(9, 9));
+                    }
+                }
+            }
+
+
             //Drawing flow
             if (Layers[CurrentLayer].StrMode != StreamMode.None)
             {
@@ -440,145 +482,233 @@ namespace Awose
             }
 
             //Drawing arrows, lines etc
-            
-        //    if (isFirstSpaceSetting)
-        //    {
-        //        int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
-        //        int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
-        //        grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
-        //            new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y),
-        //            new Point(x, (int)agents[aw_selected].Y));
-        //        grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
-        //            new Point(x, (int)agents[aw_selected].Y),
-        //            new Point(x, y));
-        //    }
-        //    lock (agents) {
-        //        foreach (AwoseAgent item in agents)
-        //        {
-        //            int dotNumber = 0;
-        //            lock (item.Spray)
-        //            {
-        //                foreach (Point dot in item.Spray)
-        //                {
-        //                    RectangleF spraydot = new(lu_corner.X + dot.X * aw_scale, lu_corner.Y + dot.Y * aw_scale, aw_scale, aw_scale);
-        //                    if (item.MistakeType == 0)
-        //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
-        //                    if (item.MistakeType == 1)
-        //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
-        //                    if (item.MistakeType == 2)
-        //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
-        //                }
-        //            }
 
-        //            Point point = RealToScreen(item.X, item.Y);
-        //            RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
-        //            if (circle.X + diameter < 0) {
-        //                if (circle.Y + 0.5 * diameter < 15)
-        //                {
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, 15, item.Name.Length * 7, 20));
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, 16));
-        //                } 
-        //                else if (circle.Y > ModelBoard_PB.Height)
-        //                {
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, ModelBoard_PB.Height - 34));
-        //                }
-        //                else
-        //                {
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, (int)circle.Y, item.Name.Length * 7, 20));
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, (int)circle.Y + 1));
-        //                }
-        //            } else if (circle.X > ModelBoard_PB.Width)
-        //            {
-        //                if (circle.Y + 0.5 * diameter < 15)
-        //                {
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, 15, item.Name.Length * 7, 20));
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, 16));
-        //                }
-        //                else if (circle.Y > ModelBoard_PB.Height)
-        //                {
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, ModelBoard_PB.Height - 34));
-        //                }
-        //                else
-        //                {
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, (int)circle.Y, item.Name.Length * 7, 20));
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, (int)circle.Y + 1));
-        //                }
-        //            } else
-        //            {
-        //                if (circle.Y + 0.5 * diameter < 0)
-        //                {
-        //                    Point[] triangle = {
-        //                        new Point((int)circle.X, 10),
-        //                        new Point((int)circle.X - 8, 20),
-        //                        new Point((int)circle.X + 8, 20)
-        //                    };
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, 20, item.Name.Length * 7, 20));
-        //                    grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 9, 21));
-        //                }
-        //                else if (circle.Y > ModelBoard_PB.Height)
-        //                {
-        //                    Point[] triangle = {
-        //                        new Point((int)circle.X, ModelBoard_PB.Height - 10),
-        //                        new Point((int)circle.X - 8, ModelBoard_PB.Height - 20),
-        //                        new Point((int)circle.X + 8, ModelBoard_PB.Height - 20)
-        //                    };
-        //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, ModelBoard_PB.Height - 40, item.Name.Length * 7, 20));
-        //                    grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
-        //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 12, ModelBoard_PB.Height - 39));
-        //                }
-        //                else
-        //                {
-        //                    if (!isLaunched)
-        //                        if (Math.Abs(item.VelocityX) + Math.Abs(item.VelocityY) > 10)
-        //                        {
-        //                            int x = (int)item.X + (int)item.VelocityX;
-        //                            int y = (int)item.Y + (int)item.VelocityY;
-        //                            float dx = (float)item.VelocityX;
-        //                            float dy = (float)item.VelocityY;
-        //                            float l = (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
-        //                            float ax = 15 * dx / l;
-        //                            float ay = 15 * dy / l;
-        //                            float bx = 7 * dy / l;
-        //                            float by = 7 * dx / l;
-        //                            Point[] arrow =
-        //                            {
-        //                                new Point(x, y),
-        //                                new Point(x - (int)ax + (int)bx, y - (int)ay - (int)by),
-        //                                new Point(x - (int)ax - (int)bx, y - (int)ay + (int)by)
-        //                            };
-        //                            grfx.DrawLine(new Pen(Brushes.DimGray, 2),
-        //                                new Point((int)item.X, (int)item.Y),
-        //                                new Point((int)item.X + (int)item.VelocityX,
-        //                                (int)item.Y + (int)item.VelocityY));
-        //                            grfx.FillPolygon(Brushes.DimGray, arrow);
-        //                        }
-        //                    grfx.FillEllipse(new SolidBrush(item.Dye), circle);
-        //                    if (item.IsSelected)
-        //                    {
-        //                        RectangleF bigcircle = new((float)(lu_corner.X + item.X * aw_scale - (diameter * 1.7) / 2), (float)(lu_corner.Y + item.Y * aw_scale - (diameter * 1.7) / 2), (int)(diameter * 1.7), (int)(diameter * 1.7));
-        //                        grfx.DrawEllipse(new Pen(Brushes.White, (int)(1.5 * aw_scale)), bigcircle);
-        //                    }
-        //                }
-        //            }
-                    
-        //        }
-        //}
-            ModelBoard_PB.BackgroundImage = board;
+            //    if (isFirstSpaceSetting)
+            //    {
+            //        int x = Cursor.Position.X - Location.X - ModelBoard_PB.Location.X - 7;
+            //        int y = Cursor.Position.Y - Location.Y - ModelBoard_PB.Location.Y - 29;
+            //        grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
+            //            new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y),
+            //            new Point(x, (int)agents[aw_selected].Y));
+            //        grfx.DrawLine(new Pen(Brushes.DodgerBlue, 2),
+            //            new Point(x, (int)agents[aw_selected].Y),
+            //            new Point(x, y));
+            //    }
+            //    lock (agents) {
+            //        foreach (AwoseAgent item in agents)
+            //        {
+            //            int dotNumber = 0;
+            //            lock (item.Spray)
+            //            {
+            //                foreach (Point dot in item.Spray)
+            //                {
+            //                    RectangleF spraydot = new(lu_corner.X + dot.X * aw_scale, lu_corner.Y + dot.Y * aw_scale, aw_scale, aw_scale);
+            //                    if (item.MistakeType == 0)
+            //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(100, 100, 100)), spraydot);
+            //                    if (item.MistakeType == 1)
+            //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+            //                    if (item.MistakeType == 2)
+            //                        grfx.FillRectangle(new SolidBrush(Color.FromArgb(Calculations.Normilize(0, 255, (int)(-0.44 * (dotNumber) + 255)), Calculations.Normilize(0, 255, (int)(-0.28 * (dotNumber) + 175)), Calculations.Normilize(0, 255, (int)(-0.024 * (dotNumber++) + 47)))), spraydot);
+            //                }
+            //            }
+
+            //            Point point = RealToScreen(item.X, item.Y);
+            //            RectangleF circle = new((float)(point.X - diameter / 2), (float)(point.Y - diameter / 2), diameter, diameter);
+            //            if (circle.X + diameter < 0) {
+            //                if (circle.Y + 0.5 * diameter < 15)
+            //                {
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, 15, item.Name.Length * 7, 20));
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, 16));
+            //                } 
+            //                else if (circle.Y > ModelBoard_PB.Height)
+            //                {
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, ModelBoard_PB.Height - 34));
+            //                }
+            //                else
+            //                {
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(15, (int)circle.Y, item.Name.Length * 7, 20));
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(19, (int)circle.Y + 1));
+            //                }
+            //            } else if (circle.X > ModelBoard_PB.Width)
+            //            {
+            //                if (circle.Y + 0.5 * diameter < 15)
+            //                {
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, 15, item.Name.Length * 7, 20));
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, 16));
+            //                }
+            //                else if (circle.Y > ModelBoard_PB.Height)
+            //                {
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, ModelBoard_PB.Height - 35, item.Name.Length * 7, 20));
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, ModelBoard_PB.Height - 34));
+            //                }
+            //                else
+            //                {
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle(ModelBoard_PB.Width - item.Name.Length * 7 - 15, (int)circle.Y, item.Name.Length * 7, 20));
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point(ModelBoard_PB.Width - item.Name.Length * 7 - 11, (int)circle.Y + 1));
+            //                }
+            //            } else
+            //            {
+            //                if (circle.Y + 0.5 * diameter < 0)
+            //                {
+            //                    Point[] triangle = {
+            //                        new Point((int)circle.X, 10),
+            //                        new Point((int)circle.X - 8, 20),
+            //                        new Point((int)circle.X + 8, 20)
+            //                    };
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, 20, item.Name.Length * 7, 20));
+            //                    grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 9, 21));
+            //                }
+            //                else if (circle.Y > ModelBoard_PB.Height)
+            //                {
+            //                    Point[] triangle = {
+            //                        new Point((int)circle.X, ModelBoard_PB.Height - 10),
+            //                        new Point((int)circle.X - 8, ModelBoard_PB.Height - 20),
+            //                        new Point((int)circle.X + 8, ModelBoard_PB.Height - 20)
+            //                    };
+            //                    grfx.FillRectangle(Brushes.WhiteSmoke, new Rectangle((int)circle.X - 13, ModelBoard_PB.Height - 40, item.Name.Length * 7, 20));
+            //                    grfx.FillPolygon(Brushes.WhiteSmoke, triangle);
+            //                    grfx.DrawString(item.Name, DefaultFont, Brushes.Black, new Point((int)circle.X - 12, ModelBoard_PB.Height - 39));
+            //                }
+            //                else
+            //                {
+            //                    if (!isLaunched)
+            //                        if (Math.Abs(item.VelocityX) + Math.Abs(item.VelocityY) > 10)
+            //                        {
+            //                            int x = (int)item.X + (int)item.VelocityX;
+            //                            int y = (int)item.Y + (int)item.VelocityY;
+            //                            float dx = (float)item.VelocityX;
+            //                            float dy = (float)item.VelocityY;
+            //                            float l = (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
+            //                            float ax = 15 * dx / l;
+            //                            float ay = 15 * dy / l;
+            //                            float bx = 7 * dy / l;
+            //                            float by = 7 * dx / l;
+            //                            Point[] arrow =
+            //                            {
+            //                                new Point(x, y),
+            //                                new Point(x - (int)ax + (int)bx, y - (int)ay - (int)by),
+            //                                new Point(x - (int)ax - (int)bx, y - (int)ay + (int)by)
+            //                            };
+            //                            grfx.DrawLine(new Pen(Brushes.DimGray, 2),
+            //                                new Point((int)item.X, (int)item.Y),
+            //                                new Point((int)item.X + (int)item.VelocityX,
+            //                                (int)item.Y + (int)item.VelocityY));
+            //                            grfx.FillPolygon(Brushes.DimGray, arrow);
+            //                        }
+            //                    grfx.FillEllipse(new SolidBrush(item.Dye), circle);
+            //                    if (item.IsSelected)
+            //                    {
+            //                        RectangleF bigcircle = new((float)(lu_corner.X + item.X * aw_scale - (diameter * 1.7) / 2), (float)(lu_corner.Y + item.Y * aw_scale - (diameter * 1.7) / 2), (int)(diameter * 1.7), (int)(diameter * 1.7));
+            //                        grfx.DrawEllipse(new Pen(Brushes.White, (int)(1.5 * aw_scale)), bigcircle);
+            //                    }
+            //                }
+            //            }
+
+            //        }
+            //}
+            if (Status == SimulationStatus.Computing)
+            {
+                if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\ComputedSimulation"))
+                {
+                    Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\ComputedSimulation");
+                }
+                board.Save(Directory.GetCurrentDirectory() + "\\ComputedSimulation\\" + AlreadyComputed.ToString() + ".bmp");
+            }
+            else
+            {
+                ModelBoard_PB.BackgroundImage = board;
+            }
         }
 
         private void Aw_Step(int time)
         {
-            lock (Layers[CurrentLayer].Sources)
+            if (isLaunched || Status == SimulationStatus.Computing)
             {
-                foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                lock (Layers[CurrentLayer].Sources)
                 {
-                    particle.ForceGX = particle.ForceGY = particle.ForceEX = particle.ForceEY = 0;
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                    {
+                        particle.ForceGX = particle.ForceGY = particle.ForceEX = particle.ForceEY = 0;
+                    }
+                }
+                lock (Layers[CurrentLayer].Arrows)
+                {
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Arrows)
+                    {
+                        particle.ForceGX = particle.ForceGY = particle.ForceEX = particle.ForceEY = 0;
+                    }
+                }
+                for (int i = 0; i < Layers[CurrentLayer].Agents.Count; i++)
+                {
+                    lock (Layers[CurrentLayer].Sources)
+                    {
+                        foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                        {
+                            if (Calculations.IsInRadius(particle.Location.X, particle.Location.Y, Layers[CurrentLayer].Agents[i], 9) || particle.Velocity.Length > 900)
+                            {
+                                particle.Reborn();
+                            }
+                            else
+                            {
+                                particle.ForceCalc(Layers[CurrentLayer].Agents[i], Layers[CurrentLayer].StrMode);
+                            }
+                        }
+                    }
+
+                }
+                for (int i = 0; i < Layers[CurrentLayer].Agents.Count; i++)
+                {
+                    lock (Layers[CurrentLayer].Arrows)
+                    {
+                        foreach (AwoseParticle particle in Layers[CurrentLayer].Arrows)
+                        {
+                            particle.ForceCalc(Layers[CurrentLayer].Agents[i], Layers[CurrentLayer].ArrMode);
+                            //particle.Force /= 1000;
+                        }
+                    }
+
+                }
+                lock (Layers[CurrentLayer].Sources)
+                {
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                    {
+                        particle.Force = new Vector(new PointParticle((float)(particle.ForceGX + particle.ForceEX), (float)(particle.ForceGY + particle.ForceEY)));
+
+                        //particle.Velocity.Tail.X *= 0.1f;
+                        //particle.Velocity.Tail.Y *= 0.1f;
+
+                        particle.Velocity.Tail.X = (float)((particle.ForceGX + particle.ForceEX) * timeStep / 1 / 1000);
+                        particle.Velocity.Tail.Y = (float)((particle.ForceGY + particle.ForceEY) * timeStep / 1 / 1000);
+                        particle.Location.X += (float)(particle.Velocity.Tail.X * timeStep / 1000);
+                        particle.Location.Y += (float)(particle.Velocity.Tail.Y * timeStep / 1000);
+                        if (particle.Velocity.Length < 2 && particle.Lifetime > 30)
+                        {
+                            particle.Reborn();
+                        }
+                        if (particle.Reborning && particle.Trajectory.Count > 3)
+                        {
+                            particle.Trajectory.Dequeue();
+                            particle.Trajectory.Dequeue();
+                            particle.Trajectory.Dequeue();
+                        }
+                        else
+                        {
+                            particle.Trajectory.Enqueue(new PointParticle(particle.Location.X, (int)particle.Location.Y));
+                        }
+                        particle.Lifetime++;
+                    }
+                }
+                lock (Layers[CurrentLayer].Arrows)
+                {
+                    foreach (AwoseParticle particle in Layers[CurrentLayer].Arrows)
+                    {
+                        particle.Force = new Vector(new PointParticle((float)(particle.ForceGX + particle.ForceEX), (float)(particle.ForceGY + particle.ForceEY)));
+                    }
                 }
             }
-            
+
             foreach (AwoseLayer layer in Layers)
             {
                 foreach (AwoseAgent agent in layer.Agents)
@@ -595,62 +725,85 @@ namespace Awose
                 foreach (AwoseAgent agent in layer.Agents)
                 {
                     if (agent.IsPinned) continue;
-                    agent.Force = new Vector(new PointParticle((float)(agent.ForceGX + agent.ForceEX), (float)(agent.ForceGY + agent.ForceEY)));
-                    agent.Velocity.Tail.X += (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
-                    agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
-                    agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
-                    agent.Location.Y += (float)(agent.Velocity.Tail.Y * timeStep / 1000);
-                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
-                }
-            }
-            for (int i = 0; i < Layers[CurrentLayer].Agents.Count; i++)
-            {
-                lock (Layers[CurrentLayer].Sources)
-                {
-                    foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
+                    switch (DistantObjects)
                     {
-                        if (Calculations.IsInRadius(particle.Location.X, particle.Location.Y, Layers[CurrentLayer].Agents[i], 9) || particle.Velocity.Length > 900)
-                        {
-                            particle.Reborn();
-                        }
-                        else
-                        {
-                            particle.ForceCalc(Layers[CurrentLayer].Agents[i], Layers[CurrentLayer].StrMode);
-                        }
-                    }
-                }
-                    
-            }
-            lock (Layers[CurrentLayer].Sources)
-            {
-                foreach (AwoseParticle particle in Layers[CurrentLayer].Sources)
-                {
-                    particle.Force = new Vector(new PointParticle((float)(particle.ForceGX + particle.ForceEX), (float)(particle.ForceGY + particle.ForceEY)));
+                        case Optimization.High:
+                            agent.Force = new Vector(new PointParticle((float)(agent.ForceGX + agent.ForceEX), (float)(agent.ForceGY + agent.ForceEY)));
+                            agent.Velocity.Tail.X += (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                            agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                            agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                            agent.Location.Y += (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                            agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                            break;
+                        case Optimization.Medium:
+                            if (agent.Ban == 0)
+                            {
+                                agent.Force = new Vector(new PointParticle((float)(agent.ForceGX + agent.ForceEX), (float)(agent.ForceGY + agent.ForceEY)));
+                                agent.Velocity.Tail.X += (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                                agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                                if (agent.Velocity.Length < 2)
+                                {
+                                    agent.Ban = 10;
+                                    agent.Velocity.Tail.X += 9 * (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                                    agent.Velocity.Tail.Y += 9 * (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                                    agent.Location.X += 10 * (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                                    agent.Location.Y += 10 * (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                                } 
+                                else
+                                {
+                                    agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                                    agent.Location.Y += (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                                }
+                                
+                            } else
+                            {
+                                agent.Ban--;
+                            }
+                            break;
+                        case Optimization.Low:
+                            if (agent.Ban == 0)
+                            {
+                                agent.Force = new Vector(new PointParticle((float)(agent.ForceGX + agent.ForceEX), (float)(agent.ForceGY + agent.ForceEY)));
+                                agent.Velocity.Tail.X += (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                                agent.Velocity.Tail.Y += (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                                float _length = agent.Velocity.Length * timeStep / 1000;
+                                if (_length > 0.15 && _length < 0.25)
+                                {
+                                    agent.Ban = 10;
+                                    agent.Velocity.Tail.X += 9 * (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                                    agent.Velocity.Tail.Y += 9 * (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                                    agent.Location.X += 10 * (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                                    agent.Location.Y += 10 * (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                                }
+                                else if (_length <= 0.15)
+                                {
+                                    agent.Ban = 20;
+                                    agent.Velocity.Tail.X += 19 * (float)((agent.ForceGX + agent.ForceEX) * timeStep / agent.Weight / 1000);
+                                    agent.Velocity.Tail.Y += 19 * (float)((agent.ForceGY + agent.ForceEY) * timeStep / agent.Weight / 1000);
+                                    agent.Location.X += 20 * (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                                    agent.Location.Y += 20 * (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                                }
+                                else
+                                {
+                                    agent.Location.X += (float)(agent.Velocity.Tail.X * timeStep / 1000);
+                                    agent.Location.Y += (float)(agent.Velocity.Tail.Y * timeStep / 1000);
+                                    agent.Trajectory.Enqueue(new PointParticle(agent.Location.X, (int)agent.Location.Y));
+                                }
 
-                    //particle.Velocity.Tail.X *= 0.1f;
-                    //particle.Velocity.Tail.Y *= 0.1f;
-
-                    particle.Velocity.Tail.X = (float)((particle.ForceGX + particle.ForceEX) * timeStep / 1 / 1000);
-                    particle.Velocity.Tail.Y = (float)((particle.ForceGY + particle.ForceEY) * timeStep / 1 / 1000);
-                    particle.Location.X += (float)(particle.Velocity.Tail.X * timeStep / 1000);
-                    particle.Location.Y += (float)(particle.Velocity.Tail.Y * timeStep / 1000);
-                    if (particle.Velocity.Length < 2 && particle.Lifetime > 30)
-                    {
-                        particle.Reborn();
+                            }
+                            else
+                            {
+                                agent.Ban--;
+                            }
+                            break;
                     }
-                    if (particle.Reborning && particle.Trajectory.Count > 3)
-                    {
-                        particle.Trajectory.Dequeue();
-                        particle.Trajectory.Dequeue();
-                        particle.Trajectory.Dequeue();
-                    }
-                    else
-                    {
-                        particle.Trajectory.Enqueue(new PointParticle(particle.Location.X, (int)particle.Location.Y));
-                    }
-                    particle.Lifetime++;
                 }
             }
+            
             
             try
             {
@@ -665,6 +818,7 @@ namespace Awose
             InitializeComponent();
         }
         Thread animation;
+        Thread computed_animation;
         private void Awose_Load(object sender, EventArgs e)
         {
             Bitmap button_img = new(23, 23);
@@ -674,7 +828,9 @@ namespace Awose
             grfx.FillRectangle(Brushes.White, 6, 11, 11, 2);
             CreateNewLayer_Button.BackgroundImage = button_img;
 
-            
+            DistantObjects = Optimization.Medium;
+            FieldData = Optimization.Medium;
+
 
 
             Layers = new List<AwoseLayer>();
@@ -692,11 +848,86 @@ namespace Awose
                 {
                     item.AgentSprayUpdate();
                 }
-                if (isLaunched) Aw_Step(timeStep);
+                if (isLaunched || Status == SimulationStatus.Computing) Aw_Step(timeStep);
                 Invoke((Action)Aw_Refresh);
                 await Task.Delay(timeStep);
                 //Thread.Sleep(timeStep);
             }
+        }
+
+        public void ComputingEditor(object time)
+        {
+            //Thread.Sleep(5000);
+            for (int i = 0; i < 1000 * (int)time / timeStep; i++)
+            {
+                if (Status != SimulationStatus.Computing) break;
+                AlreadyComputed = i;
+                foreach (AwoseAgent item in Layers[CurrentLayer].Agents)
+                {
+                    item.AgentSprayUpdate();
+                }
+                if (Status == SimulationStatus.Computing) Aw_Step(timeStep);
+                Invoke((Action)Aw_Refresh);
+                double percentage = i * timeStep / (10 * (int)time);
+                double timePassed = DateTime.Now.Subtract(ComputingStartTime).TotalSeconds;
+                int timeLeft = (int)(timePassed * (100 - percentage) / percentage);
+                string timeLeft_str = "";
+                if (timeLeft / 86400 > 0)
+                {
+                    int days = timeLeft / 86400;
+                    int hours = (timeLeft - days * 86400) / 3600;
+                    timeLeft_str = days.ToString() + " d " + hours.ToString() + " h";
+                } 
+                else if (timeLeft / 3600 > 0)
+                {
+                    int hours = timeLeft / 3600;
+                    int minutes = (timeLeft - hours * 3600) / 60;
+                    timeLeft_str = hours.ToString() + " h " + minutes.ToString() + " m";
+                }
+                else if (timeLeft / 60 > 0)
+                {
+                    int minutes = timeLeft / 60;
+                    int seconds = (timeLeft - minutes * 60);
+                    timeLeft_str = minutes.ToString() + " m " + seconds.ToString() + " s";
+                } else if (timeLeft > 0)
+                {
+                    timeLeft_str = (timeLeft).ToString() + " s";
+                } else
+                {
+                    timeLeft_str = "unknown";
+                }
+                Action action = () =>
+                {
+                    Computing_PBar.Value = (int)percentage;
+                    ComputingTimeLeft_TB.Text = "Time left: " + timeLeft_str;
+                };
+
+                if (InvokeRequired)
+                {
+                    Invoke(action);
+                } else
+                {
+                    action();
+                }
+                //await Task.Delay(timeStep);
+                //Thread.Sleep(timeStep);
+            }
+            Status = SimulationStatus.Watching;
+            Action action1 = () =>
+            {
+                ComputePanel.Visible = false;
+            };
+
+            if (InvokeRequired)
+            {
+                Invoke(action1);
+            }
+            else
+            {
+                action1();
+            }
+            AlreadyComputed = 0;
+            return;
         }
 
         private void Aw_CheckMistakes()
@@ -710,6 +941,7 @@ namespace Awose
             }
             if (isLaunched) return;
             LaunchSimulation_MSItem.Enabled = true;
+            Compute_MSItem.Enabled = true;
             //Useless object
             if (agents.Count == 1)
             {
@@ -853,6 +1085,7 @@ namespace Awose
                 ControlLayer_Panel.Visible = true;
                 ControlAgents_Panel.Visible = false;
                 ObjectBeauty_Panel.Visible = false;
+                 
 
                 switch (Layers[CurrentLayer].StrMode)
                 {
@@ -874,75 +1107,30 @@ namespace Awose
                     default:
                         break;
                 }
+                switch (Layers[CurrentLayer].ArrMode)
+                {
+                    case StreamMode.None:
+                        ArrowsFieldNo_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        ArrowsFieldGravity_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        ArrowsFieldElectric_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        break;
+                    case StreamMode.Gravity:
+                        ArrowsFieldNo_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        ArrowsFieldGravity_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        ArrowsFieldElectric_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        break;
+                    case StreamMode.Electric:
+                        ArrowsFieldNo_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        ArrowsFieldGravity_Button.BackColor = Color.FromArgb(64, 64, 64);
+                        ArrowsFieldElectric_Button.BackColor = Color.FromArgb(15, 15, 15);
+                        break;
+                    default:
+                        break;
+                }
                 StreamFrequency_TB.Value = 1000 - Layers[CurrentLayer].StreamFreq;
+                ArrowsFieldFrequency_TB.Value = 1000 - Layers[CurrentLayer].ArrowsFieldFreq;
             }
             return;
-
-
-
-            if (aw_selected != - 1)
-            {
-                
-                Bitmap btm_icon = new(34, 29);
-                using Graphics grfx = Graphics.FromImage(btm_icon);
-                grfx.Clear(Color.FromArgb(15, 15, 15));
-                if (agents[aw_selected].MistakeType == 1)
-                {
-                    Point[] triangle =
-                    {
-                        new Point(17, 3),
-                        new Point(4, 26),
-                        new Point(30, 26)
-                    };
-                    grfx.FillPolygon(Brushes.Khaki, triangle);
-                    grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), 16, 9, 3, 10);
-                    grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), 16, 21, 3, 3);
-                } else if (agents[aw_selected].MistakeType == 2)
-                {
-                    Point[] hexagon =
-                    {
-                        new Point(10, 3),
-                        new Point(24, 3),
-                        new Point(30, 14),
-                        new Point(24, 25),
-                        new Point(10, 25),
-                        new Point(5, 14)
-                    };
-                    grfx.FillPolygon(Brushes.IndianRed, hexagon);
-                    grfx.FillRectangle(new SolidBrush(Color.FromArgb(15, 15, 15)), 10, 13, 15, 3);
-                }
-                if (agents[aw_selected].MistakeType == 0)
-                    MistakeIcon_PB.Visible = false;
-                else MistakeIcon_PB.Visible = true;
-                MistakeIcon_PB.Image = btm_icon;
-                MistakeHint_Label.Text = agents[aw_selected].MDescription;
-                if (agents[aw_selected].Star != "" || agents[aw_selected].Satellites.Count > 0)
-                {
-                    if (agents[aw_selected].Star == "")
-                    {
-                        Space_Star_Label.Text = "None";
-                    } else
-                    {
-                        Space_Star_Label.Text = agents[aw_selected].Star;
-                    }
-                    Space_Satellites_LB.Items.Clear();
-                    foreach (string item in agents[aw_selected].Satellites)
-                    {
-                        Space_Satellites_LB.Items.Add(item);
-                    }
-                    ObjectSpace_Panel.Visible = true;
-                } else
-                {
-                    ObjectSpace_Panel.Visible = false;
-                }
-            }
-            else
-            {
-                CurrentObjectName_Label.Text = "No object selected";
-                CurrentObjectName_Label.ForeColor = Color.DarkGray;
-                CurrentObjectName_Label.Cursor = Cursors.Default;
-                ObjectSettings_Panel.Visible = false;
-            }
         }
 
         private void Aw_DrawControlLite()
@@ -1773,43 +1961,89 @@ namespace Awose
         {
             aw_cursor = GetCursorPosition();
             PointParticle pointCursor = ScreenToReal(aw_cursor);
-            RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
-            RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
-
             double force_gx = 0;
             double force_gy = 0;
             double force_ex = 0;
             double force_ey = 0;
-            foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+
+            switch (FieldData)
             {
-                float delta_x = pointCursor.X - agent.Location.X;
-                float delta_y = pointCursor.Y - agent.Location.Y;
-                float delta = MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
-                float coeff_x = delta_x / MathF.Sqrt(delta);
-                float coeff_y = delta_y / MathF.Sqrt(delta);
-                force_gx += agent.Weight * ConstG / delta * coeff_x;
-                force_gy += agent.Weight * ConstG / delta * coeff_y;
-                if (agent.Charge != 0)
-                {
-                    force_ex += agent.Charge * ConstE / delta * coeff_x;
-                    force_ey += agent.Charge * ConstE / delta * coeff_y;
-                }
-            }
-            if (double.IsNaN(force_ex))
-            {
-                RT_E_Label.Text = double.PositiveInfinity.ToString();
-            }
-            else 
-            {
-                RT_E_Label.Text = Math.Round(Math.Sqrt(force_ex * force_ex + force_ey * force_ey), 1).ToString();
-            }
-            if (double.IsNaN(force_gx))
-            {
-                RT_g_Label.Text = double.PositiveInfinity.ToString();
-            }
-            else
-            {
-                RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
+                case Optimization.High:
+                    RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
+                    RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
+
+                    foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+                    {
+                        float delta_x = pointCursor.X - agent.Location.X;
+                        float delta_y = pointCursor.Y - agent.Location.Y;
+                        float delta = MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                        float coeff_x = delta_x / MathF.Sqrt(delta);
+                        float coeff_y = delta_y / MathF.Sqrt(delta);
+                        force_gx += agent.Weight * ConstG / delta * coeff_x;
+                        force_gy += agent.Weight * ConstG / delta * coeff_y;
+                        if (agent.Charge != 0)
+                        {
+                            force_ex += agent.Charge * ConstE / delta * coeff_x;
+                            force_ey += agent.Charge * ConstE / delta * coeff_y;
+                        }
+                    }
+                    if (double.IsNaN(force_ex))
+                    {
+                        RT_E_Label.Text = double.PositiveInfinity.ToString();
+                    }
+                    else
+                    {
+                        RT_E_Label.Text = Math.Round(Math.Sqrt(force_ex * force_ex + force_ey * force_ey), 1).ToString();
+                    }
+                    if (double.IsNaN(force_gx))
+                    {
+                        RT_g_Label.Text = double.PositiveInfinity.ToString();
+                    }
+                    else
+                    {
+                        RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
+                    }
+                    break;
+                case Optimization.Medium:
+                    RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
+                    RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
+
+                    foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+                    {
+                        int delta_x = (int)(pointCursor.X - agent.Location.X);
+                        int delta_y = (int)(pointCursor.Y - agent.Location.Y);
+                        int delta = (int)MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                        float coeff_x = (delta_x / MathF.Sqrt(delta));
+                        float coeff_y = (delta_y / MathF.Sqrt(delta));
+                        force_gx += agent.Weight * ConstG / delta * coeff_x;
+                        force_gy += agent.Weight * ConstG / delta * coeff_y;
+                        if (agent.Charge != 0)
+                        {
+                            force_ex += agent.Charge * ConstE / delta * coeff_x;
+                            force_ey += agent.Charge * ConstE / delta * coeff_y;
+                        }
+                    }
+                    if (double.IsNaN(force_ex))
+                    {
+                        RT_E_Label.Text = double.PositiveInfinity.ToString();
+                    }
+                    else
+                    {
+                        RT_E_Label.Text = Math.Round(Math.Sqrt(force_ex * force_ex + force_ey * force_ey), 1).ToString();
+                    }
+                    if (double.IsNaN(force_gx))
+                    {
+                        RT_g_Label.Text = double.PositiveInfinity.ToString();
+                    }
+                    else
+                    {
+                        RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
+                    }
+                    break;
+                case Optimization.Low:
+                    break;
+                default:
+                    break;
             }
             bool hoverAgent = false;
             switch (movingEntity)
@@ -1852,8 +2086,6 @@ namespace Awose
                 default:
                     break;
             }
-            
-          
         }
 
         private void MistakeIcon_PB_MouseHover(object sender, EventArgs e)
@@ -1900,9 +2132,11 @@ namespace Awose
                 }
             }
             FlowStreamUp();
+            ArrowsUp();
             //Layers[CurrentLayer].Sources.Add(new AwoseParticle(ScreenToReal(new PointParticle(0, 0))));
             isLaunched = true;
             LaunchSimulation_MSItem.Enabled = false;
+            Compute_MSItem.Enabled = false;
             PauseSimulation_MSItem.Enabled = true;
             StopSimulation_MSItem.Enabled = true;
             ResetSimulation_MSItem.Enabled = true;
@@ -1920,6 +2154,7 @@ namespace Awose
             isLaunched = false;
             LaunchSimulation_MSItem.Enabled = true;
             PauseSimulation_MSItem.Enabled = false;
+            Compute_MSItem.Enabled = true;
             StopSimulation_MSItem.Enabled = false;
             ResetSimulation_MSItem.Enabled = true;
             ObjectMass_Label.Cursor = Cursors.IBeam;
@@ -2080,6 +2315,8 @@ namespace Awose
 
         private void CreateNewLayer_Button_Click(object sender, EventArgs e)
         {
+            Status = SimulationStatus.Watching;
+            return;
             int layersNum = 1;
         alw_loopNames:
             foreach (AwoseAgent item in Layers[CurrentLayer].Agents)
@@ -2415,6 +2652,225 @@ namespace Awose
                     }
                 }
             }
+        }
+
+        private void ArrowsUp()
+        {
+            lock (Layers[CurrentLayer].Arrows)
+            {
+                Layers[CurrentLayer].Arrows.Clear();
+                for (int i = 0; i < ModelBoard_PB.Width; i += Layers[CurrentLayer].ArrowsFieldFreq)
+                {
+                    for (int j = 0; j < ModelBoard_PB.Height; j += Layers[CurrentLayer].ArrowsFieldFreq)
+                    {
+                        Layers[CurrentLayer].Arrows.Add(new AwoseParticle(ScreenToReal(new PointParticle(i, j))));
+                    }
+                }
+            }
+        }
+
+        private void Compute_MSItem_Click(object sender, EventArgs e)
+        {
+            Computing_PBar.Value = 0;
+            Computing_PBar.Visible = false;
+            Compute_Button.Visible = true;
+            ComputingTimeLeft_TB.Visible = false;
+            DrawingValues.Unfold(ComputePanel, Height, Height - 150, 0, 100, 10);
+            //ComputePanel.Visible = true;
+        }
+
+        private void PauseSimulation_MSItem_Click(object sender, EventArgs e)
+        {
+            isLaunched = false;
+            LaunchSimulation_MSItem.Enabled = true;
+            PauseSimulation_MSItem.Enabled = false;
+            Compute_MSItem.Enabled = true;
+            StopSimulation_MSItem.Enabled = false;
+            ResetSimulation_MSItem.Enabled = true;
+            ObjectMass_Label.Cursor = Cursors.IBeam;
+            ObjectCharge_Label.Cursor = Cursors.IBeam;
+            ObjectPositionX_Label.Cursor = Cursors.IBeam;
+            ObjectPositionY_Label.Cursor = Cursors.IBeam;
+            ObjectVelocity_Label.Cursor = Cursors.IBeam;
+            Pinned_CB.Enabled = true;
+            Aw_CheckMistakes();
+        }
+
+        private void Compute_Button_Click(object sender, EventArgs e)
+        {
+            if (Directory.Exists(Directory.GetCurrentDirectory() + "\\ComputedSimulation"))
+            {
+                foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\ComputedSimulation"))
+                {
+                    File.Delete(file);
+                }
+                Directory.Delete(Directory.GetCurrentDirectory() + "\\ComputedSimulation");
+            }
+            DrawingValues.Unfold(ComputePanel, ComputePanel.Location.Y, ComputePanel.Location.Y - 20, ComputePanel.Height, ComputePanel.Height + 20, 5);
+            Compute_Button.Visible = false;
+            ComputingTimeLeft_TB.Visible = true;
+            //ComputingLayers = Layers;
+            Status = SimulationStatus.Computing;
+            ComputingStartTime = DateTime.Now;
+            Computing_PBar.Visible = true;
+            computed_animation = new Thread(ComputingEditor);
+            computed_animation.Start(int.Parse(TimeToCompute_TB.Text));
+        }
+
+        private void CancelComputing_Button_Click(object sender, EventArgs e)
+        {
+            Status = SimulationStatus.Stopped;
+            if (Directory.Exists(Directory.GetCurrentDirectory() + "\\ComputedSimulation"))
+            {
+                foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\ComputedSimulation"))
+                {
+                    File.Delete(file);
+                }
+                Directory.Delete(Directory.GetCurrentDirectory() + "\\ComputedSimulation");
+            }
+            ComputePanel.Visible = false;
+            Compute_Button.Visible = true;
+        }
+
+        private void DistantObjectsHigh_MSItem_Click(object sender, EventArgs e)
+        {
+            DistantObjectsHigh_MSItem.Checked = true;
+            DistantObjectsMedium_MSItem.Checked = false;
+            DistantObjectsLow_MSItem.Checked = false;
+            DistantObjects = Optimization.High;
+        }
+
+        private void DistantObjectsMedium_MSItem_Click(object sender, EventArgs e)
+        {
+            DistantObjectsHigh_MSItem.Checked = false;
+            DistantObjectsMedium_MSItem.Checked = true;
+            DistantObjectsLow_MSItem.Checked = false;
+            DistantObjects = Optimization.Medium;
+        }
+
+        private void DistantObjectsLow_MSItem_Click(object sender, EventArgs e)
+        {
+            DistantObjectsHigh_MSItem.Checked = false;
+            DistantObjectsMedium_MSItem.Checked = false;
+            DistantObjectsLow_MSItem.Checked = true;
+            DistantObjects = Optimization.Low;
+        }
+
+        private void OptimizationAllHigh_MSItem_Click(object sender, EventArgs e)
+        {
+            DistantObjectsHigh_MSItem_Click(sender, e);
+            FieldDataHigh_MSItem_Click(sender, e);
+        }
+
+        private void OptimizationAllMedium_MSItem_Click(object sender, EventArgs e)
+        {
+            DistantObjectsMedium_MSItem_Click(sender, e);
+            FieldDataMedium_MSItem_Click(sender, e);
+        }
+
+        private void OptimizationAllLow_MSItem_Click(object sender, EventArgs e)
+        {
+            DistantObjectsLow_MSItem_Click(sender, e);
+            FieldDataLow_MSItem_Click(sender, e);
+        }
+
+        private void FieldDataHigh_MSItem_Click(object sender, EventArgs e)
+        {
+            FieldDataHigh_MSItem.Checked = true;
+            FieldDataMedium_MSItem.Checked = false;
+            FieldDataLow_MSItem.Checked = false;
+            FieldData = Optimization.High;
+        }
+
+        private void FieldDataMedium_MSItem_Click(object sender, EventArgs e)
+        {
+            FieldDataHigh_MSItem.Checked = false;
+            FieldDataMedium_MSItem.Checked = true;
+            FieldDataLow_MSItem.Checked = false;
+            FieldData = Optimization.Medium;
+        }
+
+        private void FieldDataLow_MSItem_Click(object sender, EventArgs e)
+        {
+            FieldDataHigh_MSItem.Checked = false;
+            FieldDataMedium_MSItem.Checked = false;
+            FieldDataLow_MSItem.Checked = true;
+            FieldData = Optimization.Low;
+        }
+
+        private void ModelBoard_PB_MouseHover(object sender, EventArgs e)
+        {
+            if (FieldData == Optimization.Medium)
+            {
+                aw_cursor = GetCursorPosition();
+                PointParticle pointCursor = ScreenToReal(aw_cursor);
+
+                RT_X_Label.Text = Math.Round(pointCursor.X, 2).ToString();
+                RT_Y_Label.Text = Math.Round(pointCursor.Y, 2).ToString();
+
+                double force_gx = 0;
+                double force_gy = 0;
+                double force_ex = 0;
+                double force_ey = 0;
+                foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+                {
+                    float delta_x = pointCursor.X - agent.Location.X;
+                    float delta_y = pointCursor.Y - agent.Location.Y;
+                    float delta = MathF.Pow(MathF.Sqrt(delta_x * delta_x + delta_y * delta_y), 2);
+                    float coeff_x = delta_x / MathF.Sqrt(delta);
+                    float coeff_y = delta_y / MathF.Sqrt(delta);
+                    force_gx += agent.Weight * ConstG / delta * coeff_x;
+                    force_gy += agent.Weight * ConstG / delta * coeff_y;
+                    if (agent.Charge != 0)
+                    {
+                        force_ex += agent.Charge * ConstE / delta * coeff_x;
+                        force_ey += agent.Charge * ConstE / delta * coeff_y;
+                    }
+                }
+                if (double.IsNaN(force_ex))
+                {
+                    RT_E_Label.Text = double.PositiveInfinity.ToString();
+                }
+                else
+                {
+                    RT_E_Label.Text = Math.Round(Math.Sqrt(force_ex * force_ex + force_ey * force_ey), 1).ToString();
+                }
+                if (double.IsNaN(force_gx))
+                {
+                    RT_g_Label.Text = double.PositiveInfinity.ToString();
+                }
+                else
+                {
+                    RT_g_Label.Text = Math.Round(Math.Sqrt(force_gx * force_gx + force_gy * force_gy), 1).ToString();
+                }
+            }
+        }
+
+        private void ArrowsFieldNo_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].ArrMode = StreamMode.None;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void ArrowsFieldGravity_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].ArrMode = StreamMode.Gravity;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void ArrowsFieldElectric_Button_Click(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].ArrMode = StreamMode.Electric;
+            Aw_DrawControl();
+            Aw_Refresh();
+        }
+
+        private void ArrowsFieldFrequency_TB_Scroll(object sender, EventArgs e)
+        {
+            Layers[CurrentLayer].ArrowsFieldFreq = 1000 - ArrowsFieldFrequency_TB.Value;
+            ArrowsUp();
         }
     }
 }

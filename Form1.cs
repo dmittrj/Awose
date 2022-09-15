@@ -18,7 +18,7 @@ namespace Awose
 
     enum MovingEntity { None, Board, Agent }
 
-    enum SpecialCondition { None, SetVelocity, SetFirstSpaceVelocity}
+    enum SpecialCondition { None, SetVelocity, SetFirstSpaceVelocity, Kicking}
 
     enum BeautyPreviewMode { None, ObjectColor }
 
@@ -347,6 +347,46 @@ namespace Awose
                         new PointF(pip_x, sfsv_objCenter.Y),
                         new PointF(pip_x, pip_y));
                     grfx.DrawEllipse(new Pen(Brushes.DodgerBlue, 2), sfsv_spearhead);
+                    break;
+                case SpecialCondition.Kicking:
+                    PointParticle objCenter2 = GetCursorPosition();
+                    PointParticle cursor2 = RealToScreen(Phantom.Location);
+                    AwoseAgent tempAgentVelocity2 = new("TempVelocityObject",
+                        Phantom.Location.X, Phantom.Location.Y, Phantom.Weight, Phantom.Charge,
+                        0, 0, Phantom.IsPinned);
+                    tempAgentVelocity2.ForceEX = 0;
+                    tempAgentVelocity2.ForceGX = 0;
+                    tempAgentVelocity2.ForceEY = 0;
+                    tempAgentVelocity2.ForceGY = 0;
+                    tempAgentVelocity2.Velocity = new(-ScreenToReal(objCenter2) + ScreenToReal(cursor2));
+                    List<Point> tempTrajectory2 = new();
+                    for (int i = 0; i < 1500; i++)
+                    {
+                        tempAgentVelocity2.ForceEX = 0;
+                        tempAgentVelocity2.ForceGX = 0;
+                        tempAgentVelocity2.ForceEY = 0;
+                        tempAgentVelocity2.ForceGY = 0;
+                        foreach (AwoseAgent agent in Layers[CurrentLayer].Agents)
+                        {
+                            if (!agent.IsSelected)
+                            {
+                                tempAgentVelocity2.ForceCalc(agent);
+                            }
+                        }
+                        if (tempAgentVelocity2.IsPinned) continue;
+                        tempAgentVelocity2.Force = new Vector(new PointParticle((float)(tempAgentVelocity2.ForceGX + tempAgentVelocity2.ForceEX), (float)(tempAgentVelocity2.ForceGY + tempAgentVelocity2.ForceEY)));
+                        tempAgentVelocity2.Velocity.Tail.X += (float)((tempAgentVelocity2.ForceGX + tempAgentVelocity2.ForceEX) * timeStep / tempAgentVelocity2.Weight / 1000);
+                        tempAgentVelocity2.Velocity.Tail.Y += (float)((tempAgentVelocity2.ForceGY + tempAgentVelocity2.ForceEY) * timeStep / tempAgentVelocity2.Weight / 1000);
+                        tempAgentVelocity2.Location.X += (float)(tempAgentVelocity2.Velocity.Tail.X * timeStep / 1000);
+                        tempAgentVelocity2.Location.Y += (float)(tempAgentVelocity2.Velocity.Tail.Y * timeStep / 1000);
+                        tempTrajectory2.Add(RealToScreen(tempAgentVelocity2.Location).ToPoint());
+                    }
+                    grfx.DrawLines(new Pen(Brushes.White, 1), tempTrajectory2.ToArray());
+                    grfx.DrawLine(new Pen(mainVelocityArrow, 2),
+                        new PointF(objCenter2.X, objCenter2.Y),
+                        new PointF(cursor2.X, cursor2.Y));
+                    Vector arrow3 = new(cursor2, objCenter2);
+                    grfx.FillPolygon(mainVelocityArrow, arrow3.CreateTriangle(17, 15));
                     break;
                 default:
                     break;
@@ -1205,6 +1245,7 @@ namespace Awose
             SetVelocity_CMItem.Visible = false;
             ChangeSign_CMItem.Visible = false;
             PinUp_CMItem.Visible = false;
+            Actions_CMItem.Visible = false;
             //List<AwoseAgent> selects = new();
             //int possibleSelection = 0;
             aw_selected = 0;
@@ -1231,6 +1272,7 @@ namespace Awose
                 SetVelocity_CMItem.Visible = true;
                 ChangeSign_CMItem.Visible = true;
                 PinUp_CMItem.Visible = true;
+                Actions_CMItem.Visible = true;
                 PinUp_CMItem.Checked = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].IsPinned;
                 ControlAgents_Panel.Visible = true;
                 if (CopiedVelocity == null)
@@ -1249,6 +1291,7 @@ namespace Awose
                 SetVelocity_CMItem.Visible = false;
                 ChangeSign_CMItem.Visible = false;
                 PinUp_CMItem.Visible = false;
+                Actions_CMItem.Visible = false;
                 ControlAgents_Panel.Visible = false;
                 ControlLayer_Panel.Visible = true;
             }
@@ -1767,6 +1810,14 @@ namespace Awose
                         specialCondition = SpecialCondition.None;
                         return;
                     }
+                    if (specialCondition == SpecialCondition.Kicking)
+                    {
+                        PointParticle cursor = GetCursorPosition();
+                        PointParticle objCenter = RealToScreen(Phantom.Location);
+                        Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Velocity = new(-ScreenToReal(objCenter) + ScreenToReal(cursor));
+                        specialCondition = SpecialCondition.None;
+                        return;
+                    }
                     if (specialCondition == SpecialCondition.SetFirstSpaceVelocity)
                     {
                         specialCondition = SpecialCondition.None;
@@ -1918,27 +1969,7 @@ namespace Awose
                 case MouseButtons.Left:
                     movingEntity = MovingEntity.None;
                     Phantom = null;
-                    //aw_undo.Push(new AwoseChange(Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
                     Aw_DrawControl();
-                    //if (isObjectMoving && aw_selected < agents.Count && (agents[aw_selected].X != lu_remember.X || agents[aw_selected].Y != lu_remember.Y))
-                    //{
-                    //    agents[aw_selected].Spray.Clear();
-                    //    //agents[aw_selected].X_screen = aw_cursor.X - Cursor.Position.X;
-                    //    //agents[aw_selected].Y_screen = aw_cursor.Y - Cursor.Position.Y;
-                    //    //aw_undo.Push(new AwoseChange(agents[aw_selected], ChangeType.ChangingXY, lu_remember, new Point((int)agents[aw_selected].X, (int)agents[aw_selected].Y)));
-                    //    if (agents[aw_selected].Star != "")
-                    //    {
-                    //        agents[aw_selected].ChangeAfterFSV = true;
-                    //    } else if (agents[aw_selected].Satellites.Count > 0)
-                    //    {
-                    //        foreach (AwoseAgent item in agents)
-                    //        {
-                    //            if (agents[aw_selected].Satellites.Contains(item.Name))
-                    //                item.ChangeAfterFSV = true;
-                    //        }
-                    //    }
-                    //}
-                    //isObjectMoving = false;
                     break;
                 case MouseButtons.Right:
                     break;
@@ -2871,6 +2902,14 @@ namespace Awose
         {
             Layers[CurrentLayer].ArrowsFieldFreq = 1000 - ArrowsFieldFrequency_TB.Value;
             ArrowsUp();
+        }
+
+        private void Kick_CMItem_Click(object sender, EventArgs e)
+        {
+            Space_CMStr.Close();
+            aw_remember = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected].Location;
+            Phantom = Layers[CurrentLayer].Agents[Layers[CurrentLayer].Selected];
+            specialCondition = SpecialCondition.Kicking;
         }
     }
 }

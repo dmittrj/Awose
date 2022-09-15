@@ -125,6 +125,8 @@ namespace Awose
             this.ApplyVelocity_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ChangeSign_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PinUp_CMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Actions_CMItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Kick_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ObjectEditSep_CMSepar = new System.Windows.Forms.ToolStripSeparator();
             this.CreateObject_CMItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -151,6 +153,14 @@ namespace Awose
             this.label6 = new System.Windows.Forms.Label();
             this.RT_Scale_Label = new System.Windows.Forms.Label();
             this.ControlLayer_Panel = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.ArrowsFieldFrequency_TB = new System.Windows.Forms.TrackBar();
+            this.label33 = new System.Windows.Forms.Label();
+            this.ArrowsFieldGravity_Button = new System.Windows.Forms.Button();
+            this.ArrowsFieldElectric_Button = new System.Windows.Forms.Button();
+            this.ArrowsFieldNo_Button = new System.Windows.Forms.Button();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.StreamFrequency_TB = new System.Windows.Forms.TrackBar();
             this.label29 = new System.Windows.Forms.Label();
@@ -188,14 +198,6 @@ namespace Awose
             this.Playback_Panel = new System.Windows.Forms.Panel();
             this.SpeedUp_Button = new System.Windows.Forms.Button();
             this.PlayPause_Button = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.ArrowsFieldFrequency_TB = new System.Windows.Forms.TrackBar();
-            this.label33 = new System.Windows.Forms.Label();
-            this.ArrowsFieldGravity_Button = new System.Windows.Forms.Button();
-            this.ArrowsFieldElectric_Button = new System.Windows.Forms.Button();
-            this.ArrowsFieldNo_Button = new System.Windows.Forms.Button();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
             this.ControlAgents_Panel.SuspendLayout();
             this.ObjectBeauty_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ObjectSprite_Force_PB)).BeginInit();
@@ -215,6 +217,8 @@ namespace Awose
             this.Space_CMStr.SuspendLayout();
             this.panel1.SuspendLayout();
             this.ControlLayer_Panel.SuspendLayout();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ArrowsFieldFrequency_TB)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StreamFrequency_TB)).BeginInit();
             this.panel3.SuspendLayout();
@@ -225,8 +229,6 @@ namespace Awose
             ((System.ComponentModel.ISupportInitialize)(this.BeautyPreview_PB)).BeginInit();
             this.ComputePanel.SuspendLayout();
             this.Playback_Panel.SuspendLayout();
-            this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ArrowsFieldFrequency_TB)).BeginInit();
             this.SuspendLayout();
             // 
             // ControlAgents_Panel
@@ -1166,12 +1168,13 @@ namespace Awose
             this.SetVelocity_CMItem,
             this.ChangeSign_CMItem,
             this.PinUp_CMItem,
+            this.Actions_CMItem,
             this.DeleteObject_CMItem,
             this.ObjectEditSep_CMSepar,
             this.CreateObject_CMItem,
             this.presetsToolStripMenuItem});
             this.Space_CMStr.Name = "Space_CMStr";
-            this.Space_CMStr.Size = new System.Drawing.Size(198, 184);
+            this.Space_CMStr.Size = new System.Drawing.Size(198, 230);
             this.Space_CMStr.Opening += new System.ComponentModel.CancelEventHandler(this.Space_CMStr_Opening);
             // 
             // Mistake_CMItem
@@ -1271,6 +1274,23 @@ namespace Awose
             this.PinUp_CMItem.Text = "Pin up";
             this.PinUp_CMItem.Visible = false;
             this.PinUp_CMItem.Click += new System.EventHandler(this.PinUp_CMItem_Click);
+            // 
+            // Actions_CMItem
+            // 
+            this.Actions_CMItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Kick_CMItem});
+            this.Actions_CMItem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Actions_CMItem.Name = "Actions_CMItem";
+            this.Actions_CMItem.Size = new System.Drawing.Size(197, 24);
+            this.Actions_CMItem.Text = "Actions";
+            this.Actions_CMItem.Visible = false;
+            // 
+            // Kick_CMItem
+            // 
+            this.Kick_CMItem.Name = "Kick_CMItem";
+            this.Kick_CMItem.Size = new System.Drawing.Size(180, 24);
+            this.Kick_CMItem.Text = "Kick";
+            this.Kick_CMItem.Click += new System.EventHandler(this.Kick_CMItem_Click);
             // 
             // DeleteObject_CMItem
             // 
@@ -1549,6 +1569,123 @@ namespace Awose
             this.ControlLayer_Panel.Name = "ControlLayer_Panel";
             this.ControlLayer_Panel.Size = new System.Drawing.Size(248, 686);
             this.ControlLayer_Panel.TabIndex = 9;
+            // 
+            // panel5
+            // 
+            this.panel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.ArrowsFieldFrequency_TB);
+            this.panel5.Controls.Add(this.label33);
+            this.panel5.Controls.Add(this.ArrowsFieldGravity_Button);
+            this.panel5.Controls.Add(this.ArrowsFieldElectric_Button);
+            this.panel5.Controls.Add(this.ArrowsFieldNo_Button);
+            this.panel5.Controls.Add(this.label34);
+            this.panel5.Controls.Add(this.label35);
+            this.panel5.Location = new System.Drawing.Point(-1, 434);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(248, 167);
+            this.panel5.TabIndex = 7;
+            // 
+            // ArrowsFieldFrequency_TB
+            // 
+            this.ArrowsFieldFrequency_TB.AutoSize = false;
+            this.ArrowsFieldFrequency_TB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ArrowsFieldFrequency_TB.Location = new System.Drawing.Point(13, 121);
+            this.ArrowsFieldFrequency_TB.Maximum = 998;
+            this.ArrowsFieldFrequency_TB.Minimum = 850;
+            this.ArrowsFieldFrequency_TB.Name = "ArrowsFieldFrequency_TB";
+            this.ArrowsFieldFrequency_TB.Size = new System.Drawing.Size(222, 26);
+            this.ArrowsFieldFrequency_TB.TabIndex = 20;
+            this.ArrowsFieldFrequency_TB.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.ArrowsFieldFrequency_TB.Value = 850;
+            this.ArrowsFieldFrequency_TB.Scroll += new System.EventHandler(this.ArrowsFieldFrequency_TB_Scroll);
+            // 
+            // label33
+            // 
+            this.label33.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.label33.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label33.ForeColor = System.Drawing.Color.White;
+            this.label33.Location = new System.Drawing.Point(10, 97);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(99, 19);
+            this.label33.TabIndex = 19;
+            this.label33.Text = "Frequency:";
+            // 
+            // ArrowsFieldGravity_Button
+            // 
+            this.ArrowsFieldGravity_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ArrowsFieldGravity_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ArrowsFieldGravity_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ArrowsFieldGravity_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.ArrowsFieldGravity_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ArrowsFieldGravity_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ArrowsFieldGravity_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ArrowsFieldGravity_Button.ForeColor = System.Drawing.Color.White;
+            this.ArrowsFieldGravity_Button.Location = new System.Drawing.Point(60, 63);
+            this.ArrowsFieldGravity_Button.Name = "ArrowsFieldGravity_Button";
+            this.ArrowsFieldGravity_Button.Size = new System.Drawing.Size(70, 24);
+            this.ArrowsFieldGravity_Button.TabIndex = 17;
+            this.ArrowsFieldGravity_Button.Text = "Gravity";
+            this.ArrowsFieldGravity_Button.UseVisualStyleBackColor = false;
+            this.ArrowsFieldGravity_Button.Click += new System.EventHandler(this.ArrowsFieldGravity_Button_Click);
+            // 
+            // ArrowsFieldElectric_Button
+            // 
+            this.ArrowsFieldElectric_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.ArrowsFieldElectric_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ArrowsFieldElectric_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ArrowsFieldElectric_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.ArrowsFieldElectric_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ArrowsFieldElectric_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ArrowsFieldElectric_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ArrowsFieldElectric_Button.ForeColor = System.Drawing.Color.White;
+            this.ArrowsFieldElectric_Button.Location = new System.Drawing.Point(129, 63);
+            this.ArrowsFieldElectric_Button.Name = "ArrowsFieldElectric_Button";
+            this.ArrowsFieldElectric_Button.Size = new System.Drawing.Size(77, 24);
+            this.ArrowsFieldElectric_Button.TabIndex = 18;
+            this.ArrowsFieldElectric_Button.Text = "Electric";
+            this.ArrowsFieldElectric_Button.UseVisualStyleBackColor = false;
+            this.ArrowsFieldElectric_Button.Click += new System.EventHandler(this.ArrowsFieldElectric_Button_Click);
+            // 
+            // ArrowsFieldNo_Button
+            // 
+            this.ArrowsFieldNo_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ArrowsFieldNo_Button.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ArrowsFieldNo_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.ArrowsFieldNo_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ArrowsFieldNo_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
+            this.ArrowsFieldNo_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ArrowsFieldNo_Button.ForeColor = System.Drawing.Color.White;
+            this.ArrowsFieldNo_Button.Location = new System.Drawing.Point(14, 63);
+            this.ArrowsFieldNo_Button.Name = "ArrowsFieldNo_Button";
+            this.ArrowsFieldNo_Button.Size = new System.Drawing.Size(47, 24);
+            this.ArrowsFieldNo_Button.TabIndex = 16;
+            this.ArrowsFieldNo_Button.Text = "No";
+            this.ArrowsFieldNo_Button.UseVisualStyleBackColor = true;
+            this.ArrowsFieldNo_Button.Click += new System.EventHandler(this.ArrowsFieldNo_Button_Click);
+            // 
+            // label34
+            // 
+            this.label34.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.label34.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label34.ForeColor = System.Drawing.Color.White;
+            this.label34.Location = new System.Drawing.Point(10, 37);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(137, 19);
+            this.label34.TabIndex = 15;
+            this.label34.Text = "Field";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.label35.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label35.ForeColor = System.Drawing.Color.White;
+            this.label35.Location = new System.Drawing.Point(9, 7);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(87, 19);
+            this.label35.TabIndex = 1;
+            this.label35.Text = "Arrow Field";
             // 
             // panel2
             // 
@@ -2016,123 +2153,6 @@ namespace Awose
             this.PlayPause_Button.TabIndex = 0;
             this.PlayPause_Button.UseVisualStyleBackColor = true;
             // 
-            // panel5
-            // 
-            this.panel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.ArrowsFieldFrequency_TB);
-            this.panel5.Controls.Add(this.label33);
-            this.panel5.Controls.Add(this.ArrowsFieldGravity_Button);
-            this.panel5.Controls.Add(this.ArrowsFieldElectric_Button);
-            this.panel5.Controls.Add(this.ArrowsFieldNo_Button);
-            this.panel5.Controls.Add(this.label34);
-            this.panel5.Controls.Add(this.label35);
-            this.panel5.Location = new System.Drawing.Point(-1, 434);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(248, 167);
-            this.panel5.TabIndex = 7;
-            // 
-            // ArrowsFieldFrequency_TB
-            // 
-            this.ArrowsFieldFrequency_TB.AutoSize = false;
-            this.ArrowsFieldFrequency_TB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.ArrowsFieldFrequency_TB.Location = new System.Drawing.Point(13, 121);
-            this.ArrowsFieldFrequency_TB.Maximum = 998;
-            this.ArrowsFieldFrequency_TB.Minimum = 850;
-            this.ArrowsFieldFrequency_TB.Name = "ArrowsFieldFrequency_TB";
-            this.ArrowsFieldFrequency_TB.Size = new System.Drawing.Size(222, 26);
-            this.ArrowsFieldFrequency_TB.TabIndex = 20;
-            this.ArrowsFieldFrequency_TB.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.ArrowsFieldFrequency_TB.Value = 850;
-            this.ArrowsFieldFrequency_TB.Scroll += new System.EventHandler(this.ArrowsFieldFrequency_TB_Scroll);
-            // 
-            // label33
-            // 
-            this.label33.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.label33.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label33.ForeColor = System.Drawing.Color.White;
-            this.label33.Location = new System.Drawing.Point(10, 97);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(99, 19);
-            this.label33.TabIndex = 19;
-            this.label33.Text = "Frequency:";
-            // 
-            // ArrowsFieldGravity_Button
-            // 
-            this.ArrowsFieldGravity_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ArrowsFieldGravity_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ArrowsFieldGravity_Button.Cursor = System.Windows.Forms.Cursors.Default;
-            this.ArrowsFieldGravity_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.ArrowsFieldGravity_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ArrowsFieldGravity_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ArrowsFieldGravity_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ArrowsFieldGravity_Button.ForeColor = System.Drawing.Color.White;
-            this.ArrowsFieldGravity_Button.Location = new System.Drawing.Point(60, 63);
-            this.ArrowsFieldGravity_Button.Name = "ArrowsFieldGravity_Button";
-            this.ArrowsFieldGravity_Button.Size = new System.Drawing.Size(70, 24);
-            this.ArrowsFieldGravity_Button.TabIndex = 17;
-            this.ArrowsFieldGravity_Button.Text = "Gravity";
-            this.ArrowsFieldGravity_Button.UseVisualStyleBackColor = false;
-            this.ArrowsFieldGravity_Button.Click += new System.EventHandler(this.ArrowsFieldGravity_Button_Click);
-            // 
-            // ArrowsFieldElectric_Button
-            // 
-            this.ArrowsFieldElectric_Button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ArrowsFieldElectric_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ArrowsFieldElectric_Button.Cursor = System.Windows.Forms.Cursors.Default;
-            this.ArrowsFieldElectric_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.ArrowsFieldElectric_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ArrowsFieldElectric_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ArrowsFieldElectric_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ArrowsFieldElectric_Button.ForeColor = System.Drawing.Color.White;
-            this.ArrowsFieldElectric_Button.Location = new System.Drawing.Point(129, 63);
-            this.ArrowsFieldElectric_Button.Name = "ArrowsFieldElectric_Button";
-            this.ArrowsFieldElectric_Button.Size = new System.Drawing.Size(77, 24);
-            this.ArrowsFieldElectric_Button.TabIndex = 18;
-            this.ArrowsFieldElectric_Button.Text = "Electric";
-            this.ArrowsFieldElectric_Button.UseVisualStyleBackColor = false;
-            this.ArrowsFieldElectric_Button.Click += new System.EventHandler(this.ArrowsFieldElectric_Button_Click);
-            // 
-            // ArrowsFieldNo_Button
-            // 
-            this.ArrowsFieldNo_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ArrowsFieldNo_Button.Cursor = System.Windows.Forms.Cursors.Default;
-            this.ArrowsFieldNo_Button.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.ArrowsFieldNo_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ArrowsFieldNo_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
-            this.ArrowsFieldNo_Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ArrowsFieldNo_Button.ForeColor = System.Drawing.Color.White;
-            this.ArrowsFieldNo_Button.Location = new System.Drawing.Point(14, 63);
-            this.ArrowsFieldNo_Button.Name = "ArrowsFieldNo_Button";
-            this.ArrowsFieldNo_Button.Size = new System.Drawing.Size(47, 24);
-            this.ArrowsFieldNo_Button.TabIndex = 16;
-            this.ArrowsFieldNo_Button.Text = "No";
-            this.ArrowsFieldNo_Button.UseVisualStyleBackColor = true;
-            this.ArrowsFieldNo_Button.Click += new System.EventHandler(this.ArrowsFieldNo_Button_Click);
-            // 
-            // label34
-            // 
-            this.label34.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.label34.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label34.ForeColor = System.Drawing.Color.White;
-            this.label34.Location = new System.Drawing.Point(10, 37);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(137, 19);
-            this.label34.TabIndex = 15;
-            this.label34.Text = "Field";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.label35.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label35.ForeColor = System.Drawing.Color.White;
-            this.label35.Location = new System.Drawing.Point(9, 7);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(87, 19);
-            this.label35.TabIndex = 1;
-            this.label35.Text = "Arrow Field";
-            // 
             // Awose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -2186,6 +2206,9 @@ namespace Awose
             this.panel1.PerformLayout();
             this.ControlLayer_Panel.ResumeLayout(false);
             this.ControlLayer_Panel.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ArrowsFieldFrequency_TB)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StreamFrequency_TB)).EndInit();
@@ -2200,9 +2223,6 @@ namespace Awose
             this.ComputePanel.ResumeLayout(false);
             this.ComputePanel.PerformLayout();
             this.Playback_Panel.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ArrowsFieldFrequency_TB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2376,6 +2396,8 @@ namespace Awose
         private System.Windows.Forms.Button ArrowsFieldNo_Button;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.ToolStripMenuItem Actions_CMItem;
+        private System.Windows.Forms.ToolStripMenuItem Kick_CMItem;
     }
 }
 
